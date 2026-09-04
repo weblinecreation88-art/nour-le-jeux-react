@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #f7f1e5;
+    color: #3a2312;
+  }
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-amiri {
+  font-family: 'Amiri', serif;
+}
+
+/* Pixel / Parchment RPG Theme Helpers */
+.bg-parchment-light {
+  background-color: #fbf7ee;
+}
+
+@keyframes idle-breathe {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes talk-sway {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-1.5px) rotate(-0.5deg);
+  }
+  75% {
+    transform: translateY(-0.5px) rotate(0.5deg);
+  }
+}
+
+@keyframes shadow-vortex {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.08);
+    opacity: 0.9;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 0.7;
+  }
+}
+
+@keyframes screen-rumble {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-1px, 1px);
+  }
+  40% {
+    transform: translate(1px, -1px);
+  }
+  60% {
+    transform: translate(-1px, -1px);
+  }
+  80% {
+    transform: translate(1px, 1px);
+  }
+}
+
+.animate-idle-breathe {
+  animation: idle-breathe 2.4s ease-in-out infinite;
+}
+
+.animate-talk-sway {
+  animation: talk-sway 0.35s ease-in-out infinite;
+}
+
+.animate-shadow-vortex {
+  animation: shadow-vortex 12s linear infinite;
+}
+
+.animate-screen-rumble {
+  animation: screen-rumble 0.4s ease-in-out;
+}
+
+.bg-parchment {
+  background-color: #f3ebd9;
+}
+
+.bg-parchment-card {
+  background-color: #ebdfc8;
+}
+
+.bg-parchment-dark {
+  background-color: #deb887;
+}
+
+.border-pixel-brown {
+  border-color: #4a2e18;
+}
+
+.text-pixel-brown {
+  color: #3a2312;
+}
+
+.text-pixel-gold {
+  color: #c97d28;
+}
+
+.pixel-border {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #3a2312;
+  box-shadow: 0 3px 0 #3a2312;
+}
+
+.pixel-border-sm {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #4a2e18;
+  box-shadow: 0 2px 0 #4a2e18;
+}
+
+.pixel-button {
+  background-color: #e69138;
+  border: 2px solid #3a2312;
+  box-shadow: 0 4px 0 #3a2312;
+  transition: all 0.1s ease;
+}
+
+.pixel-button:hover {
+  background-color: #f0a04b;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #3a2312;
+}
+
+.pixel-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #3a2312;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(220, 200, 170, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(140, 90, 43, 0.5);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 90, 43, 0.8);
+}
+
+

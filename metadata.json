@@ -1,0 +1,6 @@
+{
+  "name": "NOUR — Chapitre 1 : Le chemin commence",
+  "description": "Jeu de rôle narratif et pédagogique : Chapitre 1 complet de NOUR avec dialogues, quiz d'apprentissage vérifiés, actions réelles et combat contre les waswas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
