@@ -4,7 +4,14 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "**/*.mp4",
+      "!dist/game-assets/*.mp4",
+      "!dist/intro_cinematic.mp4",
+      "!dist/intro_loop.mp4",
+      "!dist/cinematic_village.mp4",
+      "!dist/cinematic_ending.mp4",
+      "!dist/video-gameplay.mp4"
     ],
     "rewrites": [
       {

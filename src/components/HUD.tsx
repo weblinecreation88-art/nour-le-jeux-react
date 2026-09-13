@@ -52,11 +52,11 @@ export const HUD: React.FC<HUDProps> = ({
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
               <span className="text-[10px] uppercase tracking-wider font-semibold text-amber-400/90 font-cinzel">
-                Chapitre 1
+                {playerProgress.dayNumber === 2 && currentScene.id === 2 ? '🌅 Jour 2' : 'Chapitre 1'}
               </span>
               <span className="text-[10px] text-zinc-500">•</span>
               <span className="text-[10px] text-zinc-400">
-                Scène {currentScene.id}/9
+                {playerProgress.dayNumber === 2 && currentScene.id === 2 ? 'Carrefour Déverrouillé' : `Scène ${currentScene.id}/9`}
               </span>
             </div>
             <button

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Scene } from '../types';
-import { Compass, MapPin, Sparkles, ArrowRight, Footprints, FastForward } from 'lucide-react';
+import { Compass, MapPin, Sparkles, ArrowRight, Footprints, FastForward, Film, Volume2, VolumeX } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 import { CustomAssetsConfig } from '../utils/assets';
 import { CharacterAvatar } from './CharacterAvatar';
@@ -19,11 +19,13 @@ export const SceneTransitionCutscene: React.FC<SceneTransitionCutsceneProps> = (
   onFinish
 }) => {
   const [progressPercent, setProgressPercent] = useState(0);
+  const isVillageArrival = toScene.id === 5;
+  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
     soundManager.playSceneTransition();
 
-    const duration = 3600; // 3.6s
+    const duration = isVillageArrival ? 12000 : 3600;
     const stepTime = 40;
     const increment = (stepTime / duration) * 100;
 
@@ -38,10 +40,73 @@ export const SceneTransitionCutscene: React.FC<SceneTransitionCutsceneProps> = (
     }, stepTime);
 
     return () => clearInterval(timer);
-  }, [toScene.id]);
+  }, [toScene.id, isVillageArrival]);
 
   const introText = toScene.beats.find((b) => b.type === 'dialogue' || b.type === 'narration')?.text ||
     'Le voyageur poursuit sa quête de rectitude et de sagesse, guidé par les enseignements sacrés.';
+
+  // Milieu de Chapitre 1 : Cinématique Pure Plein Écran (Style Professeur Layton / Ghibli)
+  if (isVillageArrival) {
+    return (
+      <div
+        onClick={() => {
+          soundManager.playSelect();
+          onFinish();
+        }}
+        className="fixed inset-0 z-50 flex flex-col justify-between bg-black text-[#fbf7ee] select-none overflow-hidden cursor-pointer animate-in fade-in duration-700"
+      >
+        {/* 100% Fullscreen Video Edge to Edge - Pure Animation */}
+        <video
+          src="/cinematic_village.mp4"
+          autoPlay
+          playsInline
+          muted={isMuted}
+          onEnded={onFinish}
+          className="absolute inset-0 w-full h-full object-cover sm:object-contain bg-black"
+        />
+
+        {/* Minimal Transparent Floating Bar in Header */}
+        <div className="relative z-20 flex items-center justify-between p-3 sm:p-6 pointer-events-none">
+          {/* Subtle Transparent Title */}
+          <div className="text-[#ffd699]/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] tracking-widest font-cinzel text-xs sm:text-sm uppercase font-bold px-3.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-amber-500/20 shadow-md">
+            L'Arrivée au Village
+          </div>
+
+          <div className="flex items-center gap-2 pointer-events-auto">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMuted(!isMuted);
+              }}
+              className="p-2 rounded-full bg-black/40 hover:bg-black/70 text-white/80 hover:text-white backdrop-blur-md border border-white/20 transition-all cursor-pointer shadow-md"
+              title={isMuted ? 'Activer le son' : 'Couper le son'}
+            >
+              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-emerald-300" />}
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                soundManager.playSelect();
+                onFinish();
+              }}
+              className="flex items-center gap-1.5 text-[11px] sm:text-xs font-bold font-cinzel text-white/85 hover:text-white bg-black/40 hover:bg-black/70 border border-white/20 px-3 py-1.5 rounded-full backdrop-blur-md transition-all cursor-pointer shadow-md"
+            >
+              <span>Passer</span>
+              <FastForward className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Discreet bottom hint */}
+        <div className="relative z-20 pb-5 sm:pb-8 text-center pointer-events-none">
+          <span className="text-[10px] sm:text-xs text-white/60 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] font-cinzel tracking-widest uppercase bg-black/30 backdrop-blur-xs px-3 py-1 rounded-full border border-white/10">
+            Touchez l'écran pour continuer
+          </span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-[#fbf7ee] text-[#3a2312] p-4 sm:p-8 select-none overflow-hidden animate-in fade-in duration-500">

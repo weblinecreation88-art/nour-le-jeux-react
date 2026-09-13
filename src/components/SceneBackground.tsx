@@ -9,6 +9,8 @@ interface SceneBackgroundProps {
   climaxStepIndex?: number; // 0 to 6
   waswasDissolved?: boolean;
   customAssets?: CustomAssetsConfig;
+  isContemplating?: boolean;
+  completedRealActions?: string[];
 }
 
 export const SceneBackground: React.FC<SceneBackgroundProps> = ({
@@ -17,32 +19,1034 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
   onSelectChoice,
   climaxStepIndex = 0,
   waswasDissolved = false,
-  customAssets
+  customAssets,
+  isContemplating = false,
+  completedRealActions = []
 }) => {
-  const theme = scene.backgroundTheme;
+  const rawTheme = scene.backgroundTheme || (scene as any).backgroundKey || 'chambre';
+  const theme =
+    rawTheme === 'ruelle'
+      ? 'refus'
+      : rawTheme === 'cour'
+      ? 'village'
+      : rawTheme === 'verger'
+      ? 'jardin'
+      : rawTheme;
 
-  // For Scene 9 (climax), if waswas is dissolved / defeated (or past beat 20), show the golden dawn/sunset background
-  if (theme === 'climax' && (waswasDissolved || climaxStepIndex >= 6)) {
-    const dawnBg = customAssets?.backgrounds?.fin || DEFAULT_ASSETS.backgrounds.fin;
-    if (dawnBg) {
+  // Dynamic Real-Action Scene for Scene 1 (Chambre):
+  // Bed messy vs Bed made based on completedRealActions ('action_lit')
+  if (theme === 'chambre') {
+    const isBedMade =
+      completedRealActions.includes('action_lit') ||
+      Boolean(
+        currentBeat &&
+        currentBeat.id &&
+        !['s1_intro_1', 's1_intro_2', 's1_intro_3', 's1_b1', 's1_b2', 's1_b3', 's1_b4', 's1_b5', 's1_b6', 's1_b6_choice', 's1_b7', 's1_pont_lit', 's1_b8', 's1_b9'].includes(currentBeat.id)
+      );
+    const bgDefait = customAssets?.backgrounds?.chambre_defait || DEFAULT_ASSETS.backgrounds.chambre_defait;
+    const bgFait = customAssets?.backgrounds?.chambre || DEFAULT_ASSETS.backgrounds.chambre;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {/* Layer 1: Lit défait (Visible when bed is NOT made) */}
+        {bgDefait && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isBedMade ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
+            <img
+              src={bgDefait}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgDefait}
+              alt="Chambre au réveil — Lit défait"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Layer 2: Lit fait (Fades in when bed IS made) */}
+        {bgFait && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isBedMade ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <img
+              src={bgFait}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgFait}
+              alt="Chambre rangée — Lit fait"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Subtle dark gradient overlay for dialogue legibility (softer during contemplation) */}
+        <div
+          className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
+            isContemplating
+              ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+              : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+          }`}
+        />
+      </div>
+    );
+  }
+
+  // Dynamic Real-Action Scene for Scene 2 (Carrefour):
+  // Backpack on ground vs picked up and strapped on based on completedRealActions ('action_depart')
+  if (theme === 'carrefour') {
+    const isDepartReady = completedRealActions.includes('action_depart');
+    const bgSacPose = customAssets?.backgrounds?.carrefour_sac_pose || DEFAULT_ASSETS.backgrounds.carrefour_sac_pose;
+    const bgDepart = customAssets?.backgrounds?.carrefour || DEFAULT_ASSETS.backgrounds.carrefour;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {/* Layer 1: Sac posé au sol (Visible avant de valider l'action du départ) */}
+        {bgSacPose && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isDepartReady ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
+            <img
+              src={bgSacPose}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgSacPose}
+              alt="Carrefour des chemins — Pause et hésitation"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Layer 2: Sac ramassé / Prêt pour la marche (Visible après la duʿāʾ et l'action) */}
+        {bgDepart && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isDepartReady ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <img
+              src={bgDepart}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgDepart}
+              alt="Carrefour des chemins — En route vers le village"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Subtle dark gradient overlay for dialogue legibility (softer during contemplation) */}
+        <div
+          className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
+            isContemplating
+              ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+              : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+          }`}
+        />
+      </div>
+    );
+  }
+
+  // Dynamic Real-Action Scene for Chapitre 2 — Scène 11/12 (Marché & Colère):
+  if (theme === 'marche_colere') {
+    const isSilenceDone = completedRealActions.includes('action_silence_colere');
+    const bgRenverse = customAssets?.backgrounds?.marche_renverse || DEFAULT_ASSETS.backgrounds.marche_renverse || DEFAULT_ASSETS.backgrounds.village_mefiant;
+    const bgVillage = customAssets?.backgrounds?.village || DEFAULT_ASSETS.backgrounds.village;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgRenverse && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isSilenceDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
+            <img src={bgRenverse} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgRenverse} alt="Place du marché — Étal renversé et fruits au sol" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        {bgVillage && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isSilenceDone ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <img src={bgVillage} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgVillage} alt="Place du marché — Le calme préservé par le silence" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
+      </div>
+    );
+  }
+
+  // Dynamic Real-Action Scene for Chapitre 2 — Scène 13 (Fontaine de la Mosquée & Ablutions):
+  if (theme === 'mosquee_ablutions') {
+    const isAblutionDone = completedRealActions.includes('action_ablution_calme');
+    const bgPatio = customAssets?.backgrounds?.mosquee_patio || DEFAULT_ASSETS.backgrounds.mosquee_patio;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgPatio && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img src={bgPatio} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgPatio} alt="Patio ombragé aux vignes et fontaine en pierre claire" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        {/* Effet d'eau cristalline et lumière fraîche après les ablutions */}
+        {isAblutionDone && (
+          <div className="absolute inset-0 bg-cyan-400/10 mix-blend-screen pointer-events-none animate-pulse duration-1000" />
+        )}
+        <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
+      </div>
+    );
+  }
+
+  // Dynamic Real-Action Scene for Chapitre 2 — Scène 14 (Le Retour au Marché & Réconciliation):
+  if (theme === 'marche_apaise') {
+    const isPardonDone = completedRealActions.includes('action_pardon_noble');
+    const bgRenverse = customAssets?.backgrounds?.marche_renverse || DEFAULT_ASSETS.backgrounds.marche_renverse || DEFAULT_ASSETS.backgrounds.village_mefiant;
+    const bgReconcilie = customAssets?.backgrounds?.marche_reconcilie || DEFAULT_ASSETS.backgrounds.marche_reconcilie || DEFAULT_ASSETS.backgrounds.village;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgRenverse && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isPardonDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
+            <img src={bgRenverse} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgRenverse} alt="Le Marchand ramasse péniblement ses grenades au sol" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        {bgReconcilie && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isPardonDone ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <img src={bgReconcilie} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgReconcilie} alt="Le Marchand réconcilié — Offrande de la grenade de paix" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
+      </div>
+    );
+  }
+
+  // Dynamic Climax Scene for Chapitre 2 — Scène 15 (Climax du Hilm):
+  if (theme === 'climax_hilm') {
+    const isResolved = waswasDissolved || climaxStepIndex >= 6;
+    const bgClimaxFeu = customAssets?.backgrounds?.montagne_climax || customAssets?.backgrounds?.climax || DEFAULT_ASSETS.backgrounds.montagne_climax;
+    const bgClimaxApaise = customAssets?.backgrounds?.climax_apaise || DEFAULT_ASSETS.backgrounds.climax_apaise;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgClimaxFeu && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isResolved ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
+            <img src={bgClimaxFeu} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgClimaxFeu} alt="Combat intérieur — Waswas de la colère et brume ardente" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        {bgClimaxApaise && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isResolved ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <img src={bgClimaxApaise} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgClimaxApaise} alt="Lumière retrouvée — Paix et douceur victorieuses" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
+      </div>
+    );
+  }
+
+  // Epilogue Scene for Chapitre 2 — Scène 16 (Le Cœur Paisible — Coucher de soleil sur la vallée et les minarets):
+  if (theme === 'epilogue') {
+    const bgEpilogue = customAssets?.backgrounds?.epilogue || DEFAULT_ASSETS.backgrounds.epilogue;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgEpilogue && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img
+              src={bgEpilogue}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgEpilogue}
+              alt="Coucher de soleil baignant la vallée — Minarets à l'horizon"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+        <div
+          className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
+            isContemplating
+              ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+              : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+          }`}
+        />
+      </div>
+    );
+  }
+
+  // Dynamic Real-Action Scene for Chapitre 3 — Scène 17 (Chambre & Fièvre):
+  if (theme === 'chambre_maladie') {
+    const isEcouteDone = completedRealActions.includes('action_ecouter_corps');
+    const bgDefait = customAssets?.backgrounds?.chambre_defait || DEFAULT_ASSETS.backgrounds.chambre_defait;
+    const bgChambre = customAssets?.backgrounds?.chambre || DEFAULT_ASSETS.backgrounds.chambre;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgDefait && (
+          <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${isEcouteDone ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+            <img src={bgDefait} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgDefait} alt="Chambre d'Othmân — Fièvre et corps ralenti" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        {bgChambre && (
+          <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${isEcouteDone ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            <img src={bgChambre} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgChambre} alt="Chambre d'Othmân — Accueil doux et verre d'eau fraîche" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
+      </div>
+    );
+  }
+
+  // Dynamic Scene for Chapitre 3 — Scène 18 (Dispensaire de l'Apothicaire):
+  if (theme === 'apothicaire') {
+    const bgMaison = customAssets?.backgrounds?.maison_soins || DEFAULT_ASSETS.backgrounds.maison_soins;
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgMaison && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img src={bgMaison} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgMaison} alt="Dispensaire de l'apothicaire — Le Tawakkul des soins" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
+      </div>
+    );
+  }
+
+  // Dynamic Scene for Chapitre 3 — Scène 19 (Marches de la Mosquée & l'Enfant à l'Attelle):
+  if (theme === 'mosquee_attelle') {
+    const bgMosquee = customAssets?.backgrounds?.mosquee_marches || DEFAULT_ASSETS.backgrounds.mosquee_marches;
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgMosquee && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img src={bgMosquee} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgMosquee} alt="Marches de la mosquée — Celui qui prie avec une attelle" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
+      </div>
+    );
+  }
+
+  // Dynamic Scene for Chapitre 3 — Scène 20 (Patio de la Mosquée & Remèdes Prophétiques):
+  if (theme === 'patio_remedes') {
+    const bgPatio = customAssets?.backgrounds?.mosquee_patio || DEFAULT_ASSETS.backgrounds.mosquee_patio;
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgPatio && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img src={bgPatio} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgPatio} alt="Patio de la mosquée — Miel, Talbîna et Nigelle" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
+      </div>
+    );
+  }
+
+  // Dynamic Scene for Chapitre 3 — Scène 21 & 24 (Verger, Lanterne & Micro-progrès):
+  if (theme === 'verger_lanterne') {
+    const isProgresDone = completedRealActions.includes('action_micro_progres') || completedRealActions.includes('action_rompre_isolement');
+    const bgVerger = customAssets?.backgrounds?.verger_fleur || DEFAULT_ASSETS.backgrounds.verger_fleur;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgVerger && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img src={bgVerger} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgVerger} alt="Verger au crépuscule — La petite lanterne et la fleur blanche" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        {/* Glow effect on the lantern and flower when action validated */}
+        {isProgresDone && (
+          <div className="absolute inset-0 bg-amber-500/10 mix-blend-screen pointer-events-none animate-pulse duration-1000" />
+        )}
+        <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
+      </div>
+    );
+  }
+
+  // Dynamic Scene for Chapitre 3 — Scène 20A (La Cueillette sous les Amandiers):
+  if (theme === 'verger_amandiers') {
+    const bgAmandiers = customAssets?.backgrounds?.verger_amandiers || DEFAULT_ASSETS.backgrounds.verger_amandiers;
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgAmandiers && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img src={bgAmandiers} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgAmandiers} alt="Verger d'amandiers en fleurs — La cueillette fraternelle" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        {/* Soft spring sunlight shimmer */}
+        <div className="absolute inset-0 bg-amber-200/5 mix-blend-screen pointer-events-none" />
+        <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
+      </div>
+    );
+  }
+
+  // Dynamic Scene for Chapitre 3 — Scène 22 (Atelier sous la treille de figuiers & Outils de sculpture):
+  if (theme === 'atelier_sculpture') {
+    const isNommerEmotionsDone = completedRealActions.includes('action_nommer_emotions');
+    const bgAtelier = customAssets?.backgrounds?.atelier_sculpture || DEFAULT_ASSETS.backgrounds.atelier_sculpture;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgAtelier && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img
+              src={bgAtelier}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgAtelier}
+              alt="Atelier d'Othmân sous la treille de figuiers — Sac de voyageur et outils de sculpture"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+        {/* Soft emerald glow of relief and inner peace once emotions are named */}
+        {isNommerEmotionsDone && (
+          <div className="absolute inset-0 bg-emerald-500/10 mix-blend-screen pointer-events-none animate-pulse duration-1000" />
+        )}
+        <div
+          className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
+            isContemplating
+              ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+              : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+          }`}
+        />
+      </div>
+    );
+  }
+
+  // Dynamic Scene for Chapitre 3 — Scène 23 (L'Amānah du Corps & le Bouillon):
+  if (theme === 'cuisine_bouillon') {
+    const isBouillonDone = completedRealActions.includes('action_remercier_aidant');
+    const bgCuisine = customAssets?.backgrounds?.cuisine_bouillon || DEFAULT_ASSETS.backgrounds.cuisine_bouillon;
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgCuisine && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img src={bgCuisine} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgCuisine} alt="Cuisine d'Othmân — La soupière de bouillon chaud et les grenades" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        {/* Warm hearth glow when gratitude action is completed */}
+        {isBouillonDone && (
+          <div className="absolute inset-0 bg-amber-400/10 mix-blend-screen pointer-events-none animate-pulse duration-1000" />
+        )}
+        <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
+      </div>
+    );
+  }
+
+  // Dynamic Scene for Chapitre 3 — Scène 25 (Climax de la Montagne Intérieure):
+  if (theme === 'climax_maladie') {
+    const isResolved = waswasDissolved || climaxStepIndex >= 4;
+    const bgClimaxMontagne = customAssets?.backgrounds?.montagne_climax || DEFAULT_ASSETS.backgrounds.montagne_climax;
+    const bgClimaxApaise = customAssets?.backgrounds?.climax_apaise || DEFAULT_ASSETS.backgrounds.climax_apaise;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgClimaxMontagne && (
+          <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${isResolved ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+            <img src={bgClimaxMontagne} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgClimaxMontagne} alt="Sommet de la Montagne Intérieure — Le brouillard violet du découragement" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        {bgClimaxApaise && (
+          <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${isResolved ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            <img src={bgClimaxApaise} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgClimaxApaise} alt="L'Aube sur la Montagne Intérieure — La persévérance triomphante" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
+        <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
+      </div>
+    );
+  }
+
+  // Dynamic Real-Action Scene for Scene 3 (Waswas):
+  // Purple doubt mist vs sunny clear road based on completedRealActions ('action_istiadhah')
+  // or if scene 3 beat has progressed to/past dissolution
+  if (theme === 'waswas') {
+    const isIstiadhahDone =
+      completedRealActions.includes('action_istiadhah') ||
+      (scene.id === 3 && currentBeat && ['s3_b18', 's3_b19', 's3_b20'].includes(currentBeat.id));
+    const bgMist = customAssets?.backgrounds?.waswas || DEFAULT_ASSETS.backgrounds.waswas;
+    const bgClair = customAssets?.backgrounds?.waswas_clair || DEFAULT_ASSETS.backgrounds.waswas_clair;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {/* Layer 1: Brume violette de Waswas (Visible avant l'action d'Istiʿādhah) */}
+        {bgMist && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isIstiadhahDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
+            <img
+              src={bgMist}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgMist}
+              alt="Sentier envahi par la brume du Waswas"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Layer 2: Sentier ensoleillé et dégagé (Fades in dès que l'Istiʿādhah est faite) */}
+        {bgClair && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isIstiadhahDone ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <img
+              src={bgClair}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgClair}
+              alt="Sentier dégagé et lumineux après refuge en Allah"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Subtle dark gradient overlay for dialogue legibility (softer during contemplation) */}
+        <div
+          className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
+            isContemplating
+              ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+              : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+          }`}
+        />
+      </div>
+    );
+  }
+
+  // Scene 4 (Vallée / Abords du village fleuri):
+  if (theme === 'vallee') {
+    const bgVallee = customAssets?.backgrounds?.vallee || DEFAULT_ASSETS.backgrounds.vallee;
+    if (bgVallee) {
       return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center animate-in fade-in duration-1000 bg-[#181422]">
-          {/* Blurred backdrop to fill screen without ugly black bars */}
-          <img src={dawnBg} className="absolute inset-0 w-full h-full object-cover opacity-30 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+          <img src={bgVallee} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
           <img
-            src={dawnBg}
-            alt="L'aube dorée sur la vallée"
-            className="relative w-full h-full object-contain object-bottom"
+            src={bgVallee}
+            alt={scene.title || "Vue sur la vallée"}
+            className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+              isContemplating ? 'scale-105' : 'scale-100'
+            }`}
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/40 pointer-events-none" />
+          <div
+            className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
+              isContemplating
+                ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+                : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+            }`}
+          />
         </div>
       );
     }
   }
 
-  // Check if custom background asset exists
-  const customBg = customAssets?.backgrounds?.[theme];
+  // Dynamic Real-Action Scene for Scene 5 (Village Square):
+  // Guarded/wary villagers vs warm/friendly villagers based on completedRealActions ('action_salam_village')
+  // or if scene 5 beat has progressed to/past friendly reception
+  if (theme === 'village') {
+    const isVillageFriendly =
+      completedRealActions.includes('action_salam_village') ||
+      (scene.id === 5 && currentBeat && ['s5_act_salam', 's5_xp_salam', 's5_b11', 's5_b12', 's5_b13', 's5_b14', 's5_b15'].includes(currentBeat.id));
+    const bgMefiant = customAssets?.backgrounds?.village_mefiant || DEFAULT_ASSETS.backgrounds.village_mefiant;
+    const bgAccueillant = customAssets?.backgrounds?.village || DEFAULT_ASSETS.backgrounds.village;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {/* Layer 1: Villageois méfiants et distants (Visible avant l'action du Salām/Adab) */}
+        {bgMefiant && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isVillageFriendly ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
+            <img
+              src={bgMefiant}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgMefiant}
+              alt="Place du village — Habitants méfiants et distants"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Layer 2: Villageois souriants et accueillants (Fades in dès que le Salām/Adab est accompli) */}
+        {bgAccueillant && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isVillageFriendly ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <img
+              src={bgAccueillant}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgAccueillant}
+              alt="Place du village — Accueil chaleureux et fraternel"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Subtle dark gradient overlay for dialogue legibility (softer during contemplation) */}
+        <div
+          className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
+            isContemplating
+              ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+              : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+          }`}
+        />
+      </div>
+    );
+  }
+
+  // Dynamic Real-Action Scene for Scene 6 (Refus / Ruelle):
+  // Young boy repairing rope at workbench vs young boy departed & alley peaceful after Sabr
+  if (theme === 'refus') {
+    const isSabrDone =
+      completedRealActions.includes('action_sabr_refus') ||
+      (scene.id === 6 && currentBeat && ['s6_b8', 's6_b9', 's6_b10', 's6_b11', 's6_b12', 's6_b13', 's6_b14', 's6_b15', 's6_act_sabr', 's6_xp_sabr', 's6_b16', 's6_b17', 's6_b18', 's6_b19', 's6_b20'].includes(currentBeat.id));
+    const bgJeuneCorde = customAssets?.backgrounds?.refus_jeune_corde || DEFAULT_ASSETS.backgrounds.refus_jeune_corde;
+    const bgRuelleApaisee = customAssets?.backgrounds?.refus || DEFAULT_ASSETS.backgrounds.refus;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {/* Layer 1: Jeune villageois affairé à réparer sa corde à l'établi */}
+        {bgJeuneCorde && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isSabrDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
+            <img
+              src={bgJeuneCorde}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgJeuneCorde}
+              alt="Ruelle du village — Jeune villageois réparant sa corde"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Layer 2: Établi vide, le jeune est parti, ruelle apaisée et sereine */}
+        {bgRuelleApaisee && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isSabrDone ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <img
+              src={bgRuelleApaisee}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgRuelleApaisee}
+              alt="Ruelle du village — Sérénité et patience (Sabr)"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Subtle dark gradient overlay for dialogue legibility (softer during contemplation) */}
+        <div
+          className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
+            isContemplating
+              ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+              : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+          }`}
+        />
+      </div>
+    );
+  }
+
+  // Dynamic Real-Action Scene for Scene 7 (Le Geste / Chemin des oliviers):
+  // Overturned baskets with scattered fruits vs baskets upright, full & path clean based on completedRealActions ('action_geste')
+  if (theme === 'geste') {
+    const isGesteDone =
+      completedRealActions.includes('action_geste') ||
+      (scene.id === 7 && currentBeat && ['s7_b16', 's7_b17', 's7_act_geste', 's7_xp_geste', 's7_b18', 's7_b19', 's7_b20'].includes(currentBeat.id));
+    const bgRenverse = customAssets?.backgrounds?.geste_renverse || DEFAULT_ASSETS.backgrounds.geste_renverse;
+    const bgRanges = customAssets?.backgrounds?.geste || DEFAULT_ASSETS.backgrounds.geste;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {/* Layer 1: Paniers renversés et fruits éparpillés (Visible avant l'action de ramassage) */}
+        {bgRenverse && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isGesteDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
+            <img
+              src={bgRenverse}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgRenverse}
+              alt="Chemin des oliviers — Paniers renversés et fruits éparpillés"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Layer 2: Paniers redressés, pleins et alignés contre le muret, chemin propre (Fades in après l'action) */}
+        {bgRanges && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isGesteDone ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <img
+              src={bgRanges}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgRanges}
+              alt="Chemin des oliviers — Fruits ramassés et paniers bien rangés"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Subtle dark gradient overlay for dialogue legibility (softer during contemplation) */}
+        <div
+          className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
+            isContemplating
+              ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+              : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+          }`}
+        />
+      </div>
+    );
+  }
+
+  // Dynamic Real-Action Scene for Scene 8 (Le Jardin Abandonné / Le Ruisseau de Shukr):
+  // Stream clogged with dry leaves & old watering pot vs clear sparkling water & fragrant herbs
+  // based on completedRealActions ('action_shukr')
+  if (theme === 'jardin') {
+    const isJardinRevived =
+      completedRealActions.includes('action_shukr') ||
+      (scene.id === 8 && currentBeat && ['s8_act_shukr', 's8_xp_shukr', 's8_b15', 's8_b16', 's8_b17', 's8_b18'].includes(currentBeat.id));
+    const bgEncombre = customAssets?.backgrounds?.jardin_encombre || DEFAULT_ASSETS.backgrounds.jardin_encombre;
+    const bgRevived = customAssets?.backgrounds?.jardin || DEFAULT_ASSETS.backgrounds.jardin;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {/* Layer 1: Jardin encombré, ruisseau obstrué de feuilles mortes (Visible avant l'action de Shukr) */}
+        {bgEncombre && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isJardinRevived ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
+            <img
+              src={bgEncombre}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgEncombre}
+              alt="Jardin abandonné — Ruisseau obstrué de branchages et feuilles mortes"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Layer 2: Ruisseau dégagé, eau claire et vive, herbes et figues éclatantes (Fades in après l'action) */}
+        {bgRevived && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isJardinRevived ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <img
+              src={bgRevived}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgRevived}
+              alt="Jardin revivifié — Eau limpide et bienfaits du Créateur (Shukr)"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Subtle dark gradient overlay for dialogue legibility (softer during contemplation) */}
+        <div
+          className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
+            isContemplating
+              ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+              : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+          }`}
+        />
+      </div>
+    );
+  }
+
+  // Dynamic Real-Action Scene for Scene 9 (Le Grand Waswas / Climax):
+  // 3 Phases:
+  // 1. Vortex storm during confrontation with progressive dawn piercing per resilience step (0 to 6)
+  // 2. Clear sunny peaceful pavilion ruins once defeated
+  // 3. Wide valley sunrise vista with Othmân & Noura on chapter end
+  if (theme === 'climax') {
+    const isChapterEnd =
+      currentBeat?.type === 'chapter_end' ||
+      (scene.id === 9 && currentBeat && ['s9_b35', 's9_b36', 's9_b37', 's9_b38'].includes(currentBeat.id));
+
+    const isWaswasDefeated =
+      waswasDissolved ||
+      climaxStepIndex >= 6 ||
+      (scene.id === 9 &&
+        currentBeat &&
+        [
+          's9_b21',
+          's9_b22',
+          's9_b23',
+          's9_b24',
+          's9_b25',
+          's9_b26',
+          's9_b27',
+          's9_b28',
+          's9_b29',
+          's9_b30',
+          's9_b31',
+          's9_b32',
+          's9_b33',
+          's9_b34'
+        ].includes(currentBeat.id));
+
+    const bgFin = customAssets?.backgrounds?.fin || DEFAULT_ASSETS.backgrounds.fin;
+    const bgPavillonApaise = customAssets?.backgrounds?.climax_apaise || DEFAULT_ASSETS.backgrounds.climax_apaise;
+    const bgVortex = customAssets?.backgrounds?.climax || DEFAULT_ASSETS.backgrounds.climax;
+
+    // Phase 3: Final Chapter Panorama (Othmân & Noura on the cliff overlook)
+    if (isChapterEnd && bgFin) {
+      return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center animate-in fade-in duration-1000 bg-[#181422]">
+          <img src={bgFin} className="absolute inset-0 w-full h-full object-cover opacity-30 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+          <img
+            src={bgFin}
+            alt="L'aube dorée sur la vallée — Chapitre 1 achevé"
+            className={`relative w-full h-full object-contain object-bottom transition-transform duration-[4000ms] ease-out ${
+              isContemplating ? 'scale-105' : 'scale-100'
+            }`}
+            referrerPolicy="no-referrer"
+          />
+          <div
+            className={`absolute inset-0 transition-all duration-1000 pointer-events-none ${
+              isContemplating
+                ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+                : 'bg-gradient-to-t from-black/70 via-black/20 to-black/40'
+            }`}
+          />
+        </div>
+      );
+    }
+
+    // Phases 1 & 2: Progressive dawn during resilience steps, full golden morning once defeated
+    const dawnOpacity = isWaswasDefeated ? 1 : Math.min(0.85, (climaxStepIndex / 6));
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {/* Layer 1: Le Vortex Sombre du Grand Waswas */}
+        {bgVortex && (
+          <div
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              isWaswasDefeated ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
+            <img
+              src={bgVortex}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgVortex}
+              alt="Le Grand Waswas — Vortex d'angoisse au-dessus du pavillon"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Layer 2: Le Pavillon Apaisé sous le Soleil Levant (S'illumine progressivement à chaque étape de résilience) */}
+        {bgPavillonApaise && (
+          <div
+            style={{ opacity: dawnOpacity }}
+            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+              dawnOpacity > 0 ? '' : 'pointer-events-none'
+            }`}
+          >
+            <img
+              src={bgPavillonApaise}
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+              alt=""
+              referrerPolicy="no-referrer"
+            />
+            <img
+              src={bgPavillonApaise}
+              alt="Pavillon antique apaisé — Le Waswas est vaincu par la foi et l'action"
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                isContemplating ? 'scale-105' : 'scale-100'
+              }`}
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        )}
+
+        {/* Subtle dark gradient overlay for dialogue legibility */}
+        <div
+          className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
+            isContemplating
+              ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+              : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+          }`}
+        />
+      </div>
+    );
+  }
+
+  // Check if custom or default background asset exists
+  const customBg =
+    customAssets?.backgrounds?.[theme as keyof typeof customAssets.backgrounds] ||
+    (DEFAULT_ASSETS.backgrounds as Record<string, string | undefined>)[theme];
 
   if (customBg) {
     return (
@@ -52,11 +1056,19 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
         <img
           src={customBg}
           alt={scene.title}
-          className="relative w-full h-full object-contain object-center"
+          className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+            isContemplating ? 'scale-105' : 'scale-100'
+          }`}
           referrerPolicy="no-referrer"
         />
-        {/* Subtle dark gradient overlay for dialogue legibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/50 pointer-events-none" />
+        {/* Subtle dark gradient overlay for dialogue legibility (softer during contemplation) */}
+        <div
+          className={`absolute inset-0 transition-all duration-1000 pointer-events-none ${
+            isContemplating
+              ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+              : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+          }`}
+        />
       </div>
     );
   }

@@ -6,3 +6,16 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Android build artifacts and signing keys
+*.apk
+*.aab
+*.keystore
+*.jks
+android/app/build/
+android/.gradle/
+android/build/
+
+# Local Firebase & Media Archives
+.firebase/
+_media_archive/

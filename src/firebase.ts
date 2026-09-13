@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDH7lpQkqkSXVGpMaF4QXw_cWQL4hJEWUk",
@@ -14,7 +15,11 @@ const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 
+// Initialize Firestore
+export const db = getFirestore(app);
+
 // Initialize Analytics conditionally (safely for Capacitor / SSR / web)
 export const analyticsPromise = typeof window !== "undefined"
   ? isSupported().then((supported) => (supported ? getAnalytics(app) : null))
   : Promise.resolve(null);
+

@@ -39,7 +39,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   };
 
   return (
-    <div className="flex-1 flex flex-col overflow-y-auto px-3 sm:px-6 py-3 max-w-md mx-auto w-full gap-3.5 select-none custom-scrollbar">
+    <div className="flex-1 flex flex-col overflow-y-auto px-3 sm:px-6 pt-3 pb-12 max-w-md mx-auto w-full gap-3.5 select-none custom-scrollbar">
       {/* Title & Subtitle */}
       <div className="flex items-center justify-between">
         <div>
@@ -68,7 +68,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         />
 
         {/* Character overlay inside room */}
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center">
+        <div className="absolute bottom-3 inset-x-0 flex flex-col items-center">
           <img
             src={travelerSprite}
             alt="Voyageur"

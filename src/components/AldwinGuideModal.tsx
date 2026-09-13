@@ -49,7 +49,7 @@ export const AldwinGuideModal: React.FC<NouraGuideModalProps> = ({
         </div>
 
         {/* Noura Avatar & Speech Bubble */}
-        <div className="flex items-start gap-3 bg-[#ebdfc8] p-3 rounded-2xl border-2 border-[#3a2312]">
+        <div className="flex items-start gap-3 bg-[#ebdfc8] p-3.5 rounded-2xl border-2 border-[#3a2312]">
           <div className="w-14 h-14 rounded-xl bg-[#fbf7ee] border-2 border-[#3a2312] overflow-hidden shrink-0">
             <img
               src={nouraImg}
@@ -58,10 +58,10 @@ export const AldwinGuideModal: React.FC<NouraGuideModalProps> = ({
             />
           </div>
           <div className="flex-1">
-            <span className="text-[10px] font-bold text-[#2d6a4f] uppercase font-cinzel">
+            <span className="text-xs font-bold text-[#2d6a4f] uppercase font-cinzel">
               NOURA
             </span>
-            <p className="text-xs text-[#3a2312] font-medium leading-relaxed mt-0.5">
+            <p className="text-xs sm:text-sm text-[#3a2312] font-bold leading-relaxed mt-0.5">
               {message ||
                 "Rappelle-toi : chaque petit effort accompli avec sincérité fait grandir ta lumière intérieure !"}
             </p>
@@ -71,30 +71,30 @@ export const AldwinGuideModal: React.FC<NouraGuideModalProps> = ({
         {/* Interface Guide Cards */}
         {mode !== 'scene_unlocked' && (
         <div className="flex flex-col gap-2">
-          <div className="p-2.5 bg-[#f3ebd9] border border-[#3a2312] rounded-xl flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-[#ebdfc8] border border-[#3a2312] flex items-center justify-center text-[#8c5a2b] shrink-0">
+          <div className="p-3 bg-[#f3ebd9] border-2 border-[#3a2312] rounded-2xl flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-[#ebdfc8] border border-[#3a2312] flex items-center justify-center text-[#8c5a2b] shrink-0">
               <ScrollText className="w-4 h-4" />
             </div>
-            <div className="text-[11px] text-[#3a2312]">
-              <span className="font-bold">Quêtes (en bas) :</span> pour rejouer les scènes et faire tes défis du jour.
+            <div className="text-xs sm:text-sm text-[#3a2312] leading-snug">
+              <span className="font-black">Quêtes (en bas) :</span> pour rejouer les scènes et faire tes défis du jour.
             </div>
           </div>
 
-          <div className="p-2.5 bg-[#f3ebd9] border border-[#3a2312] rounded-xl flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-[#ebdfc8] border border-[#3a2312] flex items-center justify-center text-[#8c5a2b] shrink-0">
+          <div className="p-3 bg-[#f3ebd9] border-2 border-[#3a2312] rounded-2xl flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-[#ebdfc8] border border-[#3a2312] flex items-center justify-center text-[#8c5a2b] shrink-0">
               <BookOpen className="w-4 h-4" />
             </div>
-            <div className="text-[11px] text-[#3a2312]">
-              <span className="font-bold">Livre (en haut à droite) :</span> pour consulter tes acquis et sagesses.
+            <div className="text-xs sm:text-sm text-[#3a2312] leading-snug">
+              <span className="font-black">Livre (en haut) :</span> pour consulter tes acquis et sagesses.
             </div>
           </div>
 
-          <div className="p-2.5 bg-[#f3ebd9] border border-[#3a2312] rounded-xl flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-[#ebdfc8] border border-[#3a2312] flex items-center justify-center text-[#8c5a2b] shrink-0">
+          <div className="p-3 bg-[#f3ebd9] border-2 border-[#3a2312] rounded-2xl flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-[#ebdfc8] border border-[#3a2312] flex items-center justify-center text-[#8c5a2b] shrink-0">
               <User className="w-4 h-4" />
             </div>
-            <div className="text-[11px] text-[#3a2312]">
-              <span className="font-bold">Profil :</span> pour changer ta coupe de cheveux ou ta tenue d'Othmân !
+            <div className="text-xs sm:text-sm text-[#3a2312] leading-snug">
+              <span className="font-black">Profil :</span> pour changer la tenue ou la coupe d'Othmân !
             </div>
           </div>
         </div>
@@ -106,10 +106,15 @@ export const AldwinGuideModal: React.FC<NouraGuideModalProps> = ({
             soundManager.playSelect();
             onContinue();
           }}
-          className="w-full py-3 rounded-2xl bg-gradient-to-r from-[#e69138] to-[#f0a04b] hover:from-[#d97c27] hover:to-[#e69138] text-[#1a1209] font-bold text-xs sm:text-sm font-cinzel border-2 border-[#3a2312] shadow-[0_3px_0_#3a2312] active:translate-y-0.5 transition-all cursor-pointer flex items-center justify-center gap-2"
+          style={{
+            backgroundColor: '#e69138',
+            backgroundImage: 'linear-gradient(135deg, #e69138 0%, #f0a04b 100%)',
+            color: '#1a1209'
+          }}
+          className="w-full py-3.5 rounded-2xl text-[#1a1209] font-black text-sm sm:text-base font-cinzel border-2 border-[#3a2312] shadow-[0_3px_0_#3a2312] active:translate-y-0.5 transition-all cursor-pointer flex items-center justify-center gap-2 hover:brightness-105"
         >
           <span>{mode === 'scene_unlocked' ? 'Aller sur la carte' : 'Compris, en route !'}</span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-4 h-4 text-[#1a1209]" />
         </button>
       </div>
     </div>

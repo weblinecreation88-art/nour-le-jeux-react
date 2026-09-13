@@ -47,8 +47,8 @@ export const INITIAL_QUESTS: QuestItem[] = [
   },
   {
     id: 'q_story_1',
-    title: 'Sur le chemin de Noura',
-    description: 'Traverser la vallée et rencontrer Noura au pont',
+    title: 'Le Premier Pas',
+    description: 'Quitter la chambre et choisir son chemin au Grand Poteau',
     xpReward: 100,
     category: 'story',
     completed: false,
@@ -57,8 +57,8 @@ export const INITIAL_QUESTS: QuestItem[] = [
   },
   {
     id: 'q_story_2',
-    title: 'Vaincre le Grand Demain',
-    description: 'Affronter les illusions du Waswas au sommet',
+    title: 'Dissiper le Grand Waswâs',
+    description: 'Triompher des murmures du doute au sommet et faire triompher la lumière',
     xpReward: 200,
     category: 'story',
     completed: false,

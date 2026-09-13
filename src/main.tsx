@@ -3,10 +3,13 @@ import {createRoot} from 'react-dom/client';
 import './firebase.ts';
 import App from './App.tsx';
 import './index.css';
-
+import { LanguageProvider } from './context/LanguageContext';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <LanguageProvider>
+      <App />
+    </LanguageProvider>
   </StrictMode>,
 );
+

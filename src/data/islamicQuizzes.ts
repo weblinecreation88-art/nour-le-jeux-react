@@ -269,5 +269,59 @@ export const ISLAMIC_QUIZZES: IslamicQuizQuestion[] = [
     explanation: 'L\'ange Jibril (Gabriel عليه السلام) est l\'Esprit Saint (Ar-Rouh Al-Amin) chargé par Allah de faire descendre le Coran et les révélations divines sur le cœur des Prophètes.',
     hadithOrQuranRef: 'Sourate Ash-Shu\'ara (26:192-194)',
     xpReward: 20
+  },
+
+  // 16. Le Vrai Fort (Hilm & Maîtrise de soi)
+  {
+    id: 'quiz_hilm_force',
+    question: 'Selon le Messager d\'Allah ﷺ, qui est véritablement le plus fort parmi les hommes ?',
+    category: 'Hilm & Maîtrise de Soi',
+    difficulty: 'moyen',
+    arabic: 'لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ',
+    options: [
+      'A. Celui qui terrasse ses adversaires par sa force physique.',
+      'B. Celui qui sait maîtriser sa colère face à la provocation.',
+      'C. Celui qui ne ressent jamais aucune émotion ni tristesse.'
+    ],
+    correctIndex: 1,
+    explanation: 'Le Prophète ﷺ a enseigné que la véritable force ne réside pas dans les muscles, mais dans la capacité du croyant à dompter son âme et à retenir sa colère lorsque le Shayṭān cherche à l\'enflammer.',
+    hadithOrQuranRef: 'Sahih Al-Bukhari (n°6114) et Sahih Muslim (n°2609)',
+    xpReward: 30
+  },
+
+  // 17. La Douceur (Ar-Rifq)
+  {
+    id: 'quiz_hilm_rifq',
+    question: 'Quelle est la promesse faite par le Prophète ﷺ concernant la douceur (Ar-Rifq) dans nos réactions ?',
+    category: 'Hilm & Maîtrise de Soi',
+    difficulty: 'moyen',
+    arabic: 'إِنَّ الرِّفْقَ لَا يَكُونُ فِي شَيْءٍ إِلَّا زَانَهُ',
+    options: [
+      'A. La douceur ne se trouve dans une chose sans la parer, et n\'en est retirée sans l\'enlaidir.',
+      'B. La douceur est un signe de faiblesse face à la contradiction.',
+      'C. La douceur est réservée uniquement envers les enfants.'
+    ],
+    correctIndex: 0,
+    explanation: 'La douceur (*Rifq*) et l\'indulgence désamorcent les insufflations de division et apportent la barakah dans toute situation difficile.',
+    hadithOrQuranRef: 'Sahih Muslim (n°2594)',
+    xpReward: 30
+  },
+
+  // 18. Le Remède face à la colère et au doute
+  {
+    id: 'quiz_hilm_colere_remede',
+    question: 'Que nous enseigne la Sunnah pour éteindre la colère et dissiper les chuchotements du diable ?',
+    category: 'Hilm & Maîtrise de Soi',
+    difficulty: 'facile',
+    arabic: 'أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ',
+    options: [
+      'A. Crier fort pour évacuer immédiatement la tension.',
+      'B. Dire « Aʿūdhu billāh », s\'asseoir ou s\'allonger, et faire ses ablutions.',
+      'C. S\'isoler pendant plusieurs jours sans parler à personne.'
+    ],
+    correctIndex: 1,
+    explanation: 'Face à l\'énervement insufflé par le Waswâs, la Sunnah enseigne de chercher refuge auprès d\'Allah (Istiʿādhah), de changer de posture physique et d\'éteindre le feu intérieur par l\'eau des ablutions.',
+    hadithOrQuranRef: 'Sahih Al-Bukhari (n°3282) et Sunan Abi Dawud (n°4782)',
+    xpReward: 30
   }
 ];

@@ -1,4 +1,4 @@
-import { Scene, Quiz, RealAction, ClimaxStep } from '../types';
+import { Scene, Quiz, RealAction, ClimaxStep, Beat } from '../types';
 
 export const QUIZZES: Record<string, Quiz> = {
   quiz_istiadhah: {
@@ -157,8 +157,48 @@ export const REAL_ACTIONS: Record<string, RealAction> = {
     title: 'Ranger ton lit',
     instruction: 'Prends une minute pour faire ou bien ranger ton lit dans la vraie vie.',
     subtext: 'Une petite habitude simple qui installe la clarté pour la journée.',
-    xpReward: 20,
+    xpReward: 25,
     reflectionPrompt: 'As-tu remis ton lit en ordre ce matin ou vas-tu le faire tout de suite ?'
+  },
+  action_eau: {
+    id: 'action_eau',
+    title: 'Boire un verre d\'eau (Adab prophétique)',
+    instruction: 'Va chercher un verre d\'eau dans la vraie vie. Assieds-toi, tiens le verre de la main droite, dis « Bismillâh » et bois paisiblement en trois gorgées. Conclus par « Al-Hamdulillâh ».',
+    subtext: 'Une sunnah quotidienne de gratitude, de calme et de présence d\'esprit.',
+    xpReward: 25,
+    reflectionPrompt: 'As-tu pensé à t\'asseoir et à prononcer le nom d\'Allah avant de boire ?'
+  },
+  action_depart: {
+    id: 'action_depart',
+    title: 'La Duʿāʾ du départ & préparer son sac',
+    instruction: 'Vérifie que ton sac ou cartable est bien fermé dans la vraie vie. Puis récite la duʿāʾ de départ en plaçant ta confiance en Allah : « Bismillâh, tawakkaltu ʿalâ Allâh, wa lâ hawla wa lâ quwwata illâ billâh ».',
+    subtext: 'Le croyant pose les causes concrètes (préparer ses affaires) et s\'en remet au Créateur avec sérénité.',
+    xpReward: 50,
+    reflectionPrompt: 'As-tu pris l\'habitude de confier tes pas à Allah avant de sortir de chez toi ?'
+  },
+  action_istiadhah: {
+    id: 'action_istiadhah',
+    title: 'Réciter l’Istiʿādhah & poser le pas',
+    instruction: 'Prends une inspiration calme dans la vraie vie. Récite à voix claire : « Aʿūdhu billāhi mina sh-shayṭāni r-rajīm » pour chercher refuge auprès d\'Allah, puis décide d\'avancer malgré les doutes intérieurs.',
+    subtext: 'La demande sincère de refuge recentre le cœur et brise l\'emprise du découragement.',
+    xpReward: 25,
+    reflectionPrompt: 'As-tu pris l\'habitude de demander refuge auprès d\'Allah lorsque le doute te traverse ?'
+  },
+  action_salam_village: {
+    id: 'action_salam_village',
+    title: 'Le Salām & le sourire fraternel',
+    instruction: 'Aujourd\'hui : offre un Salām sincère ou un sourire chaleureux à quelqu\'un dans la vraie vie. Le Prophète ﷺ a enseigné que le sourire à son frère est une aumône (Sadaqah).',
+    subtext: 'La bienveillance désarme la méfiance et transforme les cœurs fermés.',
+    xpReward: 30,
+    reflectionPrompt: 'As-tu offert un sourire ou un mot de paix aujourd\'hui ?'
+  },
+  action_sabr_refus: {
+    id: 'action_sabr_refus',
+    title: 'Le Sabr face au refus',
+    instruction: 'Pense à un refus ou une contrariété du quotidien. Prends une profonde inspiration et dis avec ton cœur : « Al-Hamdulillâh ʿalâ kulli hāl » (Louange à Allah en toute situation) sans colère ni rancœur.',
+    subtext: 'Le Sabr est une force d\'âme : on accueille la réponse de l\'autre avec respect et on continue d\'avancer dignement.',
+    xpReward: 30,
+    reflectionPrompt: 'As-tu déjà réussi à accepter un « non » avec calme et noblesse ?'
   },
   action_parler: {
     id: 'action_parler',
@@ -170,18 +210,26 @@ export const REAL_ACTIONS: Record<string, RealAction> = {
   },
   action_geste: {
     id: 'action_geste',
-    title: 'Une bonne action discrète',
-    instruction: 'Aujourd\'hui : fais une petite bonne action sans chercher à être vu ni félicité.',
-    subtext: 'Un geste purifié pour Allah seul, qui garde la niyyah humble.',
-    xpReward: 50,
-    reflectionPrompt: 'Un geste d\'aide discret pour un proche ou un voisin.'
+    title: 'Une bonne action discrète (Niyyah pure)',
+    instruction: 'Aujourd\'hui : accomplis un geste d\'aide ou range quelque chose qui traîne dans ta maison ou ta classe, sans rien dire à personne et sans chercher à être félicité (ramasser un objet, ranger une table, rendre service discrètement).',
+    subtext: 'Le Prophète ﷺ a enseigné que les actions ne valent que par les intentions (Sahih al-Bukhari 1). Agir en secret pour Allah préserve la pureté du cœur.',
+    xpReward: 35,
+    reflectionPrompt: 'As-tu déjà accompli une bonne action que personne d\'autre qu\'Allah n\'a vue ?'
+  },
+  action_shukr: {
+    id: 'action_shukr',
+    title: 'Le Shukr & le soin du vivant',
+    instruction: 'Prends une minute dans la vraie vie : 1. Pense à 3 bienfaits précieux qu\'Allah t\'a accordés (santé, toit, famille, eau qui coule) et dis avec ton cœur « Al-Hamdulillâh ». 2. Arrose une plante chez toi ou dans ton quartier pour prendre soin de la création.',
+    subtext: 'Le Prophète ﷺ a enseigné que la gratitude sincère augmente les bienfaits d\'Allah (Coran 14:7). Prendre soin de la vie est un acte d\'adoration.',
+    xpReward: 35,
+    reflectionPrompt: 'Quels sont les trois bienfaits pour lesquels tu es le plus reconnaissant aujourd\'hui ?'
   },
   action_mission_jour: {
     id: 'action_mission_jour',
     title: 'Mission du Jour : As-salāmu ʿalaykum',
     instruction: 'Va vers quelqu\'un. Dis-lui : « As-salāmu ʿalaykum ». Puis laisse la rencontre se faire naturellement.',
     subtext: 'Le meilleur des deux est celui qui commence par le salām (Sahih al-Bukhari 6237).',
-    xpReward: 100,
+    xpReward: 50,
     reflectionPrompt: 'La paix offerte de bon cœur ouvre les portes de la véritable fraternité.'
   }
 };
@@ -254,53 +302,173 @@ export const CHAPTER_1_SCENES: Scene[] = [
     backgroundTheme: 'chambre',
     beats: [
       {
+        id: 's1_intro_1',
+        type: 'dialogue',
+        speaker: 'narration',
+        arabicText: 'السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ',
+        text: 'As-salâmu ʿalaykum wa rahmatullâhi wa barakâtuh !\n\nBienvenue dans Nour le Jeu, où tes actions dans la vraie vie font avancer l\'histoire.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_intro_2',
+        type: 'dialogue',
+        speaker: 'narration',
+        text: 'Nour est l\'histoire du jeune Othmân. Une quête initiatique d\'apprentissage, de bienveillance et de surpassement des doutes.',
+        emotion: 'thoughtful'
+      },
+      {
+        id: 's1_intro_3',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'Debout, Othmân ! Le soleil commence déjà à chauffer la pierre de la terrasse. Si tu traînes encore sous tes couvertures, ton pain va refroidir.',
+        emotion: 'smiling'
+      },
+      {
         id: 's1_b1',
         type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Encore une journée...',
-        emotion: 'thoughtful'
+        speaker: 'narration',
+        text: 'Othmân se redresse lentement sur son coude et tourne le regard vers l\'embrasure de la fenêtre. Au loin, des éclats de rire d\'enfants résonnent dans la ruelle.'
       },
       {
         id: 's1_b2',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'J\'aimerais bien avoir des amis.\n\nMais... je ne sais même pas par où commencer.',
-        emotion: 'worried'
+        text: 'Ils ont l\'air de bien s\'amuser dehors... Tout le monde a quelqu\'un avec qui courir et parler.\nMoi aussi j\'aimerais avoir des amis. Mais... par quoi on commence quand on a l\'impression d\'être invisible ?',
+        emotion: 'worried',
+        waswasXpAmount: 10,
+        waswasReason: "Doute & sentiment d'invisibilité"
       },
       {
         id: 's1_b3',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Peut-être que le premier pas est plus proche que tu ne le penses.',
-        emotion: 'smiling'
+        text: 'Alors pourquoi restes-tu enfermé ici avec tes pensées en désordre ?',
+        emotion: 'thoughtful'
       },
       {
         id: 's1_b4',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Noura ?',
-        emotion: 'surprised'
+        text: 'Parce que dès que je pense à sortir vers les gens, j\'ai l\'impression que la montagne est trop haute.',
+        emotion: 'thoughtful',
+        waswasXpAmount: 10,
+        waswasReason: "Découragement devant l'effort"
       },
       {
         id: 's1_b5',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Tu veux avancer aujourd\'hui ?',
+        text: 'On ne gravit pas une montagne d\'un seul bond, mon fils. On pose un pied devant l\'autre. Et si ton tout premier pas de la journée commençait juste là, sous tes yeux ?',
         emotion: 'smiling'
       },
       {
         id: 's1_b6',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Oui.',
-        emotion: 'determined'
+        text: 'Par quoi commencer pour bien poser mes bases ce matin ?',
+        emotion: 'thoughtful'
+      },
+      {
+        id: 's1_b6_choice',
+        type: 'choice',
+        speaker: 'personnage',
+        text: '« Bon... Par quoi commencer cette journée ? »',
+        choices: [
+          {
+            id: 'c_lit',
+            label: 'Ranger mon lit avec soin',
+            responsePreview: 'Mettre de l\'ordre dans mon espace pour éclairer mon esprit.',
+            choiceType: 'habit',
+            traitGains: { discipline: 5, adab: 3 },
+            setNarrativeFlags: { morning_action: 'bed' },
+            habitMessage: 'Habitude acquise • Othmân commence sa journée avec ordre.'
+          },
+          {
+            id: 'c_eau',
+            label: 'Boire un verre d\'eau avec calme',
+            responsePreview: 'S\'asseoir, dire Bismillah et boire selon la Sunnah.',
+            choiceType: 'habit',
+            traitGains: { vitalite: 5, adab: 2 },
+            setNarrativeFlags: { morning_action: 'water' },
+            habitMessage: 'Habitude acquise • Othmân prend soin de son corps dès l\'aube.'
+          },
+          {
+            id: 'c_preparer',
+            label: 'Me préparer et lacer mes sandales',
+            responsePreview: 'Faire ses ablutions et s\'apprêter d\'un pas alerte.',
+            choiceType: 'habit',
+            traitGains: { discipline: 4, vitalite: 4 },
+            setNarrativeFlags: { morning_action: 'prepare' },
+            habitMessage: 'Habitude acquise • Othmân se prépare d\'un pas résolu.'
+          }
+        ]
       },
       {
         id: 's1_b7',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Alors commence par une petite chose.',
-        emotion: 'smiling'
+        text: 'Range tes draps. Mets de l\'ordre dans ton coin, et ton esprit y verra déjà plus clair.',
+        emotion: 'smiling',
+        actionVignette: {
+          icon: '🛏️',
+          badge: 'Ordre & Clarté',
+          title: 'Le Lit Rangé avec Soin',
+          description: 'Mettre de l\'ordre dans son espace de repos pour éclairer l\'esprit dès le réveil.',
+          glowColor: 'amber'
+        },
+        adaptiveVariants: [
+          {
+            requiredFlag: 'morning_action',
+            requiredFlagValue: 'water',
+            text: 'Excellente idée ! Réveiller son corps avec de l\'eau fraîche et la Sunnah donne la vitalité nécessaire pour tout le reste.',
+            actionVignette: {
+              icon: '💧',
+              badge: 'Sunnah & Santé',
+              title: 'L\'Adab du Verre d\'Eau',
+              description: 'Boire assis de la main droite avec Bismillah pour purifier et éveiller le corps.',
+              glowColor: 'cyan'
+            }
+          },
+          {
+            requiredFlag: 'morning_action',
+            requiredFlagValue: 'bed',
+            text: 'Range tes draps. Mets de l\'ordre dans ton coin, et ton esprit y verra déjà plus clair.',
+            actionVignette: {
+              icon: '🛏️',
+              badge: 'Ordre & Clarté',
+              title: 'Le Lit Rangé avec Soin',
+              description: 'Mettre de l\'ordre dans son espace de repos pour éclairer l\'esprit dès le réveil.',
+              glowColor: 'amber'
+            }
+          },
+          {
+            requiredFlag: 'morning_action',
+            requiredFlagValue: 'prepare',
+            text: 'Lacer tes sandales ? Doucement jeune voyageur ! Pour marcher droit toute la journée, commençons par mettre de l\'ordre autour de nous et réveiller notre corps.',
+            actionVignette: {
+              icon: '🧼',
+              badge: 'Préparation & Élan',
+              title: 'Le Pas Résolu',
+              description: 'S\'apprêter avec méthode et énergie pour débuter la journée.',
+              glowColor: 'emerald'
+            }
+          }
+        ]
+      },
+      {
+        id: 's1_pont_lit',
+        type: 'dialogue',
+        speaker: 'noura',
+        isPontDeNour: true,
+        text: 'Et toi qui accompagnes Othmân derrière ton écran... As-tu pensé à ordonner ton lit ou ton coin ce matin ? Prends une minute dans ta vraie vie : la clarté de la journée commence là où tu reposes ta tête.',
+        emotion: 'smiling',
+        adaptiveVariants: [
+          {
+            requiredFlag: 'morning_action',
+            requiredFlagValue: 'water',
+            text: 'Et toi qui accompagnes Othmân derrière ton écran... Avant de sortir, as-tu pensé à ordonner ton lit ou ton espace ce matin ? Prends une minute dans ta vraie vie : la clarté commence là où tu reposes ta tête.'
+          }
+        ]
       },
       {
         id: 's1_b8',
@@ -311,63 +479,170 @@ export const CHAPTER_1_SCENES: Scene[] = [
       {
         id: 's1_b9',
         type: 'xp',
-        xpAmount: 20,
+        xpAmount: 25,
         xpReason: 'Action réelle validée : Première habitude accomplie'
       },
       {
         id: 's1_b10',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Ce n\'est pas grand-chose...',
-        emotion: 'thoughtful'
+        text: 'Bon... c\'est fait ! Les draps sont bien tirés et l\'oreiller est droit. C\'est bête, mais la pièce a déjà l\'air beaucoup plus accueillante.',
+        emotion: 'smiling',
+        actionVignette: {
+          icon: '🛏️',
+          badge: 'Ordre & Clarté',
+          title: 'Le Lit Rangé avec Soin',
+          description: 'Mettre de l\'ordre dans son espace de repos pour éclairer l\'esprit dès le réveil.',
+          glowColor: 'amber'
+        },
+        adaptiveVariants: [
+          {
+            requiredFlag: 'morning_action',
+            requiredFlagValue: 'water',
+            text: 'Et voilà, les draps sont tendus et l\'oreiller est droit ! Avoir pris une bonne résolution ce matin m\'a donné l\'énergie pour tout ranger sans traîner.',
+            actionVignette: {
+              icon: '🛏️',
+              badge: 'Ordre & Clarté',
+              title: 'Le Lit Rangé avec Soin',
+              description: 'Mettre de l\'ordre dans son espace de repos pour éclairer l\'esprit dès le réveil.',
+              glowColor: 'amber'
+            }
+          },
+          {
+            requiredFlag: 'morning_action',
+            requiredFlagValue: 'prepare',
+            text: 'Tu as raison maman, voir le lit bien rangé donne immédiatement envie d\'aller de l\'avant !',
+            actionVignette: {
+              icon: '🛏️',
+              badge: 'Ordre & Clarté',
+              title: 'Le Lit Rangé avec Soin',
+              description: 'Mettre de l\'ordre dans son espace de repos pour éclairer l\'esprit dès le réveil.',
+              glowColor: 'amber'
+            }
+          }
+        ]
       },
       {
-        id: 's1_b11',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Les grandes habitudes commencent souvent par de petites actions.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_b12',
+        id: 's1_water_1',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Bon... première étape accomplie.',
+        text: 'Par contre, à force de soupirer et de gamberger, j\'ai la gorge sèche comme le désert.',
+        emotion: 'thoughtful',
+        adaptiveVariants: [
+          {
+            requiredFlag: 'morning_action',
+            requiredFlagValue: 'water',
+            text: 'Passons maintenant à ce verre d\'eau fraîche sur la table de chevet !'
+          }
+        ]
+      },
+      {
+        id: 's1_water_2',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'Regarde la cruche et le verre d\'eau fraîche sur la table de chevet. Mais assieds-toi calmement avant de boire ! Tu te souviens de ce que nous a enseigné le Prophète ﷺ ?',
         emotion: 'smiling'
+      },
+      {
+        id: 's1_water_adab_choice',
+        type: 'choice',
+        speaker: 'personnage',
+        text: 'Comment Othmân boit-il son eau ?',
+        choices: [
+          {
+            id: 'c_eau_adab',
+            label: 'Assis, de la main droite, en 3 gorgées avec Bismillâh',
+            responsePreview: 'Appliquer l\'attitude enseignée par le Prophète ﷺ.',
+            choiceType: 'habit',
+            traitGains: { adab: 5, ilm: 4 },
+            setNarrativeFlags: { water_adab: 'prophetic' },
+            habitMessage: 'Habitude acquise • Othmân met en pratique l\'Adab prophétique de la boisson.'
+          },
+          {
+            id: 'c_eau_rapide',
+            label: 'Debout et rapidement pour ne pas perdre de temps',
+            responsePreview: 'Boire d\'un trait sans se poser.',
+            choiceType: 'habit',
+            traitGains: { vitalite: 3 },
+            setNarrativeFlags: { water_adab: 'quick' },
+            habitMessage: 'Othmân étanche sa soif d\'un trait.'
+          }
+        ]
+      },
+      {
+        id: 's1_water_3',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: 'Oui maman : s\'asseoir, tenir le verre de la main droite, dire « Bismillâh » et boire paisiblement en trois gorgées.',
+        emotion: 'smiling',
+        adaptiveVariants: [
+          {
+            requiredFlag: 'water_adab',
+            requiredFlagValue: 'quick',
+            text: 'Oups, j\'allais boire d\'un trait ! Mieux vaut faire une pause, m\'asseoir et dire « Bismillâh » pour respecter la Sunnah.'
+          }
+        ]
+      },
+      {
+        id: 's1_pont_eau',
+        type: 'dialogue',
+        speaker: 'noura',
+        isPontDeNour: true,
+        text: 'Et toi dans ton quotidien... Prends un verre d\'eau fraîche, assieds-toi calmement, dis « Bismillâh », et bois paisiblement en trois gorgées de la main droite. Conclus par « Al-Hamdulillâh ».',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_water_act',
+        type: 'real_action',
+        realActionId: 'action_eau',
+        text: 'Boire un verre d\'eau avec adab.'
+      },
+      {
+        id: 's1_water_xp',
+        type: 'xp',
+        xpAmount: 25,
+        xpReason: 'Action réelle validée : Adab du verre d\'eau'
+      },
+      {
+        id: 's1_water_4',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: 'Al-Hamdulillâh ! C\'est fou comme une habitude aussi simple apporte du calme quand on y met l\'intention.',
+        emotion: 'smiling',
+        actionVignette: {
+          icon: '💧',
+          badge: 'Sunnah & Adab',
+          title: 'L\'Adab du Verre d\'Eau',
+          description: 'S\'asseoir, invoquer le nom d\'Allah et boire avec gratitude en trois gorgées paisibles.',
+          glowColor: 'cyan'
+        }
       },
       {
         id: 's1_b13',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Bravo Othmân ! Avant de franchir le pas, laisse-moi t\'expliquer comment fonctionne l\'interface du jeu :',
+        text: 'Tu vois ? Deux victoires avant même d\'avoir franchi le seuil de ta porte ! Avant de partir, jette un œil à ton paquetage :',
         emotion: 'smiling'
       },
       {
         id: 's1_b14',
         type: 'dialogue',
         speaker: 'noura',
-        text: '📜 Si tu veux rejouer une quête ou accomplir tes défis du jour, clique en bas sur l\'onglet « Quêtes ».',
+        text: '📜 Si tu veux gagner plus d\'XP, regarde l\'onglet « Quêtes » en bas : ce sont des défis quotidiens pour récolter facilement de l\'XP et monter de niveau !',
         emotion: 'smiling'
       },
       {
         id: 's1_b15',
         type: 'dialogue',
         speaker: 'noura',
-        text: '📖 Si tu veux voir tes acquis et les fiches de sagesse débloquées, clique sur le « petit livre » en haut à droite.',
+        text: '📖 En haut à droite, le « Livre du Savoir » rassemble les fiches de sagesse que tu vas débloquer en route.',
         emotion: 'smiling'
       },
       {
         id: 's1_b16',
         type: 'dialogue',
         speaker: 'noura',
-        text: '👤 Et si tu veux changer ton apparence, ta coupe de cheveux ou ta tenue de voyageur, ça se passe dans ton « Profil » !',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_b17',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Est-ce que tout est bien compris pour notre voyage ?',
+        text: '👤 Et si tu veux ajuster ta coiffure ou ta tenue de voyageur, ça se passe dans ton « Profil » ! Prêt à franchir le pas ?',
         emotion: 'smiling'
       },
       {
@@ -378,13 +653,15 @@ export const CHAPTER_1_SCENES: Scene[] = [
         choices: [
           {
             id: 'c1',
-            label: '« Oui, tout est très clair ! On y va ! »',
-            badge: 'Prêt'
+            label: '« C\'est noté maman, je suis prêt ! En route ! »',
+            badge: 'Prêt',
+            setNarrativeFlags: { departure_readiness: 'ready_now' }
           },
           {
             id: 'c2',
-            label: '« Rappelle-moi : Quêtes en bas, Livre en haut, Profil pour la tenue ? »',
-            badge: 'Récapitulatif'
+            label: '« Attends, je resserre mes lacets et on y va ! »',
+            badge: 'Préparation',
+            setNarrativeFlags: { departure_readiness: 'tie_sandals' }
           }
         ]
       },
@@ -392,8 +669,20 @@ export const CHAPTER_1_SCENES: Scene[] = [
         id: 's1_b19',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Exactement ! Tu as tout en main. Plaçons notre confiance en Dieu et prenons la route !',
-        emotion: 'determined'
+        text: 'Bismillâh ! Plaçons notre confiance en Allah et allons voir ce que le monde nous réserve.',
+        emotion: 'determined',
+        adaptiveVariants: [
+          {
+            requiredFlag: 'departure_readiness',
+            requiredFlagValue: 'tie_sandals',
+            text: 'Prends le temps de bien nouer tes sandales. Poser les causes puis s\'en remettre à Allah : c\'est cela le véritable Tawakkul ! En route !'
+          },
+          {
+            requiredFlag: 'departure_readiness',
+            requiredFlagValue: 'ready_now',
+            text: 'Bismillâh ! Plaçons notre confiance en Allah et allons voir ce que le monde nous réserve d\'enrichissant.'
+          }
+        ]
       }
     ]
   },
@@ -404,78 +693,98 @@ export const CHAPTER_1_SCENES: Scene[] = [
     title: 'Le Poteau aux Chemins',
     subtitle: '« Où aller ? »',
     location: 'Carrefour des sentiers, lisière de forêt',
-    requiredXp: 20,
+    requiredXp: 0,
     backgroundTheme: 'carrefour',
     beats: [
       {
         id: 's2_b1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Othmân et Noura arrivent devant un poteau indicateur en bois sculpté au croisement des sentiers.'
+        text: 'Othmân et Noura arrivent devant un grand poteau indicateur en chêne au croisement des sentiers. Othmân dépose un instant son sac de voyage par terre pour s\'essuyer le front.'
       },
       {
         id: 's2_b2',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Regarde toutes les directions gravées sur ces panneaux de bois...',
-        emotion: 'thoughtful'
+        text: 'Ouf... Il pèse son poids ce sac ! Regarde toutes ces directions gravées dans le bois... Et si je choisissais la mauvaise ?',
+        emotion: 'worried',
+        waswasXpAmount: 10,
+        waswasReason: "Peur de se tromper de chemin"
       },
       {
         id: 's2_b3',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Chaque flèche invite à une intention noble. Tu n\'as pas besoin de tout connaître d\'un coup.',
+        text: 'Le chemin ne commence pas sous tes semelles, Othmân. Il commence dans ton cœur. Quand l\'intention est sincère, chaque pas trouve son sens.',
         emotion: 'smiling'
       },
       {
         id: 's2_b4',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Alors comment savoir par laquelle commencer ?',
-        emotion: 'worried'
+        text: 'Mais comment être sûr de mon intention ?',
+        emotion: 'thoughtful'
       },
       {
         id: 's2_b5',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Pose une bonne intention sincère (niyyah). Le chemin s\'éclaire dès que le cœur sait pour quoi il marche.',
+        text: 'Demande-toi pourquoi tu as franchi le seuil de ta chambre ce matin. Lis les panneaux, et choisis avec sincérité.',
         emotion: 'smiling'
       },
       {
         id: 's2_b6',
         type: 'choice',
         speaker: 'personnage',
-        text: 'Othmân lit les inscriptions sculptées sur le poteau et choisit son orientation :',
+        text: 'Othmân observe les inscriptions gravées sur le vieux poteau :',
         choices: [
           {
             id: 'c1',
-            label: '« Se faire des amis » — Chapitre 1 : Les Rencontres & la Fraternité',
+            label: '« Vaincre la Solitude » — Chapitre 1 : Se faire des amis & briser l\'invisibilité',
             badge: 'Chapitre 1 Actif',
             interactiveSpot: { x: '35%', y: '55%' }
           },
           {
             id: 'c2',
-            label: '« Chercher le savoir » — Apprendre et comprendre avec sagesse',
+            label: '« Le Chemin du Hilm » — Chapitre 2 : La Colère & la Maîtrise de soi',
             disabled: true,
-            badge: 'Chapitre 2 (Bientôt)',
-            disabledReason: 'Ce chemin mène à une future aventure ! Termine d\'abord la quête du Chapitre 1 (« Les Rencontres »). Les autres chapitres arrivent très bientôt in sha Allah !',
+            badge: 'Pack Fondateur (-38%)',
+            isStripePromo: true,
+            originalPrice: '7,99 €',
+            promoPrice: '4,99 €',
+            discountRate: '-38%',
+            stripeUrl: 'https://buy.stripe.com/test_4gM4gB7QR3ThbJlgjK3Ru01',
+            disabledReason: 'Face à la provocation sur la place du marché, Othmân apprend à éteindre la colère par la clémence prophétique. Débloqué dans le Pack Fondateur.',
             interactiveSpot: { x: '50%', y: '45%' }
           },
           {
             id: 'c3',
-            label: '« Aider & faire le bien » — Rendre service aux gens sur la route',
+            label: '« L\'Enfant à l\'Attelle » — Chapitre 3 : La Patience face à l\'Épreuve (Sabr)',
             disabled: true,
-            badge: 'Chapitre 3 (Bientôt)',
-            disabledReason: 'Ce chemin mène à une future aventure ! Termine d\'abord la quête du Chapitre 1 (« Les Rencontres »). Les autres chapitres arrivent très bientôt in sha Allah !',
+            badge: 'Pack Fondateur (-38%)',
+            isStripePromo: true,
+            originalPrice: '7,99 €',
+            promoPrice: '4,99 €',
+            discountRate: '-38%',
+            stripeUrl: 'https://buy.stripe.com/test_4gM4gB7QR3ThbJlgjK3Ru01',
+            disabledReason: 'À la mosquée et chez l\'apothicaire, Othmân découvre les épreuves de la maladie, les remèdes prophétiques (miel, nigelle, talbîna) et la beauté de la patience active. Débloqué dans le Pack Fondateur.',
             interactiveSpot: { x: '65%', y: '50%' }
           },
           {
             id: 'c4',
-            label: '« Se préparer aux épreuves » — S\'entraîner face à l\'adversité',
+            label: '« Ce que tu as encore » — Chapitre 4 : La Bonté envers les Parents (Birr)',
             disabled: true,
             badge: 'Chapitre 4 (Bientôt)',
-            disabledReason: 'Ce chemin mène à une future aventure ! Termine d\'abord la quête du Chapitre 1 (« Les Rencontres »). Les autres chapitres arrivent très bientôt in sha Allah !',
-            interactiveSpot: { x: '80%', y: '60%' }
+            disabledReason: 'Sous le grand arbre avec son ami d\'enfance, une confidence inattendue invite Othmân à ouvrir son cœur et à honorer ses parents avec reconnaissance.',
+            interactiveSpot: { x: '75%', y: '60%' }
+          },
+          {
+            id: 'c5',
+            label: '« La Montagne Intérieure » — Chapitre 5 : L\'Endurance Ultime & le Climax de la Saga',
+            disabled: true,
+            badge: 'Chapitre 5 (Bientôt)',
+            disabledReason: 'L\'ascension finale vers le pic céleste où toutes les vertus acquises s\'unissent pour dissiper les ténèbres du Souffle des Ombres.',
+            interactiveSpot: { x: '85%', y: '45%' }
           }
         ]
       },
@@ -483,21 +792,72 @@ export const CHAPTER_1_SCENES: Scene[] = [
         id: 's2_b7',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'C\'est cette intention que je veux suivre pour commencer notre voyage !',
+        text: 'C\'est cette direction : je ne veux plus rester seul. Je veux descendre vers le village et apprendre à me faire de vrais amis !',
         emotion: 'determined'
       },
       {
-        id: 's2_b8',
+        id: 's2_dua_1',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'C\'est un choix magnifique. Mettons-nous en route avec confiance et constance.',
+        text: 'C\'est une intention noble, mon fils. Mais avant d\'engager tes pas sur le sentier... il y a une parole que ton grand-père répétait toujours en franchissant le seuil.',
         emotion: 'smiling'
+      },
+      {
+        id: 's2_dua_2',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: 'Laquelle ? Une parole avant de prendre la route ?',
+        emotion: 'thoughtful'
+      },
+      {
+        id: 's2_dua_3',
+        type: 'dialogue',
+        speaker: 'noura',
+        arabicText: 'بِسْمِ اللَّهِ ، تَوَكَّلْتُ عَلَى اللَّهِ ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ',
+        text: '« Bismillâh, tawakkaltu ʿalâ Allâh, wa lâ hawla wa lâ quwwata illâ billâh »\n\n(Au nom d\'Allah, je place ma confiance en Allah, et il n\'y a de force ni de puissance qu\'en Allah).',
+        emotion: 'smiling'
+      },
+      {
+        id: 's2_dua_4',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'Elle nous rappelle que nos efforts ne tiennent qu\'à l\'aide de Dieu. Sangle bien ton sac sur tes épaules et récite cette invocation avec le cœur.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's2_pont_depart',
+        type: 'dialogue',
+        speaker: 'noura',
+        isPontDeNour: true,
+        text: 'Et toi, avant d\'entreprendre quoi que ce soit d\'important aujourd\'hui... Vérifie que tes affaires sont prêtes, puis confie ta journée au Créateur en disant : « Bismillâh, tawakkaltu ʿalâ Allâh, wa lâ hawla wa lâ quwwata illâ billâh ».',
+        emotion: 'smiling'
+      },
+      {
+        id: 's2_act',
+        type: 'real_action',
+        realActionId: 'action_depart',
+        text: 'Boucler son sac et réciter la duʿāʾ du départ.'
+      },
+      {
+        id: 's2_dua_6',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: 'Bismillâh, tawakkaltu ʿalâ Allâh ! C\'est étrange, dès qu\'on le dit avec le cœur, le sac a l\'air deux fois moins lourd. Je me sens prêt !',
+        emotion: 'determined',
+        actionVignette: {
+          icon: '🎒',
+          badge: 'Tawakkul & Départ',
+          title: 'La Duʿāʾ du Voyageur',
+          description: '« Bismillâh, tawakkaltu ʿalâ Allâh » — Poser les causes avec soin et s\'en remettre à Allah.',
+          glowColor: 'emerald'
+        }
       },
       {
         id: 's2_b9',
         type: 'dialogue',
-        speaker: 'narration',
-        text: 'Les deux compagnons s\'engagent d\'un pas résolu sur le sentier balisé.'
+        speaker: 'noura',
+        text: 'C\'est la force du Tawakkul. Le pas résolu, descendons vers la vallée !',
+        emotion: 'smiling'
       }
     ]
   },
@@ -508,56 +868,55 @@ export const CHAPTER_1_SCENES: Scene[] = [
     title: 'Le Premier Waswas',
     subtitle: '« La pensée qui bloque »',
     location: 'Sentier assombri par la brume',
-    requiredXp: 60,
+    requiredXp: 180,
+    isSpiritualGate: true,
+    gateReason: 'Pour dissiper la première brume des doutes (Waswas), arme ton cœur des fondements de la foi et du savoir.',
     backgroundTheme: 'waswas',
     beats: [
       {
         id: 's3_b1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le chemin se transforme. Un Waswas apparaît devant eux. Il n\'est pas présenté comme une créature ayant un pouvoir réel sur le joueur : il symbolise les pensées qui poussent à abandonner.'
+        text: 'Le sentier se rétrécit sous des rochers escarpés. Une brume violacée et lourde s\'élève du sol. Un Waswas émerge : une ombre chuchotante, sans consistance physique, mais chargée de doute.'
       },
       {
         id: 's3_b2',
         type: 'dialogue',
         speaker: 'waswas',
-        text: 'Tu n\'y arriveras jamais.',
+        text: 'Tu n\'y arriveras jamais.\nTu veux te faire des amis ? Tu n\'es même pas capable d\'adresser la parole à un inconnu sans bégayer.',
         emotion: 'shadow'
       },
       {
         id: 's3_b3',
         type: 'dialogue',
         speaker: 'personnage',
-        text: '...',
-        emotion: 'worried'
-      },
-      {
-        id: 's3_b4',
-        type: 'dialogue',
-        speaker: 'waswas',
-        text: 'Tu veux te faire des amis ?\n\nTu n\'es même pas capable d\'aller vers les autres.',
-        emotion: 'shadow'
-      },
-      {
-        id: 's3_b5',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Noura...',
-        emotion: 'worried'
+        text: 'Maman... Ses paroles... C\'est exactement ce que je me répétais ce matin dans mon lit.',
+        emotion: 'worried',
+        waswasXpAmount: 15,
+        waswasReason: "Le murmure du Waswâs résonne en Othmân"
       },
       {
         id: 's3_b6',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Oui ?',
+        text: 'Il ne lit pas dans tes pensées, Othmân. Il souffle sur tes doutes pour te paralyser et te pousser à faire demi-tour. Cette ombre n\'a aucun pouvoir réel, sauf celui que tu lui accordes.',
         emotion: 'thoughtful'
       },
       {
         id: 's3_b7',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Comment on combat un waswas ?',
-        emotion: 'thoughtful'
+        text: 'Mais comment faire taire une pensée qui me serre la gorge ?',
+        emotion: 'worried',
+        waswasXpAmount: 10,
+        waswasReason: "Oppression du doute intérieur"
+      },
+      {
+        id: 's3_b7_bis',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'On ne débat pas avec le doute, mon fils. On cherche refuge auprès de Celui qui dissipe les ténèbres.',
+        emotion: 'smiling'
       },
       {
         id: 's3_b8',
@@ -569,82 +928,98 @@ export const CHAPTER_1_SCENES: Scene[] = [
         id: 's3_b9',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Aʿūdhu billāhi mina sh-shayṭāni r-rajīm.',
+        text: 'أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ\nAʿūdhu billāhi mina sh-shayṭāni r-rajīm !',
         arabicText: 'أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ',
-        emotion: 'determined'
+        emotion: 'determined',
+        waswasXpAmount: -20,
+        waswasReason: "L'Istiʿādhah dissipe l'Ombre !",
+        actionVignette: {
+          icon: '🛡️',
+          badge: 'Refuge Divin',
+          title: 'L\'Istiʿādhah Protectrice',
+          description: '« Aʿūdhu billāhi mina sh-shayṭāni r-rajīm » — Chercher refuge auprès d\'Allah brise l\'emprise du doute.',
+          glowColor: 'purple'
+        }
       },
       {
         id: 's3_b10',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le Waswas commence à perdre de sa consistance et s\'estompe.'
+        text: 'L\'ombre ténébreuse commence à vaciller et à perdre de sa consistance.'
       },
       {
         id: 's3_b11',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Ça a marché !',
+        text: 'Regarde, elle recule ! C\'est bon, elle est vaincue ?',
         emotion: 'smiling'
-      },
-      {
-        id: 's3_b12',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Attention.',
-        emotion: 'thoughtful'
-      },
-      {
-        id: 's3_b13',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Pourquoi ?',
-        emotion: 'surprised'
       },
       {
         id: 's3_b14',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Ce n\'est pas une arme magique.',
-        emotion: 'thoughtful'
+        text: 'Attention : ce n\'est pas une formule magique, Othmân. Tu as cherché refuge auprès d\'Allah avec ton cœur. Maintenant, ancre cette parole et avance d\'un pas physique résolu !',
+        emotion: 'smiling'
       },
       {
-        id: 's3_b15',
+        id: 's3_pont_istiadhah',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Tu as cherché refuge auprès d\'Allah.\n\nMaintenant, il faut aussi agir.',
+        isPontDeNour: true,
+        text: 'Et toi, lorsque le doute, la timidité ou une voix intérieure cherche à te paralyser dans ta vie réelle... Respire avec calme, cherche refuge auprès d\'Allah en récitant l\'Istiʿādhah, et décide de poser ton pas en avant !',
         emotion: 'smiling'
+      },
+      {
+        id: 's3_act_istiadhah',
+        type: 'real_action',
+        realActionId: 'action_istiadhah',
+        text: 'Réciter l\'Istiʿādhah & poser le pas.'
       },
       {
         id: 's3_b16',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le joueur fait un pas en avant.'
+        text: 'Le cœur raffermi par la demande de protection divine, Othmân plante fermement son bâton et fait un grand pas en avant.'
       },
       {
         id: 's3_b17',
         type: 'dialogue',
         speaker: 'waswas',
-        text: 'Tu vas échouer...',
+        text: 'Tu vas quand même échouer...',
         emotion: 'shadow'
       },
       {
         id: 's3_b18',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Peut-être.\n\nMais je vais quand même avancer.',
+        text: 'Peut-être. Mais je place ma confiance en Allah et j\'avance !',
         emotion: 'determined'
       },
       {
         id: 's3_b19',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le Waswas se dissout complètement dans l\'air matinal.'
+        text: 'La brume violette éclate en une pluie d\'étincelles dorées ! Le sentier redevient clair, bordé de fleurs sauvages et inondé d\'une douce chaleur.'
+      },
+      {
+        id: 's3_b19_reaction',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: 'Elle s\'est évaporée... Le chemin est entièrement dégagé et lumineux !',
+        emotion: 'smiling'
+      },
+      {
+        id: 's3_b19_noura',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'Le doute n\'a aucune consistance face au rappel sincère d\'Allah et au courage d\'agir. Garde cette leçon précieusement.',
+        emotion: 'smiling'
       },
       {
         id: 's3_b20',
         type: 'xp',
-        xpAmount: 40,
-        xpReason: 'Notion comprise : L’Istiʿādhah et le premier pas d’action'
+        xpAmount: 25,
+        xpReason: 'Notion comprise : L’Istiʿādhah et le triomphe sur le doute'
       }
     ]
   },
@@ -655,55 +1030,45 @@ export const CHAPTER_1_SCENES: Scene[] = [
     title: '« Je ne veux plus être seul »',
     subtitle: 'Taʿāruf',
     location: 'Abords du village fleuri',
-    requiredXp: 120,
+    requiredXp: 180,
     backgroundTheme: 'vallee',
     beats: [
       {
         id: 's4_b1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le personnage et Noura arrivent près d\'un village. Le personnage aperçoit plusieurs personnes qui s\'affairent.'
+        text: 'En contrebas, les toits de tuiles rouges du village scintillent au soleil. Les silhouettes des habitants vont et viennent entre les ruelles et les vergers.'
       },
       {
         id: 's4_b2',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Il y a beaucoup de monde...',
-        emotion: 'worried'
+        text: 'Regarde tout ce monde... Ils ont tous l\'air tellement occupés et sûrs d\'eux. Si je m\'approche, ils vont se demander qui je suis et me trouver bizarre.',
+        emotion: 'worried',
+        waswasXpAmount: 10,
+        waswasReason: "Peur du regard des autres"
       },
       {
         id: 's4_b3',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Oui.',
-        emotion: 'smiling'
+        text: 'Pourquoi bizarre, Othmân ?',
+        emotion: 'thoughtful'
       },
       {
         id: 's4_b4',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Je ne sais pas quoi leur dire.',
-        emotion: 'thoughtful'
+        text: 'Parce que je ne connais personne ici. On ne vient pas du même coin, on n\'a pas la même vie... Et si on n\'avait rien à se dire ?',
+        emotion: 'worried',
+        waswasXpAmount: 15,
+        waswasReason: "Peur de l'inconnu & sentiment d'isolement"
       },
       {
         id: 's4_b5',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Tu veux te faire des amis, mais tu as peur d\'aller vers eux.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's4_b6',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Un peu...',
-        emotion: 'worried'
-      },
-      {
-        id: 's4_b7',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Alors apprenons quelque chose.',
+        text: 'Tu penses vraiment qu\'Allah a créé des personnes aux vécus et visages si variés pour que chacun reste terré derrière ses volets fermés ?',
         emotion: 'smiling'
       },
       {
@@ -716,22 +1081,134 @@ export const CHAPTER_1_SCENES: Scene[] = [
         id: 's4_b9',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Donc... aller vers quelqu\'un pour apprendre à le connaître, ce n\'est pas bizarre.',
+        text: 'Le verset 49:13... Des nations et des tribus « pour que vous vous entreconnaissiez » (Taʿāruf). Donc la différence entre les gens n\'est pas un obstacle... C\'est une invitation voulue par Dieu !',
         emotion: 'smiling'
       },
       {
         id: 's4_b10',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Non.',
+        text: 'Exactement. La différence n\'est pas un mur qui sépare, c\'est un pont à traverser. Alors, prêt à tenter le premier pas ?',
         emotion: 'smiling'
       },
       {
-        id: 's4_b11',
+        id: 's4_approach_choice',
+        type: 'choice',
+        speaker: 'personnage',
+        text: 'Comment Othmân décide-t-il d\'aborder les villageois ?',
+        choices: [
+          {
+            id: 'c_salut_sourire',
+            label: 'Saluer poliment d\'un sourire chaleureux (Adab)',
+            responsePreview: 'Offrir la paix et la bienveillance.',
+            choiceType: 'decision',
+            traitGains: { adab: 6, hilm: 4 },
+            setNarrativeFlags: { village_approach: 'warm_salut' },
+            habitMessage: 'Décision morale • Othmân privilégie l\'Adab et l\'ouverture du cœur.'
+          },
+          {
+            id: 'c_pas_calme',
+            label: 'Avancer d\'un pas calme et mesuré (Sabr)',
+            responsePreview: 'Observer sans brusquer les habitudes du village.',
+            choiceType: 'decision',
+            traitGains: { sabr: 6, discipline: 4 },
+            setNarrativeFlags: { village_approach: 'discreet_walk' },
+            habitMessage: 'Décision morale • Othmân avance avec mesure et patience.'
+          },
+          {
+            id: 'c_dua_village',
+            label: 'Formuler une duʿāʾ de paix pour ce village (Hilm)',
+            responsePreview: 'Invoquer la bénédiction divine sur ces ruelles inconnues.',
+            choiceType: 'decision',
+            traitGains: { hilm: 7, ilm: 4 },
+            setNarrativeFlags: { village_approach: 'blessed_dua' },
+            habitMessage: 'Décision morale • La sérénité d\'Othmân apaise l\'inconnu.'
+          }
+        ]
+      },
+      {
+        id: 's4_approach_reaction',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Alors je vais essayer.',
-        emotion: 'determined'
+        text: 'Je vais leur offrir un franc sourire et un Salām bienveillant. Le Prophète ﷺ nous a enseigné que le sourire est une aumône !',
+        emotion: 'smiling',
+        actionVignette: {
+          icon: '🤝',
+          badge: 'Adab & Taʿāruf',
+          title: 'Le Sourire Fraternel',
+          description: 'Offrir la paix et la chaleur d\'un visage ouvert : le sourire est une aumône (Sadaqah).',
+          glowColor: 'amber'
+        },
+        adaptiveVariants: [
+          {
+            requiredFlag: 'village_approach',
+            requiredFlagValue: 'warm_salut',
+            text: 'Je vais leur offrir un franc sourire et un Salām bienveillant. Le Prophète ﷺ nous a enseigné que le sourire est une aumône !',
+            actionVignette: {
+              icon: '🤝',
+              badge: 'Adab & Taʿāruf',
+              title: 'Le Sourire Chaleureux (Sadaqah)',
+              description: 'Offrir la paix et la joie d\'un visage ouvert pour créer le lien fraternel.',
+              glowColor: 'amber'
+            }
+          },
+          {
+            requiredFlag: 'village_approach',
+            requiredFlagValue: 'discreet_walk',
+            text: 'Je vais avancer d\'un pas calme et mesuré, en observant les coutumes du village avec respect et discrétion.',
+            actionVignette: {
+              icon: '🚶',
+              badge: 'Sabr & Retenue',
+              title: 'La Démarche Mesurée',
+              description: 'Avancer d\'un pas calme et respectueux sans brusquer les habitudes du lieu.',
+              glowColor: 'cyan'
+            }
+          },
+          {
+            requiredFlag: 'village_approach',
+            requiredFlagValue: 'blessed_dua',
+            text: 'Qu\'Allah répande la paix sur ce village et bénisse ses habitants. C\'est avec cette invocation au cœur que je pose mon premier pas.',
+            actionVignette: {
+              icon: '🤍',
+              badge: 'Hilm & Bénédiction',
+              title: 'Duʿāʾ pour le Village',
+              description: 'Invoquer la paix et la prospérité pour des inconnus avant même de les rencontrer.',
+              glowColor: 'emerald'
+            }
+          }
+        ]
+      },
+      {
+        id: 's4_approach_noura',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'C\'est l\'esprit même du Taʿāruf : ouvrir son cœur à l\'autre sans préjugé.',
+        emotion: 'smiling',
+        adaptiveVariants: [
+          {
+            requiredFlag: 'village_approach',
+            requiredFlagValue: 'warm_salut',
+            text: 'La chaleur d\'un visage bienveillant désarme toutes les méfiances, mon fils.'
+          },
+          {
+            requiredFlag: 'village_approach',
+            requiredFlagValue: 'discreet_walk',
+            text: 'La retenue et la politesse du pas montrent un esprit noble et réfléchi.'
+          },
+          {
+            requiredFlag: 'village_approach',
+            requiredFlagValue: 'blessed_dua',
+            text: 'Invoquer le bien pour des inconnus est la plus belle preuve de pureté d\'intention.'
+          }
+        ]
+      },
+      {
+        id: 's4_pont_parler',
+        type: 'dialogue',
+        speaker: 'noura',
+        isPontDeNour: true,
+        text: 'Et toi dans ta vraie vie... Y a-t-il quelqu\'un à qui tu n\'as jamais osé adresser la parole ? Un voisin, un camarade, un commerçant ? Aujourd\'hui, franchis ce pont et offre-lui une salutation bienveillante.',
+        emotion: 'smiling'
       },
       {
         id: 's4_b12',
@@ -740,23 +1217,17 @@ export const CHAPTER_1_SCENES: Scene[] = [
         text: 'Aujourd\'hui : adresse la parole à quelqu\'un que tu connais peu.'
       },
       {
-        id: 's4_b13',
-        type: 'xp',
-        xpAmount: 50,
-        xpReason: 'Action réelle validée : Démarche de Taʿāruf'
-      },
-      {
         id: 's4_b14',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'J\'ai réussi à parler à quelqu\'un.',
+        text: 'J\'ai salué un vieux monsieur qui taillait ses vignes. Il s\'est redressé et m\'a souri chaleureusement ! Finalement... c\'était beaucoup moins terrifiant que dans ma tête.',
         emotion: 'smiling'
       },
       {
         id: 's4_b15',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Tu vois ?\n\nLe premier pas était déjà une victoire.',
+        text: 'La peur grandit toujours dans le silence et l\'immobilité, mon fils. Dès que tu fais le pas avec sincérité, elle s\'efface. Continuons vers la place !',
         emotion: 'smiling'
       }
     ]
@@ -768,48 +1239,70 @@ export const CHAPTER_1_SCENES: Scene[] = [
     title: 'Le Village',
     subtitle: '« Les bonnes manières »',
     location: 'Place centrale du village, fontaine et puits',
-    requiredXp: 190,
+    requiredXp: 180,
     backgroundTheme: 'village',
     beats: [
       {
         id: 's5_b1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le personnage arrive dans le village. Il aperçoit trois habitants : l\'un travaille près d\'un puits, une femme est sous un auvent, un jeune passe rapidement devant lui.'
+        text: 'Othmân et Noura pénètrent sur la place centrale pavée. Autour de la fontaine d\'eau fraîche, plusieurs villageois s\'interrompent : bras croisés, regards méfiants, personne n\'ose faire le premier geste vers les nouveaux arrivants.'
       },
       {
         id: 's5_b2',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Je pourrais peut-être leur parler.',
-        emotion: 'thoughtful'
+        text: 'Brrr... L\'accueil est glacial. Ils me fixent comme si j\'allais leur voler leurs paniers d\'olives.',
+        emotion: 'worried',
+        waswasXpAmount: 15,
+        waswasReason: "Malaise & crainte du regard des villageois"
       },
       {
         id: 's5_b3',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Il s\'approche. Mais il entend deux habitants discuter vivement.'
+        text: 'Plus loin près des étals, deux marchands haussent vivement le ton au sujet d\'un sac de grain. Othmân gonfle le torse et fait mine de s\'approcher pour intervenir.'
       },
       {
         id: 's5_b4',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Je pourrais intervenir...',
-        emotion: 'thoughtful'
+        text: 'Attends, je pourrais m\'interposer au milieu de leur dispute ! Comme ça, tout le monde verra que j\'ai du caractère.',
+        emotion: 'determined',
+        adaptiveVariants: [
+          {
+            dominantTrait: 'adab',
+            text: 'Peut-être devrais-je m\'approcher discrètement et apaiser leurs cœurs par une parole bienveillante...'
+          },
+          {
+            dominantTrait: 'ilm',
+            text: 'Je ne connais pas encore la cause de leur dispute... Mieux vaut observer avec discernement avant de juger.'
+          },
+          {
+            dominantTrait: 'discipline',
+            text: 'Si personne ne pose calmement les faits, cette dispute autour du sac de grain risque de s\'éterniser...'
+          },
+          {
+            dominantTrait: 'sabr',
+            text: 'Laissons la poussière et la colère retomber d\'elles-mêmes avant d\'intervenir.'
+          }
+        ]
       },
       {
         id: 's5_b5',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Es-tu certain d\'avoir quelque chose de bon à ajouter ?',
+        text: 'Othmân... Tu veux parler... ou tu veux vraiment aider ?',
         emotion: 'thoughtful'
       },
       {
         id: 's5_b6',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Pas vraiment.',
-        emotion: 'worried'
+        text: 'Je... En fait, je voulais juste qu\'on me remarque. Je ne connais même pas l\'histoire de leur sac de grain.',
+        emotion: 'worried',
+        waswasXpAmount: 10,
+        waswasReason: "Ostentation & vanité passagère"
       },
       {
         id: 's5_b7',
@@ -821,35 +1314,72 @@ export const CHAPTER_1_SCENES: Scene[] = [
         id: 's5_b8',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Donc parfois, ne rien dire est aussi une bonne décision.',
+        text: '« Que celui qui croit en Allah et au Jour dernier dise du bien ou qu\'il garde le silence ». Garder le silence quand on n\'a rien d\'utile à apporter, c\'est aussi une preuve de maturité.',
         emotion: 'thoughtful'
       },
       {
         id: 's5_b9',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Exactement.',
+        text: 'Exactement. Mais pour briser la glace sans s\'immiscer, connais-tu la clé la plus pure ? Le Salām et un sourire sincère.',
         emotion: 'smiling'
       },
       {
         id: 's5_b10',
         type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Je pensais qu\'il fallait toujours faire quelque chose.',
-        emotion: 'thoughtful'
+        speaker: 'noura',
+        text: 'Le Prophète ﷺ a enseigné que le sourire offert à son frère est une aumône (Sadaqah). Offre-leur la paix du fond du cœur, et regarde ce qui se passe.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's5_pont_salam',
+        type: 'dialogue',
+        speaker: 'noura',
+        isPontDeNour: true,
+        text: 'Et toi, as-tu pensé à cette aumône accessible à chaque instant ? Offre aujourd\'hui un Salām sincère ou un sourire chaleureux à quelqu\'un dans ton entourage. Le Prophète ﷺ a dit que le sourire à son frère est une aumône.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's5_act_salam',
+        type: 'real_action',
+        realActionId: 'action_salam_village',
+        text: 'Offrir le Salām et un sourire sincère.'
       },
       {
         id: 's5_b11',
         type: 'dialogue',
-        speaker: 'noura',
-        text: 'Faire le bien, ce n\'est pas forcément parler.',
-        emotion: 'smiling'
+        speaker: 'personnage',
+        arabicText: 'السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ',
+        text: 'As-salāmu ʿalaykum wa rahmatullāhi wa barakātuh !',
+        emotion: 'smiling',
+        waswasXpAmount: -10,
+        waswasReason: "La paix du Salām affaiblit l'Ombre !"
       },
       {
         id: 's5_b12',
+        type: 'dialogue',
+        speaker: 'narration',
+        text: 'En entendant cette salutation paisible et en voyant le visage lumineux d\'Othmân, la méfiance fond comme neige au soleil ! Les villageois décroisent les bras, sourient et lui répondent d\'un geste accueillant.'
+      },
+      {
+        id: 's5_b13',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: 'Ils m\'ont répondu ! Même le vieux marchand grincheux m\'a fait un signe amical de la tête !',
+        emotion: 'smiling'
+      },
+      {
+        id: 's5_b14',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'La bienveillance désarme toujours la méfiance. Mais le voyage réserve d\'autres leçons... Continuons dans la ruelle.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's5_b15',
         type: 'xp',
-        xpAmount: 30,
-        xpReason: 'Notion comprise : L’Adab et la sagesse du silence bienveillant'
+        xpAmount: 25,
+        xpReason: 'Notion comprise : L’Adab du silence et la force pacificatrice du Salām'
       }
     ]
   },
@@ -860,20 +1390,22 @@ export const CHAPTER_1_SCENES: Scene[] = [
     title: 'Le Refus',
     subtitle: '« Tout le monde ne dira pas oui »',
     location: 'Ruelle ombragée du village',
-    requiredXp: 280,
+    requiredXp: 450,
+    isSpiritualGate: true,
+    gateReason: 'Face à l’épreuve du rejet, ton esprit doit être enraciné dans le Sabr (la patience) et l’Adab.',
     backgroundTheme: 'refus',
     beats: [
       {
         id: 's6_b1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le personnage aperçoit un jeune villageois qui répare une corde.'
+        text: 'Encouragé par l\'accueil de la place, Othmân s\'engage d\'un pas alerte sous une arche de pierre. Un jeune villageois de son âge est assis près d\'un établi, en train de tresser et réparer une corde de chanvre.'
       },
       {
         id: 's6_b2',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Salam alaykoum !',
+        text: 'Salam alaykoum ! Tu veux venir faire un bout de chemin avec nous ? On explore les sentiers de la vallée !',
         arabicText: 'السَّلَامُ عَلَيْكُمْ',
         emotion: 'smiling'
       },
@@ -881,84 +1413,163 @@ export const CHAPTER_1_SCENES: Scene[] = [
         id: 's6_b3',
         type: 'dialogue',
         speaker: 'jeune',
-        text: 'Wa alaykoum salam.',
+        text: 'Wa alaykoum salam... Non, désolé. J\'ai une commande urgente de cordage à livrer avant ce soir.',
         arabicText: 'وَعَلَيْكُمُ السَّلَامُ',
         emotion: 'neutral'
       },
       {
-        id: 's6_b4',
-        type: 'dialogue',
+        id: 's6_refus_choice',
+        type: 'choice',
         speaker: 'personnage',
-        text: 'Tu veux venir avec nous ?',
-        emotion: 'smiling'
-      },
-      {
-        id: 's6_b5',
-        type: 'dialogue',
-        speaker: 'narration',
-        text: 'Le jeune hésite un instant.'
-      },
-      {
-        id: 's6_b6',
-        type: 'dialogue',
-        speaker: 'jeune',
-        text: 'Désolé... non.',
-        emotion: 'neutral'
-      },
-      {
-        id: 's6_b7',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Ah...',
-        emotion: 'worried'
+        text: 'Le jeune artisan répond sèchement. Comment réagit Othmân ?',
+        choices: [
+          {
+            id: 'c_silence_sabr',
+            label: 'Garder le silence et se retirer dignement (Sabr)',
+            responsePreview: 'Se retirer dignement sans faire de vague.',
+            choiceType: 'decision',
+            traitGains: { sabr: 6, hilm: 4 },
+            setNarrativeFlags: { artisan_relation: 'sabr_silent' },
+            habitMessage: 'Décision morale • Othmân accueille le refus avec retenue.'
+          },
+          {
+            id: 'c_adab_courage',
+            label: '« Bon courage pour ta commande alors ! » (Adab)',
+            responsePreview: 'Répondre par une parole aimable malgré la froideur.',
+            choiceType: 'decision',
+            traitGains: { adab: 6, hilm: 5 },
+            setNarrativeFlags: { artisan_relation: 'adab_wished_well' },
+            habitMessage: 'Décision morale • Othmân surmonte son ego par l\'Adab.'
+          },
+          {
+            id: 'c_hilm_compassion',
+            label: '« Ne t\'en fais pas, qu\'Allah bénisse ton labeur ! » (Hilm)',
+            responsePreview: 'Comprendre sa fatigue et lui formuler une duʿāʾ bienveillante.',
+            choiceType: 'decision',
+            traitGains: { hilm: 7, adab: 5, sabr: 3 },
+            setNarrativeFlags: { artisan_relation: 'hilm_blessed' },
+            habitMessage: 'Décision morale • Le Hilm d\'Othmân désamorce toute rancœur.'
+          },
+          {
+            id: 'c_comprehension_ilm',
+            label: 'Observer son geste artisanal et respecter son engagement (ʿIlm)',
+            responsePreview: '« Le travail bien fait demande de la concentration. Bon travail à toi ! »',
+            choiceType: 'decision',
+            traitGains: { ilm: 6, discipline: 4 },
+            setNarrativeFlags: { artisan_relation: 'ilm_respected' },
+            habitMessage: 'Décision morale • Othmân comprend la valeur du travail artisanal.'
+          }
+        ]
       },
       {
         id: 's6_b8',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le jeune salue discrètement de la main et s\'en va vaquer à ses occupations.'
+        text: 'Le jeune artisan boucle sa corde d\'un geste précis, ramasse ses outils sans un regard de plus et disparaît au fond de l\'atelier.\nUn lourd silence s\'installe dans la ruelle. Othmân reste figé, la main encore à demi tendue dans le vide.',
+        adaptiveVariants: [
+          {
+            requiredFlag: 'artisan_relation',
+            requiredFlagValue: 'sabr_silent',
+            text: 'Othmân garde le silence et recule d\'un pas respectueux. Le jeune artisan range ses outils et s\'engouffre dans la pénombre de son atelier.',
+            actionVignette: {
+              icon: '🕊️',
+              badge: 'Sabr Noble',
+              title: 'Le Silence Digne',
+              description: 'Accueillir le refus avec sérénité et retenue sans chercher à forcer la rencontre.',
+              glowColor: 'cyan'
+            }
+          },
+          {
+            requiredFlag: 'artisan_relation',
+            requiredFlagValue: 'adab_wished_well',
+            text: '« Bon courage pour ta commande alors ! » lance Othmân d\'un ton chaleureux. L\'artisan s\'arrête, surpris par tant de bienveillance, hoche la tête avec respect et rentre dans son atelier.',
+            actionVignette: {
+              icon: '🤝',
+              badge: 'Adab Supérieur',
+              title: 'La Parole Bienveillante',
+              description: 'Répondre à la froideur par un souhait sincère de succès pour son travail.',
+              glowColor: 'amber'
+            }
+          },
+          {
+            requiredFlag: 'artisan_relation',
+            requiredFlagValue: 'hilm_blessed',
+            text: '« Qu\'Allah bénisse ton travail et facilite ta tâche ! » dit Othmân avec douceur. Le regard du jeune homme s\'adoucit un instant avant qu\'il ne reprenne sa besogne.',
+            actionVignette: {
+              icon: '🤍',
+              badge: 'Hilm & Générosité',
+              title: 'Bénédiction du Labeur',
+              description: 'Invoquer la bénédiction et la facilité d\'Allah sur l\'effort d\'autrui.',
+              glowColor: 'emerald'
+            }
+          },
+          {
+            requiredFlag: 'artisan_relation',
+            requiredFlagValue: 'ilm_respected',
+            text: '« Ton artisanat demande une belle précision. Bon travail à toi ! » souligne Othmân. L\'artisan esquisse un geste reconnaissant de la main.',
+            actionVignette: {
+              icon: '🧠',
+              badge: 'ʿIlm & Conscience',
+              title: 'Respect de l\'Artisanat',
+              description: 'Valoriser la rigueur et la minutie du travail artisanal sans rancœur.',
+              glowColor: 'blue'
+            }
+          }
+        ]
       },
       {
         id: 's6_b9',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'J\'ai fait quelque chose de mal ?',
-        emotion: 'worried'
+        text: 'J\'ai... j\'ai été trop brusque ? Pourquoi a-t-il refusé alors que j\'avais pourtant souri et salué ?',
+        emotion: 'worried',
+        waswasXpAmount: 15,
+        waswasReason: "Incompréhension face au refus",
+        adaptiveVariants: [
+          {
+            requiredFlag: 'artisan_relation',
+            requiredFlagValue: 'sabr_silent',
+            text: 'J\'ai préféré ne pas insister... mais pourquoi ce refus me pèse-t-il autant sur le cœur ?'
+          },
+          {
+            requiredFlag: 'artisan_relation',
+            requiredFlagValue: 'adab_wished_well',
+            text: 'J\'ai gardé le sourire et lui ai souhaité bon courage... mais ça fait quand même un pincement d\'essuyer un non.'
+          },
+          {
+            requiredFlag: 'artisan_relation',
+            requiredFlagValue: 'hilm_blessed',
+            text: 'J\'ai prié pour que son labeur soit béni... pourtant au fond de moi, j\'espérais tellement marcher avec lui.'
+          },
+          {
+            requiredFlag: 'artisan_relation',
+            requiredFlagValue: 'ilm_respected',
+            text: 'Je comprends que son métier soit prenant... mais pourquoi ai-je l\'impression d\'avoir échoué à me faire un ami ?'
+          }
+        ]
       },
       {
         id: 's6_b10',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Pas forcément.',
+        text: 'Tu n\'as rien fait de mal, mon fils. Mais le monde ne tourne pas autour de notre envie du moment. Ce garçon a sa journée, son travail, ses contraintes. Ton intention était belle, mais il a le droit le plus strict de dire non.',
         emotion: 'thoughtful'
       },
       {
         id: 's6_b11',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Alors pourquoi il a refusé ?',
-        emotion: 'worried'
+        text: 'Je sais bien... Mais ça fait quand même un pincement au cœur. On a l\'impression d\'avoir échoué.',
+        emotion: 'worried',
+        waswasXpAmount: 15,
+        waswasReason: "Blessure d'orgueil & sentiment d'échec"
       },
       {
         id: 's6_b12',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Tu ne peux pas contrôler la réponse des autres.',
+        text: 'C\'est parce que tu attendais une récompense immédiate : son approbation. C\'est précisément là que commence le vrai Sabr.',
         emotion: 'smiling'
-      },
-      {
-        id: 's6_b13',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Ça fait quand même mal.',
-        emotion: 'worried'
-      },
-      {
-        id: 's6_b14',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Oui.',
-        emotion: 'thoughtful'
       },
       {
         id: 's6_b15',
@@ -970,35 +1581,44 @@ export const CHAPTER_1_SCENES: Scene[] = [
         id: 's6_b16',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Donc le sabr, ce n\'est pas forcer quelqu\'un.',
+        text: 'Le verset 2:153... Chercher secours dans l\'endurance et la prière. Le Sabr, ce n\'est ni bouder, ni forcer la porte. C\'est accueillir ce qui arrive avec calme, dignité et respect.',
         emotion: 'thoughtful'
       },
       {
-        id: 's6_b17',
+        id: 's6_pont_sabr',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Non.',
+        isPontDeNour: true,
+        text: 'Et toi... Pense à un refus, une contrariété ou un imprévu qui ne s\'est pas passé comme tu le voulais. Respire calmement, détache ton cœur de l\'aigreur et dis avec sincérité : « Al-Hamdulillâh ʿalâ kulli hāl ».',
         emotion: 'smiling'
+      },
+      {
+        id: 's6_act_sabr',
+        type: 'real_action',
+        realActionId: 'action_sabr_refus',
+        text: 'Accueillir un refus avec Sabr.'
       },
       {
         id: 's6_b18',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Et ce n\'est pas non plus prétendre que je ne ressens rien.',
-        emotion: 'thoughtful'
+        text: 'Al-Hamdulillâh ʿalâ kulli hāl. La déception est passée. Ce n\'est pas parce qu\'une porte se ferme qu\'il faut s\'arrêter de marcher.',
+        emotion: 'smiling',
+        waswasXpAmount: -15,
+        waswasReason: "Le Sabr purifie le cœur du dépit !"
       },
       {
         id: 's6_b19',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Exactement.\n\nTu acceptes la difficulté et tu continues à avancer correctement.',
+        text: 'Magnifique maturité, Othmân. La patience purifie le cœur de l\'orgueil. Allons voir ce qui nous attend plus loin !',
         emotion: 'smiling'
       },
       {
         id: 's6_b20',
         type: 'xp',
-        xpAmount: 50,
-        xpReason: 'Notion comprise : Le Sabr face au refus'
+        xpAmount: 25,
+        xpReason: 'Notion comprise : La noblesse du Sabr face aux épreuves'
       }
     ]
   },
@@ -1009,61 +1629,145 @@ export const CHAPTER_1_SCENES: Scene[] = [
     title: 'Le Geste',
     subtitle: '« Pourquoi aider ? »',
     location: 'Chemin bordé d\'oliviers à la sortie du village',
-    requiredXp: 380,
+    requiredXp: 450,
     backgroundTheme: 'geste',
     beats: [
       {
         id: 's7_b1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Sur la route, le personnage remarque qu\'un villageois a fait tomber plusieurs objets et paniers.'
+        text: 'Sur le chemin des oliviers, un paysan trébuche. Ses deux grands paniers en osier se renversent lourdement dans la poussière, dispersant ses fruits mûrs sur la route.'
       },
       {
         id: 's7_b2',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Il faut l\'aider.',
+        text: 'Attends, il faut l\'aider ! Ses paniers sont complètement renversés.',
         emotion: 'determined'
+      },
+      {
+        id: 's7_aid_choice',
+        type: 'choice',
+        speaker: 'personnage',
+        text: 'Comment Othmân intervient-il pour aider le paysan ?',
+        choices: [
+          {
+            id: 'c_aide_humaine',
+            label: 'Aider le vieil homme à se relever d\'abord (Adab & Hilm)',
+            responsePreview: 'Prendre soin de la personne avant les objets.',
+            choiceType: 'decision',
+            traitGains: { adab: 6, hilm: 4, sabr: 3 },
+            setNarrativeFlags: { elder_farmer_relation: 'lifted_person_first' },
+            habitMessage: 'Décision morale • Othmân place l\'attention humaine au centre de son geste.'
+          },
+          {
+            id: 'c_aide_active',
+            label: 'Ramasser rapidement les fruits pour dégager le chemin (Discipline)',
+            responsePreview: 'Agir vite pour éviter que les fruits ne s\'écrasent sous les pas.',
+            choiceType: 'decision',
+            traitGains: { discipline: 6, vitalite: 4 },
+            setNarrativeFlags: { elder_farmer_relation: 'quick_clear_path' },
+            habitMessage: 'Décision morale • Othmân agit avec promptitude et organisation.'
+          },
+          {
+            id: 'c_aide_complete',
+            label: 'Ranger les fruits et porter le panier le plus lourd (Vitalité & Sabr)',
+            responsePreview: 'Soulager pleinement l\'ancien de son fardeau jusqu\'au verger.',
+            choiceType: 'decision',
+            traitGains: { vitalite: 6, sabr: 5, adab: 4 },
+            setNarrativeFlags: { elder_farmer_relation: 'carried_heavy_basket' },
+            habitMessage: 'Décision morale • La noblesse du service discret d\'Othmân.'
+          }
+        ]
       },
       {
         id: 's7_b3',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Il commence à ramasser les affaires avec soin pour les lui tendre.'
+        text: 'Othmân s\'agenouille sans hésiter et commence à ramasser les figues et les olives une à une pour les ranger.',
+        adaptiveVariants: [
+          {
+            requiredFlag: 'elder_farmer_relation',
+            requiredFlagValue: 'lifted_person_first',
+            text: 'Othmân se précipite vers le paysan et lui tend les deux mains avec égards : « Appuyez-vous sur moi, mon oncle ! » Le vieil homme retrouve son équilibre en souriant avec gratitude.',
+            actionVignette: {
+              icon: '🤝',
+              badge: 'Adab & Dignité',
+              title: 'Relever l\'Aîné d\'Abord',
+              description: 'Othmân tend les mains et soutient le vieil homme avant de penser aux objets matériels.',
+              glowColor: 'amber'
+            }
+          },
+          {
+            requiredFlag: 'elder_farmer_relation',
+            requiredFlagValue: 'quick_clear_path',
+            text: 'D\'un geste vif et ordonné, Othmân ramasse les figues et les olives éparpillées pour libérer le passage et éviter qu\'elles ne soient foulées au pied.',
+            actionVignette: {
+              icon: '⚡',
+              badge: 'Organisation & Vivacité',
+              title: 'Sauvetage des Récoltes',
+              description: 'Othmân ramasse vivement les fruits pour dégager le passage et préserver la récolte de l\'ancien.',
+              glowColor: 'cyan'
+            }
+          },
+          {
+            requiredFlag: 'elder_farmer_relation',
+            requiredFlagValue: 'carried_heavy_basket',
+            text: 'Après avoir rassemblé la récolte dans les corbeilles, Othmân soulève le panier le plus lourd pour en décharger les épaules fatiguées du paysan.',
+            actionVignette: {
+              icon: '💪',
+              badge: 'Service & Générosité',
+              title: 'Porter le Lourd Panier',
+              description: 'Othmân charge le panier le plus lourd sur son épaule pour soulager l\'ancien jusqu\'au verger.',
+              glowColor: 'emerald'
+            }
+          }
+        ]
       },
       {
         id: 's7_b4',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Pourquoi l\'aides-tu ?',
+        text: 'Pourquoi l\'aides-tu, Othmân ?',
         emotion: 'thoughtful'
       },
       {
         id: 's7_b5',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Parce qu\'il en a besoin.',
-        emotion: 'determined'
+        text: 'Parce qu\'il est âgé et qu\'il ne s\'en sortirait pas tout seul avant la nuit.',
+        emotion: 'determined',
+        adaptiveVariants: [
+          {
+            requiredFlag: 'elder_farmer_relation',
+            requiredFlagValue: 'lifted_person_first',
+            text: 'Parce qu\'un aîné mérite respect et attention avant même de penser aux objets matériels.'
+          },
+          {
+            requiredFlag: 'elder_farmer_relation',
+            requiredFlagValue: 'quick_clear_path',
+            text: 'Parce que son labeur de la journée aurait été perdu sans une aide rapide et méthodique.'
+          },
+          {
+            requiredFlag: 'elder_farmer_relation',
+            requiredFlagValue: 'carried_heavy_basket',
+            text: 'Parce qu\'il est âgé et que ses forces déclinent : le soulager d\'un tel fardeau était une évidence.'
+          }
+        ]
       },
       {
         id: 's7_b6',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Et si personne ne te voyait ?',
+        text: 'Et si personne ne te voyait ? Ni lui, ni les passants, ni moi ?',
         emotion: 'smiling'
       },
       {
         id: 's7_b7',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Je l\'aiderais quand même.',
+        text: 'Je l\'aiderais quand même ! Ce n\'est pas pour les gens que je ramasse ces fruits.',
         emotion: 'smiling'
-      },
-      {
-        id: 's7_b8',
-        type: 'dialogue',
-        speaker: 'narration',
-        text: 'Noura sourit avec douceur.'
       },
       {
         id: 's7_b9',
@@ -1072,58 +1776,54 @@ export const CHAPTER_1_SCENES: Scene[] = [
         unlockedConceptId: 'niyyah'
       },
       {
-        id: 's7_b10',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'La niyyah...',
-        emotion: 'thoughtful'
-      },
-      {
-        id: 's7_b11',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Oui.',
-        emotion: 'smiling'
-      },
-      {
         id: 's7_b12',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Donc je ne dois pas aider juste pour que les autres pensent que je suis quelqu\'un de bien.',
+        text: '« Les actions ne valent que par leurs intentions ». Donc je ne dois jamais faire le bien pour qu\'on me dise que je suis gentil ou généreux.',
         emotion: 'thoughtful'
       },
       {
         id: 's7_b13',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Ton intention est quelque chose que tu dois surveiller toi-même.',
+        text: 'L\'intention est un secret intime entre toi et ton Créateur. Dès qu\'on cherche à la brandir devant les gens, elle s\'évapore.',
         emotion: 'smiling'
       },
       {
-        id: 's7_b14',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Pas quelque chose que je dois montrer aux autres.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's7_b15',
+        id: 's7_pont_geste',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Exactement.',
+        isPontDeNour: true,
+        text: 'Et toi dans ton quotidien... Peux-tu accomplir un petit geste discret (ranger un objet qui traîne, rendre un service chez toi ou dans ton entourage) sans rien dire à personne et pour Allah seul ? C\'est cela, la Niyyah pure.',
         emotion: 'smiling'
       },
       {
         id: 's7_b16',
         type: 'real_action',
         realActionId: 'action_geste',
-        text: 'Aujourd\'hui : fais une petite bonne action sans chercher à être félicité.'
+        text: 'Accomplir une bonne action en toute discrétion.'
       },
       {
-        id: 's7_b17',
+        id: 's7_b18',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: 'Regarde maman : tous les fruits sont remis en place, les paniers sont calés contre le muret et le chemin est dégagé !',
+        emotion: 'smiling',
+        waswasXpAmount: -15,
+        waswasReason: "L'acte sincère (Ikhlās) repousse le Waswâs !"
+      },
+      {
+        id: 's7_b19',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'Et tu l\'as fait discrètement, avec humilité. C\'est cette pureté d\'intention (Niyyah) qui donne tout son poids à chaque acte.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's7_b20',
         type: 'xp',
-        xpAmount: 50,
-        xpReason: 'Action réelle validée : Intention pure (Niyyah)'
+        xpAmount: 25,
+        xpReason: 'Notion comprise : La pureté de l\'intention (Niyyah)'
       }
     ]
   },
@@ -1134,48 +1834,50 @@ export const CHAPTER_1_SCENES: Scene[] = [
     title: 'Le Jardin Abandonné',
     subtitle: '« Regarder ce qu\'on a déjà reçu »',
     location: 'Ancien verger en pierre sèche et ruisseau discret',
-    requiredXp: 500,
+    requiredXp: 450,
     backgroundTheme: 'jardin',
     beats: [
       {
         id: 's8_b1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le groupe arrive dans un ancien jardin abandonné. Des arbres poussent encore vigoureusement malgré les années d\'oubli.'
+        text: 'Le sentier débouche sur un ancien verger en terrasses de pierre sèche. Les mauvaises herbes ont envahi le ruisseau et des branches mortes jonchent le sol.'
       },
       {
         id: 's8_b2',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Je pensais qu\'il n\'y avait plus rien ici.',
-        emotion: 'thoughtful'
+        text: 'Quel dommage... Tout est abandonné ici. Il n\'y a plus rien qui pousse, c\'est triste.',
+        emotion: 'thoughtful',
+        waswasXpAmount: 10,
+        waswasReason: "Focalisation sur le manque & tristesse"
       },
       {
         id: 's8_b3',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Regarde mieux.',
+        text: 'Regarde mieux, Othmân. Ne t\'arrête pas à ce qui a l\'air sec.',
         emotion: 'smiling'
       },
       {
         id: 's8_b4',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le personnage découvre de petites plantes aromatiques, un filet d\'eau claire et quelques figues mûres.'
+        text: 'Othmân s\'accroupit, écarte les feuilles sèches et découvre sous les pierres des pousses de romarin odorantes, quelques figues mûres et un filet d\'eau fraîche qui murmure.'
       },
       {
         id: 's8_b5',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Il y en avait encore...',
+        text: 'Il y en avait sous les branchages ! De l\'eau vive, des fruits... Ça ne demandait qu\'à respirer.',
         emotion: 'smiling'
       },
       {
         id: 's8_b6',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Parfois, on regarde tellement ce qui manque qu\'on oublie ce qui est déjà là.',
-        emotion: 'smiling'
+        text: 'Parfois, on est tellement obsédé par ce qui manque qu\'on ne voit même plus ce qu\'on a déjà reçu.',
+        emotion: 'thoughtful'
       },
       {
         id: 's8_b7',
@@ -1184,51 +1886,60 @@ export const CHAPTER_1_SCENES: Scene[] = [
         unlockedConceptId: 'shukr'
       },
       {
-        id: 's8_b8',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Shukr...',
-        emotion: 'thoughtful'
-      },
-      {
-        id: 's8_b9',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Oui.',
-        emotion: 'smiling'
-      },
-      {
         id: 's8_b10',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Donc être reconnaissant, ce n\'est pas dire que tout est parfait.',
+        text: 'Le verset 14:7... « Si vous êtes reconnaissants, très certainement J\'augmenterai Mes bienfaits pour vous ». La gratitude (Shukr), ce n\'est pas faire semblant que tout est parfait...',
         emotion: 'thoughtful'
-      },
-      {
-        id: 's8_b11',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Non.',
-        emotion: 'smiling'
       },
       {
         id: 's8_b12',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'C\'est reconnaître les bienfaits qu\'Allah nous a accordés, même au milieu d\'une difficulté.',
+        text: 'C\'est ouvrir les yeux sur les trésors qu\'Allah a déjà déposés autour de nous, même quand la situation semble difficile.',
         emotion: 'smiling'
       },
       {
-        id: 's8_b13',
+        id: 's8_pont_shukr',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Tu commences à comprendre.',
+        isPontDeNour: true,
+        text: 'Et toi... Avant de penser à ce qui te manque, prends une minute : identifie 3 bienfaits précieux qu\'Allah t\'a accordés aujourd\'hui et dis « Al-Hamdulillâh ». Puis arrose une plante chez toi pour prendre soin de la création.',
         emotion: 'smiling'
       },
       {
-        id: 's8_b14',
+        id: 's8_act_shukr',
+        type: 'real_action',
+        realActionId: 'action_shukr',
+        text: 'Exprimer sa gratitude (Shukr) et prendre soin du vivant.'
+      },
+      {
+        id: 's8_b15',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: 'Regarde maman ! En dégageant les branches mortes et les débris, le ruisseau coule à nouveau à plein filet. L\'eau est si claire !',
+        emotion: 'smiling',
+        waswasXpAmount: -15,
+        waswasReason: "Le Shukr illumine l'esprit et chasse l'Ombre !",
+        actionVignette: {
+          icon: '🌿',
+          badge: 'Shukr & Soin du Vivant',
+          title: 'Le Ruisseau Revivifié',
+          description: 'Nettoyer le cours d\'eau et arroser les plantes : reconnaître les bienfaits d\'Allah par des actes réels.',
+          glowColor: 'emerald'
+        }
+      },
+      {
+        id: 's8_b16',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'Regarde ce qui était déjà là, Othmân. Il suffisait simplement de prendre le temps de le remarquer... et d\'en prendre soin.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's8_b17',
         type: 'xp',
-        xpAmount: 50,
+        xpAmount: 25,
         xpReason: 'Notion comprise : Le Shukr et la reconnaissance des bienfaits'
       }
     ]
@@ -1240,61 +1951,78 @@ export const CHAPTER_1_SCENES: Scene[] = [
     title: 'Le Grand Waswas',
     subtitle: 'Climax du Chapitre 1',
     location: 'Col de montagne assombri, vent froid et brume violette',
-    requiredXp: 650,
+    requiredXp: 780,
+    isSpiritualGate: true,
+    gateReason: 'L’ascension du sommet exige le Niveau 4 (Cœur Éveillé) pour résister aux illusions du Grand Waswas.',
     backgroundTheme: 'climax',
     beats: [
       {
         id: 's9_b1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le chemin devient sombre. Le paysage change. Le Grand Waswas apparaît : il est beaucoup plus imposant que le premier.'
+        text: 'Le col de la montagne se resserre sous une voûte d\'ombre glacée. Des colonnes de pierre antique se dressent en silence. Devant eux, le Grand Waswas se forme : un vortex tourbillonnant, obscur et menaçant.'
       },
       {
         id: 's9_b2',
         type: 'dialogue',
         speaker: 'grand_waswas',
-        text: 'Tu pensais vraiment pouvoir avancer ?',
-        emotion: 'shadow'
+        text: 'Tu pensais vraiment avoir accompli quelque chose ? Regarde-toi, Othmân. Tu as hésité dès le matin, tu as balbutié sur la place, et tu t\'es fait rejeter par le premier garçon venu.',
+        emotion: 'shadow',
+        adaptiveVariants: [
+          {
+            dominantTrait: 'discipline',
+            text: 'Tu veux tout ordonner et tout contrôler, Othmân ! Mais à la moindre faille dans tes routines, tu perds pied. Tu es trop rigide pour t\'adapter au monde !'
+          },
+          {
+            dominantTrait: 'ilm',
+            text: 'Tu empiles des citations, des versets et des concepts, Othmân ! Mais dès qu\'il faut agir, tu restes paralysé par le doute. Ton savoir n\'est qu\'une illusion !'
+          },
+          {
+            dominantTrait: 'adab',
+            text: 'Tu crois que ta politesse te protège ? Le monde est dur, Othmân ! Les gens se moqueront de ta bienveillance et écraseront ta douceur !'
+          },
+          {
+            dominantTrait: 'sabr',
+            text: 'Tu prétends patienter, mais tu ne fais qu\'abandonner en silence ! Ta patience n\'est qu\'une fuite devant la réalité de ton impuissance !'
+          },
+          {
+            dominantTrait: 'hilm',
+            text: 'Tu retiens ta colère, mais elle te brûle de l\'intérieur ! Tu finiras par exploser et détruire tout ce que tu prétends construire !'
+          },
+          {
+            dominantTrait: 'vitalite',
+            text: 'Tu cours, tu t\'agites, mais ton corps finira par lâcher ! La montagne est trop haute pour tes faibles forces !'
+          }
+        ]
       },
       {
         id: 's9_b3',
         type: 'dialogue',
         speaker: 'personnage',
-        text: '...',
-        emotion: 'worried'
+        text: 'Ses paroles frappent exactement là où ça fait mal... Peut-être que j\'ai simplement eu de la chance aujourd\'hui. Peut-être que je suis encore le même garçon timide de ce matin...',
+        emotion: 'worried',
+        waswasXpAmount: 25,
+        waswasReason: "Le vortex du doute frappe le cœur d'Othmân !"
       },
       {
         id: 's9_b4',
         type: 'dialogue',
         speaker: 'grand_waswas',
-        text: 'Tu as été refusé.\n\nTu as hésité.\n\nTu as eu peur.\n\nEt maintenant tu veux te faire des amis ?',
+        text: 'Fais demi-tour. Regagne ta chambre. Le monde réel n\'est pas fait pour toi.',
         emotion: 'shadow'
-      },
-      {
-        id: 's9_b5',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Peut-être que je ne suis simplement pas fait pour ça.',
-        emotion: 'worried'
-      },
-      {
-        id: 's9_b6',
-        type: 'dialogue',
-        speaker: 'narration',
-        text: 'Noura reste silencieuse un instant.'
       },
       {
         id: 's9_b7',
         type: 'dialogue',
-        speaker: 'noura',
-        text: 'Regarde derrière toi.',
-        emotion: 'thoughtful'
+        speaker: 'personnage',
+        text: 'Maman... Il a raison ? Tout ce que j\'ai fait aujourd\'hui... est-ce que ça compte vraiment ?',
+        emotion: 'worried'
       },
       {
         id: 's9_b8',
         type: 'memory_fragments',
         speaker: 'narration',
-        text: 'Des fragments des scènes précédentes apparaissent dans la lumière : La chambre... Le village... Le premier Waswas... Le refus... Le geste... Le jardin.'
+        text: 'Des étincelles d\'or s\'allument dans la pénombre, projetant les souvenirs du voyage : Le lit fait au matin... L\'Istiʿādhah prononcée... Le sourire rendu sur la place... Le refus encaissé avec Sabr... Les fruits ramassés en secret... L\'eau claire réveillée dans le verger.'
       },
       {
         id: 's9_b9',
@@ -1321,8 +2049,116 @@ export const CHAPTER_1_SCENES: Scene[] = [
         id: 's9_b12',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Et tu as continué.',
+        text: 'Et tu t\'es relevé. Chaque pas que tu as fait est un acte réel, sincère, que personne ne peut t\'enlever.',
         emotion: 'determined'
+      },
+      {
+        id: 's9_ordeal_choice',
+        type: 'choice',
+        speaker: 'personnage',
+        text: 'Face aux sifflements du Grand Waswas, quelle certitude Othmân brandit-il ?',
+        choices: [
+          {
+            id: 'c_verite_sabr',
+            label: '« Mes efforts patients et ma persévérance valent plus que tes mensonges ! » (Sabr)',
+            responsePreview: 'Ancrer sa force dans le Sabr et la confiance en Allah.',
+            choiceType: 'ordeal',
+            traitGains: { sabr: 8, hilm: 6 },
+            setNarrativeFlags: { climax_virtue: 'sabr' },
+            habitMessage: 'Épreuve triomphée • Le Sabr d\'Othmân réduit le doute au silence.'
+          },
+          {
+            id: 'c_verite_discipline',
+            label: '« Chaque habitude posée aujourd\'hui est gravée dans le réel ! » (Discipline)',
+            responsePreview: 'Opposer la rigueur des actes aux illusions trompeuses.',
+            choiceType: 'ordeal',
+            traitGains: { discipline: 8, ilm: 6 },
+            setNarrativeFlags: { climax_virtue: 'discipline' },
+            habitMessage: 'Épreuve triomphée • La Discipline d\'Othmân dissipe la confusion.'
+          },
+          {
+            id: 'c_verite_hilm_adab',
+            label: '« Mon cœur cherche la sincérité et le bien pour Allah seul ! » (Adab & Hilm)',
+            responsePreview: 'Désarmer l\'obscurité par la pureté de l\'intention.',
+            choiceType: 'ordeal',
+            traitGains: { adab: 8, hilm: 8, sabr: 4 },
+            setNarrativeFlags: { climax_virtue: 'adab_hilm' },
+            habitMessage: 'Épreuve triomphée • La noblesse du cœur dissout le Grand Waswas.'
+          },
+          {
+            id: 'c_verite_vitalite',
+            label: '« Même fatigué, je poserai le prochain pas en avant ! » (Vitalité & Sabr)',
+            responsePreview: 'Refuser l\'inaction et faire le pas du courage.',
+            choiceType: 'ordeal',
+            traitGains: { vitalite: 8, sabr: 6 },
+            setNarrativeFlags: { climax_virtue: 'vitalite' },
+            habitMessage: 'Épreuve triomphée • L\'élan d\'action d\'Othmân brise la peur.'
+          }
+        ]
+      },
+      {
+        id: 's9_proclamation',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: '« Mes efforts patients et ma persévérance valent plus que tes mensonges ! Je place ma confiance en Allah ! »',
+        emotion: 'determined',
+        actionVignette: {
+          icon: '✨',
+          badge: 'Vertu Victorieuse',
+          title: 'La Proclamation de Foi & d\'Action',
+          description: 'Les actes concrets et sincères posés dans le réel terrassent les illusions du doute.',
+          glowColor: 'amber'
+        },
+        adaptiveVariants: [
+          {
+            requiredFlag: 'climax_virtue',
+            requiredFlagValue: 'sabr',
+            text: '« Mes efforts patients et ma persévérance valent plus que tes mensonges ! Je place ma confiance en Allah et je ne faiblirai pas ! »',
+            actionVignette: {
+              icon: '🛡️',
+              badge: 'Bouclier de Sabr',
+              title: 'Patience & Persévérance Inébranlables',
+              description: 'La foi et la constance dans l\'effort réduisent à néant les insinuations du doute.',
+              glowColor: 'cyan'
+            }
+          },
+          {
+            requiredFlag: 'climax_virtue',
+            requiredFlagValue: 'discipline',
+            text: '« Chaque habitude posée aujourd\'hui est gravée dans le réel ! Tu ne peux rien contre la régularité et les actes vrais ! »',
+            actionVignette: {
+              icon: '🧭',
+              badge: 'Armure de Discipline',
+              title: 'Ancrage dans les Actes Réels',
+              description: 'Chaque geste quotidien posé dans le réel détruit les illusions trompeuses de l\'Ombre.',
+              glowColor: 'amber'
+            }
+          },
+          {
+            requiredFlag: 'climax_virtue',
+            requiredFlagValue: 'adab_hilm',
+            text: '« Mon cœur cherche la sincérité et le bien pour Allah seul ! La pureté d\'intention et la bienveillance désarment toutes tes ombres ! »',
+            actionVignette: {
+              icon: '🤝',
+              badge: 'Lumière d\'Adab & Hilm',
+              title: 'Pureté de l\'Intention',
+              description: 'La recherche sincère de l\'agrément d\'Allah dissipe les ténèbres du cœur.',
+              glowColor: 'emerald'
+            }
+          },
+          {
+            requiredFlag: 'climax_virtue',
+            requiredFlagValue: 'vitalite',
+            text: '« Même fatigué, je poserai le prochain pas en avant ! L\'action résolue brise la peur et l\'illusion de l\'impuissance ! »',
+            actionVignette: {
+              icon: '💪',
+              badge: 'Élan de Vitalité',
+              title: 'Le Courage en Mouvement',
+              description: 'L\'action résolue et le pas en avant triomphent de la paralysie et de la peur.',
+              glowColor: 'purple'
+            }
+          }
+        ]
       },
       {
         id: 's9_b13',
@@ -1334,67 +2170,46 @@ export const CHAPTER_1_SCENES: Scene[] = [
         id: 's9_b14',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Le savoir ne suffit pas.',
-        emotion: 'thoughtful'
-      },
-      {
-        id: 's9_b15',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Continue.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's9_b16',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Il faut apprendre...\n\nfaire des efforts...\n\npuis passer à l\'action.',
+        text: 'Hadith de Muslim 2664 : « Recherche avec ardeur ce qui t\'est profitable, demande l\'aide d\'Allah et ne sois pas impuissant ». Le savoir ne suffit pas : il faut unir la foi, l\'effort et l\'action !',
         emotion: 'determined'
-      },
-      {
-        id: 's9_b17',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Voilà.',
-        emotion: 'smiling'
       },
       {
         id: 's9_b18',
         type: 'climax_combat',
         speaker: 'narration',
-        text: 'Le Grand Waswas attaque avec ses doutes. Mais le personnage ne lance aucun sort et ne gagne aucun pouvoir magique : il applique avec constance chaque étape de résilience spirituelle.'
+        text: 'Le Grand Waswas projette ses dernières rafales de vent noir. Othmân se tient droit : le cœur empli des 6 piliers de résilience qu\'il a découverts sur la route, il avance face au vortex.'
       },
       {
         id: 's9_b19',
         type: 'dialogue',
         speaker: 'grand_waswas',
-        text: 'Tu vas échouer...',
+        text: 'Tu vas échouer ! Tu n\'es rien !',
         emotion: 'shadow'
       },
       {
         id: 's9_b20',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Peut-être.\n\nMais je vais essayer quand même.',
+        text: 'Peut-être. Mais je vais essayer quand même !',
         emotion: 'determined'
       },
       {
         id: 's9_b21',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le Grand Waswas s\'évapore complètement dans l\'aube naissante.'
+        text: 'Dans un souffle d\'or, le vortex sombre se disloque et s\'évapore complètement ! Le soleil d\'or franchit la crête et illumine les vieilles pierres d\'un éclat éblouissant.'
       },
       {
         id: 's9_b22',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Silence. Le soleil apparaît chaleureusement derrière les montagnes dorées.'
+        text: 'Un silence magnifique et apaisant enveloppe le sommet. Le vent est tiède et doux.'
       },
       {
         id: 's9_b23',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Je pensais que mon objectif était simplement de me faire des amis.',
+        text: 'Ce matin, je pensais que mon seul but était de trouver des gens qui m\'aimeraient bien.',
         emotion: 'thoughtful'
       },
       {
@@ -1408,64 +2223,30 @@ export const CHAPTER_1_SCENES: Scene[] = [
         id: 's9_b25',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Maintenant je comprends que je dois aussi apprendre à aller vers les autres.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's9_b26',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Et ?',
-        emotion: 'smiling'
-      },
-      {
-        id: 's9_b27',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'À accepter leurs réponses.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's9_b28',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Et ?',
-        emotion: 'smiling'
-      },
-      {
-        id: 's9_b29',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'À faire les choses avec une bonne intention.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's9_b30',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Et ?',
-        emotion: 'smiling'
-      },
-      {
-        id: 's9_b31',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'À être patient.',
+        text: 'Maintenant je comprends que mon vrai rôle, c\'est d\'apprendre à donner de la lumière : aller vers les autres, accepter leurs refus sans amertume, aider en secret et remercier pour ce qui est là.',
         emotion: 'smiling'
       },
       {
         id: 's9_b32',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Alors...\n\non continue ?',
+        text: 'Tu as trouvé ta lumière, mon fils. Alors... on continue le voyage ?',
         emotion: 'smiling'
       },
       {
         id: 's9_b33',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Oui.',
+        text: 'Oui ! Mais d\'abord, j\'ai une promesse à tenir dans la vraie vie.',
         emotion: 'determined'
+      },
+      {
+        id: 's9_pont_mission',
+        type: 'dialogue',
+        speaker: 'noura',
+        isPontDeNour: true,
+        text: 'Et toi qui as marché jusqu\'au sommet de ce premier chapitre... Il te reste l\'action la plus importante : va vers quelqu\'un dans la vraie vie, dis-lui avec le cœur « As-salāmu ʿalaykum », et laisse la fraternité opérer sans forcer.',
+        emotion: 'smiling'
       },
       {
         id: 's9_b34',
@@ -1477,7 +2258,7 @@ export const CHAPTER_1_SCENES: Scene[] = [
         id: 's9_b35',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Le personnage et Noura reprennent leur route. Au loin, on aperçoit une nouvelle région verdoyante.'
+        text: 'Othmân et Noura reprennent leur marche vers l\'horizon doré. Au-delà des crêtes de montagne, les contrées du Chapitre 2 commencent à se dessiner sous le ciel limpide.'
       },
       {
         id: 's9_b36',
@@ -1490,16 +2271,148 @@ export const CHAPTER_1_SCENES: Scene[] = [
         id: 's9_b37',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Alors allons-y.',
+        text: 'Alors allons-y !',
         emotion: 'smiling'
       },
       {
         id: 's9_b38',
         type: 'chapter_end',
-        xpAmount: 100,
+        xpAmount: 45,
         xpReason: 'Chapitre 1 terminé : Le chemin commence',
         unlockedConceptId: 'ilm'
       }
     ]
   }
 ];
+
+// ============================================================================
+// BOUCLE CENTRALE « NOUVEAU JOUR » — SÉQUENCE JOUR 2 DEVANT LE POTEAU
+// ============================================================================
+export const DAY_2_POTEAU_BEATS: Beat[] = [
+  {
+    id: 's2_d2_intro',
+    type: 'dialogue',
+    speaker: 'narration',
+    text: '🌅 L\'Aube se lève sur les sentiers. Après une bonne nuit de repos, Othmân et Noura sont de retour devant le grand poteau aux chemins. Le vent frais du matin souffle dans les branches dorées.'
+  },
+  {
+    id: 's2_d2_othman_1',
+    type: 'dialogue',
+    speaker: 'personnage',
+    text: 'Quel calme ce matin... Le village respire la paix, et mon cœur est tellement plus léger qu\'hier !',
+    emotion: 'smiling'
+  },
+  {
+    id: 's2_d2_noura_1',
+    type: 'dialogue',
+    speaker: 'noura',
+    text: 'Une nouvelle journée commence, Othmân. Tu as avancé hier. Aujourd\'hui, un nouveau chemin t\'attend.',
+    emotion: 'smiling'
+  },
+  {
+    id: 's2_d2_pont',
+    type: 'dialogue',
+    speaker: 'noura',
+    isPontDeNour: true,
+    text: 'Et toi aussi, chaque journée peut être un nouveau départ.',
+    emotion: 'smiling'
+  },
+  {
+    id: 's2_d2_choice',
+    type: 'choice',
+    speaker: 'personnage',
+    text: 'Othmân examine les inscriptions du poteau baignées par la lumière de l\'aube :',
+    choices: [
+      {
+        id: 'c1_replay',
+        label: '« Vaincre la Solitude » — Chapitre 1 : Se faire des amis & briser l\'invisibilité',
+        badge: '✓ Terminé (Rejouable)',
+        interactiveSpot: { x: '35%', y: '55%' }
+      },
+      {
+        id: 'c2_chap2',
+        label: '« Le Chemin du Hilm » — Chapitre 2 : La Colère & la Maîtrise de soi',
+        badge: '✨ NOUVELLE AVENTURE DÉVERROUILLÉE',
+        interactiveSpot: { x: '50%', y: '45%' }
+      },
+      {
+        id: 'c3_chap3',
+        label: '« L\'Enfant à l\'Attelle » — Chapitre 3 : La Patience face à l\'Épreuve (Sabr)',
+        disabled: true,
+        badge: 'Pack Fondateur (-38%)',
+        isStripePromo: true,
+        originalPrice: '7,99 €',
+        promoPrice: '4,99 €',
+        discountRate: '-38%',
+        stripeUrl: 'https://buy.stripe.com/test_4gM4gB7QR3ThbJlgjK3Ru01',
+        disabledReason: 'À la mosquée et chez l\'apothicaire, Othmân découvre les épreuves de la maladie, les remèdes prophétiques (miel, nigelle, talbîna) et la beauté de la patience active. Débloqué dans le Pack Fondateur.',
+        interactiveSpot: { x: '65%', y: '50%' }
+      },
+      {
+        id: 'c4_chap4',
+        label: '« Ce que tu as encore » — Chapitre 4 : La Bonté envers les Parents (Birr)',
+        disabled: true,
+        badge: 'Chapitre 4 (Bientôt)',
+        disabledReason: 'Sous le grand arbre avec son ami d\'enfance, une confidence inattendue invite Othmân à ouvrir son cœur et à honorer ses parents avec reconnaissance.',
+        interactiveSpot: { x: '75%', y: '60%' }
+      },
+      {
+        id: 'c5_chap5',
+        label: '« La Montagne Intérieure » — Chapitre 5 : L\'Endurance Ultime & le Climax de la Saga',
+        disabled: true,
+        badge: 'Chapitre 5 (Bientôt)',
+        disabledReason: 'L\'ascension finale vers le pic céleste où toutes les vertus acquises s\'unissent pour dissiper les ténèbres du Souffle des Ombres.',
+        interactiveSpot: { x: '85%', y: '45%' }
+      }
+    ]
+  },
+  {
+    id: 's2_d2_conclusion_noura',
+    type: 'dialogue',
+    speaker: 'noura',
+    text: 'Regarde ce panneau vers le chemin du Hilm qui s\'est déverrouillé ! Tu as vaincu la solitude hier et appris à aller vers les autres avec fraternité. Aujourd\'hui, une toute nouvelle aventure t\'attend : faire face à la provocation et maîtriser ton feu intérieur avec douceur. Le Chapitre 2 est désormais ouvert ! En route avec la grâce d\'Allah !',
+    emotion: 'smiling'
+  },
+  {
+    id: 's2_d2_conclusion_othman',
+    type: 'dialogue',
+    speaker: 'personnage',
+    text: 'Al-hamdoulillâh ! Chaque matin est une nouvelle chance d\'apprendre et d\'être meilleur !',
+    emotion: 'smiling'
+  }
+];
+
+import { QUIZZES_EN, REAL_ACTIONS_EN, CLIMAX_STEPS_EN, CHAPTER_1_SCENES_EN, DAY_2_POTEAU_BEATS_EN } from './locales/chapter1.en';
+import { QUIZZES_AR, REAL_ACTIONS_AR, CLIMAX_STEPS_AR, CHAPTER_1_SCENES_AR, DAY_2_POTEAU_BEATS_AR } from './locales/chapter1.ar';
+import { Language } from '../i18n/translations';
+
+export const getChapter1Scenes = (lang: Language): Scene[] => {
+  if (lang === 'en') return CHAPTER_1_SCENES_EN;
+  if (lang === 'ar') return CHAPTER_1_SCENES_AR;
+  return CHAPTER_1_SCENES;
+};
+
+export const getChapter1Quizzes = (lang: Language): Record<string, Quiz> => {
+  if (lang === 'en') return QUIZZES_EN;
+  if (lang === 'ar') return QUIZZES_AR;
+  return QUIZZES;
+};
+
+export const getChapter1RealActions = (lang: Language): Record<string, RealAction> => {
+  if (lang === 'en') return REAL_ACTIONS_EN;
+  if (lang === 'ar') return REAL_ACTIONS_AR;
+  return REAL_ACTIONS;
+};
+
+export const getChapter1ClimaxSteps = (lang: Language): ClimaxStep[] => {
+  if (lang === 'en') return CLIMAX_STEPS_EN;
+  if (lang === 'ar') return CLIMAX_STEPS_AR;
+  return CLIMAX_STEPS;
+};
+
+export const getDay2PoteauBeats = (lang: Language): Beat[] => {
+  if (lang === 'en') return DAY_2_POTEAU_BEATS_EN;
+  if (lang === 'ar') return DAY_2_POTEAU_BEATS_AR;
+  return DAY_2_POTEAU_BEATS;
+};
+

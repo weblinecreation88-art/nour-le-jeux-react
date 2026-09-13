@@ -41,7 +41,7 @@ export const InventoryScreen: React.FC<InventoryScreenProps> = ({
   const decoList = progress.equipment.filter((e) => e.category === 'decoration');
 
   return (
-    <div className="flex-1 flex flex-col overflow-y-auto px-3 sm:px-6 py-3 max-w-md mx-auto w-full gap-3 select-none custom-scrollbar">
+    <div className="flex-1 flex flex-col overflow-y-auto px-3 sm:px-6 pt-3 pb-12 max-w-md mx-auto w-full gap-3 select-none custom-scrollbar">
       {/* Title */}
       <div>
         <span className="text-[10px] font-bold uppercase tracking-wider text-[#8c5a2b] font-cinzel">

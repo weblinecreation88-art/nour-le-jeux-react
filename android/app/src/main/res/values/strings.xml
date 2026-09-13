@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">La Voie de la Sagesse</string>
-    <string name="title_activity_main">La Voie de la Sagesse</string>
+    <string name="app_name">Nour : Jeu Islamique &amp; Adab</string>
+    <string name="title_activity_main">Nour : Jeu Islamique &amp; Adab</string>
     <string name="package_name">com.lavoie.sagesse</string>
     <string name="custom_url_scheme">com.lavoie.sagesse</string>
+    <string name="game_services_project_id" translatable="false">188101414249</string>
 </resources>

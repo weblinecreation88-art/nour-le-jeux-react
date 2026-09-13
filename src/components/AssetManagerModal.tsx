@@ -7,9 +7,7 @@ import {
   Trash2,
   Check,
   User,
-  Sparkles,
   Layers,
-  FolderOpen,
   Info
 } from 'lucide-react';
 import { soundManager } from '../utils/audio';
@@ -29,8 +27,9 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
   const [assets, setAssets] = useState<CustomAssetsConfig>(customAssets);
 
   const characterKeys: Array<{ key: keyof CustomAssetsConfig['characters']; label: string; desc: string }> = [
-    { key: 'personnage', label: 'Personnage Principal', desc: 'Avatar du héros dans les dialogues' },
+    { key: 'personnage', label: 'Personnage Principal (Othmân)', desc: 'Avatar du héros dans les dialogues' },
     { key: 'noura', label: 'Noura (Guide & Compagne)', desc: 'Sprite officiel du personnage de Noura' },
+    { key: 'narrateur', label: 'Le Narrateur (Vieux Sage)', desc: 'Sprite de narration et de sagesse' },
     { key: 'waswas', label: 'Waswas (Pensée sombre)', desc: 'Avatar de l’épreuve intérieure' },
     { key: 'grand_waswas', label: 'Grand Waswas (Climax)', desc: 'Avatar du climax de la scène 9' },
     { key: 'jeune', label: 'Jeune Villageois', desc: 'Avatar de l’habitant du village' }
@@ -102,19 +101,19 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="bg-[#181524] border-2 border-amber-500/50 rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200 select-none">
+      <div className="bg-[#fbf7ee] border-3 border-[#3a2312] rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-[0_12px_30px_rgba(0,0,0,0.8)] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-zinc-800 bg-[#1f1b2e]/90">
+        <div className="flex items-center justify-between p-4 sm:p-5 border-b-2 border-[#3a2312] bg-[#f3ebd9]">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-300">
+            <div className="p-2.5 rounded-xl bg-[#ebdfc8] border-2 border-[#3a2312] text-[#d97c27] shadow-xs">
               <ImageIcon className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest font-cinzel">
+              <span className="text-[10px] font-bold text-[#8c5a2b] uppercase tracking-widest font-cinzel">
                 Personnalisation Graphique
               </span>
-              <h2 className="text-base sm:text-xl font-bold text-zinc-100 font-cinzel">
+              <h2 className="text-base sm:text-xl font-bold text-[#3a2312] font-cinzel">
                 Intégrer vos Assets Visuels Personnalisés
               </h2>
             </div>
@@ -125,19 +124,20 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
               soundManager.playSelect();
               onClose();
             }}
-            className="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition-colors cursor-pointer"
+            title="Fermer"
+            className="p-2 rounded-xl bg-[#ebdfc8] hover:bg-[#d9c7ab] text-[#3a2312] border-2 border-[#3a2312] transition-colors cursor-pointer shadow-xs active:translate-y-0.5"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Informative Guidance Banner */}
-        <div className="p-3 sm:px-5 bg-[#231e33] border-b border-zinc-800 flex items-start gap-2.5 text-xs text-zinc-300 leading-relaxed">
-          <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+        <div className="p-3 sm:px-5 bg-[#ebdfc8] border-b border-[#d2be9f] flex items-start gap-2.5 text-xs text-[#5c4028] leading-relaxed">
+          <Info className="w-4 h-4 text-[#d97c27] shrink-0 mt-0.5" />
           <div>
-            <span className="font-semibold text-amber-200">Sources locales détectées : </span>
+            <span className="font-bold text-[#3a2312]">Sources locales détectées : </span>
             Vous pouvez charger directement les fichiers images (PNG, JPG, WebP) de votre dossier local{' '}
-            <code className="px-1.5 py-0.5 bg-zinc-900 border border-zinc-700 rounded text-[11px] text-amber-300 font-mono">
+            <code className="px-1.5 py-0.5 bg-[#fbf7ee] border border-[#b89f81] rounded text-[11px] text-[#8c5a2b] font-mono">
               C:\MES PROJETS\NOUR LE JEUX\sources
             </code>
             . Ils s'afficheront instantanément dans le jeu et sont enregistrés dans votre navigateur.
@@ -145,14 +145,17 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
         </div>
 
         {/* Tab Selector */}
-        <div className="px-4 py-2 bg-[#1b1728] border-b border-zinc-800 flex items-center justify-between">
+        <div className="px-4 py-2.5 bg-[#f3ebd9] border-b border-[#ebdcc4] flex items-center justify-between">
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setActiveTab('characters')}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              onClick={() => {
+                soundManager.playSelect();
+                setActiveTab('characters');
+              }}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold font-cinzel transition-all cursor-pointer ${
                 activeTab === 'characters'
-                  ? 'bg-amber-500 text-zinc-950 font-bold shadow-md'
-                  : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
+                  ? 'bg-[#d97c27] text-white font-bold shadow-xs border border-[#3a2312]'
+                  : 'bg-[#ebdfc8] text-[#5c4028] hover:bg-[#e0cfb4] border border-[#d2be9f]'
               }`}
             >
               <User className="w-3.5 h-3.5" />
@@ -160,11 +163,14 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
             </button>
 
             <button
-              onClick={() => setActiveTab('backgrounds')}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+              onClick={() => {
+                soundManager.playSelect();
+                setActiveTab('backgrounds');
+              }}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold font-cinzel transition-all cursor-pointer ${
                 activeTab === 'backgrounds'
-                  ? 'bg-amber-500 text-zinc-950 font-bold shadow-md'
-                  : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
+                  ? 'bg-[#d97c27] text-white font-bold shadow-xs border border-[#3a2312]'
+                  : 'bg-[#ebdfc8] text-[#5c4028] hover:bg-[#e0cfb4] border border-[#d2be9f]'
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
@@ -174,15 +180,15 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
 
           <button
             onClick={handleResetAll}
-            className="text-[11px] text-zinc-400 hover:text-red-300 flex items-center gap-1 cursor-pointer transition-colors px-2 py-1"
+            className="text-[11px] text-[#991b1b] hover:text-[#7f1d1d] font-bold flex items-center gap-1 cursor-pointer transition-colors px-2 py-1"
           >
-            <Trash2 className="w-3 h-3" />
+            <Trash2 className="w-3.5 h-3.5" />
             <span>Tout réinitialiser</span>
           </button>
         </div>
 
         {/* Items Grid */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-[#fdfbf7] custom-scrollbar">
           {activeTab === 'characters' &&
             characterKeys.map(({ key, label, desc }) => {
               const currentImg = assets.characters[key];
@@ -190,11 +196,11 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
               return (
                 <div
                   key={key}
-                  className="bg-[#201c2f] border border-zinc-800/80 rounded-2xl p-3.5 flex flex-col justify-between gap-3 hover:border-amber-500/40 transition-colors"
+                  className="bg-[#f3ebd9] border-2 border-[#3a2312] rounded-2xl p-3.5 flex flex-col justify-between gap-3 shadow-xs hover:border-[#d97c27] transition-all"
                 >
                   <div className="flex items-start gap-3">
                     {/* Thumbnail Preview */}
-                    <div className="w-16 h-16 rounded-xl bg-zinc-950/80 border-2 border-zinc-700 overflow-hidden flex items-center justify-center shrink-0 relative">
+                    <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-xl bg-[#ebdfc8] border-2 border-[#3a2312] overflow-hidden flex items-center justify-center shrink-0 relative shadow-inner">
                       {currentImg ? (
                         <img
                           src={currentImg}
@@ -203,26 +209,26 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
                           referrerPolicy="no-referrer"
                         />
                       ) : (
-                        <span className="text-[10px] text-zinc-500 text-center font-mono">Défaut</span>
+                        <span className="text-[10px] text-[#8c5a2b] text-center font-mono">Défaut</span>
                       )}
                     </div>
 
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-xs font-bold text-zinc-100 font-cinzel truncate">{label}</h4>
+                      <div className="flex items-center justify-between gap-1">
+                        <h4 className="text-xs sm:text-sm font-bold text-[#3a2312] font-cinzel truncate">{label}</h4>
                         {currentImg && (
-                          <span className="text-[10px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/40 flex items-center gap-0.5">
-                            <Check className="w-2.5 h-2.5" /> Personnalisé
+                          <span className="text-[10px] bg-[#d8f3dc] text-[#1b4332] px-1.5 py-0.5 rounded-md border border-[#74c69d] flex items-center gap-0.5 font-bold shrink-0">
+                            <Check className="w-2.5 h-2.5" /> Modifié
                           </span>
                         )}
                       </div>
-                      <p className="text-[11px] text-zinc-400 mt-0.5">{desc}</p>
+                      <p className="text-[11px] text-[#6b4724] mt-0.5 leading-snug">{desc}</p>
                     </div>
                   </div>
 
                   {/* Upload Controls */}
-                  <div className="flex items-center gap-2 pt-2 border-t border-zinc-800">
-                    <label className="flex-1 py-1.5 px-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer transition-colors">
+                  <div className="flex items-center gap-2 pt-2 border-t border-[#ebdcc4]">
+                    <label className="flex-1 py-2 px-3 rounded-xl bg-[#d97c27] hover:bg-[#c26a1b] text-white border-2 border-[#3a2312] text-xs font-bold font-cinzel flex items-center justify-center gap-1.5 cursor-pointer shadow-[0_2px_0_#3a2312] active:translate-y-0.5 transition-all">
                       <Upload className="w-3.5 h-3.5" />
                       <span>{currentImg ? 'Remplacer l’image' : 'Importer image'}</span>
                       <input
@@ -240,7 +246,7 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
                       <button
                         onClick={() => handleRemoveAsset('characters', key)}
                         title="Revenir au visuel par défaut"
-                        className="p-1.5 rounded-xl bg-zinc-800 hover:bg-red-950/40 text-zinc-400 hover:text-red-300 border border-zinc-700 transition-colors cursor-pointer"
+                        className="p-2 rounded-xl bg-[#fee2e2] hover:bg-[#fecaca] text-[#991b1b] border-2 border-[#b91c1c] transition-colors cursor-pointer shadow-xs active:translate-y-0.5"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -257,11 +263,11 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
               return (
                 <div
                   key={key}
-                  className="bg-[#201c2f] border border-zinc-800/80 rounded-2xl p-3.5 flex flex-col justify-between gap-3 hover:border-amber-500/40 transition-colors"
+                  className="bg-[#f3ebd9] border-2 border-[#3a2312] rounded-2xl p-3.5 flex flex-col justify-between gap-3 shadow-xs hover:border-[#d97c27] transition-all"
                 >
                   <div className="flex items-start gap-3">
                     {/* Thumbnail Preview */}
-                    <div className="w-24 h-16 rounded-xl bg-zinc-950/80 border-2 border-zinc-700 overflow-hidden flex items-center justify-center shrink-0 relative">
+                    <div className="w-24 h-16 sm:w-28 sm:h-18 rounded-xl bg-[#ebdfc8] border-2 border-[#3a2312] overflow-hidden flex items-center justify-center shrink-0 relative shadow-inner">
                       {currentImg ? (
                         <img
                           src={currentImg}
@@ -270,26 +276,26 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
                           referrerPolicy="no-referrer"
                         />
                       ) : (
-                        <span className="text-[10px] text-zinc-500 text-center font-mono">Défaut</span>
+                        <span className="text-[10px] text-[#8c5a2b] text-center font-mono">Défaut</span>
                       )}
                     </div>
 
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-xs font-bold text-zinc-100 font-cinzel truncate">{label}</h4>
+                      <div className="flex items-center justify-between gap-1">
+                        <h4 className="text-xs sm:text-sm font-bold text-[#3a2312] font-cinzel truncate">{label}</h4>
                         {currentImg && (
-                          <span className="text-[10px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/40 flex items-center gap-0.5">
-                            <Check className="w-2.5 h-2.5" /> Personnalisé
+                          <span className="text-[10px] bg-[#d8f3dc] text-[#1b4332] px-1.5 py-0.5 rounded-md border border-[#74c69d] flex items-center gap-0.5 font-bold shrink-0">
+                            <Check className="w-2.5 h-2.5" /> Modifié
                           </span>
                         )}
                       </div>
-                      <p className="text-[11px] text-zinc-400 mt-0.5">{desc}</p>
+                      <p className="text-[11px] text-[#6b4724] mt-0.5 leading-snug">{desc}</p>
                     </div>
                   </div>
 
                   {/* Upload Controls */}
-                  <div className="flex items-center gap-2 pt-2 border-t border-zinc-800">
-                    <label className="flex-1 py-1.5 px-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer transition-colors">
+                  <div className="flex items-center gap-2 pt-2 border-t border-[#ebdcc4]">
+                    <label className="flex-1 py-2 px-3 rounded-xl bg-[#d97c27] hover:bg-[#c26a1b] text-white border-2 border-[#3a2312] text-xs font-bold font-cinzel flex items-center justify-center gap-1.5 cursor-pointer shadow-[0_2px_0_#3a2312] active:translate-y-0.5 transition-all">
                       <Upload className="w-3.5 h-3.5" />
                       <span>{currentImg ? 'Remplacer le décor' : 'Importer arrière-plan'}</span>
                       <input
@@ -307,7 +313,7 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
                       <button
                         onClick={() => handleRemoveAsset('backgrounds', key)}
                         title="Revenir au décor par défaut"
-                        className="p-1.5 rounded-xl bg-zinc-800 hover:bg-red-950/40 text-zinc-400 hover:text-red-300 border border-zinc-700 transition-colors cursor-pointer"
+                        className="p-2 rounded-xl bg-[#fee2e2] hover:bg-[#fecaca] text-[#991b1b] border-2 border-[#b91c1c] transition-colors cursor-pointer shadow-xs active:translate-y-0.5"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -319,8 +325,8 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-3 sm:px-6 bg-[#1f1b2e] border-t border-zinc-800 flex items-center justify-between">
-          <span className="text-[11px] text-zinc-400">
+        <div className="p-3 sm:px-6 bg-[#f3ebd9] border-t-2 border-[#3a2312] flex items-center justify-between">
+          <span className="text-[11px] text-[#6b4724] font-medium">
             Les images sont sauvegardées localement dans votre profil de jeu.
           </span>
 
@@ -329,7 +335,7 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
               soundManager.playSelect();
               onClose();
             }}
-            className="px-5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs rounded-xl transition-all cursor-pointer font-cinzel"
+            className="px-5 py-2.5 bg-[#2d6a4f] hover:bg-[#1b4332] text-[#fbf7ee] font-black text-xs sm:text-sm rounded-xl border-2 border-[#1b4332] shadow-[0_2px_0_#1b4332] active:translate-y-0.5 transition-all cursor-pointer font-cinzel"
           >
             Fermer et Appliquer
           </button>

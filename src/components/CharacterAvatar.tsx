@@ -1,7 +1,7 @@
 import React from 'react';
 import { CharacterId, CharacterEmotion } from '../types';
 import { Sparkles, Compass, Moon, User, HelpCircle } from 'lucide-react';
-import { CustomAssetsConfig } from '../utils/assets';
+import { CustomAssetsConfig, DEFAULT_ASSETS } from '../utils/assets';
 
 interface CharacterAvatarProps {
   speaker: CharacterId;
@@ -17,25 +17,42 @@ export const CharacterAvatar: React.FC<CharacterAvatarProps> = ({
   customAssets
 }) => {
   const sizeClasses = {
-    sm: 'w-10 h-10',
-    md: 'w-14 h-14 md:w-16 md:h-16',
-    lg: 'w-20 h-20 md:w-24 md:h-24'
+    sm: 'w-8 h-8 sm:w-10 sm:h-10',
+    md: 'w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14',
+    lg: 'w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24'
   };
 
-  // Check if custom uploaded asset exists for this character
-  const customImg =
-    customAssets?.characters &&
-    (speaker === 'personnage'
-      ? customAssets.characters.personnage
-      : speaker === 'noura'
-      ? customAssets.characters.noura
-      : speaker === 'waswas'
-      ? customAssets.characters.waswas
-      : speaker === 'grand_waswas'
-      ? customAssets.characters.grand_waswas || customAssets.characters.waswas
-      : speaker === 'jeune'
-      ? customAssets.characters.jeune
-      : '');
+  // Check if custom uploaded asset exists or fallback to default
+  let avatarImg =
+    (customAssets?.characters &&
+      (speaker === 'personnage'
+        ? customAssets.characters.personnage
+        : speaker === 'noura'
+        ? customAssets.characters.noura
+        : speaker === 'waswas'
+        ? customAssets.characters.waswas
+        : speaker === 'grand_waswas'
+        ? customAssets.characters.grand_waswas || customAssets.characters.waswas
+        : speaker === 'jeune'
+        ? customAssets.characters.jeune
+        : speaker === 'enfant'
+        ? customAssets.characters.enfant || customAssets.characters.jeune
+        : speaker === 'marchand'
+        ? customAssets.characters.marchand
+        : speaker === 'narration'
+        ? customAssets.characters.narrateur
+        : '')) || '';
+
+  if (!avatarImg && DEFAULT_ASSETS.characters) {
+    if (speaker === 'personnage') avatarImg = DEFAULT_ASSETS.characters.personnage || '';
+    else if (speaker === 'noura') avatarImg = DEFAULT_ASSETS.characters.noura || '';
+    else if (speaker === 'narration') avatarImg = DEFAULT_ASSETS.characters.narrateur || '';
+    else if (speaker === 'jeune') avatarImg = DEFAULT_ASSETS.characters.jeune || '';
+    else if (speaker === 'enfant') avatarImg = DEFAULT_ASSETS.characters.enfant || DEFAULT_ASSETS.characters.jeune || '';
+    else if (speaker === 'marchand') avatarImg = DEFAULT_ASSETS.characters.marchand || '';
+    else if (speaker === 'waswas') avatarImg = DEFAULT_ASSETS.characters.waswas || '';
+    else if (speaker === 'grand_waswas') avatarImg = DEFAULT_ASSETS.characters.grand_waswas || '';
+  }
 
   const getSpeakerStyle = () => {
     switch (speaker) {
@@ -56,13 +73,31 @@ export const CharacterAvatar: React.FC<CharacterAvatarProps> = ({
         return {
           bg: 'bg-gradient-to-br from-[#2e1065] via-[#3b0764] to-[#180828] border-[#a855f7] shadow-purple-950/50',
           textColor: 'text-purple-300',
-          title: speaker === 'grand_waswas' ? 'Grand Waswas' : 'Waswas'
+          title: speaker === 'grand_waswas' ? 'Grand Waswâs' : 'Waswâs'
         };
       case 'jeune':
         return {
           bg: 'bg-gradient-to-br from-[#78350f] via-[#92400e] to-[#451a03] border-[#d97706] shadow-amber-950/40',
           textColor: 'text-amber-200',
-          title: 'Jeune villageois'
+          title: 'Jeune du Village'
+        };
+      case 'enfant':
+        return {
+          bg: 'bg-gradient-to-br from-[#164e63] via-[#0e7490] to-[#155e75] border-[#38bdf8] shadow-cyan-950/40',
+          textColor: 'text-cyan-200',
+          title: "L'Enfant à l'Attelle"
+        };
+      case 'marchand':
+        return {
+          bg: 'bg-gradient-to-br from-[#7c2d12] via-[#9a3412] to-[#431407] border-[#ea580c] shadow-orange-950/40',
+          textColor: 'text-amber-200',
+          title: 'Le Marchand'
+        };
+      case 'narration':
+        return {
+          bg: 'bg-gradient-to-br from-[#3d2612] via-[#5c3a1b] to-[#291708] border-[#d97c27] shadow-amber-950/40',
+          textColor: 'text-amber-200',
+          title: 'Le Vieux Sage'
         };
       default:
         return {
@@ -79,14 +114,16 @@ export const CharacterAvatar: React.FC<CharacterAvatarProps> = ({
     <div
       className={`relative ${sizeClasses[size]} rounded-2xl border-2 ${style.bg} flex items-center justify-center shadow-lg transition-all duration-300 overflow-hidden shrink-0`}
     >
-      {/* If custom image provided, render custom image */}
-      {customImg ? (
+      {/* If avatar image available (custom or default pixel asset), render image */}
+      {avatarImg ? (
         <img
-          src={customImg}
+          src={avatarImg}
           alt={style.title}
           className={`w-full h-full ${
             speaker === 'waswas' || speaker === 'grand_waswas'
               ? 'object-contain p-0.5 bg-black/95 scale-105'
+              : speaker === 'narration'
+              ? 'object-contain p-0.5 scale-110 object-top'
               : 'object-cover object-top'
           }`}
           referrerPolicy="no-referrer"
