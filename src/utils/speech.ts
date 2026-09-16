@@ -337,10 +337,10 @@ class SpeechManager {
         const match = beat.id.match(/^s(\d+)/);
         if (match) {
           const sId = parseInt(match[1], 10);
-          if (sId === 201 || sId === 202 || sId >= 17) {
-            chapterNum = 3;
-          } else if (sId === 142 || (sId >= 10 && sId <= 16)) {
+          if (sId === 142 || (sId >= 10 && sId <= 16)) {
             chapterNum = 2;
+          } else if (sId === 201 || sId === 202 || (sId >= 17 && sId <= 25)) {
+            chapterNum = 3;
           } else {
             chapterNum = 1;
           }
@@ -378,8 +378,7 @@ class SpeechManager {
           if (this.currentAudio === audio) {
             this.currentAudio = null;
             this.notifySpeaking(false);
-            // Fallback to native speech only if MP3 fails to load
-            this.speak(beat.speaker, cleanText, options);
+            options?.onEnd?.();
           }
         };
 
@@ -396,8 +395,8 @@ class SpeechManager {
       }
     }
 
-    // Direct native speech fallback
-    this.speak(beat.speaker, cleanText, options);
+    // If no audio file, silently finish without robotic TTS interruption
+    options?.onEnd?.();
   }
 
   /**
