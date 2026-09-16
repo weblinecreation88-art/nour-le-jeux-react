@@ -599,7 +599,7 @@ export const CHAPTER_3_SCENES: Scene[] = [
         type: 'dialogue',
         speaker: 'noura',
         isPontDeNour: true,
-        text: '« L\'exemple des croyants dans leur amour, leur miséricorde et leur compassion mutuels est comme le corps : si un membre souffre, tout le reste du corps répond par l\'insomnie et la fièvre » (Bukhari 6011). Vous incarnez cette parole, mes enfants.',
+        text: '« L\'exemple des croyants dans leur amour, leur miséricorde et leur compassion mutuels est comme le corps : si un membre souffre, tout le reste du corps répond par l\'insomnie et la fièvre » (Bukhari 6011). Vous donnez vie à cette noble parole, mes enfants.',
         emotion: 'smiling'
       },
       {

@@ -10,6 +10,7 @@
  * - Le Marchand & Le Jeune : Charon (Expressif, vivant)
  */
 
+import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -17,7 +18,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || '';
 
 if (!apiKey) {
   console.error("❌ Erreur : Clé GEMINI_API_KEY non trouvée !");
@@ -75,9 +76,24 @@ const chapterArg = process.argv.find((a, i) => process.argv[i - 1] === '--chapte
 if (chapterArg) {
   const chNum = parseInt(chapterArg, 10);
   dialogues = dialogues.filter((d) => d.chapter === chNum);
-  console.log(`🎯 Filtre actif : Chapitre ${chNum} (${dialogues.length} dialogues)n`);
-} else {
-  console.log(`🎯 Traitement complet : ${dialogues.length} dialoguesn`);
+  console.log(`🎯 Filtre actif : Chapitre ${chNum} (${dialogues.length} dialogues)\n`);
+}
+
+// Filtrer par scène(s) si demandé en argument (ex: --scene 1,2)
+const sceneArg = process.argv.find((a, i) => process.argv[i - 1] === '--scene' || process.argv[i - 1] === '--scenes');
+if (sceneArg) {
+  const sceneIds = sceneArg.split(',').map((s) => parseInt(s.trim(), 10)).filter((n) => !isNaN(n));
+  dialogues = dialogues.filter((d) => sceneIds.includes(d.sceneId));
+  console.log(`🎯 Filtre actif : Scènes [${sceneIds.join(', ')}] (${dialogues.length} dialogues)\n`);
+}
+
+if (!chapterArg && !sceneArg) {
+  console.log(`🎯 Traitement complet : ${dialogues.length} dialogues\n`);
+}
+
+const isForce = process.argv.includes('--force');
+if (isForce) {
+  console.log(`⚡ Mode FORCE actif : Régénération complète même si les fichiers existent déjà.\n`);
 }
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -87,9 +103,7 @@ let skipCount = 0;
 let errorCount = 0;
 
 const TTS_MODELS = [
-  'gemini-3.1-flash-tts-preview',
-  'gemini-2.5-pro-preview-tts',
-  'gemini-2.5-flash-preview-tts'
+  'gemini-3.1-flash-tts-preview'
 ];
 let currentModelIndex = 0;
 
@@ -101,8 +115,8 @@ for (let i = 0; i < dialogues.length; i++) {
   const targetMp3 = path.join(targetDir, `${d.id}.mp3`);
   const targetWav = path.join(targetDir, `${d.id}.wav`);
 
-  // Sauter si déjà présent
-  if (fs.existsSync(targetMp3) && fs.statSync(targetMp3).size > 2000) {
+  // Sauter si déjà présent (sauf si --force)
+  if (!isForce && fs.existsSync(targetMp3) && fs.statSync(targetMp3).size > 2000) {
     console.log(`⏩ [${i + 1}/${dialogues.length}] Déjà généré : ${d.id} (${d.characterName})`);
     skipCount++;
     continue;
@@ -125,9 +139,7 @@ for (let i = 0; i < dialogues.length; i++) {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: (d.speaker === 'narration' || d.speaker === 'savant')
-                ? `[Personnage: Un vieux sage centenaire, calme et philosophique, voix profonde, rythme lent avec des pauses marquées après chaque phrase].\n\n${d.speechText}`
-                : d.speechText
+              text: d.speechText
             }]
           }],
           generationConfig: {

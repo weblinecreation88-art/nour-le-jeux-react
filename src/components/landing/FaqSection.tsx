@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { FAQS } from '../../data/gameData';
+import React, { useState } from 'react';
 import { HelpCircle, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -31,7 +30,7 @@ export default function FaqSection() {
 
         {/* Accordion FAQ Items */}
         <div className="space-y-4">
-          {FAQS.map((faq, idx) => {
+          {t.faq.items.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div

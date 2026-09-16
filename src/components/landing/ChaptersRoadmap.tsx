@@ -13,28 +13,31 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAutoPlay, setIsAutoPlay] = useState<boolean>(true);
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const activeChapter: Chapter = CHAPTERS[activeIndex] || CHAPTERS[0];
+  const chapters = t.roadmap.chapters || [];
+  const activeChapter = chapters[activeIndex] || chapters[0];
 
   const SLIDE_DURATION = 6000; // 6 seconds per chapter
 
   // Auto-slide effect
   useEffect(() => {
-    if (!isAutoPlay || isHovered) return;
+    if (!isAutoPlay || isHovered || chapters.length === 0) return;
 
     const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % CHAPTERS.length);
+      setActiveIndex((prev) => (prev + 1) % chapters.length);
     }, SLIDE_DURATION);
 
     return () => clearInterval(timer);
-  }, [isAutoPlay, isHovered, activeIndex]);
+  }, [isAutoPlay, isHovered, activeIndex, chapters.length]);
 
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? CHAPTERS.length - 1 : prev - 1));
+    setActiveIndex((prev) => (prev === 0 ? chapters.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % CHAPTERS.length);
+    setActiveIndex((prev) => (prev + 1) % chapters.length);
   };
+
+  if (!activeChapter) return null;
 
   return (
     <section 
@@ -69,13 +72,8 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
           <div className="flex items-center justify-between text-xs text-stone-400 px-1">
             <div className="flex items-center gap-2">
               <span className="font-bold text-amber-400 uppercase tracking-wider text-[11px] font-cinzel">
-                🧭 Choisis un Chapitre ({activeIndex + 1}/{CHAPTERS.length})
+                {t.roadmap.chooseChapter} ({activeIndex + 1}/{chapters.length})
               </span>
-              {isHovered && (
-                <span className="text-[10px] text-stone-400 bg-stone-900 px-2 py-0.5 rounded-md border border-stone-800">
-                  Défilement en pause
-                </span>
-              )}
             </div>
 
             {/* Arrows & Pause Button */}
@@ -83,7 +81,6 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
               <button
                 type="button"
                 onClick={() => setIsAutoPlay(!isAutoPlay)}
-                title={isAutoPlay ? "Mettre en pause le défilement automatique" : "Activer le défilement automatique"}
                 className="p-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 border border-amber-500/20 text-stone-300 hover:text-amber-300 transition-colors cursor-pointer"
               >
                 {isAutoPlay ? <Pause className="w-3.5 h-3.5" /> : <PlayIcon className="w-3.5 h-3.5" />}
@@ -92,7 +89,7 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
               <button
                 type="button"
                 onClick={handlePrev}
-                aria-label="Chapitre précédent"
+                aria-label="Previous chapter"
                 className="p-1.5 rounded-lg bg-stone-900 hover:bg-amber-950/60 border border-amber-500/30 text-amber-300 hover:scale-105 transition-all cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -100,7 +97,7 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
               <button
                 type="button"
                 onClick={handleNext}
-                aria-label="Chapitre suivant"
+                aria-label="Next chapter"
                 className="p-1.5 rounded-lg bg-stone-900 hover:bg-amber-950/60 border border-amber-500/30 text-amber-300 hover:scale-105 transition-all cursor-pointer"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -110,7 +107,7 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
 
           {/* Chapters Horizontal Navigation Tabs */}
           <div className="flex items-center gap-3 overflow-x-auto pb-3 pt-1 px-1 no-scrollbar">
-            {CHAPTERS.map((ch, idx) => {
+            {chapters.map((ch, idx) => {
               const isSelected = activeIndex === idx;
               const isAvailable = ch.status === 'available';
 
@@ -118,7 +115,7 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
                 <button
                   key={ch.id}
                   onClick={() => setActiveIndex(idx)}
-                  className={`shrink-0 px-4 sm:px-5 py-3 rounded-2xl border-2 text-left transition-all duration-300 cursor-pointer flex items-center gap-3 relative ${
+                  className={`shrink-0 px-4 sm:px-5 py-3 rounded-2xl border-2 text-left rtl:text-right transition-all duration-300 cursor-pointer flex items-center gap-3 relative ${
                     isSelected
                       ? 'bg-gradient-to-r from-amber-500 via-amber-600 to-orange-500 border-amber-300 text-stone-950 shadow-[0_0_25px_rgba(245,158,11,0.5)] scale-105 z-10'
                       : 'bg-[#151221] hover:bg-[#201c30] border-amber-500/20 hover:border-amber-400/50 text-stone-200 hover:scale-102'
@@ -172,7 +169,7 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
             <div className="w-full h-1 bg-stone-900 rounded-full overflow-hidden">
               <div 
                 key={activeIndex}
-                className="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full animate-[progress_6s_linear]"
+                className="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full"
                 style={{
                   animation: `progressBar ${SLIDE_DURATION}ms linear`
                 }}
@@ -242,7 +239,7 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2">
                     <span className="px-2.5 py-0.5 rounded-md bg-amber-500/20 border border-amber-500/40 text-xs font-mono uppercase tracking-widest text-amber-300 font-bold">
-                      Chapitre {activeChapter.number}
+                      {activeChapter.number}
                     </span>
                     <span className="text-xs text-stone-400">
                       • {activeChapter.statusLabel}
@@ -263,7 +260,7 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
                   </div>
                   <div>
                     <span className="text-[10px] uppercase font-bold text-amber-300/80 block font-cinzel tracking-wider">
-                      Vertu Centrale à Maîtriser
+                      {t.roadmap.virtueToMaster}
                     </span>
                     <span className="text-sm sm:text-base font-bold text-amber-100 font-cinzel">
                       {activeChapter.virtue}
@@ -279,7 +276,7 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
                 {/* Highlights List */}
                 <div className="space-y-2 pt-2">
                   <span className="text-[11px] uppercase tracking-wider font-cinzel font-bold text-amber-400 block">
-                    Épreuves & Quêtes Clés du Chapitre
+                    {t.roadmap.keyTrialsQuests}
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {activeChapter.highlights.map((h, i) => (
@@ -300,22 +297,22 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
                     className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-stone-950 font-cinzel font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_25px_rgba(245,158,11,0.5)] hover:scale-105 active:translate-y-0.5 transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
                     <Play className="w-4 h-4 fill-stone-950" />
-                    <span>Jouer au Chapitre 1 Maintenant</span>
+                    <span>{t.roadmap.playChapter1Now}</span>
                   </button>
                 ) : (
                   <div className="w-full sm:w-auto px-5 py-3 rounded-2xl bg-stone-900 border border-stone-700 text-stone-300 text-xs flex items-center gap-2.5">
                     <Lock className="w-4 h-4 text-amber-400" />
-                    <span>Débloquable dans le Pack Fondateur</span>
+                    <span>{t.roadmap.founderPackUnlock}</span>
                   </div>
                 )}
 
                 {/* Pagination Dots */}
                 <div className="flex items-center gap-2">
-                  {CHAPTERS.map((_, dotIdx) => (
+                  {chapters.map((_, dotIdx) => (
                     <button
                       key={dotIdx}
                       onClick={() => setActiveIndex(dotIdx)}
-                      aria-label={`Aller au chapitre ${dotIdx + 1}`}
+                      aria-label={`Chapter ${dotIdx + 1}`}
                       className={`h-2.5 rounded-full transition-all cursor-pointer ${
                         activeIndex === dotIdx 
                           ? 'w-8 bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.8)]' 

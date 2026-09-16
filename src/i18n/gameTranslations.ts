@@ -83,8 +83,8 @@ export const gameTranslations: Record<Language, GameUI> = {
   fr: {
     hud: {
       level: 'Niveau',
-      faithXp: 'XP Foi',
-      waswasGauge: 'Trouble Waswâs',
+      faithXp: 'Nour / Lumière',
+      waswasGauge: 'Pression de l\'Ombre',
       day: 'Jour',
       streak: 'Série',
       soundOn: 'Audio Actif',
@@ -116,13 +116,13 @@ export const gameTranslations: Record<Language, GameUI> = {
       speakerNarration: 'Récit'
     },
     actions: {
-      modalTitle: 'Mission dans la Vraie Vie',
-      realWorldMission: 'Le jeu s’arrête ici pour un instant de pratique concrète :',
-      instructionHeader: 'Ce que tu es invité à faire maintenant :',
+      modalTitle: 'Quête Réelle • Éclat du Monde',
+      realWorldMission: 'Une action dans ta vraie vie apporte de la lumière à ton voyage :',
+      instructionHeader: 'Invitation à agir dans le réel :',
       reflectionHeader: 'Méditation intérieure :',
       validateButton: 'J’ai accompli cette action dans la vraie vie !',
       validatedBadge: '✓ Action validée avec succès',
-      xpEarned: '+{xp} XP de Foi obtenus !',
+      xpEarned: '+{xp} Nour obtenus !',
       close: 'Fermer'
     },
     quiz: {
@@ -136,7 +136,7 @@ export const gameTranslations: Record<Language, GameUI> = {
       tryAgain: 'Réessayer'
     },
     climax: {
-      battleTitle: 'Le Combat de l’Âme : Climax du Chapitre 1',
+      battleTitle: 'Le Combat de l’Âme : Le Sommet du Chapitre 1',
       subtitle: 'Dissipez les 5 couches de brume du Waswâs par les vertus du cœur.',
       mistOpacity: 'Brume du Waswâs :',
       currentVirtue: 'Étape spirituelle :',
@@ -161,8 +161,8 @@ export const gameTranslations: Record<Language, GameUI> = {
   en: {
     hud: {
       level: 'Level',
-      faithXp: 'Faith XP',
-      waswasGauge: 'Waswas Doubt',
+      faithXp: 'Nour / Light',
+      waswasGauge: 'Shadow Pressure',
       day: 'Day',
       streak: 'Streak',
       soundOn: 'Audio On',
@@ -194,13 +194,13 @@ export const gameTranslations: Record<Language, GameUI> = {
       speakerNarration: 'Narrator'
     },
     actions: {
-      modalTitle: 'Real-World Kindness Quest',
-      realWorldMission: 'The game pauses here for a moment of meaningful action in your life:',
-      instructionHeader: 'What you are invited to do right now:',
+      modalTitle: 'Life Quest • World Glow',
+      realWorldMission: 'An action in your real life brings light to your journey:',
+      instructionHeader: 'Invitation to act in real life:',
       reflectionHeader: 'Heart Contemplation:',
-      validateButton: 'I have completed this action in real life!',
+      validateButton: 'I did it just now in real life!',
       validatedBadge: '✓ Action Successfully Completed',
-      xpEarned: '+{xp} Faith XP Earned!',
+      xpEarned: '+{xp} Nour Earned!',
       close: 'Close'
     },
     quiz: {
@@ -214,7 +214,7 @@ export const gameTranslations: Record<Language, GameUI> = {
       tryAgain: 'Try Again'
     },
     climax: {
-      battleTitle: 'Battle of the Soul: Chapter 1 Climax',
+      battleTitle: 'Battle of the Soul: Chapter 1 Summit',
       subtitle: 'Dispel the 5 layers of Waswas fog using virtues of the heart.',
       mistOpacity: 'Waswas Fog Level:',
       currentVirtue: 'Spiritual Step:',
@@ -239,8 +239,8 @@ export const gameTranslations: Record<Language, GameUI> = {
   ar: {
     hud: {
       level: 'المستوى',
-      faithXp: 'نقاط الإيمان',
-      waswasGauge: 'كدر الوسواس',
+      faithXp: 'نور / إشراق',
+      waswasGauge: 'ضغط الوسواس',
       day: 'اليوم',
       streak: 'التتابع',
       soundOn: 'الصوت مفعّل',
@@ -272,13 +272,13 @@ export const gameTranslations: Record<Language, GameUI> = {
       speakerNarration: 'الراوي'
     },
     actions: {
-      modalTitle: 'مهمة عملية في الحياة الحقيقية',
-      realWorldMission: 'تتوقف اللعبة هنا للحظة تطبيق عملي ونية خالصة لله :',
-      instructionHeader: 'ما أنت مدعو للقيام به الآن في واقعك :',
+      modalTitle: 'مهمة واقعية • إشراق العالم',
+      realWorldMission: 'عمل في واقعك يضفي نوراً على رحلتك :',
+      instructionHeader: 'دعوة للعمل في الواقع :',
       reflectionHeader: 'تأمل قلبي :',
       validateButton: 'لقد قمت بهذا العمل الطيب في الواقع !',
       validatedBadge: '✓ تم إنجاز العمل بنجاح',
-      xpEarned: '+{xp} نقطة إيمان مضافة !',
+      xpEarned: '+{xp} نور مضاف !',
       close: 'إغلاق'
     },
     quiz: {

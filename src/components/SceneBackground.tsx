@@ -205,6 +205,22 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
             <img src={bgVillage} alt="Place du marché — Le calme préservé par le silence" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
           </div>
         )}
+      </div>
+    );
+  }
+
+  // Dynamic Scene for Chapitre 2 — Scène 12 (Village Méfiant / Tension du Marché):
+  if (theme === 'village_mefiant') {
+    const bgMefiant = customAssets?.backgrounds?.village_mefiant || DEFAULT_ASSETS.backgrounds.village_mefiant || DEFAULT_ASSETS.backgrounds.village;
+
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+        {bgMefiant && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <img src={bgMefiant} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
+            <img src={bgMefiant} alt="Ruelle du village sous la tension" className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${isContemplating ? 'scale-105' : 'scale-100'}`} referrerPolicy="no-referrer" />
+          </div>
+        )}
         <div className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${isContemplating ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20' : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'}`} />
       </div>
     );
@@ -797,6 +813,11 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
               alt=""
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                if (DEFAULT_ASSETS.backgrounds.geste_renverse && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.geste_renverse) {
+                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.geste_renverse;
+                }
+              }}
             />
             <img
               src={bgRenverse}
@@ -805,6 +826,11 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                if (DEFAULT_ASSETS.backgrounds.geste_renverse && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.geste_renverse) {
+                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.geste_renverse;
+                }
+              }}
             />
           </div>
         )}
@@ -821,6 +847,11 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
               alt=""
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                if (DEFAULT_ASSETS.backgrounds.geste && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.geste) {
+                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.geste;
+                }
+              }}
             />
             <img
               src={bgRanges}
@@ -829,6 +860,11 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                if (DEFAULT_ASSETS.backgrounds.geste && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.geste) {
+                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.geste;
+                }
+              }}
             />
           </div>
         )}
@@ -869,6 +905,11 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
               alt=""
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                if (DEFAULT_ASSETS.backgrounds.jardin_encombre && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.jardin_encombre) {
+                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.jardin_encombre;
+                }
+              }}
             />
             <img
               src={bgEncombre}
@@ -877,6 +918,11 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                if (DEFAULT_ASSETS.backgrounds.jardin_encombre && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.jardin_encombre) {
+                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.jardin_encombre;
+                }
+              }}
             />
           </div>
         )}
@@ -893,6 +939,11 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
               alt=""
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                if (DEFAULT_ASSETS.backgrounds.jardin && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.jardin) {
+                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.jardin;
+                }
+              }}
             />
             <img
               src={bgRevived}
@@ -901,6 +952,11 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                if (DEFAULT_ASSETS.backgrounds.jardin && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.jardin) {
+                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.jardin;
+                }
+              }}
             />
           </div>
         )}

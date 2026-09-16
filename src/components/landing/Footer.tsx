@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Play, Share2, MessageCircle, Copy, Check, Heart, Compass, Sparkles, Download, Smartphone } from 'lucide-react';
+import { Play, MessageCircle, Copy, Check, Heart, Sparkles, Download, Smartphone } from 'lucide-react';
 import { GAME_URL, APK_DOWNLOAD_URL } from '../../data/gameData';
+import { trackApkDownloadClick, trackPlayGameClick } from '../../utils/analytics';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface FooterProps {
@@ -19,7 +20,7 @@ export default function Footer({ onOpenGame }: FooterProps) {
 
   const handleShareWhatsapp = () => {
     const text = encodeURIComponent(
-      "Découvre NOUR, un super jeu de rôle RPG narratif et bienveillant gratuit sur navigateur : rejoins la quête d'Othmân ! https://playnour.online/"
+      t.footer.shareWhatsappText || "NOUR RPG: https://playnour.online/"
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
   };
@@ -55,7 +56,10 @@ export default function Footer({ onOpenGame }: FooterProps) {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-4 flex-wrap">
               <button
                 id="btn-footer-launch"
-                onClick={onOpenGame}
+                onClick={() => {
+                  trackPlayGameClick('footer_launch');
+                  onOpenGame();
+                }}
                 className="w-full sm:w-auto px-7 py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-stone-950 font-cinzel font-extrabold text-sm sm:text-base tracking-wider shadow-[0_0_35px_rgba(245,158,11,0.6)] hover:scale-105 transition-all cursor-pointer flex items-center justify-center gap-3"
               >
                 <Play className="w-5 h-5 fill-stone-950" />
@@ -67,6 +71,7 @@ export default function Footer({ onOpenGame }: FooterProps) {
                 href={APK_DOWNLOAD_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackApkDownloadClick('footer_main')}
                 className="w-full sm:w-auto px-6 py-4 rounded-xl bg-emerald-800/90 hover:bg-emerald-700 border border-emerald-400/50 text-emerald-100 font-cinzel font-bold text-sm tracking-wide transition-all hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center gap-2 shadow-lg"
               >
                 <Download className="w-4 h-4 text-emerald-300" />
@@ -78,7 +83,7 @@ export default function Footer({ onOpenGame }: FooterProps) {
                 className="w-full sm:w-auto px-6 py-4 rounded-xl bg-stone-900/80 hover:bg-stone-800 border border-amber-500/30 text-amber-200 font-cinzel font-semibold text-sm tracking-wide transition-all cursor-pointer flex items-center justify-center gap-2"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-400" />
-                <span>Partager sur WhatsApp</span>
+                <span>{t.footer.shareWhatsapp}</span>
               </button>
             </div>
 
@@ -90,12 +95,12 @@ export default function Footer({ onOpenGame }: FooterProps) {
                 {copied ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-400 font-medium">Lien copié dans le presse-papier !</span>
+                    <span className="text-emerald-400 font-medium">{t.footer.linkCopied}</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Copier le lien de la page</span>
+                    <span>{t.footer.copyLink}</span>
                   </>
                 )}
               </button>
@@ -129,61 +134,58 @@ export default function Footer({ onOpenGame }: FooterProps) {
                   NOUR
                 </span>
                 <span className="text-[11px] text-amber-300/60 font-sans">
-                  Jeu de Rôle Initiatique & Bienveillant
+                  {t.footer.brandSubtitle}
                 </span>
               </div>
             </div>
 
             <p className="text-xs text-stone-400 leading-relaxed max-w-sm">
-              NOUR est une œuvre indépendante dédiée à l'apprentissage émotionnel, 
-              à la lutte contre les pensées négatives et à l'ancrage des valeurs éthiques 
-              universelles à travers le jeu vidéo.
+              {t.footer.brandDesc}
             </p>
 
             <div className="text-xs text-stone-400 flex items-center gap-1">
-              <span>Fait avec bienveillance & passion</span>
-              <Heart className="w-3.5 h-3.5 text-red-400 fill-red-400 mx-1" />
-              <span>pour tous les âges.</span>
+              <span>{t.footer.madeWithLove}</span>
             </div>
           </div>
 
           {/* Col 2: Navigation */}
           <div className="space-y-3">
             <span className="font-cinzel font-bold text-sm text-amber-200 block">
-              Navigation
+              {t.footer.navTitle}
             </span>
             <ul className="space-y-2 text-xs">
-              <li><a href="#hero" className="hover:text-amber-300 transition-colors">Accueil</a></li>
-              <li><a href="#demo" className="hover:text-amber-300 transition-colors">Démo du Waswâs</a></li>
-              <li><a href="#personnages" className="hover:text-amber-300 transition-colors">Personnages</a></li>
-              <li><a href="#mecaniques" className="hover:text-amber-300 transition-colors">Mécaniques de Jeu</a></li>
-              <li><a href="#chapitres" className="hover:text-amber-300 transition-colors">Les 5 Chapitres</a></li>
-              <li><a href="#savoir" className="hover:text-amber-300 transition-colors">Le Livre du Savoir</a></li>
+              <li><a href="#hero" className="hover:text-amber-300 transition-colors">{t.footer.navHome}</a></li>
+              <li><a href="#demo" className="hover:text-amber-300 transition-colors">{t.footer.navCombat}</a></li>
+              <li><a href="#personnages" className="hover:text-amber-300 transition-colors">{t.footer.navChars}</a></li>
+              <li><a href="#mecaniques" className="hover:text-amber-300 transition-colors">{t.footer.navMechanics}</a></li>
+              <li><a href="#chapitres" className="hover:text-amber-300 transition-colors">{t.footer.navChapters}</a></li>
+              <li><a href="#savoir" className="hover:text-amber-300 transition-colors">{t.footer.navWisdom}</a></li>
             </ul>
           </div>
 
           {/* Col 3: Legal & Info */}
           <div className="space-y-3">
             <span className="font-cinzel font-bold text-sm text-amber-200 block">
-              Informations
+              {t.footer.infoTitle}
             </span>
             <ul className="space-y-2 text-xs text-stone-400">
-              <li>Classification : PEGI 3+ (Tout public)</li>
-              <li>Format : Web App (PWA) & APK Android</li>
+              <li>{t.footer.infoPegi}</li>
+              <li>{t.footer.infoFormat}</li>
               <li>
                 <a 
                   href={APK_DOWNLOAD_URL} 
                   target="_blank" 
                   rel="noopener noreferrer" 
+                  onClick={() => trackApkDownloadClick('footer_list')}
                   className="text-emerald-400 hover:text-emerald-300 underline font-medium inline-flex items-center gap-1"
                 >
                   <Smartphone className="w-3 h-3" />
-                  <span>Télécharger l'APK Android (Drive) ↗</span>
+                  <span>{t.footer.infoApk}</span>
                 </a>
               </li>
-              <li>Langues : Français (avec calligraphies arabes)</li>
-              <li>Support : Navigateurs PC, Mac, iOS, Android</li>
-              <li>Serveur : Hébergé sur Firebase Hosting</li>
+              <li>{t.footer.infoLanguages}</li>
+              <li>{t.footer.infoSupport}</li>
+              <li>{t.footer.infoServer}</li>
             </ul>
           </div>
 
@@ -191,16 +193,16 @@ export default function Footer({ onOpenGame }: FooterProps) {
 
         {/* Sub-Footer Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400">
-          <p>© {new Date().getFullYear()} NOUR — Le chemin commence. Tous droits réservés.</p>
+          <p>© {new Date().getFullYear()} {t.footer.copyright}</p>
           <div className="flex items-center gap-6">
             <a href={GAME_URL} target="_blank" rel="noopener noreferrer" className="hover:text-amber-300 transition-colors">
-              Jouer sur playnour.online
+              {t.footer.playOnline}
             </a>
             <a href="/privacy.html" className="hover:text-amber-300 transition-colors">
-              Confidentialité
+              {t.footer.privacy}
             </a>
             <a href="#faq" className="hover:text-amber-300 transition-colors">
-              F.A.Q.
+              {t.footer.faq}
             </a>
           </div>
         </div>

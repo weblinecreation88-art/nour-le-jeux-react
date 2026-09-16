@@ -11,9 +11,7 @@ import {
   ChevronLeft,
   ChevronRight,
   RotateCcw,
-  BookOpen,
-  Volume2,
-  VolumeX
+  BookOpen
 } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 import { speechManager } from '../utils/speech';
@@ -56,7 +54,6 @@ export const IslamicQuizModal: React.FC<IslamicQuizModalProps> = ({
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [localCompleted, setLocalCompleted] = useState<string[]>(completedQuizIds);
-  const [isSpeaking, setIsSpeaking] = useState<boolean>(false);
 
   const activeQuiz: IslamicQuizQuestion = ISLAMIC_QUIZZES[currentIndex];
   const isAlreadyCompleted = localCompleted.includes(activeQuiz.id);
@@ -64,57 +61,11 @@ export const IslamicQuizModal: React.FC<IslamicQuizModalProps> = ({
   const completedCount = localCompleted.length;
 
   useEffect(() => {
-    const unsub = speechManager.onSpeakingChange((speaking) => {
-      setIsSpeaking(speaking);
-    });
+    speechManager.stop();
     return () => {
-      unsub();
       speechManager.stop();
     };
   }, []);
-
-  // Auto-read question and choices on load or question switch if voice is enabled (only for French)
-  useEffect(() => {
-    if (language === 'fr' && speechManager.isVoiceEnabled() && !isSubmitted) {
-      const timer = setTimeout(() => {
-        speechManager.speakQuiz(
-          activeQuiz.question,
-          activeQuiz.options,
-          'noura'
-        );
-      }, 350);
-      return () => {
-        clearTimeout(timer);
-        speechManager.stop();
-      };
-    }
-  }, [currentIndex, isSubmitted, language]);
-
-  const handleToggleSpeakQuiz = () => {
-    if (language !== 'fr') return;
-    if (isSpeaking) {
-      speechManager.stop();
-    } else {
-      speechManager.speakQuiz(
-        activeQuiz.question,
-        activeQuiz.options,
-        'noura'
-      );
-    }
-  };
-
-  const handleSpeakExplanation = () => {
-    if (language !== 'fr') return;
-    if (isSpeaking) {
-      speechManager.stop();
-    } else {
-      speechManager.speakExplanation(
-        activeQuiz.explanation,
-        isCorrect,
-        activeQuiz.hadithOrQuranRef
-      );
-    }
-  };
 
   const handleSelectOption = (idx: number) => {
     if (isSubmitted && isCorrect) return;
@@ -145,13 +96,6 @@ export const IslamicQuizModal: React.FC<IslamicQuizModalProps> = ({
       if (onWaswasMistake) {
         onWaswasMistake(15, `Doute nourri : Le Waswâs prend de la force !`);
       }
-    }
-
-    // Short, punchy audio feedback (~1s) if voice is enabled and language is French
-    if (language === 'fr' && speechManager.isVoiceEnabled()) {
-      setTimeout(() => {
-        speechManager.speakFeedback(correct, 'noura');
-      }, 300);
     }
   };
 
@@ -267,29 +211,9 @@ export const IslamicQuizModal: React.FC<IslamicQuizModalProps> = ({
         <div className="flex-1 overflow-y-auto custom-scrollbar p-3.5 sm:p-5 flex flex-col gap-3">
           {/* Question Text */}
           <div className="bg-[#f3ebd9] p-3.5 sm:p-4 rounded-2xl border-2 border-[#3a2312] shadow-xs relative">
-            <div className="flex items-start justify-between gap-2.5">
-              <h3 className="text-sm sm:text-base font-black text-[#3a2312] font-cinzel leading-relaxed flex-1">
-                {activeQuiz.question}
-              </h3>
-              {language === 'fr' && (
-                <button
-                  type="button"
-                  onClick={handleToggleSpeakQuiz}
-                  title={isSpeaking ? 'Arrêter la lecture' : 'Écouter la question et les choix'}
-                  className={`p-2 rounded-xl border-2 transition-all cursor-pointer shrink-0 active:scale-95 shadow-xs flex items-center justify-center ${
-                    isSpeaking
-                      ? 'bg-[#d97c27] text-white border-[#3a2312] animate-pulse ring-2 ring-[#d97c27]/50'
-                      : 'bg-[#ebdfc8] hover:bg-[#d9c7ab] text-[#3a2312] border-[#3a2312]'
-                  }`}
-                >
-                  {isSpeaking ? (
-                    <VolumeX className="w-4 h-4" />
-                  ) : (
-                    <Volume2 className="w-4 h-4" />
-                  )}
-                </button>
-              )}
-            </div>
+            <h3 className="text-sm sm:text-base font-black text-[#3a2312] font-cinzel leading-relaxed">
+              {activeQuiz.question}
+            </h3>
 
             {/* Optional Calligraphic Arabic text */}
             {activeQuiz.arabic && (
@@ -405,20 +329,6 @@ export const IslamicQuizModal: React.FC<IslamicQuizModalProps> = ({
                       </>
                     )}
                   </div>
-                  {language === 'fr' && (
-                    <button
-                      type="button"
-                      onClick={handleSpeakExplanation}
-                      title={isSpeaking ? "Arrêter l'audio" : "Écouter l'explication"}
-                      className="p-1.5 rounded-xl bg-white/80 hover:bg-white text-[#3a2312] border border-[#3a2312]/30 transition-all cursor-pointer shrink-0 active:scale-95 shadow-2xs"
-                    >
-                      {isSpeaking ? (
-                        <VolumeX className="w-4 h-4 text-[#d97c27]" />
-                      ) : (
-                        <Volume2 className="w-4 h-4 text-[#2d6a4f]" />
-                      )}
-                    </button>
-                  )}
                 </div>
 
                 {/* Clear explanation */}

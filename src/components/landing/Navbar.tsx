@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, Play, Compass, Sparkles, BookOpen, Users, ShieldAlert, Layers, Download, Crown, Menu, X, Check } from 'lucide-react';
+import { Volume2, VolumeX, Play, Compass, Sparkles, BookOpen, Users, ShieldAlert, Layers, Download, Crown, Menu, X, Check, MessageCircleHeart } from 'lucide-react';
 import { GAME_URL, APK_DOWNLOAD_URL } from '../../data/gameData';
+import { trackApkDownloadClick, trackPlayGameClick } from '../../utils/analytics';
 import { useLanguage } from '../../context/LanguageContext';
 import { Language } from '../../i18n/translations';
 
@@ -127,6 +128,7 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
 
   // Essential desktop links to guarantee no overflow
   const desktopNavLinks = [
+    { label: t.navbar.motDuConcepteur, href: "#mot-du-concepteur", icon: MessageCircleHeart },
     { label: t.navbar.gameplay, href: "#gameplay-video", icon: Play },
     { label: t.navbar.adventure, href: "#histoire", icon: Compass },
     { label: t.navbar.chapters, href: "#chapitres", icon: Layers },
@@ -135,6 +137,7 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
 
   // Full links in mobile drawer
   const allNavLinks = [
+    { label: t.navbar.motDuConcepteur, href: "#mot-du-concepteur", icon: MessageCircleHeart },
     { label: t.navbar.gameplay, href: "#gameplay-video", icon: Play },
     { label: t.navbar.adventure, href: "#histoire", icon: Compass },
     { label: t.navbar.characters, href: "#personnages", icon: Users },
@@ -156,23 +159,23 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
       id="main-navbar"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-[#0b0912]/95 backdrop-blur-md border-b border-amber-500/20 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.8)]' 
-          : 'bg-gradient-to-b from-[#09080e]/95 via-[#09080e]/70 to-transparent pt-3 pb-4'
+          ? 'bg-[#0a080e]/95 backdrop-blur-md border-b border-[#d4af37]/35 py-2.5 shadow-[0_10px_35px_rgba(0,0,0,0.9)]' 
+          : 'bg-gradient-to-b from-[#09070c]/95 via-[#09070c]/70 to-transparent pt-3 pb-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
         
         {/* Brand / Logo */}
         <a href="#" className="flex items-center gap-2.5 group focus:outline-none shrink-0">
-          <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-amber-400/40 bg-gradient-to-br from-amber-500/20 to-purple-900/40 flex items-center justify-center overflow-hidden shadow-[0_0_15px_rgba(245,158,11,0.25)] group-hover:border-amber-400 transition-colors">
-            <span className="font-amiri text-xl sm:text-2xl font-bold text-amber-300 leading-none group-hover:scale-110 transition-transform">
+          <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#d4af37]/60 bg-gradient-to-br from-[#d4af37]/25 via-[#241a12] to-[#120e17] flex items-center justify-center overflow-hidden shadow-[0_0_15px_rgba(212,175,55,0.25)] group-hover:border-[#ffd700] transition-colors">
+            <span className="font-amiri text-xl sm:text-2xl font-bold text-[#ffd700] leading-none group-hover:scale-110 transition-transform">
               نور
             </span>
           </div>
           <div className="flex flex-col">
-            <span className="font-cinzel text-lg sm:text-xl font-bold tracking-wider text-amber-100 group-hover:text-amber-300 transition-colors flex items-center gap-1.5">
+            <span className="font-cinzel text-lg sm:text-xl font-bold tracking-wider text-[#fbf6ec] group-hover:text-[#ffd700] transition-colors flex items-center gap-1.5">
               NOUR
-              <span className="text-[9px] uppercase font-sans font-semibold tracking-widest px-1.5 py-0.2 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300">
+              <span className="text-[9px] uppercase font-cinzel font-bold tracking-widest px-1.5 py-0.2 rounded-full bg-[#1b140e] border border-[#d4af37]/40 text-[#ffd700]">
                 RPG
               </span>
             </span>
@@ -187,9 +190,9 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
               <a
                 key={link.href}
                 href={link.href}
-                className="px-2.5 py-1.5 text-xs font-medium text-amber-100/75 hover:text-amber-200 hover:bg-amber-500/10 rounded-lg transition-all flex items-center gap-1.5"
+                className="px-2.5 py-1.5 text-xs font-cinzel font-medium text-[#d8c29d] hover:text-[#fbf6ec] hover:bg-[#d4af37]/10 rounded-lg transition-all flex items-center gap-1.5"
               >
-                <Icon className="w-3.5 h-3.5 text-amber-400/70 shrink-0" />
+                <Icon className="w-3.5 h-3.5 text-[#e5c158] shrink-0" />
                 <span>{link.label}</span>
               </a>
             );
@@ -200,7 +203,7 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
         <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           
           {/* Real Flags Language Switcher (Visible on All Screens!) */}
-          <div className="flex items-center bg-[#13101e] border border-amber-500/30 rounded-xl p-1 gap-1 shadow-inner">
+          <div className="flex items-center bg-[#130f18] border border-[#d4af37]/35 rounded-xl p-1 gap-1 shadow-inner">
             {languagesList.map((l) => {
               const isActive = language === l.code;
               return (
@@ -210,12 +213,12 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
                   title={`Passer en ${l.label}`}
                   className={`flex items-center gap-1 px-1.5 sm:px-2 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     isActive 
-                      ? 'bg-amber-500 text-stone-950 shadow-[0_0_12px_rgba(245,158,11,0.5)] scale-105' 
-                      : 'text-stone-300 hover:bg-amber-500/15 hover:text-amber-200 opacity-75 hover:opacity-100'
+                      ? 'bg-[#d4af37] text-stone-950 shadow-[0_0_12px_rgba(212,175,55,0.6)] scale-105' 
+                      : 'text-[#d8c29d] hover:bg-[#d4af37]/15 hover:text-[#fbf6ec] opacity-80 hover:opacity-100'
                   }`}
                 >
                   <RealFlag lang={l.code} className="w-4 h-3 sm:w-5 sm:h-3.5" />
-                  <span className="hidden md:inline uppercase text-[10px] tracking-wider">{l.shortLabel}</span>
+                  <span className="hidden md:inline uppercase font-cinzel text-[10px] tracking-wider">{l.shortLabel}</span>
                 </button>
               );
             })}
@@ -227,21 +230,24 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
             onClick={toggleAmbientSound}
             aria-label="Ambiance sonore"
             title={isAudioPlaying ? t.navbar.musicOff : t.navbar.musicOn}
-            className="p-2 sm:px-2.5 sm:py-1.5 rounded-xl border border-amber-500/30 bg-amber-950/30 hover:bg-amber-500/20 text-amber-300/80 hover:text-amber-200 text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="p-2 sm:px-2.5 sm:py-1.5 rounded-xl border border-[#d4af37]/35 bg-[#1b140e]/60 hover:bg-[#d4af37]/20 text-[#e5c158] hover:text-[#ffd700] text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
           >
             {isAudioPlaying ? (
               <Volume2 className="w-4 h-4 text-emerald-400 animate-pulse" />
             ) : (
-              <VolumeX className="w-4 h-4 text-amber-400/70" />
+              <VolumeX className="w-4 h-4 text-[#e5c158]" />
             )}
-            <span className="hidden lg:inline text-[11px]">{isAudioPlaying ? t.navbar.musicOn : t.navbar.musicOff}</span>
+            <span className="hidden lg:inline text-[11px] font-cinzel">{isAudioPlaying ? t.navbar.musicOn : t.navbar.musicOff}</span>
           </button>
 
-          {/* Direct Play Button */}
+          {/* Direct Play Button (AC Mirage Gold CTA) */}
           <button
             id="btn-nav-play"
-            onClick={onOpenGame}
-            className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 text-stone-950 font-bold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(245,158,11,0.4)] hover:shadow-[0_0_25px_rgba(245,158,11,0.7)] transition-all transform hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-1.5"
+            onClick={() => {
+              trackPlayGameClick('navbar_play');
+              onOpenGame();
+            }}
+            className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#e5c158] via-[#ffd700] to-[#c59b27] text-stone-950 font-bold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(229,193,88,0.45)] hover:shadow-[0_0_25px_rgba(229,193,88,0.8)] transition-all transform hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-1.5 ring-1 ring-[#ffd700]/60"
           >
             <Play className="w-3.5 h-3.5 fill-stone-950 shrink-0" />
             <span className="font-cinzel">{t.navbar.play}</span>
@@ -253,8 +259,9 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
             href={APK_DOWNLOAD_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackApkDownloadClick('navbar_desktop')}
             title="Télécharger l'APK Android (Google Drive)"
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-200 text-xs font-semibold transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-md"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl bg-[#13221b] hover:bg-[#1b3227] border border-emerald-500/50 text-emerald-200 text-xs font-semibold transition-all hover:scale-105 active:scale-95 cursor-pointer shadow-md font-cinzel"
           >
             <Download className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
             <span className="hidden md:inline">{t.navbar.apkAndroid}</span>
@@ -263,14 +270,14 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
           {/* Hamburger Menu Toggle (Visible below xl) */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="xl:hidden p-2 rounded-xl border border-amber-500/30 text-amber-200 hover:bg-amber-500/10 cursor-pointer transition-colors"
+            className="xl:hidden p-2 rounded-xl border border-[#d4af37]/40 text-[#fce8a6] hover:bg-[#d4af37]/15 cursor-pointer transition-colors"
             aria-label="Ouvrir le menu"
             title="Menu de navigation"
           >
             {mobileMenuOpen ? (
-              <X className="w-5 h-5 text-amber-300" />
+              <X className="w-5 h-5 text-[#ffd700]" />
             ) : (
-              <Menu className="w-5 h-5 text-amber-300" />
+              <Menu className="w-5 h-5 text-[#ffd700]" />
             )}
           </button>
         </div>
@@ -331,6 +338,7 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
           <div className="pt-2 border-t border-amber-500/20 flex flex-col gap-2.5">
             <button
               onClick={() => {
+                trackPlayGameClick('navbar_mobile_play');
                 setMobileMenuOpen(false);
                 onOpenGame();
               }}
@@ -344,7 +352,10 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
               href={APK_DOWNLOAD_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                trackApkDownloadClick('navbar_mobile');
+                setMobileMenuOpen(false);
+              }}
               className="w-full py-3 rounded-xl bg-emerald-900/90 border border-emerald-400/50 text-emerald-100 font-bold text-center text-xs uppercase tracking-wider font-cinzel flex items-center justify-center gap-2 shadow-md cursor-pointer"
             >
               <Download className="w-4 h-4 text-emerald-300" />

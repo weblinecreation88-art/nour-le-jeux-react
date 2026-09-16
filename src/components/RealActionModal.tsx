@@ -55,22 +55,22 @@ export const RealActionModal: React.FC<RealActionModalProps> = ({
   };
 
   const doneLabel = language === 'ar'
-    ? `فعلتها الآن في الواقع! (+${fullXp} نقطة)`
+    ? `✨ أنجزتها في الواقع! (+${fullXp} نور)`
     : language === 'en'
-    ? `I did it just now in real life! (+${fullXp} XP)`
-    : `C'est fait à l'instant dans le réel ! (+${fullXp} XP)`;
+    ? `✨ Done in real life! (+${fullXp} Nour)`
+    : `✨ Fait à l'instant dans le réel ! (+${fullXp} Nour)`;
 
   const pledgeLabel = language === 'ar'
-    ? `أتعهد بالقيام بها اليوم (+${pledgeXp} نقطة + تضاف لمهامي)`
+    ? `📅 سأقوم بها اليوم (+${pledgeXp} نور • مضافة للمهام)`
     : language === 'en'
-    ? `I pledge to do it today (+${pledgeXp} XP + added to Quests)`
-    : `Je m'engage à le faire aujourd'hui (+${pledgeXp} XP + Quêtes)`;
+    ? `📅 I will do it today (+${pledgeXp} Nour • Added to Quests)`
+    : `📅 Noté pour aujourd'hui (+${pledgeXp} Nour • Quêtes)`;
 
   const skipLabel = language === 'ar'
-    ? 'تخطي الآن (متابعة القصة)'
+    ? 'متابعة القصة (تخطي الآن)'
     : language === 'en'
-    ? 'Skip for now (Continue story)'
-    : 'Passer pour l\'instant (Continuer l\'histoire)';
+    ? 'Continue the story (Skip for now)'
+    : 'Continuer l\'histoire (Passer pour l\'instant)';
 
   return (
     <div

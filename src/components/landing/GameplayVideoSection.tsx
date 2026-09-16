@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize, RotateCcw, Sparkles, Download, Gamepad2, Compass, ShieldCheck } from 'lucide-react';
 import { APK_DOWNLOAD_URL } from '../../data/gameData';
+import { trackApkDownloadClick } from '../../utils/analytics';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface GameplayVideoSectionProps {
@@ -198,7 +199,7 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
                     </button>
                   </div>
                   <div className="absolute bottom-6 px-4 py-1.5 rounded-full bg-[#0e0c15]/80 border border-amber-500/30 text-amber-200 text-xs font-cinzel font-semibold backdrop-blur-md">
-                    Cliquez pour lancer la vidéo (32s)
+                    {t.gameplayVideo.clickToStart}
                   </div>
                 </div>
               )}
@@ -231,8 +232,8 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
                     <button
                       onClick={togglePlay}
                       className="p-1.5 rounded-lg hover:bg-white/10 text-amber-300 hover:text-amber-200 transition cursor-pointer"
-                      title={isPlaying ? 'Mettre en pause' : 'Lire'}
-                      aria-label={isPlaying ? 'Mettre en pause' : 'Lire'}
+                      title={isPlaying ? 'Pause' : 'Play'}
+                      aria-label={isPlaying ? 'Pause' : 'Play'}
                     >
                       {isPlaying ? (
                         <Pause className="w-5 h-5 fill-amber-300" />
@@ -245,18 +246,18 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
                     <button
                       onClick={toggleMute}
                       className="p-1.5 rounded-lg hover:bg-white/10 text-stone-300 hover:text-amber-300 transition flex items-center gap-1.5 cursor-pointer"
-                      title={isMuted ? 'Activer le son' : 'Couper le son'}
-                      aria-label={isMuted ? 'Activer le son' : 'Couper le son'}
+                      title={isMuted ? 'Unmute' : 'Mute'}
+                      aria-label={isMuted ? 'Unmute' : 'Mute'}
                     >
                       {isMuted ? (
                         <>
                           <VolumeX className="w-5 h-5 text-amber-400" />
-                          <span className="text-[11px] text-amber-300/90 hidden xs:inline">Son désactivé</span>
+                          <span className="text-[11px] text-amber-300/90 hidden xs:inline">{t.navbar.musicOff}</span>
                         </>
                       ) : (
                         <>
                           <Volume2 className="w-5 h-5 text-emerald-400" />
-                          <span className="text-[11px] text-emerald-300/90 hidden xs:inline">Son actif</span>
+                          <span className="text-[11px] text-emerald-300/90 hidden xs:inline">{t.navbar.musicOn}</span>
                         </>
                       )}
                     </button>
@@ -278,7 +279,7 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
                         }
                       }}
                       className="p-1.5 rounded-lg hover:bg-white/10 text-stone-300 hover:text-amber-300 transition cursor-pointer"
-                      title="Recommencer"
+                      title="Replay"
                     >
                       <RotateCcw className="w-4 h-4" />
                     </button>
@@ -286,8 +287,8 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
                     <button
                       onClick={toggleFullscreen}
                       className="p-1.5 rounded-lg hover:bg-white/10 text-stone-300 hover:text-amber-300 transition cursor-pointer"
-                      title="Plein écran"
-                      aria-label="Plein écran"
+                      title="Fullscreen"
+                      aria-label="Fullscreen"
                     >
                       <Maximize className="w-4 h-4" />
                     </button>
@@ -308,10 +309,10 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
               <Compass className="w-5 h-5" />
             </div>
             <h3 className="font-cinzel text-base font-bold text-amber-100 mb-1">
-              Artisanat Pixel-Art & Poésie
+              {t.gameplayVideo.highlight1Title}
             </h3>
             <p className="text-xs text-stone-400 leading-relaxed">
-              Des décors minutieusement dessinés, une lumière dorée du crépuscule et des ambiances sonores inspirées pour une immersion sereine.
+              {t.gameplayVideo.highlight1Desc}
             </p>
           </div>
 
@@ -320,10 +321,10 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
               <ShieldCheck className="w-5 h-5" />
             </div>
             <h3 className="font-cinzel text-base font-bold text-amber-100 mb-1">
-              Épreuves Spirituelles & Choix
+              {t.gameplayVideo.highlight2Title}
             </h3>
             <p className="text-xs text-stone-400 leading-relaxed">
-              Affrontez les murmures intérieurs (Waswâs), domptez la colère avec le Hilm et choisissez la douceur guidée par les Hadiths authentiques.
+              {t.gameplayVideo.highlight2Desc}
             </p>
           </div>
 
@@ -332,10 +333,10 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
               <Gamepad2 className="w-5 h-5" />
             </div>
             <h3 className="font-cinzel text-base font-bold text-amber-100 mb-1">
-              Les « Ponts de Nour » en Vie Réelle
+              {t.gameplayVideo.highlight3Title}
             </h3>
             <p className="text-xs text-stone-400 leading-relaxed">
-              Le jeu dépasse l'écran : accomplissez des missions bienveillantes concrètes dans votre foyer pour débloquer la suite de l'aventure.
+              {t.gameplayVideo.highlight3Desc}
             </p>
           </div>
 
@@ -348,17 +349,18 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
             className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-stone-950 font-cinzel font-extrabold text-sm sm:text-base tracking-wider shadow-[0_0_30px_rgba(245,158,11,0.5)] hover:shadow-[0_0_45px_rgba(245,158,11,0.8)] hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-3"
           >
             <Play className="w-5 h-5 fill-stone-950" />
-            <span>Lancer l'Aventure Immédiatement</span>
+            <span>{t.gameplayVideo.ctaLaunch}</span>
           </button>
 
           <a
             href={APK_DOWNLOAD_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackApkDownloadClick('video_section')}
             className="w-full sm:w-auto px-6 py-4 rounded-xl bg-emerald-800/80 hover:bg-emerald-700/90 border border-emerald-400/50 text-emerald-100 font-cinzel font-bold text-sm tracking-wide shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2.5 cursor-pointer"
           >
             <Download className="w-4 h-4 text-emerald-300" />
-            <span>Télécharger l'APK Android (Drive)</span>
+            <span>{t.gameplayVideo.ctaDownloadApk}</span>
           </a>
         </div>
 

@@ -226,56 +226,35 @@ export const CHAPTER_2_SCENES: Scene[] = [
   {
     id: 10,
     title: 'L\'Aube au Grand Poteau',
-    subtitle: '« Le Chemin du Hilm »',
+    subtitle: '« Le Carrefour des Chemins »',
     location: 'Carrefour des chemins, aube dorée',
-    requiredXp: 450,
+    requiredXp: 0,
     backgroundTheme: 'carrefour',
     beats: [
       {
         id: 's10_b1',
-        type: 'dialogue',
-        speaker: 'narration',
-        arabicText: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
-        text: 'Le lendemain matin, une brise tiède caresse les collines de la vallée.\n\nOthmân se tient à nouveau devant le grand Poteau aux Chemins. Mais son cœur n\'est plus le même qu\'hier.'
-      },
-      {
-        id: 's10_b2',
-        type: 'dialogue',
+        type: 'choice',
         speaker: 'noura',
-        text: 'Regarde, Othmân. Hier, tu craignais de poser le premier pas vers les autres. Aujourd\'hui, le poteau a dévoilé un nouveau sentier gravé dans le chêne :\n« Le chemin du Hilm ».',
-        emotion: 'smiling'
-      },
-      {
-        id: 's10_b3',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: '« Le Hilm »... Noura, qu\'est-ce que cela signifie vraiment ? Est-ce plus difficile que de vaincre sa timidité ?',
-        emotion: 'thoughtful'
-      },
-      {
-        id: 's10_b4',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Bien plus profond, mon fils. Se faire des amis demande du courage. Mais savoir garder son calme, sa douceur et sa dignité quand le monde s\'agite autour de toi... voilà la marque des véritables sages.',
-        emotion: 'thoughtful'
-      },
-      {
-        id: 's10_b5',
-        type: 'real_action',
-        realActionId: 'action_fraicheur'
-      },
-      {
-        id: 's10_b6',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Cette eau fraîche m\'a clarifié l\'esprit. Je sens que ce chemin vers le marché va m\'enseigner quelque chose d\'essentiel.',
-        emotion: 'determined'
-      },
-      {
-        id: 's10_b7',
-        type: 'dialogue',
-        speaker: 'narration',
-        text: 'Le sac fermement ajusté sur l\'épaule, Othmân s\'engage sur le sentier escarpé qui descend vers la grande place du marché.'
+        text: "Aujourd'hui, vers quel chapitre veux-tu aller, Othmân ?",
+        arabicText: 'إِلَى أَيِّ فَصْلٍ تُرِيدُ أَنْ نَتَوَجَّهَ الْيَوْمَ يَا عُثْمَانُ؟',
+        emotion: 'smiling',
+        choices: [
+          {
+            id: 'c2_chap2',
+            label: '« Le Chemin du Hilm » — Chapitre 2 (La Maîtrise de soi)',
+            badge: '✦ Continuer'
+          },
+          {
+            id: 'c1_replay',
+            label: '« Vaincre la Solitude » — Chapitre 1 (Rejouer)',
+            badge: '✓ Chapitre 1'
+          },
+          {
+            id: 'c3_chap3',
+            label: '« L\'Enfant à l\'Attelle » — Chapitre 3 (La Patience - Sabr)',
+            badge: '✦ Chapitre 3'
+          }
+        ]
       }
     ]
   },
@@ -286,7 +265,7 @@ export const CHAPTER_2_SCENES: Scene[] = [
     title: 'L\'Éclat du Marché',
     subtitle: '« L\'Accusation Injuste »',
     location: 'Place du marché, matin animé',
-    requiredXp: 480,
+    requiredXp: 0,
     backgroundTheme: 'marche_colere',
     beats: [
       {
@@ -414,7 +393,7 @@ export const CHAPTER_2_SCENES: Scene[] = [
     title: 'L\'Épreuve du Silence',
     subtitle: '« La Maîtrise dans la tourmente »',
     location: 'Ruelle du marché, tension palpable',
-    requiredXp: 510,
+    requiredXp: 0,
     backgroundTheme: 'village_mefiant',
     beats: [
       {
@@ -515,7 +494,7 @@ export const CHAPTER_2_SCENES: Scene[] = [
     title: 'La Fontaine aux Vignes',
     subtitle: '« Éteindre le feu par l\'eau »',
     location: 'Patio ombragé de la mosquée',
-    requiredXp: 545,
+    requiredXp: 0,
     backgroundTheme: 'mosquee_ablutions',
     beats: [
       {
@@ -601,7 +580,7 @@ export const CHAPTER_2_SCENES: Scene[] = [
     title: 'La Parure de Douceur',
     subtitle: '« Désamorcer la discorde »',
     location: 'Étal du marché, réconciliation',
-    requiredXp: 615,
+    requiredXp: 0,
     backgroundTheme: 'marche_apaise',
     beats: [
       {
@@ -682,7 +661,7 @@ export const CHAPTER_2_SCENES: Scene[] = [
     title: 'Le Murmure sous la Treille',
     subtitle: '« L\'Invocation Secrète »',
     location: 'Patio ombragé de la mosquée, treille de vigne',
-    requiredXp: 615,
+    requiredXp: 0,
     backgroundTheme: 'mosquee_ablutions',
     beats: [
       {
@@ -748,7 +727,7 @@ export const CHAPTER_2_SCENES: Scene[] = [
     title: 'L\'Ombre de la Rancœur',
     subtitle: '« Le Combat contre le Feu Intérieur »',
     location: 'Défilé rocheux des crêtes',
-    requiredXp: 690,
+    requiredXp: 0,
     backgroundTheme: 'climax_hilm',
     beats: [
       {
@@ -799,7 +778,7 @@ export const CHAPTER_2_SCENES: Scene[] = [
     title: 'Le Cœur Paisible',
     subtitle: '« Le Porteur de Douceur »',
     location: 'Hauteurs de la vallée, coucher de soleil doré',
-    requiredXp: 780,
+    requiredXp: 0,
     backgroundTheme: 'epilogue',
     beats: [
       {

@@ -89,7 +89,7 @@ export const getLocalizedScene = (
     return {
       title: scene.title,
       subtitle: scene.subtitle,
-      description: scene.description
+      description: (scene as any).description
     };
   }
 
@@ -98,13 +98,13 @@ export const getLocalizedScene = (
     return {
       title: langSet.scenes[scene.id].title || scene.title,
       subtitle: langSet.scenes[scene.id].subtitle || scene.subtitle,
-      description: langSet.scenes[scene.id].description || scene.description
+      description: (langSet.scenes[scene.id] as any)?.description || (scene as any).description
     };
   }
 
   return {
     title: scene.title,
     subtitle: scene.subtitle,
-    description: scene.description
+    description: (scene as any).description
   };
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import officialLogo from '../assets/images/logo_nour_transparent.png';
 import { Sparkles, Play, RotateCcw, ArrowRight, ScrollText, SkipForward, Film, Volume2, VolumeX } from 'lucide-react';
 import { soundManager } from '../utils/audio';
+import { speechManager } from '../utils/speech';
 
 interface SplashScreenProps {
   hasSavedGame?: boolean;
@@ -22,13 +23,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
   onNewGame,
   onOpenLanding
 }) => {
-  const [showCinematic, setShowCinematic] = useState(() => {
-    try {
-      return sessionStorage.getItem('nour_seen_cinematic') !== 'true';
-    } catch {
-      return true;
-    }
-  });
+  const [showCinematic, setShowCinematic] = useState(false);
 
   const [cinematicProgress, setCinematicProgress] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
@@ -133,6 +128,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
     if (isFadingOut) return;
     try {
       soundManager.playSelect();
+      speechManager.unlock();
     } catch {
       // Audio fallback
     }
@@ -143,7 +139,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
       } else {
         onNewGame();
       }
-    }, 450);
+    }, 200);
   };
 
   return (
@@ -174,7 +170,6 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
             className="absolute inset-0 w-full h-full object-cover z-10"
           >
             <source src="/nour_le_jeu_trailer_25s.mp4" type="video/mp4" />
-            <source src="/Boy_holding_magical_glowing_lantern_202609051242.mp4" type="video/mp4" />
             <source src="/intro_cinematic.mp4" type="video/mp4" />
             <source src="/intro_loop.mp4" type="video/mp4" />
           </video>
@@ -269,7 +264,6 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
           className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-85"
         >
           <source src="/intro_loop.mp4" type="video/mp4" />
-          <source src="/Boy_holding_magical_glowing_lantern_202609051242.mp4" type="video/mp4" />
           <source src="/intro_cinematic.mp4" type="video/mp4" />
         </video>
 

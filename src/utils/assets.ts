@@ -155,50 +155,40 @@ export const DEFAULT_ASSETS: CustomAssetsConfig = {
 const STORAGE_KEY = 'nour_custom_assets_config';
 
 export const loadCustomAssets = (): CustomAssetsConfig => {
-  if (typeof window === 'undefined') {
-    return DEFAULT_ASSETS;
-  }
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      // Migrate old assets if stored in localStorage
-      if (parsed?.characters?.noura && parsed.characters.noura.includes('1788128520960')) {
-        parsed.characters.noura = avatarNoura;
-      }
-      if (parsed?.characters?.personnage && parsed.characters.personnage.includes('1788128508365')) {
-        parsed.characters.personnage = avatarHero;
-      }
-      return {
-        characters: {
-          ...DEFAULT_ASSETS.characters,
-          ...parsed.characters,
-          // Always ensure latest default assets if old placeholder was stored
-          noura: parsed?.characters?.noura && !parsed.characters.noura.includes('1788128520960') && !parsed.characters.noura.includes('1788269108981') && !parsed.characters.noura.includes('1788272446588') && !parsed.characters.noura.includes('1788272725566') && !parsed.characters.noura.includes('1788272734312') ? parsed.characters.noura : avatarNoura,
-          personnage: parsed?.characters?.personnage && !parsed.characters.personnage.includes('1788128508365') && !parsed.characters.personnage.includes('1788269298280') && !parsed.characters.personnage.includes('1788272430181') ? parsed.characters.personnage : avatarHero,
-          jeune: parsed?.characters?.jeune && !parsed.characters.jeune.includes('1788271163280') ? parsed.characters.jeune : avatarJeune,
-          waswas: parsed?.characters?.waswas && !parsed.characters.waswas.includes('1788128534360') && !parsed.characters.waswas.includes('1788272482663') ? parsed.characters.waswas : avatarWaswas,
-          grand_waswas: parsed?.characters?.grand_waswas && !parsed.characters.grand_waswas.includes('1788128534360') && !parsed.characters.grand_waswas.includes('1788271852092') && !parsed.characters.grand_waswas.includes('1788272498618') ? parsed.characters.grand_waswas : avatarGrandWaswas,
-          narrateur: parsed?.characters?.narrateur || avatarNarrateur
-        },
-        backgrounds: {
-          ...DEFAULT_ASSETS.backgrounds,
-          ...parsed.backgrounds,
-          carrefour: parsed?.backgrounds?.carrefour || bgCarrefour,
-          waswas: parsed?.backgrounds?.waswas && !parsed.backgrounds.waswas.includes('1788128534360') && !parsed.backgrounds.waswas.includes('1788270124623') ? parsed.backgrounds.waswas : bgWaswas,
-          village: parsed?.backgrounds?.village && !parsed.backgrounds.village.includes('1788128547686') && !parsed.backgrounds.village.includes('1788270397793') ? parsed.backgrounds.village : bgVillage,
-          vallee: parsed?.backgrounds?.vallee || bgVallee,
-          refus: parsed?.backgrounds?.refus || bgRefus,
-          geste: parsed?.backgrounds?.geste || bgGesteRanges,
-          jardin: parsed?.backgrounds?.jardin && !parsed.backgrounds.jardin.includes('1788128585555') ? parsed.backgrounds.jardin : bgJardin,
-          climax: parsed?.backgrounds?.climax && !parsed.backgrounds.climax.includes('1788128561021') && !parsed.backgrounds.climax.includes('1788271822613') ? parsed.backgrounds.climax : bgClimax,
-          fin: parsed?.backgrounds?.fin && !parsed.backgrounds.fin.includes('1788272214125') ? parsed.backgrounds.fin : bgFin,
-          atelier_sculpture: parsed?.backgrounds?.atelier_sculpture || bgAtelierSculpture
+  if (typeof window !== 'undefined') {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        const sanitizeAsset = (userVal: any, defaultVal?: string): string => {
+          if (typeof userVal !== 'string') return defaultVal || '';
+          // Only preserve genuine user-uploaded assets (base64 data URIs or blob URLs)
+          if (userVal.startsWith('data:image/') || userVal.startsWith('blob:')) {
+            return userVal;
+          }
+          // Never use stale build hash paths from previous deployments
+          return defaultVal || '';
+        };
+
+        const characters: CustomAssetsConfig['characters'] = {
+          personnage: sanitizeAsset(parsed?.characters?.personnage, DEFAULT_ASSETS.characters.personnage),
+          noura: sanitizeAsset(parsed?.characters?.noura, DEFAULT_ASSETS.characters.noura),
+          jeune: sanitizeAsset(parsed?.characters?.jeune, DEFAULT_ASSETS.characters.jeune),
+          waswas: sanitizeAsset(parsed?.characters?.waswas, DEFAULT_ASSETS.characters.waswas),
+          grand_waswas: sanitizeAsset(parsed?.characters?.grand_waswas, DEFAULT_ASSETS.characters.grand_waswas),
+          narrateur: sanitizeAsset(parsed?.characters?.narrateur, DEFAULT_ASSETS.characters.narrateur)
+        };
+
+        const backgrounds: CustomAssetsConfig['backgrounds'] = {};
+        for (const key of Object.keys(DEFAULT_ASSETS.backgrounds) as (keyof typeof DEFAULT_ASSETS.backgrounds)[]) {
+          backgrounds[key] = sanitizeAsset(parsed?.backgrounds?.[key], DEFAULT_ASSETS.backgrounds[key]);
         }
-      };
+
+        return { characters, backgrounds };
+      }
+    } catch (e) {
+      console.error('Failed to load custom assets config', e);
     }
-  } catch (e) {
-    console.error('Failed to load custom assets config', e);
   }
   return DEFAULT_ASSETS;
 };

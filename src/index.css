@@ -100,6 +100,75 @@
   animation: floatSlow 6s ease-in-out infinite;
 }
 
+/* ========================================================
+   AC Mirage Aesthetic System : Sand, Cream, Parchment & Gold
+   ======================================================== */
+.bg-mirage-dark {
+  background-color: #0b0910;
+}
+
+.bg-mirage-card {
+  background: linear-gradient(180deg, rgba(24, 19, 32, 0.95) 0%, rgba(17, 13, 23, 0.98) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(247, 241, 229, 0.08);
+}
+
+.bg-mirage-parchment-sheet {
+  background: linear-gradient(180deg, #f7f0e0 0%, #eddcc3 50%, #e0cdae 100%);
+  color: #1a140d;
+}
+
+.text-mirage-parchment {
+  color: #ede2cf;
+}
+
+.text-mirage-cream {
+  color: #fbf6ec;
+}
+
+.text-mirage-sand {
+  color: #d8c29d;
+}
+
+.text-mirage-gold {
+  color: #e5c158;
+}
+
+.border-mirage-gold {
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+/* Luxury Relic Frame with Gilded Corner Notches */
+.gilded-relic-frame {
+  position: relative;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.1), inset 0 0 15px rgba(212, 175, 55, 0.05);
+}
+
+.gilded-relic-frame::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #e5c158;
+  border-left: 2px solid #e5c158;
+  pointer-events: none;
+}
+
+.gilded-relic-frame::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid #e5c158;
+  border-right: 2px solid #e5c158;
+  pointer-events: none;
+}
+
 
 @layer base {
   html {

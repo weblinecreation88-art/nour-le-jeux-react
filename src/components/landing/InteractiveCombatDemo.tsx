@@ -76,17 +76,17 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
           <div className="bg-[#0b0912] px-6 py-3 border-b border-amber-500/20 flex flex-wrap items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
-              <span className="font-cinzel font-bold text-amber-200">Scène : Le Carrefour des Chemins</span>
+              <span className="font-cinzel font-bold text-amber-200">{t.combatDemo.scene}</span>
             </div>
             <div className="flex items-center gap-4 text-stone-400">
-              <span>Épreuve : <strong>La peur du rejet</strong></span>
+              <span>{t.combatDemo.challenge}</span>
               <button
                 onClick={handleReset}
                 className="flex items-center gap-1.5 text-amber-400 hover:text-amber-300 cursor-pointer font-medium"
-                title="Réinitialiser le simulateur"
+                title={t.combatDemo.reset}
               >
                 <RefreshCw className="w-3.5 h-3.5" />
-                <span>Réinitialiser</span>
+                <span>{t.combatDemo.reset}</span>
               </button>
             </div>
           </div>
@@ -113,8 +113,8 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-cinzel font-bold text-sm text-amber-200">Othmân</span>
-                    <span className="text-xs font-mono text-emerald-400">{serenityLevel}% Sérénité</span>
+                    <span className="font-cinzel font-bold text-sm text-amber-200">{t.characters.othmanName}</span>
+                    <span className="text-xs font-mono text-emerald-400">{serenityLevel}{t.combatDemo.othmanSerenity}</span>
                   </div>
                   {/* Serenity Bar */}
                   <div className="w-full h-2.5 rounded-full bg-stone-900 overflow-hidden border border-emerald-500/30">
@@ -124,7 +124,7 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                     />
                   </div>
                   <span className="text-[10px] text-stone-400 mt-1 block">
-                    {isVictorious ? "Cœur apaisé & intention pure" : "Sensible aux jugements d'autrui"}
+                    {isVictorious ? t.combatDemo.action1Desc : t.combatDemo.othmanStatus}
                   </span>
                 </div>
               </div>
@@ -142,8 +142,8 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-cinzel font-bold text-sm text-purple-200">L'Ombre du Waswâs</span>
-                    <span className="text-xs font-mono text-purple-300">{waswasLevel}% Trouble</span>
+                    <span className="font-cinzel font-bold text-sm text-purple-200">{t.combatDemo.waswasTitle}</span>
+                    <span className="text-xs font-mono text-purple-300">{waswasLevel}{t.combatDemo.waswasTrouble}</span>
                   </div>
                   {/* Waswâs Gauge */}
                   <div className="w-full h-2.5 rounded-full bg-stone-900 overflow-hidden border border-purple-500/30">
@@ -153,7 +153,7 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                     />
                   </div>
                   <span className="text-[10px] text-stone-400 mt-1 block">
-                    {isVictorious ? "Ombre vaincue et dissipée" : "Murmure actif dans l'esprit"}
+                    {isVictorious ? t.combatDemo.optionCEffect : t.combatDemo.waswasStatus}
                   </span>
                 </div>
               </div>
@@ -172,12 +172,12 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                 </div>
                 <div className="space-y-1">
                   <span className="text-[11px] font-mono uppercase font-bold tracking-wider text-amber-300/80 block">
-                    {isVictorious ? "Climat Apaisé" : "Murmure du Waswâs à l'oreille d'Othmân :"}
+                    {isVictorious ? t.combatDemo.victoryTitle : t.combatDemo.waswasWhisperHeader}
                   </span>
                   <p className="text-sm sm:text-base italic text-stone-200 leading-relaxed font-serif">
                     {isVictorious 
-                      ? "« Le silence bienveillant s'est installé. Othmân s'approche d'un pas ferme, salue d'un sourire sincère. L'amitié naît d'un cœur serein. »"
-                      : "« Regarde ces jeunes au loin... Ils ne te connaissent pas. Si tu t'approches, ils vont te trouver bizarre et se moquer de toi. Reste en arrière, c'est bien plus prudent... »"
+                      ? t.combatDemo.victoryDesc
+                      : t.combatDemo.waswasWhisper
                     }
                   </p>
                 </div>
@@ -199,7 +199,7 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
             {!isVictorious ? (
               <div className="space-y-3">
                 <span className="text-xs uppercase tracking-wider font-cinzel font-bold text-amber-300 block">
-                  Quelle réponse donnez-vous à travers Othmân ?
+                  {t.combatDemo.question}
                 </span>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -207,55 +207,55 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                   {/* Choice 1: Defeat */}
                   <button
                     onClick={() => handleChoice('defeat')}
-                    className="p-4 rounded-xl bg-[#171424] hover:bg-[#201c32] border border-purple-500/20 hover:border-purple-400/50 text-left transition-all cursor-pointer group flex flex-col justify-between"
+                    className="p-4 rounded-xl bg-[#171424] hover:bg-[#201c32] border border-purple-500/20 hover:border-purple-400/50 text-left rtl:text-right transition-all cursor-pointer group flex flex-col justify-between"
                   >
                     <div>
                       <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 group-hover:text-purple-300 block mb-1">
-                        Option A : Céder au doute
+                        {t.combatDemo.optionATitle}
                       </span>
                       <p className="text-xs text-stone-300 leading-snug">
-                        « C'est vrai... Je suis trop timide, je ferais mieux de faire demi-tour et de rentrer chez moi. »
+                        {t.combatDemo.optionADesc}
                       </p>
                     </div>
                     <span className="text-[10px] text-red-400/80 mt-3 block font-mono">
-                      +25% Doute Waswâs
+                      {t.combatDemo.optionAEffect}
                     </span>
                   </button>
 
                   {/* Choice 2: Anger */}
                   <button
                     onClick={() => handleChoice('anger')}
-                    className="p-4 rounded-xl bg-[#171424] hover:bg-[#201c32] border border-amber-500/20 hover:border-amber-400/50 text-left transition-all cursor-pointer group flex flex-col justify-between"
+                    className="p-4 rounded-xl bg-[#171424] hover:bg-[#201c32] border border-amber-500/20 hover:border-amber-400/50 text-left rtl:text-right transition-all cursor-pointer group flex flex-col justify-between"
                   >
                     <div>
                       <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 group-hover:text-amber-300 block mb-1">
-                        Option B : S'imposer par la colère
+                        {t.combatDemo.optionBTitle}
                       </span>
                       <p className="text-xs text-stone-300 leading-snug">
-                        « Je vais crier et taper du pied pour qu'ils soient bien obligés de me prêter attention ! »
+                        {t.combatDemo.optionBDesc}
                       </p>
                     </div>
                     <span className="text-[10px] text-amber-400/80 mt-3 block font-mono">
-                      Trouble & instabilité
+                      {t.combatDemo.optionBEffect}
                     </span>
                   </button>
 
                   {/* Choice 3: Wisdom & Isti'adha */}
                   <button
                     onClick={() => handleChoice('wisdom')}
-                    className="p-4 rounded-xl bg-gradient-to-b from-amber-950/40 via-[#1c1626] to-[#171424] hover:from-amber-900/50 border-2 border-amber-400/60 hover:border-amber-300 text-left transition-all shadow-[0_0_15px_rgba(245,158,11,0.2)] cursor-pointer group flex flex-col justify-between"
+                    className="p-4 rounded-xl bg-gradient-to-b from-amber-950/40 via-[#1c1626] to-[#171424] hover:from-amber-900/50 border-2 border-amber-400/60 hover:border-amber-300 text-left rtl:text-right transition-all shadow-[0_0_15px_rgba(245,158,11,0.2)] cursor-pointer group flex flex-col justify-between"
                   >
                     <div>
                       <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300 block mb-1 flex items-center gap-1">
                         <Sparkles className="w-3 h-3 text-amber-400" />
-                        Option C : Discernement & Foi
+                        {t.combatDemo.optionCTitle}
                       </span>
                       <p className="text-xs text-amber-100 font-medium leading-snug">
-                        « أَعُوذُ بِاللَّهِ — Je cherche refuge auprès d'Allah. Mon intention est pure : un sourire est une aumône, j'avance en paix. »
+                        {t.combatDemo.optionCDesc}
                       </p>
                     </div>
                     <span className="text-[10px] text-emerald-300 mt-3 block font-mono font-bold">
-                      ✨ Dissipe 100% du Waswâs !
+                      {t.combatDemo.optionCEffect}
                     </span>
                   </button>
 
@@ -269,11 +269,10 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                 </div>
                 <div>
                   <h4 className="font-cinzel text-lg font-bold text-emerald-200">
-                    Fiche du Livre du Savoir Débloquée !
+                    {t.combatDemo.victoryTitle}
                   </h4>
                   <p className="text-xs text-stone-300 max-w-lg mx-auto mt-1">
-                    Vous venez d'expérimenter la première mécanique du jeu. Dans le chapitre 1 complet, 
-                    Othmân rencontre de nombreux villageois et débloque plus de 15 sagesses.
+                    {t.combatDemo.victoryDesc}
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
@@ -282,13 +281,13 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                     className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 text-stone-950 font-cinzel font-bold text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition-all cursor-pointer flex items-center gap-2"
                   >
                     <Play className="w-3.5 h-3.5 fill-stone-950" />
-                    <span>Lancer le Chapitre 1 Complet</span>
+                    <span>{t.combatDemo.victoryPlay}</span>
                   </button>
                   <button
                     onClick={handleReset}
                     className="px-4 py-2.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-300 hover:text-stone-100 text-xs font-medium cursor-pointer"
                   >
-                    Rejouer la démo
+                    {t.combatDemo.victoryReplay}
                   </button>
                 </div>
               </div>
@@ -298,7 +297,7 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
 
           {/* Footer note */}
           <div className="bg-[#0c0a13] p-3 text-center border-t border-amber-500/10 text-[11px] text-stone-400">
-            Dans NOUR, aucun combat n'utilise la violence physique. La victoire s'obtient par la clarté du cœur, la foi et l'éthique de la parole.
+            {t.combatDemo.footerNote}
           </div>
 
         </div>

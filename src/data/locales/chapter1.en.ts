@@ -5,16 +5,16 @@ export const QUIZZES_EN: Record<string, Quiz> = {
     id: 'quiz_istiadhah',
     topic: 'Istiʿādhah',
     promptSpeaker: 'noura',
-    question: 'What can we say when seeking refuge in Allah against Shayṭān?',
+    question: 'What can we say when seeking refuge in Allah from Satan (Shayṭān)?',
     options: [
-      { id: 'A', text: 'Nothing to say, just ignore.', isCorrect: false },
+      { id: 'A', text: 'There is nothing to say, you just have to ignore it.', isCorrect: false },
       { id: 'B', text: 'Aʿūdhu billāhi mina sh-shayṭāni r-rajīm.', isCorrect: true },
-      { id: 'C', text: 'A phrase that anyone invents.', isCorrect: false },
-      { id: 'D', text: 'Only a scholar is allowed to say it.', isCorrect: false }
+      { id: 'C', text: 'A formula that each person invents on their own.', isCorrect: false },
+      { id: 'D', text: 'You must be a certified scholar to be allowed to say it.', isCorrect: false }
     ],
     correctOptionId: 'B',
-    explanation: 'The Istiʿādhah is explicitly mentioned in the Quran: when seeking protection, we seek refuge in Allah from the outcast devil.',
-    theologicalNote: 'It is a sincere remembrance of the Creator that prepares the heart to act with righteousness.',
+    explanation: 'The Istiʿādhah is explicitly mentioned in the Quran: when seeking protection or recitation, we ask refuge with Allah from the outcast devil.',
+    theologicalNote: 'It is not a magic charm, but a sincere reminder of the Creator that prepares the heart to act with righteousness.',
     reference: {
       concept: 'Istiʿādhah (Seeking Refuge)',
       reference: 'Quran 16:98',
@@ -23,19 +23,42 @@ export const QUIZZES_EN: Record<string, Quiz> = {
       arabic: 'فَإِذَا قَرَأْتَ الْقُرْآنَ فَاسْتَعِذْ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ'
     }
   },
+  quiz_doua_maison: {
+    id: 'quiz_doua_maison',
+    topic: 'Leaving Home Duʿāʾ',
+    promptSpeaker: 'noura',
+    question: 'Which supplication did the Prophet ﷺ teach us to recite when crossing the threshold of our home?',
+    options: [
+      { id: 'A', text: 'We say nothing, running fast is enough.', isCorrect: false },
+      { id: 'B', text: '« Bismillāh, tawakkaltu ʿalā Allāh, wa lā hawla wa lā quwwata illā billāh ».', isCorrect: true },
+      { id: 'C', text: 'A formula reserved only for long caravan journeys.', isCorrect: false },
+      { id: 'D', text: 'We recite it only if it is completely dark outside.', isCorrect: false }
+    ],
+    correctOptionId: 'B',
+    explanation: 'The Prophet ﷺ taught that when a believer leaves home reciting this duʿāʾ, it is said to him: « You are guided, defended, and protected », and the devil turns away from him.',
+    theologicalNote: 'Placing trust in Allah (Tawakkul) from the doorstep turns every departure into an act of peace and divine protection.',
+    reference: {
+      concept: 'Leaving Home Duʿāʾ (Tawakkul)',
+      reference: 'Abu Dawud 5095 & At-Tirmidhi 3426',
+      citationText: '« In the name of Allah, I place my trust in Allah, and there is no power nor might except with Allah. »',
+      sourceType: 'Hadith',
+      hadithCollection: 'Sunan Abi Dawud 5095',
+      arabic: 'بِسْمِ اللَّهِ ، تَوَكَّلْتُ عَلَى اللَّهِ ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ'
+    }
+  },
   quiz_taaruf: {
     id: 'quiz_taaruf',
     topic: 'Taʿāruf',
     promptSpeaker: 'noura',
     question: 'Why did Allah create nations and tribes according to Surah Al-Hujurat?',
     options: [
-      { id: 'A', text: 'So they compete with pride.', isCorrect: false },
+      { id: 'A', text: 'So that they compare and brag with pride.', isCorrect: false },
       { id: 'B', text: 'So that people may get to know one another.', isCorrect: true },
-      { id: 'C', text: 'So that everyone stays isolated.', isCorrect: false },
-      { id: 'D', text: 'To determine who is superior.', isCorrect: false }
+      { id: 'C', text: 'So that everyone stays isolated in their corner.', isCorrect: false },
+      { id: 'D', text: 'To determine which group is superior to others.', isCorrect: false }
     ],
     correctOptionId: 'B',
-    explanation: 'Quran 49:13 indicates that nations and tribes were created « that you may know one another » (Taʿāruf). The most noble in the sight of Allah is the most righteous.',
+    explanation: 'Quran 49:13 indicates that nations and tribes were created « that you may know one another » (Taʿāruf). The verse emphasizes that the most noble in the sight of Allah is the most righteous.',
     reference: {
       concept: 'Taʿāruf (Mutual Acquaintance)',
       reference: 'Quran 49:13',
@@ -44,19 +67,40 @@ export const QUIZZES_EN: Record<string, Quiz> = {
       arabic: 'وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا ۚ إِنَّ أَكْرَمَكُمْ عِندَ اللَّهِ أَتْقَاكُمْ'
     }
   },
+  quiz_adab_boire: {
+    id: 'quiz_adab_boire',
+    topic: 'Etiquette of Drinking',
+    promptSpeaker: 'noura',
+    question: 'According to the noble Sunnah, what mindful etiquette did the Prophet ﷺ teach us when drinking?',
+    options: [
+      { id: 'A', text: 'Drinking while standing in one single gulp without breathing.', isCorrect: false },
+      { id: 'B', text: 'Drinking with the left hand while walking briskly.', isCorrect: false },
+      { id: 'C', text: 'Sitting down, saying Bismillāh, drinking with the right hand in 3 sips, and concluding with Al-Hamdulillāh.', isCorrect: true },
+      { id: 'D', text: 'Blowing repeatedly into the cup to cool it down.', isCorrect: false }
+    ],
+    correctOptionId: 'C',
+    explanation: 'The Prophet ﷺ taught to drink while seated, with the right hand, reciting Bismillāh, breathing outside the cup three times, and praising Allah with Al-Hamdulillāh.',
+    reference: {
+      concept: 'Etiquette of Drinking (Adab)',
+      reference: 'Sahih Muslim 2024 & Sahih al-Bukhari 5631',
+      citationText: '« When one of you drinks, let him not breathe into the vessel... and the Prophet ﷺ used to drink in three breaths mentioning the name of Allah. »',
+      sourceType: 'Hadith',
+      hadithCollection: 'Sahih Muslim (2024) / Sahih al-Bukhari (5631)'
+    }
+  },
   quiz_adab: {
     id: 'quiz_adab',
     topic: 'Adab',
     promptSpeaker: 'noura',
     question: 'What should one do when having nothing good to say?',
     options: [
-      { id: 'A', text: 'Speak anyway.', isCorrect: false },
+      { id: 'A', text: 'Speak anyway just to be heard.', isCorrect: false },
       { id: 'B', text: 'Respond with the same harsh tone.', isCorrect: false },
       { id: 'C', text: 'Remain silent.', isCorrect: true },
-      { id: 'D', text: 'Make fun of others.', isCorrect: false }
+      { id: 'D', text: 'Mock the situation.', isCorrect: false }
     ],
     correctOptionId: 'C',
-    explanation: 'The Prophet ﷺ taught to speak good or remain silent. Knowing when to be quiet is a sign of wisdom and faith.',
+    explanation: 'The Prophet ﷺ taught: « Whoever believes in Allah and the Last Day, let him speak good or remain silent ». Knowing when to be quiet is a sign of wisdom and faith.',
     reference: {
       concept: 'Adab of Speech (Speak good or remain silent)',
       reference: 'Sahih al-Bukhari 6018',
@@ -69,15 +113,15 @@ export const QUIZZES_EN: Record<string, Quiz> = {
     id: 'quiz_sabr',
     topic: 'Sabr',
     promptSpeaker: 'noura',
-    question: 'Which attitude best corresponds to Sabr (patient endurance)?',
+    question: 'Which attitude best reflects true Sabr (noble patience)?',
     options: [
-      { id: 'A', text: 'Insist until the other person gives in.', isCorrect: false },
-      { id: 'B', text: 'Persevere with patience in the face of difficulty.', isCorrect: true },
-      { id: 'C', text: 'Give up immediately with resentment.', isCorrect: false },
-      { id: 'D', text: 'Pretend that nothing hurts.', isCorrect: false }
+      { id: 'A', text: 'Insisting until the other person gives in by force.', isCorrect: false },
+      { id: 'B', text: 'Persevering with calm and dignity in the face of difficulty.', isCorrect: true },
+      { id: 'C', text: 'Giving up immediately with bitter resentment.', isCorrect: false },
+      { id: 'D', text: 'Pretending that nothing hurts while harboring grudges.', isCorrect: false }
     ],
     correctOptionId: 'B',
-    explanation: 'Sabr is active, constructive endurance: accepting trials without losing temper and persevering with dignified composure.',
+    explanation: 'Sabr is constructive moral endurance: accepting trials without losing temper and continuing to move forward with noble poise.',
     reference: {
       concept: 'Sabr (Patience & Endurance)',
       reference: 'Quran 2:153',
@@ -90,19 +134,19 @@ export const QUIZZES_EN: Record<string, Quiz> = {
     id: 'quiz_niyyah',
     topic: 'Niyyah',
     promptSpeaker: 'noura',
-    question: 'In any good deed, what matters most in the sight of Allah?',
+    question: 'In any righteous deed, what matters most in the sight of Allah?',
     options: [
-      { id: 'A', text: 'Being applauded by the crowd.', isCorrect: false },
-      { id: 'B', text: 'Looking impressive to others.', isCorrect: false },
-      { id: 'C', text: 'The sincere intention behind the action.', isCorrect: true },
-      { id: 'D', text: 'Receiving a reward in return.', isCorrect: false }
+      { id: 'A', text: 'Being loudly applauded by the crowd.', isCorrect: false },
+      { id: 'B', text: 'Looking impressive in the eyes of others.', isCorrect: false },
+      { id: 'C', text: 'The sincere intention in the heart for Allah alone.', isCorrect: true },
+      { id: 'D', text: 'Receiving an immediate material reward in return.', isCorrect: false }
     ],
     correctOptionId: 'C',
-    explanation: 'The famous Hadith of Imam Bukhari states that deeds are judged purely by intention (Niyyah).',
+    explanation: 'The hadith states: « Actions are judged only by intentions ». An action is accepted only when motivated by sincere devotion to the Creator.',
     reference: {
-      concept: 'Niyyah (Pure Intention)',
-      reference: 'Sahih al-Bukhari 1',
-      citationText: '« Deeds are judged only by intentions, and every person will get only what he intended. »',
+      concept: 'Niyyah (Sincerity of Intention)',
+      reference: 'Sahih al-Bukhari 1 & Sahih Muslim 1907',
+      citationText: '« Indeed, actions are judged only by intentions, and every person will get what he intended. »',
       sourceType: 'Hadith',
       hadithCollection: 'Sahih al-Bukhari (Hadith 1)'
     }
@@ -111,7 +155,7 @@ export const QUIZZES_EN: Record<string, Quiz> = {
     id: 'quiz_shukr',
     topic: 'Shukr',
     promptSpeaker: 'noura',
-    question: 'What is gratitude toward Allah for His blessings called?',
+    question: 'What do we call genuine gratitude to Allah for His boundless blessings?',
     options: [
       { id: 'A', text: 'Sabr.', isCorrect: false },
       { id: 'B', text: 'Adab.', isCorrect: false },
@@ -119,11 +163,11 @@ export const QUIZZES_EN: Record<string, Quiz> = {
       { id: 'D', text: 'Niyyah.', isCorrect: false }
     ],
     correctOptionId: 'C',
-    explanation: 'Shukr is the sincere acknowledgment of Allah’s gifts. The Quran teaches that gratitude increases blessings.',
+    explanation: 'Shukr is the heartfelt acknowledgment of Allah’s gifts. The Quran teaches that gratitude brings even greater abundance and peace.',
     reference: {
       concept: 'Shukr (Gratitude)',
       reference: 'Quran 14:7',
-      citationText: '« If you are grateful, I will surely increase you [in favor]. »',
+      citationText: '« If you are grateful, I will surely increase [My favor] upon you. »',
       sourceType: 'Coran',
       arabic: 'لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ'
     }
@@ -132,63 +176,21 @@ export const QUIZZES_EN: Record<string, Quiz> = {
     id: 'quiz_ilm',
     topic: 'ʿIlm',
     promptSpeaker: 'noura',
-    question: 'Among all you learned today, what truly allows you to progress?',
+    question: 'Everything you have learned today... what truly allowed you to move forward?',
     options: [
       { id: 'A', text: 'Pure luck.', isCorrect: false },
-      { id: 'B', text: 'Just collecting points.', isCorrect: false },
-      { id: 'C', text: 'Beneficial knowledge (ʿIlm), sincere effort, and taking action.', isCorrect: true },
+      { id: 'B', text: 'Just gathering XP points.', isCorrect: false },
+      { id: 'C', text: 'Beneficial knowledge (ʿIlm), sincere effort, and taking real action.', isCorrect: true },
       { id: 'D', text: 'Always wanting to be right.', isCorrect: false }
     ],
     correctOptionId: 'C',
-    explanation: 'Knowledge comes alive when it is paired with sincere inner effort and practical action in daily life.',
+    explanation: 'Knowledge alone is not enough if it remains abstract. It comes alive when paired with inner spiritual effort and expressed through concrete righteous action.',
     reference: {
       concept: 'ʿIlm & Action (Beneficial Knowledge)',
       reference: 'Sahih Muslim 2664',
-      citationText: '« Strive for that which benefits you, seek the help of Allah, and do not be helpless. »',
+      citationText: '« Eagerly seek what benefits you, seek help from Allah, and do not lose heart. »',
       sourceType: 'Hadith',
       hadithCollection: 'Sahih Muslim (Hadith 2664)'
-    }
-  },
-  quiz_intention: {
-    id: 'quiz_intention',
-    topic: 'Niyyah',
-    promptSpeaker: 'noura',
-    question: 'Why does our journey begin by clarifying our inner intention (Niyyah)?',
-    options: [
-      { id: 'A', text: 'To earn the compliments of other people.', isCorrect: false },
-      { id: 'B', text: 'Because every action is judged by its intention before Allah.', isCorrect: true },
-      { id: 'C', text: 'Just to test our memory without purpose.', isCorrect: false },
-      { id: 'D', text: 'To impress the villagers.', isCorrect: false }
-    ],
-    correctOptionId: 'B',
-    explanation: 'The Prophet ﷺ said: « Deeds are judged only by intentions, and every person will get what he intended. » (Sahih al-Bukhari 1).',
-    reference: {
-      concept: 'Niyyah (Pure Intention)',
-      reference: 'Sahih al-Bukhari 1',
-      citationText: '« Deeds are judged only by intentions. »',
-      sourceType: 'Hadith',
-      hadithCollection: 'Sahih al-Bukhari (Hadith 1)'
-    }
-  },
-  quiz_salam: {
-    id: 'quiz_salam',
-    topic: 'Adab & Salām',
-    promptSpeaker: 'noura',
-    question: 'What spiritual value does the Prophet ﷺ give to a simple warm smile offered to another?',
-    options: [
-      { id: 'A', text: 'A sign of weakness.', isCorrect: false },
-      { id: 'B', text: 'An act of charity (Sadaqah) that warms the heart.', isCorrect: true },
-      { id: 'C', text: 'A waste of time.', isCorrect: false },
-      { id: 'D', text: 'Something only for elders.', isCorrect: false }
-    ],
-    correctOptionId: 'B',
-    explanation: 'The Prophet ﷺ taught: « Your smile for your brother is a charity (Sadaqah). » (Jami` at-Tirmidhi 1956).',
-    reference: {
-      concept: 'Sadaqah (Charity of the Smile)',
-      reference: 'Jami` at-Tirmidhi 1956',
-      citationText: '« Your smile for your brother is a charity. »',
-      sourceType: 'Hadith',
-      hadithCollection: 'Jami` at-Tirmidhi (Hadith 1956)'
     }
   }
 };
@@ -196,24 +198,24 @@ export const QUIZZES_EN: Record<string, Quiz> = {
 export const REAL_ACTIONS_EN: Record<string, RealAction> = {
   action_lit: {
     id: 'action_lit',
-    title: 'Making your Bed & Starting with Bismillah',
-    instruction: 'In real life right now: take 60 seconds to neatly make your bed or tidy your desk, saying « Bismillāhir-Rahmānir-Rahīm ».',
-    subtext: 'Prophetic discipline begins with caring for one’s personal space.',
-    xpReward: 35,
-    reflectionPrompt: 'Did you feel the calm of a tidy space before stepping out?'
+    title: 'Tidying Your Bed',
+    instruction: 'Take a minute to make your bed or tidy your living space in real life.',
+    subtext: 'A simple daily routine that brings mental clarity for the day ahead.',
+    xpReward: 25,
+    reflectionPrompt: 'Did you tidy your room this morning or will you do it right now?'
   },
   action_eau: {
     id: 'action_eau',
-    title: 'Drinking a Glass of Water (Prophetic Adab)',
-    instruction: 'Get a glass of water in real life. Sit down, hold the glass with your right hand, say « Bismillāh », and drink mindfully in three sips. Conclude with « Al-Hamdulillāh ».',
+    title: 'Drinking Water (Prophetic Adab)',
+    instruction: 'Go fetch a glass of water in real life. Sit down, hold the glass with your right hand, say « Bismillāh » and drink peacefully in three sips. Conclude with « Al-Hamdulillāh ».',
     subtext: 'A daily sunnah of mindfulness, gratitude, and physical composure.',
     xpReward: 25,
-    reflectionPrompt: 'Did you remember to sit and pronounce the name of Allah before drinking?'
+    reflectionPrompt: 'Did you remember to sit down and mention the Name of Allah before drinking?'
   },
   action_depart: {
     id: 'action_depart',
-    title: 'Departure Duʿāʾ & Trust in Allah',
-    instruction: 'Check your bag or belongings in real life. Recite the departure duʿāʾ placing your full trust in Allah: « Bismillâh, tawakkaltu ʿalâ Allâh, wa lâ hawla wa lâ quwwata illâ billâh ».',
+    title: 'Departure Duʿāʾ & Packing with Tawakkul',
+    instruction: 'Check that your backpack or belongings are ready in real life. Then recite the departure duʿāʾ placing full trust in Allah: « Bismillāh, tawakkaltu ʿalā Allāh, wa lâ hawla wa lâ quwwata illā billāh ».',
     subtext: 'The believer takes practical steps and relies serenely on the Creator.',
     xpReward: 50,
     reflectionPrompt: 'Have you made a habit of placing your steps in Allah’s care before leaving home?'
@@ -224,20 +226,20 @@ export const REAL_ACTIONS_EN: Record<string, RealAction> = {
     instruction: 'Take a calm, deep breath in real life. Recite clearly: « Aʿūdhu billāhi mina sh-shayṭāni r-rajīm » to seek refuge in Allah, then choose to move forward despite self-doubt.',
     subtext: 'Sincere refuge centers the heart and breaks the grip of discouragement.',
     xpReward: 25,
-    reflectionPrompt: 'Do you turn to Allah for refuge whenever doubts arise?'
+    reflectionPrompt: 'Do you turn to Allah for refuge whenever doubts arise in your mind?'
   },
   action_salam_village: {
     id: 'action_salam_village',
     title: 'The Salām & Fraternal Smile',
     instruction: 'Today: offer a sincere Salām or a warm, gentle smile to someone in real life. The Prophet ﷺ taught that a smile is a charity (Sadaqah).',
-    subtext: 'Kindness disarms mistrust and softens hearts.',
+    subtext: 'Kindness disarms mistrust and softens closed hearts.',
     xpReward: 30,
-    reflectionPrompt: 'Have you gifted a smile or word of peace today?'
+    reflectionPrompt: 'Have you gifted a smile or word of peace to someone today?'
   },
   action_sabr_refus: {
     id: 'action_sabr_refus',
     title: 'Sabr in the Face of Rejection',
-    instruction: 'Think of a recent disappointment. Take a deep breath and say with your heart: « Al-Hamdulillāh ʿalâ kulli hāl » (Praise be to Allah in every state) with peace and no anger.',
+    instruction: 'Think of a recent disappointment or refusal. Take a deep breath and say with your heart: « Al-Hamdulillāh ʿalâ kulli hāl » (Praise be to Allah in every circumstance) without bitterness.',
     subtext: 'Sabr is moral strength: we accept outcomes with dignity and keep moving forward.',
     xpReward: 30,
     reflectionPrompt: 'Have you managed to accept a « no » with poise and noble calm?'
@@ -254,7 +256,7 @@ export const REAL_ACTIONS_EN: Record<string, RealAction> = {
     id: 'action_geste',
     title: 'A Discreet Good Deed (Pure Niyyah)',
     instruction: 'Today: do a small helpful deed in secret (tidy something, pick up litter, help without being asked) without seeking praise from anyone.',
-    subtext: 'Actions are judged by intentions (Bukhari 1). Acting secretly for Allah protects the heart from vanity.',
+    subtext: 'Actions are judged by intentions. Acting secretly for Allah protects the heart from vanity.',
     xpReward: 35,
     reflectionPrompt: 'Have you done a good deed seen by none except Allah?'
   },
@@ -270,7 +272,7 @@ export const REAL_ACTIONS_EN: Record<string, RealAction> = {
     id: 'action_mission_jour',
     title: 'Mission of the Day: As-salāmu ʿalaykum',
     instruction: 'Walk up to someone. Say: « As-salāmu ʿalaykum ». Let the encounter unfold naturally.',
-    subtext: 'The best of two is the one who initiates the Salām (Bukhari 6237).',
+    subtext: 'The best of two is the one who initiates the Salām.',
     xpReward: 50,
     reflectionPrompt: 'Peace offered from the heart opens the gates of true brotherhood.'
   }
@@ -292,7 +294,7 @@ export const CLIMAX_STEPS_EN: ClimaxStep[] = [
     title: '2. Beneficial Knowledge & Understanding',
     quote: 'ʿIlm — Wisdom & Insight',
     arabic: 'العِلْم',
-    meaning: 'Recalling the authentic principles and lessons learned on the journey.',
+    meaning: 'Recalling authentic principles and lessons learned along the journey.',
     description: 'Beneficial knowledge illuminates the heart and stops harmful illusions from taking root.'
   },
   {
@@ -338,222 +340,277 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
   {
     id: 1,
     title: 'The Room',
-    subtitle: '« The First Step »',
-    location: "Othman's room, morning",
+    subtitle: '« The Awakening & The First Step »',
+    location: "Othman's room on the hilltop, dawn",
     requiredXp: 0,
     backgroundTheme: 'chambre',
     beats: [
       {
-        id: 's1_intro_1',
+        id: 's1_hook_1',
         type: 'dialogue',
         speaker: 'narration',
-        arabicText: 'السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ',
-        text: 'As-salāmu ʿalaykum wa rahmatullāhi wa barakātuh!\n\nWelcome to Nour: The Game, where your real-life actions advance the story.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_intro_2',
-        type: 'dialogue',
-        speaker: 'narration',
-        text: 'Nour is the story of young Othman: an initiatory quest of learning, goodwill, and overcoming doubts.',
+        text: 'The dawn softly illuminates the walls of the room. Othman sits at the edge of his bed, his eyes fixed on his still-empty travel bag.',
         emotion: 'thoughtful'
       },
       {
-        id: 's1_intro_3',
+        id: 's1_hook_2',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Wake up, Othman! The sun is already warming the stones of the terrace. If you linger under the covers, your breakfast bread will get cold.',
+        text: 'Today is the day, Othman. The day you decided to head down toward the village.',
         emotion: 'smiling'
       },
       {
-        id: 's1_b1',
-        type: 'dialogue',
-        speaker: 'narration',
-        text: 'Othman slowly props himself on his elbow and looks toward the window. In the distance, the cheerful laughter of village youths echoes in the alleyway.'
-      },
-      {
-        id: 's1_b2',
+        id: 's1_hook_3',
         type: 'dialogue',
         speaker: 'personnage',
-        text: "They seem to be having so much fun outside... Everyone has someone to run and talk with.\nI wish I had friends too. But... where do you start when you feel like you're completely invisible?",
+        text: 'Yes... I have always lived sheltered on this hill. I want to learn, explore the world, and connect with others... but as soon as I think about it, I fear I will never belong.',
         emotion: 'worried',
         waswasXpAmount: 10,
-        waswasReason: "Doubt and feeling of invisibility"
+        waswasReason: 'Fear of the unknown & feeling of inadequacy'
       },
       {
-        id: 's1_b3',
+        id: 's1_hook_4',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'So why stay trapped in here with your thoughts in disarray?',
-        emotion: 'thoughtful'
-      },
-      {
-        id: 's1_b4',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Because as soon as I think about stepping out toward people, the mountain feels too high to climb.',
-        emotion: 'thoughtful',
-        waswasXpAmount: 10,
-        waswasReason: "Discouragement before effort"
-      },
-      {
-        id: 's1_b5',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: "You don't climb a mountain in one leap, my son. You place one foot in front of the other. What if your very first step of the day began right here, right before your eyes?",
+        text: 'Wisdom and noble companions are never found by staying locked inside, my son. How would you like to begin your day?',
         emotion: 'smiling'
       },
       {
-        id: 's1_b6',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'My bed? You want me to start by making my bed?',
-        emotion: 'surprised'
-      },
-      {
-        id: 's1_b7',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Tidy your sheets. Put your space in order, and your mind will immediately see more clearly.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_pont_lit',
-        type: 'dialogue',
-        speaker: 'noura',
-        isPontDeNour: true,
-        text: 'And you who accompany Othman from behind your screen... Have you thought about making your bed or tidying your corner this morning? Take a minute in real life: the clarity of the day begins where you rest your head.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_b8',
-        type: 'real_action',
-        realActionId: 'action_lit',
-        text: 'Make your bed and start with Bismillah.'
-      },
-      {
-        id: 's1_b9',
-        type: 'xp',
-        xpAmount: 25,
-        xpReason: 'Real-life action validated: First good habit accomplished'
-      },
-      {
-        id: 's1_b10',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: "Well... that's done! The sheets are pulled tight and the pillow is straight. The room already feels much more welcoming.",
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_water_1',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'On the other hand, from all that worrying, my throat is as dry as the desert.',
-        emotion: 'thoughtful'
-      },
-      {
-        id: 's1_water_2',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'Look at the pitcher and the glass of cool water on the side table. But sit down calmly before drinking! Do you remember what the Prophet ﷺ taught us?',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_water_3',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Yes mother: sit down, hold the glass with the right hand, say « Bismillāh », and drink peacefully in three sips.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_pont_eau',
-        type: 'dialogue',
-        speaker: 'noura',
-        isPontDeNour: true,
-        text: 'And you in your daily life... Get a glass of fresh water, sit down calmly, say « Bismillāh », and drink peacefully in three sips with your right hand. Conclude with « Al-Hamdulillāh ».',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_water_act',
-        type: 'real_action',
-        realActionId: 'action_eau',
-        text: 'Drink a glass of water with prophetic adab.'
-      },
-      {
-        id: 's1_water_xp',
-        type: 'xp',
-        xpAmount: 25,
-        xpReason: 'Real action validated: Adab of drinking water'
-      },
-      {
-        id: 's1_water_4',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Al-Hamdulillāh! It is amazing how such a simple habit brings peace when paired with mindful intention.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_b13',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'You see? Two victories even before stepping across your threshold! Before leaving, take a look at your gear:',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_b14',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: '📜 If you want to earn more XP, check the « Quests » tab below: daily challenges to level up easily!',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_b15',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: '📖 At the top, the « Book of Wisdom » gathers all the cards of light you will unlock along the way.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_b16',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: '👤 And if you want to customize your traveler outfit, head to your « Profile »! Ready to step out?',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_b18',
+        id: 's1_choice_morning',
         type: 'choice',
         speaker: 'personnage',
-        text: 'Othman responds to Noura:',
+        text: '« How does Othman choose to begin his morning? »',
         choices: [
           {
-            id: 'c1',
-            label: "« Noted mother, I'm ready! Let's go! »",
-            badge: 'Ready'
+            id: 'c_eau',
+            label: '💧 Drink fresh water (Prophetic Adab)',
+            responsePreview: '« I will start by drinking a glass of water. »',
+            choiceType: 'habit',
+            traitGains: { adab: 5, ilm: 3 },
+            setNarrativeFlags: { morning_gesture: 'water' },
+            habitMessage: 'Prophetic Adab • Othman calms his body and mind.'
           },
           {
-            id: 'c2',
-            label: '« Wait, let me tighten my laces and we go! »',
-            badge: 'Preparation'
+            id: 'c_ordre',
+            label: '🧹 Tidy my room and make my bed (Discipline & Niyyah)',
+            responsePreview: '« I will start by tidying my room. »',
+            choiceType: 'habit',
+            traitGains: { discipline: 5, sabr: 3 },
+            setNarrativeFlags: { morning_gesture: 'order' },
+            habitMessage: 'Discipline & Purity • Othman arranges his space with care.'
+          },
+          {
+            id: 'c_sandales',
+            label: '👟 Prepare my sandals for departure (Tawakkul)',
+            responsePreview: '« I will get my sandals ready, I am ready to step out. »',
+            choiceType: 'habit',
+            traitGains: { sabr: 5, vitalite: 3 },
+            setNarrativeFlags: { morning_gesture: 'sandals' },
+            habitMessage: 'Resolve & Tawakkul • Othman prepares to cross the threshold.'
+          }
+        ]
+      },
+
+      // --- BRANCH 1: DRINKING WATER ---
+      {
+        id: 's1_water_othman',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'I will start by drinking some fresh water.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_water_noura_ask',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'Before drinking... do you remember the etiquettes taught by the Prophet ﷺ?',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_water_quiz',
+        type: 'quiz',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        quizId: 'quiz_adab_boire',
+        unlockedConceptId: 'adab_boire'
+      },
+      {
+        id: 's1_water_noura_teach',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'Take your time. The Prophet ﷺ taught a mindful way of drinking: start with Bismillāh, drink with your right hand, and sip in three calm breaths. Even simple daily habits become worship when done with awareness.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_water_othman_drink',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'Al-Hamdulillāh... The water is so cool and refreshing. I feel peaceful and ready to move forward.',
+        emotion: 'smiling',
+        actionVignette: {
+          icon: '💧',
+          badge: 'Daily Sunnah',
+          title: 'The Adab of Drinking',
+          description: 'Sit down, say Bismillāh, and drink peacefully with the right hand.',
+          glowColor: 'cyan'
+        }
+      },
+
+      // --- BRANCH 2: TIDYING THE ROOM ---
+      {
+        id: 's1_order_othman',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
+        text: 'I will start by tidying my room and making my bed.',
+        emotion: 'thoughtful'
+      },
+      {
+        id: 's1_order_noura_ask',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
+        text: 'A great beginning. Bringing order to your space helps bring clarity to your mind. But do you know with what intention we should do this?',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_order_quiz',
+        type: 'quiz',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
+        quizId: 'quiz_niyyah',
+        unlockedConceptId: 'niyyah'
+      },
+      {
+        id: 's1_order_noura_teach',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
+        text: '« Actions are judged only by intentions ». Making your bed or tidying your room becomes an act of beauty and worship as long as the heart is sincere.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_order_othman_done',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
+        text: 'Everything is in order now. My eyes look upon my travel bag... I am ready to head down.',
+        emotion: 'determined',
+        actionVignette: {
+          icon: '🧹',
+          badge: 'Purity & Order',
+          title: 'Sincere Intention (Niyyah)',
+          description: 'Arranging outer space to bring inner mental clarity with pure devotion.',
+          glowColor: 'amber'
+        }
+      },
+
+      // --- BRANCH 3: SANDALS & TAWAKKUL ---
+      {
+        id: 's1_sandals_othman',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
+        text: 'I will prepare my sandals. I believe I am ready to step outside.',
+        emotion: 'determined'
+      },
+      {
+        id: 's1_sandals_noura_ask',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
+        text: 'Prepare to cross the threshold. Before stepping out of your home, there is a powerful supplication you can learn.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_sandals_quiz',
+        type: 'quiz',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
+        quizId: 'quiz_doua_maison',
+        unlockedConceptId: 'tawakkul_depart'
+      },
+      {
+        id: 's1_sandals_noura_teach',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
+        text: 'Exactly: entrusting your steps to Allah before stepping into the world gives unshakeable strength.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_sandals_othman_recite',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
+        arabicText: 'بِسْمِ اللَّهِ ، تَوَكَّلْتُ عَلَى اللَّهِ ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ',
+        text: '« Bismillāh, tawakkaltu ʿalā Allāh, wa lâ hawla wa lâ quwwata illā billâh »\n\n(In the name of Allah, I place my trust in Allah, and there is no power nor might except with Allah).',
+        emotion: 'determined',
+        actionVignette: {
+          icon: '🚪',
+          badge: 'Tawakkul at Threshold',
+          title: 'The Departure Duʿāʾ',
+          description: '« Bismillāh, tawakkaltu ʿalā Allāh... » — Entrusting one’s journey to the Creator.',
+          glowColor: 'emerald'
+        }
+      },
+
+      // --- CONVERGENCE AT THE DOOR ---
+      {
+        id: 's1_door_hesitation',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: 'My hand touches the iron handle... Mother, my heart is racing all of a sudden. What if nobody wants me out there?',
+        emotion: 'worried'
+      },
+      {
+        id: 's1_waswas_whisper',
+        type: 'dialogue',
+        speaker: 'waswas',
+        text: 'Do you really think you can succeed out there? Stay inside. You will stammer at the very first word. Go back to your room...',
+        emotion: 'shadow',
+        waswasXpAmount: 10,
+        waswasReason: 'The first whisper of doubt emerges at the door'
+      },
+      {
+        id: 's1_noura_wisdom',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'Do you hear that? Doubt always tries to paralyze you at the threshold. Do not debate with it: place your trust in Allah and take your step!',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_door_choice',
+        type: 'choice',
+        speaker: 'personnage',
+        text: 'Othman firmly places his hand on the door handle:',
+        choices: [
+          {
+            id: 'c_door_push',
+            label: '« Bismillāh! » — Push the door open and step forward despite doubt',
+            badge: 'Taking Action',
+            traitGains: { sabr: 5, discipline: 4 },
+            habitMessage: 'Courage • Othman overcomes doubt through action.'
           }
         ]
       },
       {
-        id: 's1_b19',
+        id: 's1_door_open',
         type: 'dialogue',
-        speaker: 'noura',
-        text: "Bismillāh! Let's place our trust in Allah and see what the world has in store for us.",
-        emotion: 'determined'
+        speaker: 'narration',
+        text: 'The wooden door opens onto the crisp morning air. Othman crosses the threshold. The whispers fade behind him as he walks down the hillside toward the edge of the woods.',
+        emotion: 'smiling'
       }
     ]
   },
 
-  // SCENE 2 — THE SIGNPOST CROSSROADS
+  // SCENE 2 — THE CROSSROADS SIGNPOST
   {
     id: 2,
-    title: 'The Signpost Crossroads',
-    subtitle: '« Where to Go? »',
-    location: 'Trail crossroads, edge of the forest',
+    title: 'The Crossroads Signpost',
+    subtitle: '« Choosing the Goal »',
+    location: 'Forest edge trail junction',
     requiredXp: 0,
     backgroundTheme: 'carrefour',
     beats: [
@@ -561,157 +618,94 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         id: 's2_b1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Othman and Noura arrive before a tall oak signpost at the crossroads of the valley trails. Othman rests his travel bag on the ground for a moment to wipe his forehead.'
+        text: 'Othman and Noura arrive before a large carved oak signpost at the crossroads. Othman sets his pack on the ground for a moment to wipe his brow.'
       },
       {
-        id: 's2_b2',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Phew... This bag has some weight to it! Look at all these directions carved into the wood... What if I choose the wrong one?',
-        emotion: 'worried',
-        waswasXpAmount: 10,
-        waswasReason: "Fear of choosing the wrong path"
-      },
-      {
-        id: 's2_b3',
+        id: 's2_b2_noura',
         type: 'dialogue',
         speaker: 'noura',
-        text: "The path doesn't begin under your soles, Othman. It begins in your heart. When intention is sincere, every step finds its meaning.",
+        text: 'You have left home, Othman. But stepping out is not yet journeying. Look at this signpost.',
         emotion: 'smiling'
       },
       {
-        id: 's2_b4',
+        id: 's2_b3_othman',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'How can I be sure of my intention?',
+        text: 'Each sign points toward a different direction... What should I begin my journey with?',
         emotion: 'thoughtful'
       },
       {
-        id: 's2_b5',
+        id: 's2_b4_noura',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Ask yourself why you crossed the threshold of your room this morning. Read the signs, and choose with sincerity.',
+        text: 'It is up to you to choose what you wish to work on today. Every path is a quest to grow your heart.',
         emotion: 'smiling'
       },
       {
         id: 's2_b6',
         type: 'choice',
         speaker: 'personnage',
-        text: 'Othman examines the inscriptions carved on the old signpost:',
+        text: '« Today, what does Othman choose to work on? »',
         choices: [
           {
             id: 'c1',
-            label: '📜 « Overcoming Solitude » — Chapter 1: Making Friends & Breaking Invisibility',
-            badge: 'Chapter 1 Active',
+            label: '🌿 Chapter 1: « Connecting with Others » — Meeting with goodwill & trust (Taʿāruf)',
+            badge: 'Available • Chapter 1',
             interactiveSpot: { x: '35%', y: '55%' }
           },
           {
             id: 'c2',
-            label: '🌾 « The Path of Hilm » — Chapter 2: Anger & Self-Mastery',
+            label: '📖 Chapter 2: « Seeking Knowledge » — The school of scholars, humility & science (ʿIlm)',
             disabled: true,
-            badge: 'Founder Pack ($4.99)',
-            isStripePromo: true,
-            originalPrice: '7.99 €',
-            promoPrice: '4.99 €',
-            discountRate: '-38%',
-            stripeUrl: 'https://buy.stripe.com/test_4gM4gB7QR3ThbJlgjK3Ru01',
-            disabledReason: 'In the marketplace square, Othman learns to extinguish anger through prophetic forbearance.',
+            badge: 'Coming Soon • Chapter 2',
+            disabledReason: 'Othman takes the path to the grand library and discovers the patience of learning.',
             interactiveSpot: { x: '50%', y: '45%' }
           },
           {
             id: 'c3',
-            label: '🩹 « The Child with the Splint » — Chapter 3: Patience in Trials (Sabr)',
+            label: '🛡️ Chapter 3: « Mastering Anger » — The marketplace trial & clemency (Hilm)',
             disabled: true,
-            badge: 'Founder Pack ($4.99)',
-            isStripePromo: true,
-            originalPrice: '7.99 €',
-            promoPrice: '4.99 €',
-            discountRate: '-38%',
-            stripeUrl: 'https://buy.stripe.com/test_4gM4gB7QR3ThbJlgjK3Ru01',
-            disabledReason: 'At the mosque and herbalist, Othman discovers lessons of patience and natural remedies.',
+            badge: 'Coming Soon • Chapter 3',
+            disabledReason: 'Facing provocations in the marketplace, Othman learns to master anger through noble composure.',
             interactiveSpot: { x: '65%', y: '50%' }
           },
           {
             id: 'c4',
-            label: '🕊️ « What You Still Have » — Chapter 4: Kindness to Parents (Birr)',
+            label: '🩹 Chapter 4: « Enduring the Trial » — Patience in hardship & mutual support (Sabr)',
             disabled: true,
-            badge: 'Chapter 4 (Coming Soon)',
-            disabledReason: 'Under the great oak tree with his childhood friend, a heartfelt conversation opens his heart.',
+            badge: 'Coming Soon • Chapter 4',
+            disabledReason: 'Alongside those who suffer, Othman learns fortitude and brotherly aid.',
             interactiveSpot: { x: '75%', y: '60%' }
           },
           {
             id: 'c5',
-            label: '🏔️ « The Inner Mountain » — Chapter 5: Ultimate Endurance & Saga Climax',
+            label: '🌳 Chapter 5: « Honoring Roots » — Gratitude & kindness toward parents (Birr)',
             disabled: true,
-            badge: 'Chapter 5 (Coming Soon)',
-            disabledReason: 'The final ascent where all acquired virtues unite to dispel darkness.',
+            badge: 'Coming Soon • Chapter 5',
+            disabledReason: 'A quest of remembrance and filial devotion beneath the great ancient tree.',
             interactiveSpot: { x: '85%', y: '45%' }
           }
         ]
       },
       {
-        id: 's2_b7',
+        id: 's2_choice_reaction',
         type: 'dialogue',
         speaker: 'personnage',
-        text: "This is my direction: I don't want to stay alone anymore. I want to walk down to the village and learn to make true, noble friends!",
+        text: 'I choose to connect with others! I do not want to remain trapped in my solitude. I want to build sincere bonds of brotherhood.',
         emotion: 'determined'
       },
       {
-        id: 's2_dua_1',
+        id: 's2_tawakkul_reminder',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'A noble intention, my son. But before setting foot on the trail... there is a remembrance your grandfather always repeated when stepping outside.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's2_dua_2',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Which one? A duʿāʾ before traveling?',
-        emotion: 'thoughtful'
-      },
-      {
-        id: 's2_dua_3',
-        type: 'dialogue',
-        speaker: 'noura',
-        arabicText: 'بِسْمِ اللَّهِ ، تَوَكَّلْتُ عَلَى اللَّهِ ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ',
-        text: '« Bismillāh, tawakkaltu ʿalâ Allāh, wa lâ hawla wa lâ quwwata illâ billâh »\n\n(In the name of Allah, I place my trust in Allah, and there is no power nor might except with Allah).',
-        emotion: 'smiling'
-      },
-      {
-        id: 's2_dua_4',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'It reminds us that all our efforts depend solely on Allah’s help. Strap your bag onto your shoulders and recite this duʿāʾ from your heart.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's2_pont_depart',
-        type: 'dialogue',
-        speaker: 'noura',
-        isPontDeNour: true,
-        text: 'And you, before undertaking anything important today... Check your belongings, then entrust your day to the Creator saying: « Bismillāh, tawakkaltu ʿalâ Allāh, wa lâ hawla wa lâ quwwata illâ billâh ».',
+        text: 'Then let us begin with the encounter! Entrust your heart to Allah and let us proceed with peace.',
         emotion: 'smiling'
       },
       {
         id: 's2_act',
         type: 'real_action',
         realActionId: 'action_depart',
-        text: 'Secure your bag and recite the departure duʿāʾ.'
-      },
-      {
-        id: 's2_dua_6',
-        type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Bismillāh, tawakkaltu ʿalâ Allāh! Strange, as soon as you say it from the heart, the bag feels twice as light. I feel ready!',
-        emotion: 'determined'
-      },
-      {
-        id: 's2_b9',
-        type: 'dialogue',
-        speaker: 'noura',
-        text: 'That is the power of Tawakkul. With resolute steps, let us head down to the valley!',
-        emotion: 'smiling'
+        text: 'Check your pack and renew the supplication of trust in Allah.'
       }
     ]
   },
@@ -721,55 +715,53 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
     id: 3,
     title: 'The First Waswas',
     subtitle: '« The Paralyzing Thought »',
-    location: 'Trail darkened by purple mist',
-    requiredXp: 180,
-    isSpiritualGate: true,
-    gateReason: 'To dispel the first mist of doubts (Waswas), arm your heart with the foundations of faith and beneficial knowledge.',
+    location: 'Mist-shrouded mountain trail',
+    requiredXp: 0,
     backgroundTheme: 'waswas',
     beats: [
       {
         id: 's3_b1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'The trail narrows beneath steep crags. A heavy purple mist rises from the ground. A Waswas emerges: a whispering shadow, without physical body, yet laden with doubt.'
+        text: 'The trail narrows beneath steep cliffs. A heavy purple mist rises from the ground. A Waswas emerges: a whispering shadow, devoid of physical substance, but heavy with doubt.'
       },
       {
         id: 's3_b2',
         type: 'dialogue',
         speaker: 'waswas',
-        text: "You will never succeed.\nYou want to make friends? You can't even speak to a stranger without stuttering.",
+        text: 'You will never make it.\nYou want to make friends? You cannot even speak to a stranger without stammering.',
         emotion: 'shadow'
       },
       {
         id: 's3_b3',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Mother... His words... That is exactly what I kept repeating to myself in bed this morning.',
+        text: 'Mother... Those words... That is exactly what I was repeating to myself this morning in bed.',
         emotion: 'worried',
         waswasXpAmount: 15,
-        waswasReason: "The whisper of Waswas resonates with inner doubt"
+        waswasReason: 'The whisper of Waswas resonates inside Othman'
       },
       {
         id: 's3_b6',
         type: 'dialogue',
         speaker: 'noura',
-        text: "He doesn't read your mind, Othman. He blows on your existing doubts to paralyze you and make you turn back. This shadow has no real power, except what you grant it.",
+        text: 'He cannot read your mind, Othman. He blows upon your insecurities to paralyze you and make you turn back. This shadow has no real power, except what you grant it.',
         emotion: 'thoughtful'
       },
       {
         id: 's3_b7',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'How do I silence a thought that constricts my chest?',
+        text: 'But how do I silence a thought that grips my throat?',
         emotion: 'worried',
         waswasXpAmount: 10,
-        waswasReason: "Oppression of inner doubt"
+        waswasReason: 'Oppression of internal self-doubt'
       },
       {
         id: 's3_b7_bis',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'We do not debate with doubt, my son. We seek refuge with the One who removes all darkness.',
+        text: 'We do not debate with doubt, my son. We seek refuge with the One who dispels all darkness.',
         emotion: 'smiling'
       },
       {
@@ -782,30 +774,37 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         id: 's3_b9',
         type: 'dialogue',
         speaker: 'personnage',
+        text: 'أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ\nAʿūdhu billāhi mina sh-shayṭāni r-rajīm!',
         arabicText: 'أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ',
-        text: 'Aʿūdhu billāhi mina sh-shayṭāni r-rajīm!',
         emotion: 'determined',
         waswasXpAmount: -20,
-        waswasReason: "The Istiʿādhah dispels the Shadow!"
+        waswasReason: 'The Istiʿādhah dispels the Shadow!',
+        actionVignette: {
+          icon: '🛡️',
+          badge: 'Divine Refuge',
+          title: 'The Protective Istiʿādhah',
+          description: '« Aʿūdhu billāhi mina sh-shayṭāni r-rajīm » — Seeking refuge in Allah shatters the grip of doubt.',
+          glowColor: 'purple'
+        }
       },
       {
         id: 's3_b10',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'The shadowy apparition begins to flicker and lose its density.'
+        text: 'The shadowy apparition begins to waver and lose its substance.'
       },
       {
         id: 's3_b11',
         type: 'dialogue',
         speaker: 'personnage',
-        text: "Look, it's retreating! Is it already defeated?",
+        text: 'Look, it is retreating! Is it defeated now?',
         emotion: 'smiling'
       },
       {
         id: 's3_b14',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Remember: it is not a magic formula, Othman. You sought refuge with Allah from your heart. Now, anchor that word and take a resolute physical step forward!',
+        text: 'Remember: it is not a magic charm, Othman. You sought refuge with Allah in your heart. Now, anchor this word and take a resolute physical step forward!',
         emotion: 'smiling'
       },
       {
@@ -813,87 +812,87 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         type: 'dialogue',
         speaker: 'noura',
         isPontDeNour: true,
-        text: 'And you, when doubt, shyness or negative thoughts try to paralyze you in real life... Breathe calmly, seek refuge in Allah reciting the Istiʿādhah, and decide to take your step forward!',
+        text: 'And you, whenever doubt, shyness, or an inner voice seeks to paralyze you in real life... Breathe calmly, seek refuge in Allah by reciting the Istiʿādhah, and choose to take your step forward!',
         emotion: 'smiling'
       },
       {
         id: 's3_act_istiadhah',
         type: 'real_action',
         realActionId: 'action_istiadhah',
-        text: 'Recite the Istiʿādhah and take a firm step forward.'
+        text: 'Reciting the Istiʿādhah & stepping forward.'
       },
       {
         id: 's3_b16',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Heart strengthened by divine protection, Othman firmly plants his walking staff and takes a bold stride forward.'
+        text: 'Heart strengthened by divine refuge, Othman plants his walking stick firmly and takes a bold stride forward.'
       },
       {
         id: 's3_b17',
         type: 'dialogue',
         speaker: 'waswas',
-        text: 'You will fail anyway...',
+        text: 'You will still fail...',
         emotion: 'shadow'
       },
       {
         id: 's3_b18',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Maybe. But I place my trust in Allah and I move forward!',
+        text: 'Perhaps. But I place my trust in Allah and I move forward!',
         emotion: 'determined'
       },
       {
         id: 's3_b19',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'The purple mist bursts into a shower of golden sparks! The trail turns bright again, lined with wild blossoms and warm sunlight.'
+        text: 'The purple mist bursts into a shower of golden sparks! The trail becomes clear again, lined with wildflowers and bathed in warm light.'
       },
       {
         id: 's3_b19_reaction',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'It completely evaporated... The path is clear and luminous!',
+        text: 'It vanished completely... The path is luminous and clear!',
         emotion: 'smiling'
       },
       {
         id: 's3_b19_noura',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Doubt has no substance against sincere remembrance of Allah and the courage to act. Keep this lesson close to your heart.',
+        text: 'Doubt has no substance against sincere remembrance of Allah and the courage of righteous action. Cherish this lesson.',
         emotion: 'smiling'
       },
       {
         id: 's3_b20',
         type: 'xp',
         xpAmount: 25,
-        xpReason: 'Concept understood: Istiʿādhah and triumph over doubt'
+        xpReason: 'Concept mastered: The Istiʿādhah and triumph over doubt'
       }
     ]
   },
 
-  // SCENE 4 — "I NO LONGER WANT TO BE ALONE"
+  // SCENE 4 — « I DO NOT WANT TO BE ALONE ANYMORE »
   {
     id: 4,
-    title: '« I No Longer Want to Be Alone »',
+    title: '« I Do Not Want to Be Alone Anymore »',
     subtitle: 'Taʿāruf',
-    location: 'Outskirts of the blooming village',
-    requiredXp: 180,
+    location: 'Outskirts of the flowering village',
+    requiredXp: 0,
     backgroundTheme: 'vallee',
     beats: [
       {
         id: 's4_b1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Below, the terracotta roofs of the village glisten in the sun. The silhouettes of villagers go back and forth between alleys and orchards.'
+        text: 'Down below, the red tiled roofs of the village shimmer under the morning sun. The silhouettes of villagers bustle between alleyways and orchards.'
       },
       {
         id: 's4_b2',
         type: 'dialogue',
         speaker: 'personnage',
-        text: "Look at all these people... They all look so busy and confident. If I walk up to them, they'll wonder who I am and think I'm strange.",
+        text: 'Look at all these people... They all seem so busy and confident. If I approach, they will wonder who I am and find me strange.',
         emotion: 'worried',
         waswasXpAmount: 10,
-        waswasReason: "Fear of others' judgments"
+        waswasReason: 'Fear of judgment from others'
       },
       {
         id: 's4_b3',
@@ -906,16 +905,16 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         id: 's4_b4',
         type: 'dialogue',
         speaker: 'personnage',
-        text: "Because I don't know anyone here. We're not from the same place, we don't have the same lives... What if we have nothing to say to each other?",
+        text: 'Because I do not know anyone here. We are not from the same place, we have different lives... What if we have nothing to say to each other?',
         emotion: 'worried',
         waswasXpAmount: 15,
-        waswasReason: "Fear of the unknown & isolation"
+        waswasReason: 'Fear of the unknown & feeling of isolation'
       },
       {
         id: 's4_b5',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Do you really think Allah created people with such diverse faces and journeys just so each stays hidden behind closed shutters?',
+        text: 'Do you truly believe Allah created people with such diverse lives and faces so that everyone stays locked behind shuttered windows?',
         emotion: 'smiling'
       },
       {
@@ -928,14 +927,14 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         id: 's4_b9',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Surah 49:13... Nations and tribes « that you may know one another » (Taʿāruf). So difference between people is not an obstacle... It is a divine invitation to connect!',
+        text: 'Surah 49:13... Nations and tribes « that you may know one another » (Taʿāruf). So differences between people are not an obstacle... They are a divine invitation!',
         emotion: 'smiling'
       },
       {
         id: 's4_b10',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Exactly. Difference is not a wall that divides, it is a bridge to cross. So, are you ready to take the first step?',
+        text: 'Exactly. Difference is not a wall that divides, it is a bridge to cross. Are you ready to take the first step?',
         emotion: 'smiling'
       },
       {
@@ -943,28 +942,60 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         type: 'dialogue',
         speaker: 'noura',
         isPontDeNour: true,
-        text: 'And you in your real life... Is there someone you have never dared speak to? A neighbor, a classmate, a shopkeeper? Today, cross that bridge and offer them a kind greeting.',
+        text: 'And you in your daily life... Is there someone you never dared speak to? A neighbor, a classmate, a shopkeeper? Today, cross that bridge and offer them a kind greeting.',
         emotion: 'smiling'
       },
       {
         id: 's4_b12',
         type: 'real_action',
         realActionId: 'action_parler',
-        text: 'Today: speak kindly to someone you do not usually talk to.'
+        text: 'Today: speak with warmth to someone you rarely talk to.'
       },
       {
         id: 's4_b14',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'I greeted an elderly gentleman pruning his grapevines. He stood up and gave me a warm, broad smile! In the end... it was so much less terrifying than in my head.',
+        text: 'I greeted an elderly gentleman pruning his grapevines. He looked up and gave me such a warm smile! In the end... it was so much less terrifying than in my head.',
         emotion: 'smiling'
       },
       {
         id: 's4_b15',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Fear always grows in silence and hesitation, my son. As soon as you take the step with sincerity, it vanishes. Let us head to the village square!',
+        text: 'Fear always grows in silence and hesitation, my son. The moment you step forward with sincerity, it dissolves. Look: multiple paths open before us to explore this village.',
         emotion: 'smiling'
+      },
+      {
+        id: 's4_approach_choice',
+        type: 'choice',
+        speaker: 'personnage',
+        text: '« Where does Othman decide to head inside the village? »',
+        choices: [
+          {
+            id: 'c_place',
+            label: '🏛️ Head down to the village square (Central square & fountain)',
+            responsePreview: '« Let us go to the central square! » — Experience the crowd and bring peace with Adab.',
+            targetSceneId: 5,
+            badge: 'The Square & Fountain',
+            traitGains: { adab: 6, hilm: 4 }
+          },
+          {
+            id: 'c_ruelle',
+            label: '🧶 Enter a shaded side alley (The young craftsman)',
+            responsePreview: '« Let us take this shaded alley. » — Face rejection and nurture Sabr.',
+            targetSceneId: 6,
+            badge: 'The Shaded Alley',
+            traitGains: { sabr: 6, discipline: 4 }
+          },
+          {
+            id: 'c_vergers',
+            label: '🧺 Follow stone walls toward the groves (The elder farmer)',
+            responsePreview: '« Let us head toward the olive groves. » — Serve quietly with pure Niyyah.',
+            targetSceneId: 7,
+            badge: 'The Olive Trail',
+            traitGains: { vitalite: 6, hilm: 4 }
+          }
+        ]
       }
     ]
   },
@@ -973,54 +1004,73 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
   {
     id: 5,
     title: 'The Village',
-    subtitle: '« Good Manners »',
-    location: 'Central village square, fountain and stone well',
-    requiredXp: 180,
+    subtitle: '« Noble Character & Adab »',
+    location: 'Central village square, fountain and well',
+    nextSceneId: 8,
+    requiredXp: 0,
     backgroundTheme: 'village',
     beats: [
       {
         id: 's5_b1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Othman and Noura enter the paved central square. Around the freshwater fountain, several villagers pause: crossed arms, cautious looks, nobody makes the first move toward the new arrivals.'
+        text: 'Othman and Noura enter the cobblestone central square. Around the water fountain, several villagers pause: arms crossed, wary glances, nobody makes the first move toward the newcomers.'
       },
       {
         id: 's5_b2',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Brrr... The welcome is cold. They stare at me as if I was about to steal their baskets of olives.',
+        text: 'Brrr... The reception is icy. They look at me as if I came to steal their olive baskets.',
         emotion: 'worried',
         waswasXpAmount: 15,
-        waswasReason: "Unease & fear of villagers' gazes"
+        waswasReason: 'Unease and fear of the villagers’ stares'
       },
       {
         id: 's5_b3',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Further near the stalls, two merchants raise their voices in a heated dispute over a grain sack. Othman puffs his chest and steps forward to intervene.'
+        text: 'Further near the stalls, two merchants raise their voices loudly over a sack of grain. Othman puffs out his chest and starts moving forward to intervene.'
       },
       {
         id: 's5_b4',
         type: 'dialogue',
         speaker: 'personnage',
-        text: "Wait, I could jump in the middle of their argument! That way everyone will see that I'm bold.",
-        emotion: 'determined'
+        text: 'Wait, I could step into the middle of their argument! That way, everyone will see I have strong character.',
+        emotion: 'determined',
+        adaptiveVariants: [
+          {
+            dominantTrait: 'adab',
+            text: 'Perhaps I should approach quietly and bring peace to their hearts with a kind word...'
+          },
+          {
+            dominantTrait: 'ilm',
+            text: 'I do not know the root cause of their dispute yet... Better to observe with discernment before judging.'
+          },
+          {
+            dominantTrait: 'discipline',
+            text: 'If nobody lays out the facts calmly, this argument over the grain sack might drag on endlessly...'
+          },
+          {
+            dominantTrait: 'sabr',
+            text: 'Let the dust and anger settle on their own before stepping in.'
+          }
+        ]
       },
       {
         id: 's5_b5',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Othman... Do you want to speak... or do you truly want to help?',
+        text: 'Othman... Do you want to be noticed... or do you truly want to help?',
         emotion: 'thoughtful'
       },
       {
         id: 's5_b6',
         type: 'dialogue',
         speaker: 'personnage',
-        text: "I... Honestly, I just wanted to get noticed. I don't even know what their dispute is about.",
+        text: 'I... honestly, I just wanted people to notice me. I do not even know what happened with their grain sack.',
         emotion: 'worried',
         waswasXpAmount: 10,
-        waswasReason: "Ostentation & passing vanity"
+        waswasReason: 'Fleeting vanity and seeking attention'
       },
       {
         id: 's5_b7',
@@ -1032,21 +1082,21 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         id: 's5_b8',
         type: 'dialogue',
         speaker: 'personnage',
-        text: '« Whoever believes in Allah and the Last Day, let him speak good or remain silent ». Remaining silent when having nothing useful to bring is also a mark of maturity.',
+        text: '« Whoever believes in Allah and the Last Day, let him speak good or remain silent ». Keeping silent when you have nothing beneficial to contribute is a mark of true maturity.',
         emotion: 'thoughtful'
       },
       {
         id: 's5_b9',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Exactly. But to break the ice without intruding, do you know the purest key? The Salām and a genuine smile.',
+        text: 'Exactly. But to break the ice without meddling, do you know the purest key? The Salām and a sincere smile.',
         emotion: 'smiling'
       },
       {
         id: 's5_b10',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'The Prophet ﷺ taught that a smile given to your brother is a charity (Sadaqah). Offer them peace from your heart, and watch what happens.',
+        text: 'The Prophet ﷺ taught that a smile given to your brother is a charity (Sadaqah). Offer them peace from the bottom of your heart and watch what happens.',
         emotion: 'smiling'
       },
       {
@@ -1054,14 +1104,14 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         type: 'dialogue',
         speaker: 'noura',
         isPontDeNour: true,
-        text: 'And you, have you thought about this accessible charity? Today, offer a sincere Salām or warm smile to someone around you.',
+        text: 'And you, have you thought about this charity accessible at every moment? Today, offer a sincere Salām or warm smile to someone. The Prophet ﷺ said that a smile to your brother is a charity.',
         emotion: 'smiling'
       },
       {
         id: 's5_act_salam',
         type: 'real_action',
         realActionId: 'action_salam_village',
-        text: 'Offer Salām and a genuine fraternal smile.'
+        text: 'Offering the Salām and a warm smile.'
       },
       {
         id: 's5_b11',
@@ -1071,13 +1121,13 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         text: 'As-salāmu ʿalaykum wa rahmatullāhi wa barakātuh!',
         emotion: 'smiling',
         waswasXpAmount: -10,
-        waswasReason: "The peace of Salām weakens the Shadow!"
+        waswasReason: 'The peace of the Salām weakens the Shadow!'
       },
       {
         id: 's5_b12',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'Upon hearing this peaceful greeting and seeing Othman’s radiant face, suspicion melts away! The villagers uncross their arms, smile, and welcome him with friendly gestures.'
+        text: 'Hearing this serene greeting and seeing Othman’s radiant face, suspicion melts away like morning dew! Villagers uncross their arms, smile warmly, and return the greeting with open gestures.'
       },
       {
         id: 's5_b13',
@@ -1454,7 +1504,7 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
   {
     id: 9,
     title: 'The Grand Waswas',
-    subtitle: 'Climax of Chapter 1',
+    subtitle: '« The Summit of Awakening »',
     location: 'Darkened mountain pass, cold wind and purple mist',
     requiredXp: 780,
     isSpiritualGate: true,
@@ -1608,7 +1658,7 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         id: 's9_b33',
         type: 'dialogue',
         speaker: 'personnage',
-        text: 'Yes! But first, I have a promise to keep in real life.',
+        text: 'Yes! But first, I want to head back down to the village. This morning, hearing the children laughing and playing ball broke my heart with fear of being rejected. But by Allah\'s grace, that fear no longer holds me back! I promised to go meet them with a smile and share this joy.',
         emotion: 'determined'
       },
       {
@@ -1616,7 +1666,7 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         type: 'dialogue',
         speaker: 'noura',
         isPontDeNour: true,
-        text: 'And you who have climbed to the summit of this first chapter... One vital step remains: go to someone in real life, say from your heart « As-salāmu ʿalaykum », and let brotherhood unfold naturally.',
+        text: 'And you, traveler who climbed to the summit of this first chapter... Othmân overcame his fear. Now it\'s your turn: reach out to someone in your daily life, say from your heart « As-salāmu ʿalaykum », and let brotherhood unfold naturally.',
         emotion: 'smiling'
       },
       {
@@ -1658,94 +1708,27 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
 
 export const DAY_2_POTEAU_BEATS_EN: Beat[] = [
   {
-    id: 's2_d2_intro',
-    type: 'dialogue',
-    speaker: 'narration',
-    text: '🌅 Dawn rises over the crossroads. After a restful night, Othman and Noura are back before the great wooden signpost. The cool morning breeze stirs the golden leaves.'
-  },
-  {
-    id: 's2_d2_othman_1',
-    type: 'dialogue',
-    speaker: 'personnage',
-    text: 'What serene peace this morning... The village breathes tranquility, and my heart feels so much lighter than yesterday!',
-    emotion: 'smiling'
-  },
-  {
-    id: 's2_d2_noura_1',
-    type: 'dialogue',
-    speaker: 'noura',
-    text: 'A new day begins, Othman. You made wonderful progress yesterday. Today, a brand new path awaits.',
-    emotion: 'smiling'
-  },
-  {
-    id: 's2_d2_pont',
-    type: 'dialogue',
-    speaker: 'noura',
-    isPontDeNour: true,
-    text: 'And you too... Every morning is a fresh chance for a bright new beginning.',
-    emotion: 'smiling'
-  },
-  {
     id: 's2_d2_choice',
     type: 'choice',
-    speaker: 'personnage',
-    text: 'Othman examines the signpost illuminated by the morning dawn:',
+    speaker: 'noura',
+    text: 'Today, which chapter would you like to explore, Othman?',
+    emotion: 'smiling',
     choices: [
       {
-        id: 'c1_replay',
-        label: '📜 « Overcoming Solitude » — Chapter 1: Making Friends (Replay)',
-        badge: '✓ Completed (Replayable)',
-        interactiveSpot: { x: '35%', y: '55%' }
+        id: 'c2_chap2',
+        label: '« The Path of Hilm » — Chapter 2: Anger & Self-Mastery',
+        badge: '✦ Continue'
       },
       {
-        id: 'c2_chap2',
-        label: '🌾 « The Path of Hilm » — Chapter 2: Anger & Self-Mastery',
-        badge: '✨ NEW ADVENTURE UNLOCKED',
-        interactiveSpot: { x: '50%', y: '45%' }
+        id: 'c1_replay',
+        label: '« Overcoming Solitude » — Chapter 1: Making Friends (Replay)',
+        badge: '✓ Chapter 1'
       },
       {
         id: 'c3_chap3',
-        label: '🩹 « The Child with the Splint » — Chapter 3: Patience in Trials (Sabr)',
-        disabled: true,
-        badge: 'Founder Pack ($4.99)',
-        isStripePromo: true,
-        originalPrice: '7.99 €',
-        promoPrice: '4.99 €',
-        discountRate: '-38%',
-        stripeUrl: 'https://buy.stripe.com/test_4gM4gB7QR3ThbJlgjK3Ru01',
-        disabledReason: 'Discover lessons of patience, herbal remedies, and peace at the mosque.',
-        interactiveSpot: { x: '65%', y: '50%' }
-      },
-      {
-        id: 'c4_chap4',
-        label: '🕊️ « What You Still Have » — Chapter 4: Kindness to Parents (Birr)',
-        disabled: true,
-        badge: 'Chapter 4 (Coming Soon)',
-        disabledReason: 'Under the great oak with his childhood friend, a talk opens his heart.',
-        interactiveSpot: { x: '75%', y: '60%' }
-      },
-      {
-        id: 'c5_chap5',
-        label: '🏔️ « The Inner Mountain » — Chapter 5: Ultimate Endurance & Climax',
-        disabled: true,
-        badge: 'Chapter 5 (Coming Soon)',
-        disabledReason: 'The final ascent to the mountain peak to face the shadows of doubt.',
-        interactiveSpot: { x: '85%', y: '45%' }
+        label: '« The Child with the Splint » — Chapter 3: Patience in Trials (Sabr)',
+        badge: '✦ Chapter 3'
       }
     ]
-  },
-  {
-    id: 's2_d2_conclusion_noura',
-    type: 'dialogue',
-    speaker: 'noura',
-    text: 'Look at the signpost toward the Path of Hilm that just unlocked! You overcame solitude yesterday and learned to step toward others with brotherhood. Today, a whole new adventure awaits: facing provocation and mastering your inner fire with gentleness. Chapter 2 is now open! Let us go with Allah’s grace!',
-    emotion: 'smiling'
-  },
-  {
-    id: 's2_d2_conclusion_othman',
-    type: 'dialogue',
-    speaker: 'personnage',
-    text: 'Al-Hamdulillāh! Every morning is a brand new opportunity to learn and grow better!',
-    emotion: 'smiling'
   }
 ];

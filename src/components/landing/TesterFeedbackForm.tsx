@@ -264,31 +264,31 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
   return (
     <div id="tester-questionnaire" className="w-full max-w-2xl mx-auto">
       {/* Questionnaire Card Frame */}
-      <div className="bg-[#fbf7ee] border-3 border-[#3a2312] rounded-3xl shadow-[0_8px_0_#3a2312] overflow-hidden relative">
+      <div className="bg-[#130f1b] border-2 border-[#d4af37]/60 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden relative text-[#ede2cf]">
         {/* Corner Decorative Diamonds */}
-        <div className="absolute top-3 left-3 w-2.5 h-2.5 bg-[#d97c27] border border-[#3a2312] rotate-45 pointer-events-none z-10" />
-        <div className="absolute top-3 right-3 w-2.5 h-2.5 bg-[#d97c27] border border-[#3a2312] rotate-45 pointer-events-none z-10" />
-        <div className="absolute bottom-3 left-3 w-2.5 h-2.5 bg-[#d97c27] border border-[#3a2312] rotate-45 pointer-events-none z-10" />
-        <div className="absolute bottom-3 right-3 w-2.5 h-2.5 bg-[#d97c27] border border-[#3a2312] rotate-45 pointer-events-none z-10" />
+        <div className="absolute top-3 left-3 w-2.5 h-2.5 bg-[#ffd700] border border-[#d4af37] rotate-45 pointer-events-none z-10" />
+        <div className="absolute top-3 right-3 w-2.5 h-2.5 bg-[#ffd700] border border-[#d4af37] rotate-45 pointer-events-none z-10" />
+        <div className="absolute bottom-3 left-3 w-2.5 h-2.5 bg-[#ffd700] border border-[#d4af37] rotate-45 pointer-events-none z-10" />
+        <div className="absolute bottom-3 right-3 w-2.5 h-2.5 bg-[#ffd700] border border-[#d4af37] rotate-45 pointer-events-none z-10" />
 
         {/* Header Ribbon */}
-        <div className="bg-[#f3ebd9] px-5 py-4 sm:px-8 sm:py-5 border-b-2 border-[#3a2312] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="bg-[#1a1426] px-5 py-4 sm:px-8 sm:py-5 border-b border-[#d4af37]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#d97c27] border-2 border-[#3a2312] flex items-center justify-center text-[#1a1209] shadow-xs shrink-0">
-              <Sparkles className="w-5 h-5 fill-amber-200" />
+            <div className="w-10 h-10 rounded-2xl bg-[#d4af37]/25 border-2 border-[#ffd700] flex items-center justify-center text-[#ffd700] shadow-xs shrink-0">
+              <Sparkles className="w-5 h-5 fill-[#ffd700]/40" />
             </div>
             <div>
-              <h2 className="text-lg sm:text-xl font-black text-[#3a2312] font-cinzel leading-tight">
+              <h2 className="text-lg sm:text-xl font-black text-[#fbf6ec] font-cinzel leading-tight">
                 Questionnaire Bêta-Testeurs
               </h2>
-              <p className="text-xs sm:text-sm text-[#7a5332] font-medium">
+              <p className="text-xs sm:text-sm text-[#d8c29d] font-medium">
                 Vos retours sincères façonnent l'aventure NOUR.
               </p>
             </div>
           </div>
 
           {!isSubmitted && (
-            <div className="flex items-center gap-2 self-start sm:self-auto bg-[#ebdfc8] px-3 py-1.5 rounded-full border border-[#3a2312] text-xs font-bold text-[#5c3e23] font-cinzel shadow-inner">
+            <div className="flex items-center gap-2 self-start sm:self-auto bg-[#241a34] px-3 py-1.5 rounded-full border border-[#d4af37]/40 text-xs font-bold text-[#ffd700] font-cinzel shadow-inner">
               <span>Étape {currentStep + 1} / {totalSteps}</span>
             </div>
           )}
@@ -296,9 +296,9 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
         {/* Progress Bar */}
         {!isSubmitted && (
-          <div className="w-full h-2.5 bg-[#ebdfc8] border-b border-[#3a2312] relative overflow-hidden">
+          <div className="w-full h-2.5 bg-[#241a34] border-b border-[#d4af37]/30 relative overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-[#d97c27] to-[#e69138] transition-all duration-300 ease-out border-r border-[#3a2312]"
+              className="h-full bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] transition-all duration-300 ease-out border-r border-[#ffd700]"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
@@ -309,29 +309,29 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
           {isSubmitted ? (
             /* Thank You State */
             <div className="flex flex-col items-center text-center gap-4 py-4 animate-in fade-in zoom-in-95 duration-300">
-              <div className="w-16 h-16 rounded-3xl bg-[#d8f3dc] border-3 border-[#2d6a4f] text-[#2d6a4f] flex items-center justify-center shadow-[0_4px_0_#2d6a4f]">
+              <div className="w-16 h-16 rounded-3xl bg-[#1b382b] border-2 border-[#48bb78] text-[#48bb78] flex items-center justify-center shadow-[0_4px_20px_rgba(72,187,120,0.3)]">
                 <CheckCircle2 className="w-9 h-9" />
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <span className="text-xs font-black uppercase tracking-widest text-[#2d6a4f] font-cinzel">
+                <span className="text-xs font-black uppercase tracking-widest text-[#48bb78] font-cinzel">
                   BarakAllahu fikoum !
                 </span>
-                <h3 className="text-xl sm:text-2xl font-black text-[#3a2312] font-cinzel">
+                <h3 className="text-xl sm:text-2xl font-black text-[#fbf6ec] font-cinzel">
                   Merci infiniment pour vos retours !
                 </h3>
-                <p className="text-xs sm:text-sm text-[#5c3e23] max-w-md mx-auto leading-relaxed mt-1">
+                <p className="text-xs sm:text-sm text-[#d8c29d] max-w-md mx-auto leading-relaxed mt-1">
                   Vos réponses ont été enregistrées avec succès et préparées pour être envoyées directement à l'équipe sur WhatsApp.
                 </p>
               </div>
 
               {/* WhatsApp Action Card */}
-              <div className="w-full bg-[#ebf5e9] border-2 border-[#2d6a4f] rounded-2xl p-4 text-left flex flex-col gap-2.5 mt-2 shadow-xs">
-                <div className="flex items-center gap-2 text-xs font-bold text-[#1b4332] font-cinzel">
-                  <MessageCircle className="w-4 h-4 text-[#2d6a4f] fill-[#2d6a4f]/20" />
+              <div className="w-full bg-[#112419] border-2 border-[#25D366]/60 rounded-2xl p-4 text-left flex flex-col gap-2.5 mt-2 shadow-lg">
+                <div className="flex items-center gap-2 text-xs font-bold text-[#48bb78] font-cinzel">
+                  <MessageCircle className="w-4 h-4 text-[#25D366] fill-[#25D366]/20" />
                   <span>Envoyer directement à l'équipe sur WhatsApp (+212 699 245 542)</span>
                 </div>
-                <p className="text-xs text-[#2d522f] leading-relaxed">
+                <p className="text-xs text-[#a7f3d0] leading-relaxed">
                   Cliquez sur le bouton vert ci-dessous pour transmettre automatiquement votre bilan complet par message à notre équipe.
                 </p>
 
@@ -351,7 +351,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                   <button
                     type="button"
                     onClick={onLaunchGame}
-                    className="flex-1 py-3 px-5 rounded-2xl bg-[#2d6a4f] hover:bg-[#1b4332] text-[#fbf7ee] font-black text-sm font-cinzel border-2 border-[#1b4332] shadow-[0_3px_0_#1b4332] active:translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    className="flex-1 py-3 px-5 rounded-2xl bg-gradient-to-r from-[#e5c158] via-[#ffd700] to-[#c59b27] text-stone-950 font-black text-sm font-cinzel shadow-[0_0_20px_rgba(212,175,55,0.3)] active:translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Gamepad2 className="w-4 h-4" />
                     <span>Lancer le Jeu (Web)</span>
@@ -361,7 +361,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                 <button
                   type="button"
                   onClick={handleRestart}
-                  className="py-3 px-4 rounded-2xl bg-[#ebdfc8] hover:bg-[#ebdcc4] text-[#7a5332] font-bold text-xs sm:text-sm font-cinzel border-2 border-[#3a2312] shadow-[0_2px_0_#3a2312] active:translate-y-0.5 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="py-3 px-4 rounded-2xl bg-[#241a34] hover:bg-[#2d2142] text-[#d8c29d] font-bold text-xs sm:text-sm font-cinzel border border-[#d4af37]/40 active:translate-y-0.5 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <RotateCcw className="w-4 h-4" />
                   <span>Nouveau retour</span>
@@ -372,7 +372,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                 <button
                   type="button"
                   onClick={() => downloadJsonBackup(formData)}
-                  className="text-[11px] text-[#8c6b4e] hover:text-[#3a2312] underline font-medium cursor-pointer"
+                  className="text-[11px] text-[#d8c29d]/70 hover:text-[#ffd700] underline font-medium cursor-pointer"
                 >
                   Télécharger une copie JSON sur mon appareil (optionnel)
                 </button>
@@ -384,32 +384,32 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
               {/* SECTION 1: INFO */}
               {currentStep === 0 && (
                 <div className="flex flex-col gap-5 animate-in fade-in duration-200">
-                  <div className="border-b border-[#3a2312]/20 pb-2">
-                    <h3 className="text-base sm:text-lg font-black text-[#3a2312] font-cinzel flex items-center gap-2">
+                  <div className="border-b border-[#d4af37]/25 pb-2">
+                    <h3 className="text-base sm:text-lg font-black text-[#fbf6ec] font-cinzel flex items-center gap-2">
                       <span>1. À propos de vous</span>
                     </h3>
-                    <p className="text-xs text-[#7a5332]">Commençons par faire connaissance avec le joueur.</p>
+                    <p className="text-xs text-[#d8c29d]">Commençons par faire connaissance avec le joueur.</p>
                   </div>
 
                   {/* Nom */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312]">
-                      Quel est votre prénom ou pseudo ? <span className="text-[#8c6b4e] font-normal">(optionnel)</span>
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec]">
+                      Quel est votre prénom ou pseudo ? <span className="text-[#d8c29d]/70 font-normal">(optionnel)</span>
                     </label>
                     <input
                       type="text"
                       value={formData.name}
                       onChange={(e) => updateField('name', e.target.value)}
                       placeholder="Ex : Rayan, Safia, Othmân..."
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#f3ebd9] border-2 border-[#3a2312] text-sm text-[#3a2312] placeholder-[#a68a70] focus:outline-hidden focus:border-[#d97c27] shadow-inner transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-[#1d1728] border border-[#d4af37]/40 text-base sm:text-sm text-[#ffffff] placeholder-[#8e8175] focus:outline-hidden focus:border-[#ffd700] focus:ring-1 focus:ring-[#ffd700] shadow-inner transition-colors"
                     />
                   </div>
 
                   {/* Âge */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312] flex items-center gap-1">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec] flex items-center gap-1">
                       <span>Âge du joueur</span>
-                      <span className="text-[#d97c27] font-black">*</span>
+                      <span className="text-[#ffd700] font-black">*</span>
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                       {[
@@ -422,10 +422,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={item.id}
                           type="button"
                           onClick={() => updateField('age', item.id)}
-                          className={`py-2.5 px-3 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
+                          className={`py-2.5 px-3 rounded-xl border font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
                             formData.age === item.id
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           {item.label}
@@ -436,7 +436,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
                   {/* Première fois */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312]">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec]">
                       C'est votre première fois sur NOUR ?
                     </label>
                     <div className="grid grid-cols-2 gap-2.5">
@@ -448,10 +448,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={item.id}
                           type="button"
                           onClick={() => updateField('firstTime', item.id)}
-                          className={`py-2.5 px-3 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
+                          className={`py-2.5 px-3 rounded-xl border font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
                             formData.firstTime === item.id
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           {item.label}
@@ -465,18 +465,18 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
               {/* SECTION 2: GAMEPLAY */}
               {currentStep === 1 && (
                 <div className="flex flex-col gap-5 animate-in fade-in duration-200">
-                  <div className="border-b border-[#3a2312]/20 pb-2">
-                    <h3 className="text-base sm:text-lg font-black text-[#3a2312] font-cinzel flex items-center gap-2">
+                  <div className="border-b border-[#d4af37]/25 pb-2">
+                    <h3 className="text-base sm:text-lg font-black text-[#fbf6ec] font-cinzel flex items-center gap-2">
                       <span>2. Expérience du jeu</span>
                     </h3>
-                    <p className="text-xs text-[#7a5332]">Votre ressenti sur le déroulement de la partie.</p>
+                    <p className="text-xs text-[#d8c29d]">Votre ressenti sur le déroulement de la partie.</p>
                   </div>
 
                   {/* Terminé Ch. 1 */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312] flex items-center gap-1">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec] flex items-center gap-1">
                       <span>Avez-vous terminé le Chapitre 1 entièrement ?</span>
-                      <span className="text-[#d97c27] font-black">*</span>
+                      <span className="text-[#ffd700] font-black">*</span>
                     </label>
                     <div className="flex flex-col gap-2">
                       {[
@@ -488,10 +488,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={item.id}
                           type="button"
                           onClick={() => updateField('completed', item.id)}
-                          className={`py-2.5 px-4 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all cursor-pointer text-left flex items-center justify-between ${
+                          className={`py-2.5 px-4 rounded-xl border font-bold text-xs sm:text-sm transition-all cursor-pointer text-left flex items-center justify-between ${
                             formData.completed === item.id
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           <span>{item.label}</span>
@@ -503,7 +503,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
                   {/* Durée */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312]">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec]">
                       Combien de temps avez-vous joué environ ?
                     </label>
                     <div className="grid grid-cols-2 gap-2">
@@ -517,10 +517,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={item.id}
                           type="button"
                           onClick={() => updateField('duration', item.id)}
-                          className={`py-2 px-3 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
+                          className={`py-2 px-3 rounded-xl border font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
                             formData.duration === item.id
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           {item.label}
@@ -531,7 +531,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
                   {/* Scène ralentie */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312]">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec]">
                       Quelle scène vous a le plus ralenti ou semblé longue ?
                     </label>
                     <input
@@ -539,7 +539,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                       value={formData.slowScene}
                       onChange={(e) => updateField('slowScene', e.target.value)}
                       placeholder="Ex : Le carrefour du poteau, les quiz, le combat final..."
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#f3ebd9] border-2 border-[#3a2312] text-sm text-[#3a2312] placeholder-[#a68a70] focus:outline-hidden focus:border-[#d97c27] shadow-inner"
+                      className="w-full px-4 py-3 rounded-xl bg-[#1d1728] border border-[#d4af37]/40 text-base sm:text-sm text-[#ffffff] placeholder-[#8e8175] focus:outline-hidden focus:border-[#ffd700] focus:ring-1 focus:ring-[#ffd700] shadow-inner"
                     />
                   </div>
                 </div>
@@ -548,16 +548,16 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
               {/* SECTION 3: ACTIONS RÉELLES */}
               {currentStep === 2 && (
                 <div className="flex flex-col gap-5 animate-in fade-in duration-200">
-                  <div className="border-b border-[#3a2312]/20 pb-2">
-                    <h3 className="text-base sm:text-lg font-black text-[#3a2312] font-cinzel flex items-center gap-2">
+                  <div className="border-b border-[#d4af37]/25 pb-2">
+                    <h3 className="text-base sm:text-lg font-black text-[#fbf6ec] font-cinzel flex items-center gap-2">
                       <span>3. Actions dans la vraie vie</span>
                     </h3>
-                    <p className="text-xs text-[#7a5332]">Le cœur pédagogique de NOUR : avez-vous réalisé les gestes ?</p>
+                    <p className="text-xs text-[#d8c29d]">Le cœur pédagogique de NOUR : avez-vous réalisé les gestes ?</p>
                   </div>
 
                   {/* Scène 1 : Lit */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312]">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec]">
                       🛏️ Scène 1 : Avez-vous vraiment rangé votre lit ?
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -571,10 +571,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={item.id}
                           type="button"
                           onClick={() => updateField('action1', item.id)}
-                          className={`py-2 px-2.5 rounded-xl border-2 font-bold text-xs transition-all cursor-pointer text-center ${
+                          className={`py-2 px-2.5 rounded-xl border font-bold text-xs transition-all cursor-pointer text-center ${
                             formData.action1 === item.id
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           {item.label}
@@ -585,7 +585,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
                   {/* Scène 2 : Bismillah */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312]">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec]">
                       💧 Scène 2 : Avez-vous bu l'eau avec « Bismillâh » ?
                     </label>
                     <div className="flex flex-col gap-2">
@@ -598,10 +598,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={item.id}
                           type="button"
                           onClick={() => updateField('action2', item.id)}
-                          className={`py-2 px-3 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all cursor-pointer text-left ${
+                          className={`py-2 px-3 rounded-xl border font-bold text-xs sm:text-sm transition-all cursor-pointer text-left ${
                             formData.action2 === item.id
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           {item.label}
@@ -612,7 +612,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
                   {/* Scène 3 : Saluer */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312]">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec]">
                       🤝 Scène 3 : Avez-vous salué un proche ou voisin ?
                     </label>
                     <div className="grid grid-cols-2 gap-2">
@@ -624,10 +624,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={item.id}
                           type="button"
                           onClick={() => updateField('action3', item.id)}
-                          className={`py-2 px-3 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
+                          className={`py-2 px-3 rounded-xl border font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
                             formData.action3 === item.id
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           {item.label}
@@ -638,9 +638,9 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
                   {/* Clarté validation */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312] flex items-center gap-1">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec] flex items-center gap-1">
                       <span>Comment validez-vous les actions ? Était-ce clair ?</span>
-                      <span className="text-[#d97c27] font-black">*</span>
+                      <span className="text-[#ffd700] font-black">*</span>
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {[
@@ -653,10 +653,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={item.id}
                           type="button"
                           onClick={() => updateField('validation', item.id)}
-                          className={`py-2.5 px-2 rounded-xl border-2 font-bold text-xs transition-all cursor-pointer text-center ${
+                          className={`py-2.5 px-2 rounded-xl border font-bold text-xs transition-all cursor-pointer text-center ${
                             formData.validation === item.id
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           {item.label}
@@ -670,18 +670,18 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
               {/* SECTION 4: UX & DESIGN */}
               {currentStep === 3 && (
                 <div className="flex flex-col gap-5 animate-in fade-in duration-200">
-                  <div className="border-b border-[#3a2312]/20 pb-2">
-                    <h3 className="text-base sm:text-lg font-black text-[#3a2312] font-cinzel flex items-center gap-2">
+                  <div className="border-b border-[#d4af37]/25 pb-2">
+                    <h3 className="text-base sm:text-lg font-black text-[#fbf6ec] font-cinzel flex items-center gap-2">
                       <span>4. Interface & Graphismes</span>
                     </h3>
-                    <p className="text-xs text-[#7a5332]">Votre appréciation du design et de l'ergonomie.</p>
+                    <p className="text-xs text-[#d8c29d]">Votre appréciation du design et de l'ergonomie.</p>
                   </div>
 
                   {/* Quiz difficulté */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312] flex items-center gap-1">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec] flex items-center gap-1">
                       <span>Les quiz d'apprentissage : difficultés ?</span>
-                      <span className="text-[#d97c27] font-black">*</span>
+                      <span className="text-[#ffd700] font-black">*</span>
                     </label>
                     <div className="grid grid-cols-3 gap-2">
                       {[
@@ -693,10 +693,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={item.id}
                           type="button"
                           onClick={() => updateField('quiz', item.id)}
-                          className={`py-2.5 px-2 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
+                          className={`py-2.5 px-2 rounded-xl border font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
                             formData.quiz === item.id
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           {item.label}
@@ -707,9 +707,9 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
                   {/* Note Pixel-art / Design (1 à 5) */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312] flex items-center justify-between">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec] flex items-center justify-between">
                       <span>Le pixel-art et les décors vous ont plu ?</span>
-                      <span className="text-xs text-[#d97c27] font-black font-cinzel">{formData.design} / 5</span>
+                      <span className="text-xs text-[#ffd700] font-black font-cinzel">{formData.design} / 5</span>
                     </label>
                     <div className="flex justify-between gap-2">
                       {['1', '2', '3', '4', '5'].map((val) => (
@@ -717,10 +717,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={val}
                           type="button"
                           onClick={() => updateField('design', val)}
-                          className={`flex-1 py-3 rounded-2xl border-2 font-black text-sm sm:text-base transition-all cursor-pointer text-center flex flex-col items-center gap-0.5 ${
+                          className={`flex-1 py-3 rounded-2xl border font-black text-sm sm:text-base transition-all cursor-pointer text-center flex flex-col items-center gap-0.5 ${
                             formData.design === val
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_4px_0_#3a2312] -translate-y-1'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.4)] -translate-y-1'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           <span>{val}</span>
@@ -728,7 +728,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                         </button>
                       ))}
                     </div>
-                    <div className="flex justify-between text-[11px] text-[#8c6b4e] px-1 font-medium">
+                    <div className="flex justify-between text-[11px] text-[#d8c29d]/80 px-1 font-medium">
                       <span>1 = Pas du tout</span>
                       <span>5 = Coup de cœur !</span>
                     </div>
@@ -736,9 +736,9 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
                   {/* Navigation */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312] flex items-center gap-1">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec] flex items-center gap-1">
                       <span>La navigation était-elle fluide ?</span>
-                      <span className="text-[#d97c27] font-black">*</span>
+                      <span className="text-[#ffd700] font-black">*</span>
                     </label>
                     <div className="grid grid-cols-3 gap-2">
                       {[
@@ -750,10 +750,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={item.id}
                           type="button"
                           onClick={() => updateField('navigation', item.id)}
-                          className={`py-2.5 px-2 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
+                          className={`py-2.5 px-2 rounded-xl border font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
                             formData.navigation === item.id
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           {item.label}
@@ -767,18 +767,18 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
               {/* SECTION 5: SENTIMENT GÉNÉRAL */}
               {currentStep === 4 && (
                 <div className="flex flex-col gap-5 animate-in fade-in duration-200">
-                  <div className="border-b border-[#3a2312]/20 pb-2">
-                    <h3 className="text-base sm:text-lg font-black text-[#3a2312] font-cinzel flex items-center gap-2">
+                  <div className="border-b border-[#d4af37]/25 pb-2">
+                    <h3 className="text-base sm:text-lg font-black text-[#fbf6ec] font-cinzel flex items-center gap-2">
                       <span>5. Sentiment général</span>
                     </h3>
-                    <p className="text-xs text-[#7a5332]">Ce que vous avez ressenti en jouant.</p>
+                    <p className="text-xs text-[#d8c29d]">Ce que vous avez ressenti en jouant.</p>
                   </div>
 
                   {/* Sentiment final */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312] flex items-center gap-1">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec] flex items-center gap-1">
                       <span>À la fin du Chapitre 1, vous vous sentiez... ?</span>
-                      <span className="text-[#d97c27] font-black">*</span>
+                      <span className="text-[#ffd700] font-black">*</span>
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {[
@@ -791,10 +791,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={item.id}
                           type="button"
                           onClick={() => updateField('feeling', item.id)}
-                          className={`py-2.5 px-2 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
+                          className={`py-2.5 px-2 rounded-xl border font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
                             formData.feeling === item.id
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           {item.label}
@@ -805,9 +805,9 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
                   {/* NPS Recommandation (0-10) */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312] flex items-center justify-between">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec] flex items-center justify-between">
                       <span>Recommanderiez-vous NOUR à un ami ?</span>
-                      <span className="text-xs text-[#d97c27] font-black font-cinzel">{formData.recommend} / 10</span>
+                      <span className="text-xs text-[#ffd700] font-black font-cinzel">{formData.recommend} / 10</span>
                     </label>
                     <div className="grid grid-cols-6 sm:grid-cols-11 gap-1 sm:gap-1.5">
                       {['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'].map((score) => (
@@ -815,17 +815,17 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={score}
                           type="button"
                           onClick={() => updateField('recommend', score)}
-                          className={`py-2 rounded-lg border-2 font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
+                          className={`py-2 rounded-lg border font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
                             formData.recommend === score
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_10px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           {score}
                         </button>
                       ))}
                     </div>
-                    <div className="flex justify-between text-[11px] text-[#8c6b4e] px-1 font-medium">
+                    <div className="flex justify-between text-[11px] text-[#d8c29d]/80 px-1 font-medium">
                       <span>0 = Pas du tout</span>
                       <span>10 = Absolument !</span>
                     </div>
@@ -833,7 +833,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
                   {/* Ce qui a plu */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312]">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec]">
                       Ce qui vous a le PLUS plu :
                     </label>
                     <textarea
@@ -841,13 +841,13 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                       onChange={(e) => updateField('liked', e.target.value)}
                       rows={2}
                       placeholder="Ex : Les dialogues avec Noura, les choix moraux, la musique..."
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#f3ebd9] border-2 border-[#3a2312] text-sm text-[#3a2312] placeholder-[#a68a70] focus:outline-hidden focus:border-[#d97c27] shadow-inner resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-[#1d1728] border border-[#d4af37]/40 text-base sm:text-sm text-[#ffffff] placeholder-[#8e8175] focus:outline-hidden focus:border-[#ffd700] focus:ring-1 focus:ring-[#ffd700] shadow-inner resize-none"
                     />
                   </div>
 
                   {/* Ce qui a frustré */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312]">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec]">
                       Ce qui vous a frustré ou déçu :
                     </label>
                     <textarea
@@ -855,7 +855,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                       onChange={(e) => updateField('disliked', e.target.value)}
                       rows={2}
                       placeholder="Soyez honnête, vos critiques nous aident à progresser !"
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#f3ebd9] border-2 border-[#3a2312] text-sm text-[#3a2312] placeholder-[#a68a70] focus:outline-hidden focus:border-[#d97c27] shadow-inner resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-[#1d1728] border border-[#d4af37]/40 text-base sm:text-sm text-[#ffffff] placeholder-[#8e8175] focus:outline-hidden focus:border-[#ffd700] focus:ring-1 focus:ring-[#ffd700] shadow-inner resize-none"
                     />
                   </div>
                 </div>
@@ -864,18 +864,18 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
               {/* SECTION 6: POUR LA SUITE */}
               {currentStep === 5 && (
                 <div className="flex flex-col gap-5 animate-in fade-in duration-200">
-                  <div className="border-b border-[#3a2312]/20 pb-2">
-                    <h3 className="text-base sm:text-lg font-black text-[#3a2312] font-cinzel flex items-center gap-2">
+                  <div className="border-b border-[#d4af37]/25 pb-2">
+                    <h3 className="text-base sm:text-lg font-black text-[#fbf6ec] font-cinzel flex items-center gap-2">
                       <span>6. Pour la suite de l'aventure</span>
                     </h3>
-                    <p className="text-xs text-[#7a5332]">Votre envie de poursuivre et vos idées.</p>
+                    <p className="text-xs text-[#d8c29d]">Votre envie de poursuivre et vos idées.</p>
                   </div>
 
                   {/* Chapitre 2 */}
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312] flex items-center gap-1">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec] flex items-center gap-1">
                       <span>Voudriez-vous continuer vers le Chapitre 2 ?</span>
-                      <span className="text-[#d97c27] font-black">*</span>
+                      <span className="text-[#ffd700] font-black">*</span>
                     </label>
                     <div className="grid grid-cols-3 gap-2">
                       {[
@@ -887,10 +887,10 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                           key={item.id}
                           type="button"
                           onClick={() => updateField('nextChapter', item.id)}
-                          className={`py-2.5 px-2 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
+                          className={`py-2.5 px-2 rounded-xl border font-bold text-xs sm:text-sm transition-all cursor-pointer text-center ${
                             formData.nextChapter === item.id
-                              ? 'bg-[#d97c27] text-[#1a1209] border-[#3a2312] shadow-[0_3px_0_#3a2312] -translate-y-0.5'
-                              : 'bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]/60 hover:border-[#3a2312] hover:bg-[#ebdfc8]'
+                              ? 'bg-gradient-to-r from-[#d4af37] via-[#ffd700] to-[#e5c158] text-[#120e18] font-black border-[#ffd700] shadow-[0_0_15px_rgba(212,175,55,0.35)] -translate-y-0.5'
+                              : 'bg-[#1a1426] text-[#ede2cf] border-[#d4af37]/30 hover:border-[#d4af37]/60 hover:bg-[#231a33]'
                           }`}
                         >
                           {item.label}
@@ -901,7 +901,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
                   {/* Suggestions */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312]">
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec]">
                       Vos suggestions ou idées pour améliorer NOUR :
                     </label>
                     <textarea
@@ -909,21 +909,21 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                       onChange={(e) => updateField('suggestions', e.target.value)}
                       rows={3}
                       placeholder="Des idées de quêtes réelles, d'améliorations sonores, de dialogues..."
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#f3ebd9] border-2 border-[#3a2312] text-sm text-[#3a2312] placeholder-[#a68a70] focus:outline-hidden focus:border-[#d97c27] shadow-inner resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-[#1d1728] border border-[#d4af37]/40 text-base sm:text-sm text-[#ffffff] placeholder-[#8e8175] focus:outline-hidden focus:border-[#ffd700] focus:ring-1 focus:ring-[#ffd700] shadow-inner resize-none"
                     />
                   </div>
 
                   {/* Email */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-xs sm:text-sm font-bold text-[#3a2312]">
-                      Votre adresse email <span className="text-[#8c6b4e] font-normal">(optionnel, pour être prévenu de la sortie du Ch. 2)</span>
+                    <label className="text-xs sm:text-sm font-bold text-[#fbf6ec]">
+                      Votre adresse email <span className="text-[#d8c29d]/70 font-normal">(optionnel, pour être prévenu de la sortie du Ch. 2)</span>
                     </label>
                     <input
                       type="email"
                       value={formData.email}
                       onChange={(e) => updateField('email', e.target.value)}
                       placeholder="votre.email@exemple.com"
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#f3ebd9] border-2 border-[#3a2312] text-sm text-[#3a2312] placeholder-[#a68a70] focus:outline-hidden focus:border-[#d97c27] shadow-inner"
+                      className="w-full px-4 py-3 rounded-xl bg-[#1d1728] border border-[#d4af37]/40 text-base sm:text-sm text-[#ffffff] placeholder-[#8e8175] focus:outline-hidden focus:border-[#ffd700] focus:ring-1 focus:ring-[#ffd700] shadow-inner"
                     />
                   </div>
                 </div>
@@ -931,19 +931,19 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
 
               {/* Error Message */}
               {errorMsg && (
-                <div className="flex items-center gap-2 p-3 rounded-xl bg-red-100/90 border-2 border-red-800/40 text-red-900 text-xs font-bold animate-in fade-in">
-                  <AlertCircle className="w-4 h-4 shrink-0 text-red-700" />
+                <div className="flex items-center gap-2 p-3 rounded-xl bg-red-950/80 border border-red-500/60 text-red-200 text-xs font-bold animate-in fade-in">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
                   <span>{errorMsg}</span>
                 </div>
               )}
 
               {/* Stepper Navigation Buttons */}
-              <div className="flex items-center justify-between gap-3 pt-2 border-t-2 border-[#3a2312]/20">
+              <div className="flex items-center justify-between gap-3 pt-2 border-t-2 border-[#d4af37]/25">
                 {currentStep > 0 ? (
                   <button
                     type="button"
                     onClick={handlePrev}
-                    className="py-2.5 px-4 rounded-xl bg-[#ebdfc8] hover:bg-[#ebdcc4] text-[#3a2312] font-bold text-xs sm:text-sm font-cinzel border-2 border-[#3a2312] shadow-[0_2px_0_#3a2312] active:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="py-2.5 px-4 rounded-xl bg-[#231a33] hover:bg-[#2c2140] text-[#ede2cf] font-bold text-xs sm:text-sm font-cinzel border border-[#d4af37]/40 active:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer"
                   >
                     <ChevronLeft className="w-4 h-4" />
                     <span>Précédent</span>
@@ -956,7 +956,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="py-2.5 px-6 rounded-xl bg-[#d97c27] hover:bg-[#e69138] text-[#1a1209] font-black text-xs sm:text-sm font-cinzel border-2 border-[#3a2312] shadow-[0_4px_0_#3a2312] active:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer ml-auto"
+                    className="py-2.5 px-6 rounded-xl bg-gradient-to-r from-[#e5c158] via-[#ffd700] to-[#c59b27] hover:brightness-110 text-stone-950 font-black text-xs sm:text-sm font-cinzel shadow-[0_0_15px_rgba(212,175,55,0.3)] active:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer ml-auto"
                   >
                     <span>Suivant</span>
                     <ChevronRight className="w-4 h-4" />
@@ -965,7 +965,7 @@ export const TesterFeedbackForm: React.FC<TesterFeedbackFormProps> = ({ onLaunch
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="py-3 px-6 sm:px-7 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-black text-xs sm:text-sm font-cinzel border-2 border-[#128C7E] shadow-[0_4px_0_#128C7E] active:translate-y-0.5 transition-all flex items-center gap-2 cursor-pointer ml-auto disabled:opacity-50"
+                    className="py-3 px-6 sm:px-7 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-black text-xs sm:text-sm font-cinzel border-2 border-[#128C7E] shadow-[0_4px_15px_rgba(37,211,102,0.4)] active:translate-y-0.5 transition-all flex items-center gap-2 cursor-pointer ml-auto disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <span>Préparation de l'envoi...</span>

@@ -129,7 +129,7 @@ const CHAPTER_1_TRANSITIONS: Record<number, TransitionData> = {
     image: trans8
   },
   9: {
-    title: { fr: 'LE GRAND WASWAS & CLIMAX', ar: 'الْوَسْوَاسُ الْأَكْبَرُ', en: 'THE GRAND WASWAS' },
+    title: { fr: 'LE GRAND WASWAS', ar: 'الْوَسْوَاسُ الْأَكْبَرُ', en: 'THE GRAND WASWAS' },
     subtitle: { fr: "Le Sommet de l'Éveil", ar: 'ذِرْوَةُ الْيَقِينِ', en: 'The Summit of Awakening' },
     brief: {
       fr: "Le sommet de la montagne face à la tempête intérieure et l'aube naissante.",
@@ -155,6 +155,47 @@ export const SceneTransitionModal: React.FC<SceneTransitionModalProps> = ({
   // Determine target scene (next scene if available, or completed scene summary)
   const targetScene = nextScene || completedScene;
   const targetSceneId = targetScene.id;
+
+  // Determine normalized step for the 7-step narrative journey
+  let displayStep = targetSceneId;
+  const totalChapterSteps = 7;
+
+  if (targetSceneId <= 9) {
+    // Chapter 1 (Branch at step 5: Place=5, Ruelle=6, Vergers=7)
+    if (targetSceneId <= 4) {
+      displayStep = targetSceneId;
+    } else if (targetSceneId >= 5 && targetSceneId <= 7) {
+      displayStep = 5;
+    } else if (targetSceneId === 8) {
+      displayStep = 6;
+    } else if (targetSceneId === 9) {
+      displayStep = 7;
+    }
+  } else if (targetSceneId >= 10 && targetSceneId <= 16) {
+    // Chapter 2 (Branch at step 5: 14 or 142)
+    if (targetSceneId <= 13) {
+      displayStep = targetSceneId - 9;
+    } else if (targetSceneId === 14 || targetSceneId === 142) {
+      displayStep = 5;
+    } else if (targetSceneId === 15) {
+      displayStep = 6;
+    } else if (targetSceneId === 16) {
+      displayStep = 7;
+    }
+  } else {
+    // Chapter 3 (Branch at step 5: 201 or 202)
+    if (targetSceneId <= 20) {
+      displayStep = targetSceneId - 16;
+    } else if (targetSceneId === 201 || targetSceneId === 202) {
+      displayStep = 5;
+    } else if (targetSceneId === 21) {
+      displayStep = 6;
+    } else if (targetSceneId === 22) {
+      displayStep = 7;
+    }
+  }
+
+  const stepsList = Array.from({ length: totalChapterSteps }, (_, i) => i + 1);
   const transitionMeta = CHAPTER_1_TRANSITIONS[targetSceneId] || {
     title: { fr: targetScene.title, ar: targetScene.title, en: targetScene.title },
     subtitle: { fr: targetScene.subtitle || 'La Voie se poursuit', ar: 'الطَّرِيقُ يَتَوَاصَلُ', en: 'The Journey Continues' },
@@ -163,7 +204,7 @@ export const SceneTransitionModal: React.FC<SceneTransitionModalProps> = ({
       ar: 'يَسْتَمِرُّ السَّيْرُ. كُلُّ خُطْوَةٍ إِلَى الْأَمَامِ تَصْقُلُ النَّفْسَ وَتَزِيدُ فِي الْحِكْمَةِ.',
       en: 'The journey moves forward. Every step shapes the spirit and enriches wisdom.'
     },
-    image: bgVillage
+    image: DEFAULT_ASSETS.backgrounds.village
   };
 
   // Action completed in previous scene
@@ -220,8 +261,8 @@ export const SceneTransitionModal: React.FC<SceneTransitionModalProps> = ({
             <span className="text-amber-600 text-xs">✦</span>
             <span className="font-cinzel text-xs font-bold tracking-widest uppercase">
               {language === 'ar'
-                ? `الْمَشْهَدُ ${targetSceneId} • 9`
-                : `SCÈNE ${targetSceneId} • 9`}
+                ? `الْمَشْهَدُ ${displayStep} • ${totalChapterSteps}`
+                : `SCÈNE ${displayStep} • ${totalChapterSteps}`}
             </span>
             <span className="text-amber-600 text-xs">✦</span>
           </div>
@@ -247,17 +288,17 @@ export const SceneTransitionModal: React.FC<SceneTransitionModalProps> = ({
             />
           </div>
 
-          {/* 9-Nodes Interactive Journey Line */}
+          {/* Interactive Journey Line */}
           <div className="flex-1 flex items-center justify-between relative px-2">
             <div className="absolute left-2 right-2 top-1/2 -translate-y-1/2 h-0.5 bg-[#e0d0b8]" />
             <div 
               className="absolute left-2 top-1/2 -translate-y-1/2 h-0.5 bg-[#d97c27] transition-all duration-700" 
-              style={{ width: `${Math.min(100, Math.max(0, ((targetSceneId - 1) / 8) * 100))}%` }}
+              style={{ width: `${Math.min(100, Math.max(0, ((displayStep - 1) / (totalChapterSteps - 1)) * 100))}%` }}
             />
 
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((dotId) => {
-              const isPast = dotId < targetSceneId;
-              const isCurrent = dotId === targetSceneId;
+            {stepsList.map((dotId) => {
+              const isPast = dotId < displayStep;
+              const isCurrent = dotId === displayStep;
 
               return (
                 <div 

@@ -162,6 +162,7 @@ export interface Scene {
   poeticSubtitle?: string;
   poeticBrief?: string;
   location: string;
+  nextSceneId?: number;
   requiredXp?: number;
   isSpiritualGate?: boolean;
   gateReason?: string;

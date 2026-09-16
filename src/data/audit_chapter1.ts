@@ -84,11 +84,11 @@ Object.keys(QUIZZES).forEach((qKey) => {
   const qEn = QUIZZES_EN[qKey];
   if (!qAr) errors.push(`Quiz "${qKey}" absent en Arabe`);
   if (!qEn) errors.push(`Quiz "${qKey}" absent en Anglais`);
-  if (qAr && qFr.correctAnswer !== qAr.correctAnswer) {
-    errors.push(`Quiz "${qKey}" bonne réponse incohérente AR: FR=${qFr.correctAnswer} AR=${qAr.correctAnswer}`);
+  if (qAr && qFr.correctOptionId !== qAr.correctOptionId) {
+    errors.push(`Quiz "${qKey}" bonne réponse incohérente AR: FR=${qFr.correctOptionId} AR=${qAr.correctOptionId}`);
   }
-  if (qEn && qFr.correctAnswer !== qEn.correctAnswer) {
-    errors.push(`Quiz "${qKey}" bonne réponse incohérente EN: FR=${qFr.correctAnswer} EN=${qEn.correctAnswer}`);
+  if (qEn && qFr.correctOptionId !== qEn.correctOptionId) {
+    errors.push(`Quiz "${qKey}" bonne réponse incohérente EN: FR=${qFr.correctOptionId} EN=${qEn.correctOptionId}`);
   }
   if (qAr && qFr.options.length !== qAr.options.length) {
     errors.push(`Quiz "${qKey}" options count mismatch AR`);
@@ -102,8 +102,8 @@ Object.keys(REAL_ACTIONS).forEach((aKey) => {
   const aEn = REAL_ACTIONS_EN[aKey];
   if (!aAr) errors.push(`Action Réelle "${aKey}" absente en Arabe`);
   if (!aEn) errors.push(`Action Réelle "${aKey}" absente en Anglais`);
-  if (aAr && aFr.points !== aAr.points) {
-    errors.push(`Action Réelle "${aKey}" points différents: FR=${aFr.points} AR=${aAr.points}`);
+  if (aAr && aFr.xpReward !== aAr.xpReward) {
+    errors.push(`Action Réelle "${aKey}" points différents: FR=${aFr.xpReward} AR=${aAr.xpReward}`);
   }
 });
 

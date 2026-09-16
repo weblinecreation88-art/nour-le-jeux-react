@@ -17,16 +17,13 @@ export type SpeakerRole =
 export const SILENT_SPEAKERS = ['waswas', 'grand_waswas'] as const;
 
 /**
- * Checks if a speaker is silent (no audio playback):
- * - waswas & grand_waswas: inward whisper/passing doubt (not spoken aloud)
- * (Note: narration and savant represent Le Vieux Sage and have full audio acting)
+ * Checks if a speaker is silent (no audio playback).
+ * Waswâs / Grand Waswâs are strictly silent (internal whispers / passing thoughts in the mind - NO vocal audio).
  */
 export function isSilentSpeaker(speaker?: string): boolean {
   if (!speaker) return false;
-  return (
-    speaker === 'waswas' ||
-    speaker === 'grand_waswas'
-  );
+  const s = speaker.toLowerCase().trim();
+  return s === 'waswas' || s === 'grand_waswas' || s.includes('waswas');
 }
 
 class SpeechManager {
@@ -35,6 +32,9 @@ class SpeechManager {
   private isSpeaking: boolean = false;
   private currentUtterance: SpeechSynthesisUtterance | null = null;
   private currentAudio: HTMLAudioElement | null = null;
+  private currentBeatId: string | null = null;
+  private pendingAudio: { audio: HTMLAudioElement; beatId: string } | null = null;
+  private resumeGestureHandler: (() => void) | null = null;
   private frenchVoices: SpeechSynthesisVoice[] = [];
   private listeners: ((isSpeaking: boolean) => void)[] = [];
   private stateListeners: ((isEnabled: boolean) => void)[] = [];
@@ -50,6 +50,17 @@ class SpeechManager {
         this.isEnabled = true;
       }
 
+      // Proactively unlock audio on first interaction
+      const onFirstGesture = () => {
+        this.unlock();
+        window.removeEventListener('pointerdown', onFirstGesture, true);
+        window.removeEventListener('touchstart', onFirstGesture, true);
+        window.removeEventListener('keydown', onFirstGesture, true);
+      };
+      window.addEventListener('pointerdown', onFirstGesture, { capture: true, once: true });
+      window.addEventListener('touchstart', onFirstGesture, { capture: true, once: true });
+      window.addEventListener('keydown', onFirstGesture, { capture: true, once: true });
+
       if ('speechSynthesis' in window) {
         this.synth = window.speechSynthesis;
         this.loadVoices();
@@ -57,6 +68,54 @@ class SpeechManager {
           this.synth.onvoiceschanged = () => this.loadVoices();
         }
       }
+    }
+  }
+
+  /**
+   * Proactively unlocks HTML5 Audio on modern browsers
+   */
+  public unlock() {
+    if (typeof window === 'undefined') return;
+    try {
+      const silentAudio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA');
+      silentAudio.volume = 0.01;
+      silentAudio.play().catch(() => {});
+    } catch {}
+    if (this.pendingAudio && this.pendingAudio.beatId === this.currentBeatId) {
+      const toPlay = this.pendingAudio.audio;
+      this.pendingAudio = null;
+      toPlay.play().catch(() => {});
+    }
+    this.disarmUserGestureResume();
+  }
+
+  private armUserGestureResume(beatId: string, audio: HTMLAudioElement) {
+    if (typeof window === 'undefined') return;
+    this.disarmUserGestureResume();
+    this.pendingAudio = { audio, beatId };
+
+    this.resumeGestureHandler = () => {
+      if (this.pendingAudio && this.pendingAudio.beatId === this.currentBeatId) {
+        console.log('[SpeechManager] 🔊 Lecture audio reprise sur geste utilisateur pour beat:', beatId);
+        const toPlay = this.pendingAudio.audio;
+        this.pendingAudio = null;
+        toPlay.play().catch(() => {});
+      }
+      this.disarmUserGestureResume();
+    };
+
+    window.addEventListener('click', this.resumeGestureHandler, { capture: true, once: true });
+    window.addEventListener('touchstart', this.resumeGestureHandler, { capture: true, once: true });
+    window.addEventListener('keydown', this.resumeGestureHandler, { capture: true, once: true });
+  }
+
+  private disarmUserGestureResume() {
+    if (typeof window === 'undefined') return;
+    if (this.resumeGestureHandler) {
+      window.removeEventListener('click', this.resumeGestureHandler, true);
+      window.removeEventListener('touchstart', this.resumeGestureHandler, true);
+      window.removeEventListener('keydown', this.resumeGestureHandler, true);
+      this.resumeGestureHandler = null;
     }
   }
 
@@ -268,6 +327,9 @@ class SpeechManager {
       return;
     }
 
+    const beatId = beat.id || `beat_${Date.now()}`;
+    this.currentBeatId = beatId;
+
     // Try playing MP3 if beat.id is present
     if (beat.id) {
       let chapterNum = beat.chapter;
@@ -291,36 +353,46 @@ class SpeechManager {
 
       try {
         const audio = new Audio(audioUrl);
-        let hasStarted = false;
+        audio.preload = 'auto';
+        // Immediately assign currentAudio so any stop() call can stop it immediately
+        this.currentAudio = audio;
 
         audio.onplay = () => {
-          hasStarted = true;
-          this.currentAudio = audio;
+          if (this.currentAudio !== audio) {
+            audio.pause();
+            return;
+          }
           this.notifySpeaking(true);
         };
 
         audio.onended = () => {
-          this.notifySpeaking(false);
-          this.currentAudio = null;
-          options?.onEnd?.();
+          if (this.currentAudio === audio) {
+            this.notifySpeaking(false);
+            this.currentAudio = null;
+            options?.onEnd?.();
+          }
         };
 
-        audio.onerror = () => {
-          // MP3 does not exist or failed to load: graceful fallback to native speech
-          if (!hasStarted) {
+        audio.onerror = (e) => {
+          console.warn(`[SpeechManager] MP3 non trouvé ou inaccessible: ${audioUrl}`, e);
+          if (this.currentAudio === audio) {
+            this.currentAudio = null;
+            this.notifySpeaking(false);
+            // Fallback to native speech only if MP3 fails to load
             this.speak(beat.speaker, cleanText, options);
           }
         };
 
-        audio.play().catch(() => {
-          // Autoplay policy or 404: fallback
-          if (!hasStarted) {
-            this.speak(beat.speaker, cleanText, options);
+        audio.play().catch((err) => {
+          console.warn(`[SpeechManager] Autoplay restreint ou erreur pour ${audioUrl}:`, err?.message || err);
+          if (this.currentAudio === audio) {
+            // Autoplay blocked: wait for user gesture on this specific beat WITHOUT triggering native TTS simultaneously!
+            this.armUserGestureResume(beatId, audio);
           }
         });
         return;
-      } catch {
-        // Fallback below
+      } catch (e) {
+        console.warn(`[SpeechManager] Exception Audio:`, e);
       }
     }
 
@@ -407,93 +479,74 @@ class SpeechManager {
   }
 
   /**
-   * Speaks full quiz question followed by each option
+   * Speaks full quiz question followed by each option - DISABLED (silenced as requested)
    */
   public speakQuiz(
-    question: string,
-    options?: string[],
-    speaker: SpeakerRole = 'noura',
+    _question: string,
+    _options?: string[],
+    _speaker: SpeakerRole = 'noura',
     onEnd?: () => void
   ) {
-    if (!this.isEnabled) return;
-    this.stop();
-
-    let fullQuizText = `Question. ${question}. `;
-    if (options && options.length > 0) {
-      const optionLetters = ['A', 'B', 'C', 'D', 'E'];
-      options.forEach((opt, idx) => {
-        const cleanOpt = opt.replace(/^[A-E]\.\s*/, '');
-        fullQuizText += `Choix ${optionLetters[idx] || idx + 1} : ${cleanOpt}. `;
-      });
-    }
-
-    this.speak(speaker, fullQuizText, { onEnd, force: true });
+    onEnd?.();
   }
 
   /**
-   * Speaks a single option
+   * Speaks a single option - DISABLED (silenced as requested)
    */
   public speakOption(
-    optionText: string,
-    letter?: string,
-    speaker: SpeakerRole = 'noura',
+    _optionText: string,
+    _letter?: string,
+    _speaker: SpeakerRole = 'noura',
     onEnd?: () => void
   ) {
-    if (!this.isEnabled) return;
-    this.stop();
-
-    const cleanOpt = optionText.replace(/^[A-E]\.\s*/, '');
-    const textToSpeak = letter ? `Choix ${letter} : ${cleanOpt}` : cleanOpt;
-    this.speak(speaker, textToSpeak, { onEnd, force: true });
+    onEnd?.();
   }
 
   /**
-   * Speaks a concise, positive or constructive audio feedback (~1 second)
+   * Speaks feedback - DISABLED (silenced as requested)
    */
   public speakFeedback(
-    isCorrect: boolean,
-    speaker: SpeakerRole = 'noura',
+    _isCorrect: boolean,
+    _speaker: SpeakerRole = 'noura',
     onEnd?: () => void
   ) {
-    if (!this.isEnabled) return;
-    this.stop();
-
-    const text = isCorrect ? 'Bonne réponse !' : "Ce n'est pas tout à fait cela.";
-    this.speak(speaker, text, { onEnd, force: true });
+    onEnd?.();
   }
 
   /**
-   * Speaks full quiz answer explanation & reference (on demand)
+   * Speaks explanation - DISABLED (silenced as requested)
    */
   public speakExplanation(
-    explanation: string,
-    isCorrect?: boolean,
-    sourceRef?: string,
+    _explanation: string,
+    _isCorrect?: boolean,
+    _sourceRef?: string,
     onEnd?: () => void
   ) {
-    if (!this.isEnabled) return;
-    this.stop();
-
-    let text = `${explanation}. `;
-    if (sourceRef) {
-      text += `Source : ${sourceRef}`;
-    }
-
-    this.speak('savant', text, { onEnd, force: true });
+    onEnd?.();
   }
 
   /**
    * Stop currently playing speech or MP3 audio
    */
   public stop() {
+    this.disarmUserGestureResume();
+    this.pendingAudio = null;
+    this.currentBeatId = null;
+
     if (this.currentAudio) {
-      this.currentAudio.pause();
-      this.currentAudio.currentTime = 0;
+      try {
+        this.currentAudio.pause();
+        this.currentAudio.currentTime = 0;
+        this.currentAudio.src = '';
+      } catch {}
       this.currentAudio = null;
     }
-    if (!this.synth) return;
-    if (this.synth.speaking || this.synth.pending) {
-      this.synth.cancel();
+    if (this.synth) {
+      try {
+        if (this.synth.speaking || this.synth.pending) {
+          this.synth.cancel();
+        }
+      } catch {}
     }
     this.notifySpeaking(false);
     this.currentUtterance = null;

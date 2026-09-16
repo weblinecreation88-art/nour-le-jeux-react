@@ -88,6 +88,30 @@ export function trackQuestToggled(questId: string, title: string, completed: boo
   });
 }
 
+import { Capacitor } from '@capacitor/core';
+
+/**
+ * Track le clic sur le bouton de téléchargement de l'APK Android (Google Drive).
+ */
+export function trackApkDownloadClick(sourceLocation: string = 'hero') {
+  trackEvent('apk_download_click', {
+    source_location: sourceLocation,
+    platform: Capacitor.isNativePlatform() ? 'android_apk' : 'web_browser',
+    timestamp: new Date().toISOString()
+  });
+}
+
+/**
+ * Track le clic sur l'action de test ou lancement direct du jeu depuis la Landing Page.
+ */
+export function trackPlayGameClick(sourceLocation: string = 'hero_primary') {
+  trackEvent('play_game_click', {
+    source_location: sourceLocation,
+    platform: Capacitor.isNativePlatform() ? 'android_apk' : 'web_browser',
+    timestamp: new Date().toISOString()
+  });
+}
+
 /**
  * Track le lancement ou reprise du jeu depuis le SplashScreen ou la Landing Page.
  */
@@ -95,7 +119,8 @@ export function trackGameStarted(isNewGame: boolean, level: number, xp: number) 
   trackEvent('game_started', {
     is_new_game: isNewGame ? 1 : 0,
     player_level: level,
-    player_xp: xp
+    player_xp: xp,
+    platform: Capacitor.isNativePlatform() ? 'android_apk' : 'web_pwa'
   });
 }
 

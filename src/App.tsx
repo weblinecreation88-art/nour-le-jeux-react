@@ -35,6 +35,7 @@ import { LandingPage } from './components/landing/LandingPage';
 import { soundManager } from './utils/audio';
 import { speechManager } from './utils/speech';
 import { loadCustomAssets, CustomAssetsConfig, PIXEL_ASSETS, DEFAULT_ASSETS } from './utils/assets';
+import { getSupporterStatus, SUPPORTER_EVENT_NAME } from './utils/stripe';
 import { Sparkles, Play, Compass, Shield, ChevronLeft, ChevronRight, BookOpen, ScrollText, MessageSquareQuote, FastForward, Flame } from 'lucide-react';
 import {
   trackScreenView,
@@ -43,7 +44,8 @@ import {
   trackSceneCompleted,
   trackQuestToggled,
   trackGameStarted,
-  trackStreakUpdated
+  trackStreakUpdated,
+  trackEvent
 } from './utils/analytics';
 import { Capacitor } from '@capacitor/core';
 
@@ -112,6 +114,11 @@ export default function App() {
           const parsed = JSON.parse(saved);
           let currentStreak = parsed.streakDays || 1;
           let bestStreak = parsed.bestStreakDays || currentStreak;
+          let dayNum = parsed.dayNumber || 1;
+          let sceneIdx = parsed.currentSceneIndex ?? 0;
+          let beatIdx = parsed.currentBeatIndex ?? 0;
+          let quests = parsed.quests || INITIAL_PROGRESS.quests;
+
           if (parsed.lastActiveDate && parsed.lastActiveDate !== today) {
             const daysDiff = getDaysDifference(parsed.lastActiveDate, today);
 
@@ -155,53 +162,67 @@ export default function App() {
     return INITIAL_PROGRESS;
   });
 
-  const [viewMode, setViewMode] = useState<'landing' | 'game'>(() => {
-    if (typeof window !== 'undefined') {
-      // 1. If running inside the native Android APK (Capacitor), ALWAYS start the game directly!
-      if (Capacitor.isNativePlatform() || window.location.protocol === 'capacitor:' || window.location.protocol === 'ionic:' || window.location.hostname === 'localhost') {
-        return 'game';
-      }
+  const getInitialViewMode = (): 'landing' | 'game' => {
+    if (typeof window === 'undefined') return 'landing';
 
-      const search = window.location.search.toLowerCase();
-      const hash = window.location.hash.toLowerCase();
-      const path = window.location.pathname.toLowerCase();
-
-      // Explicit game bypass flags (e.g. ?game=1, ?play=1, #game)
-      if (search.includes('game') || search.includes('play') || hash === '#game') {
-        return 'game';
-      }
-      // Explicit feedback or landing flags
-      if (
-        search.includes('feedback') || 
-        search.includes('landing') || 
-        hash.includes('questionnaire') || 
-        hash.includes('feedback') || 
-        path.includes('/landing') || 
-        path.includes('/feedback')
-      ) {
-        return 'landing';
-      }
-      // Check saved view preference
-      const saved = sessionStorage.getItem('nour_current_view');
-      if (saved === 'game') {
-        return 'game';
-      }
+    // 1. Native Android APK (Capacitor) -> ALWAYS boot directly into the Game
+    if (Capacitor.isNativePlatform() || window.location.protocol === 'capacitor:' || window.location.protocol === 'ionic:') {
+      return 'game';
     }
-    // Default to Landing Page for web visitors
+
+    const path = window.location.pathname.toLowerCase();
+    const search = window.location.search.toLowerCase();
+    const hash = window.location.hash.toLowerCase();
+
+    // Direct game routes (/play, /jouer, /game, ?play=1, ?game=1, #play, #game)
+    if (
+      path.startsWith('/play') ||
+      path.startsWith('/jouer') ||
+      path.startsWith('/game') ||
+      search.includes('play') ||
+      search.includes('game') ||
+      hash === '#play' ||
+      hash === '#game'
+    ) {
+      return 'game';
+    }
+
+    // Default to Landing Page for '/' and marketing paths
     return 'landing';
-  });
+  };
+
+  const [viewMode, setViewMode] = useState<'landing' | 'game'>(getInitialViewMode);
+
+  // Sync with browser navigation (Back / Forward buttons)
+  useEffect(() => {
+    const handlePopState = () => {
+      setViewMode(getInitialViewMode());
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const handleLaunchGame = () => {
-    try {
-      sessionStorage.setItem('nour_current_view', 'game');
-    } catch {}
     trackGameStarted(false, progress.level, progress.xp);
     setShowSplash(true);
     setViewMode('game');
+
+    if (typeof window !== 'undefined' && !Capacitor.isNativePlatform()) {
+      if (!window.location.pathname.startsWith('/play')) {
+        window.history.pushState({ view: 'game' }, '', '/play');
+      }
+    }
   };
 
   const handleOpenLanding = (scrollToFeedback = false) => {
     setViewMode('landing');
+
+    if (typeof window !== 'undefined' && !Capacitor.isNativePlatform()) {
+      if (window.location.pathname !== '/') {
+        window.history.pushState({ view: 'landing' }, '', '/');
+      }
+    }
+
     if (scrollToFeedback) {
       setTimeout(() => {
         const el = document.getElementById('tester-questionnaire');
@@ -231,6 +252,26 @@ export default function App() {
   const [showHistory, setShowHistory] = useState(false);
   const [showAssetManager, setShowAssetManager] = useState(false);
   const [showSupportModal, setShowSupportModal] = useState(false);
+  const [supportModalReason, setSupportModalReason] = useState<'chapter_end' | 'general' | 'profile'>('general');
+  const [isSupporter, setIsSupporter] = useState<boolean>(() => getSupporterStatus());
+
+  // Synchronisation réactive de l'état supporter (déblocage via Stripe ou Code Promo)
+  useEffect(() => {
+    const handleSupporterChange = (e: Event) => {
+      const customEvent = e as CustomEvent<{ isSupporter: boolean }>;
+      setIsSupporter(customEvent.detail?.isSupporter ?? getSupporterStatus());
+    };
+    const handleStorageChange = () => {
+      setIsSupporter(getSupporterStatus());
+    };
+    window.addEventListener(SUPPORTER_EVENT_NAME, handleSupporterChange);
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener(SUPPORTER_EVENT_NAME, handleSupporterChange);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
   const [aldwinModal, setAldwinModal] = useState<'intro' | 'celebration' | 'scene_unlocked' | null>(null);
 
   const [sceneTransition, setSceneTransition] = useState<{
@@ -253,12 +294,6 @@ export default function App() {
   } | null>(null);
   const [climaxStep, setClimaxStep] = useState(0);
 
-  // 2-Second Cinematic Decor Preview: let decor display for 2s before triggering dialogues
-  const [isDecorPreview, setIsDecorPreview] = useState(false);
-  const decorTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const prevSceneIdRef = useRef<number | null>(null);
-  const prevTabRef = useRef<string | null>(null);
-
   // Sync with localStorage
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
@@ -277,6 +312,13 @@ export default function App() {
     (progress.dayNumber === 2 || progress.completedScenes.includes(9)) && progress.currentSceneIndex === 1;
   const activeBeats = isDay2AtPoteau ? currentDay2Beats : currentScene.beats;
   const currentBeat = activeBeats[progress.currentBeatIndex] || activeBeats[0];
+
+  // Auto-clamp beat index if scene beat count was reduced
+  useEffect(() => {
+    if (progress.currentBeatIndex >= activeBeats.length) {
+      setProgress((prev) => ({ ...prev, currentBeatIndex: 0 }));
+    }
+  }, [progress.currentBeatIndex, activeBeats.length]);
 
   // Track Streak & Log on mount
   useEffect(() => {
@@ -375,31 +417,19 @@ export default function App() {
     }
   }, [currentScene.id, currentBeat?.id, progress.currentBeatIndex, currentBeat?.waswasXpAmount, currentBeat?.waswasReason]);
 
-  // Whenever entering adventure mode or switching to a new scene, leave 2 seconds of pure decor immersion before dialogues begin
+
+
+  // Ensure currentBeat matches requiredNarrativeFlag; if not, step forward
   useEffect(() => {
-    if (activeTab === 'adventure') {
-      const isNewScene = prevSceneIdRef.current !== currentScene.id;
-      const isEnteringAdventure = prevTabRef.current !== 'adventure';
-
-      if ((isNewScene || isEnteringAdventure) && progress.currentBeatIndex === 0) {
-        setIsDecorPreview(true);
-        if (decorTimerRef.current) clearTimeout(decorTimerRef.current);
-        decorTimerRef.current = setTimeout(() => {
-          setIsDecorPreview(false);
-        }, 2000);
+    if (currentBeat?.requiredNarrativeFlag) {
+      const { flag, value } = currentBeat.requiredNarrativeFlag;
+      const currentVal = progress.narrativeFlags?.[flag];
+      const matches = value !== undefined ? currentVal === value : Boolean(currentVal);
+      if (!matches) {
+        advanceBeat();
       }
-    } else {
-      setIsDecorPreview(false);
-      if (decorTimerRef.current) clearTimeout(decorTimerRef.current);
     }
-
-    prevSceneIdRef.current = currentScene.id;
-    prevTabRef.current = activeTab;
-
-    return () => {
-      if (decorTimerRef.current) clearTimeout(decorTimerRef.current);
-    };
-  }, [activeTab, currentScene.id, progress.currentBeatIndex]);
+  }, [currentScene.id, currentBeat?.id, progress.currentBeatIndex, progress.narrativeFlags]);
 
   const triggerXpGain = (amount: number, reason: string) => {
     setProgress((prev) => {
@@ -488,7 +518,7 @@ export default function App() {
     }));
   };
 
-  const advanceBeat = () => {
+  const advanceBeat = (overrideFlags?: Record<string, any>) => {
     if ((currentBeat.type === 'dialogue' || currentBeat.type === 'memory_fragments') && currentBeat.text) {
       const speakerLabel =
         currentBeat.speaker === 'narration'
@@ -524,16 +554,31 @@ export default function App() {
       return;
     }
 
+    const effectiveFlags = overrideFlags || progress.narrativeFlags || {};
+
     if (progress.currentBeatIndex + 1 < currentScene.beats.length) {
       let targetIndex = progress.currentBeatIndex + 1;
 
-      // Automatically award and skip all intermediate 'xp' beats so the player immediately continues dialogue
-      while (targetIndex < currentScene.beats.length && currentScene.beats[targetIndex].type === 'xp') {
-        const xpBeat = currentScene.beats[targetIndex];
-        if (xpBeat.xpAmount) {
-          triggerXpGain(xpBeat.xpAmount, xpBeat.xpReason || 'Progression');
+      // Automatically award and skip intermediate 'xp' beats and beats that don't match requiredNarrativeFlag
+      while (targetIndex < currentScene.beats.length) {
+        const nextBeat = currentScene.beats[targetIndex];
+        if (nextBeat.type === 'xp') {
+          if (nextBeat.xpAmount) {
+            triggerXpGain(nextBeat.xpAmount, nextBeat.xpReason || 'Progression');
+          }
+          targetIndex++;
+          continue;
         }
-        targetIndex++;
+        if (nextBeat.requiredNarrativeFlag) {
+          const { flag, value } = nextBeat.requiredNarrativeFlag;
+          const currentVal = effectiveFlags[flag];
+          const matches = value !== undefined ? currentVal === value : Boolean(currentVal);
+          if (!matches) {
+            targetIndex++;
+            continue;
+          }
+        }
+        break;
       }
 
       if (targetIndex < currentScene.beats.length) {
@@ -548,7 +593,12 @@ export default function App() {
     // Scene completed: stop any audio dialogue and initiate peaceful contemplation moment (3-4s) before next scene
     speechManager.stop();
     let nextSceneIndex = progress.currentSceneIndex + 1;
-    if (currentScene.id === 14 || currentScene.id === 142) {
+    if (currentScene.nextSceneId !== undefined) {
+      const customNextIndex = ALL_SCENES.findIndex((s) => s.id === currentScene.nextSceneId);
+      if (customNextIndex !== -1) {
+        nextSceneIndex = customNextIndex;
+      }
+    } else if (currentScene.id === 14 || currentScene.id === 142) {
       const s15Index = ALL_SCENES.findIndex((s) => s.id === 15);
       if (s15Index !== -1) {
         nextSceneIndex = s15Index;
@@ -595,13 +645,6 @@ export default function App() {
   const handleProceedToNextScene = () => {
     if (sceneTransition) {
       if (sceneTransition.nextScene) {
-        // Enforce spiritual gate / required XP
-        if (progress.xp < (sceneTransition.nextScene.requiredXp || 0)) {
-          soundManager.playSelect();
-          setShowQuiz(true);
-          return;
-        }
-
         trackSceneCompleted(sceneTransition.completedScene.id, sceneTransition.completedScene.title);
         const targetIdx = ALL_SCENES.findIndex((s) => s.id === sceneTransition.nextScene!.id);
         if (targetIdx !== -1) {
@@ -661,6 +704,12 @@ export default function App() {
     const targetIdx = ALL_SCENES.findIndex((s) => s.id === sceneId);
     if (targetIdx !== -1) {
       const targetScene = ALL_SCENES[targetIdx];
+      const reqXpForChapter = targetScene.id >= 17 ? 780 : targetScene.id >= 10 ? 450 : 0;
+      if (targetScene.id >= 10 && !isSupporter && progress.xp < reqXpForChapter) {
+        setSupportModalReason('chapter_end');
+        setShowSupportModal(true);
+        return;
+      }
       const targetChap = targetScene.id >= 17 ? 3 : targetScene.id >= 10 ? 2 : 1;
       soundManager.playSceneTransition();
       setProgress((prev) => ({
@@ -733,6 +782,8 @@ export default function App() {
             pledgedRealActions: Array.from(new Set([...(prev.pledgedRealActions || []), action.id]))
           }));
           triggerWaswasChange(-8, "Engagement pris : La détermination affaiblit le Waswâs !");
+        } else {
+          trackEvent('real_action_skipped', { action_id: action.id, action_title: action.title });
         }
       }
     }
@@ -794,13 +845,15 @@ export default function App() {
     }
 
     // 0.1 Narrative memory flags (world memory & NPC callbacks)
+    let updatedFlags = progress.narrativeFlags || {};
     if (choice.setNarrativeFlags) {
+      updatedFlags = {
+        ...updatedFlags,
+        ...choice.setNarrativeFlags
+      };
       setProgress((prev) => ({
         ...prev,
-        narrativeFlags: {
-          ...(prev.narrativeFlags || {}),
-          ...choice.setNarrativeFlags
-        }
+        narrativeFlags: updatedFlags
       }));
     }
 
@@ -833,9 +886,17 @@ export default function App() {
       soundManager.playSelect();
       const targetScene = ALL_SCENES.find((s) => s.id === choice.targetSceneId);
       if (targetScene) {
-        setSceneCutscene({
-          fromScene: currentScene,
-          toScene: targetScene
+        speechManager.stop();
+        setContemplationState({
+          scene: currentScene,
+          nextScene: targetScene,
+          onFinish: () => {
+            soundManager.playQuizSuccess();
+            setSceneTransition({
+              completedScene: currentScene,
+              nextScene: targetScene
+            });
+          }
         });
         return;
       }
@@ -847,20 +908,24 @@ export default function App() {
         ...prev,
         dayNumber: 1,
         currentSceneIndex: 0,
-        currentBeatIndex: 0
+        currentBeatIndex: 0,
+        selectedChapter: 1
       }));
+      setActiveTab('adventure');
       return;
     }
     if (choice.id === 'c2_chap2') {
       soundManager.playSelect();
-      const ch2Idx = ALL_SCENES.findIndex((s) => s.id === 10);
+      const targetSceneId = currentScene.id === 10 ? 11 : 11;
+      const ch2Idx = ALL_SCENES.findIndex((s) => s.id === targetSceneId);
       if (ch2Idx !== -1) {
         setProgress((prev) => ({
           ...prev,
           dayNumber: 2,
           currentSceneIndex: ch2Idx,
           currentBeatIndex: 0,
-          selectedChapter: 2
+          selectedChapter: 2,
+          completedScenes: Array.from(new Set([...prev.completedScenes, 10]))
         }));
         setActiveTab('adventure');
         return;
@@ -875,13 +940,14 @@ export default function App() {
           dayNumber: 3,
           currentSceneIndex: ch3Idx,
           currentBeatIndex: 0,
-          selectedChapter: 3
+          selectedChapter: 3,
+          completedScenes: Array.from(new Set([...prev.completedScenes, 10]))
         }));
         setActiveTab('adventure');
         return;
       }
     }
-    advanceBeat();
+    advanceBeat(updatedFlags);
   };
 
   const handleCompleteIslamicQuiz = (quizId: string, xpReward: number) => {
@@ -1017,6 +1083,11 @@ export default function App() {
             completedScenes={progress.completedScenes}
             playerXp={progress.xp}
             initialChapter={progress.selectedChapter || (progress.completedScenes.includes(16) ? 3 : progress.completedScenes.includes(9) ? 2 : 1)}
+            isSupporter={isSupporter}
+            onOpenSupportModal={() => {
+              setSupportModalReason('chapter_end');
+              setShowSupportModal(true);
+            }}
             onSelectScene={handleSelectSceneFromMap}
             onOpenKnowledgeQuiz={() => setShowQuiz(true)}
             onBack={() => setActiveTab('home')}
@@ -1052,7 +1123,10 @@ export default function App() {
             soundEnabled={progress.soundEnabled}
             onToggleSound={toggleSound}
             onOpenAssetManager={() => setShowAssetManager(true)}
-            onOpenSupport={() => setShowSupportModal(true)}
+            onOpenSupport={() => {
+              setSupportModalReason('profile');
+              setShowSupportModal(true);
+            }}
             onUpdateAppearance={handleUpdateAppearance}
             onResetProgress={handleResetGame}
             onHarvestXp={handleHarvestXp}
@@ -1070,31 +1144,9 @@ export default function App() {
               climaxStepIndex={climaxStep}
               waswasDissolved={progress.currentSceneIndex === 8 && progress.currentBeatIndex > 20}
               customAssets={customAssets}
-              isContemplating={!!contemplationState || isDecorPreview}
+              isContemplating={!!contemplationState}
               completedRealActions={progress.completedRealActions}
             />
-
-            {/* 2-Second Cinematic Decor Preview: allows player to contemplate the scenery cleanly before dialogues */}
-            {isDecorPreview && (
-              <div
-                onClick={() => setIsDecorPreview(false)}
-                className="absolute inset-0 z-40 flex flex-col items-center justify-center p-4 bg-gradient-to-t from-black/50 via-transparent to-black/30 pointer-events-auto cursor-pointer animate-in fade-in duration-500 select-none"
-                title="Cliquer pour passer directement au dialogue"
-              >
-                <div className="flex flex-col items-center gap-2 text-center animate-in zoom-in-95 duration-700 bg-black/45 backdrop-blur-xs px-6 py-4 rounded-3xl border border-amber-500/30 shadow-2xl max-w-md">
-                  <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.25em] text-[#d97c27] font-cinzel drop-shadow-sm">
-                    {language === 'ar' ? `المشهد ${currentScene.id} • ${currentScene.id >= 17 ? 'الفصل 3' : currentScene.id >= 10 ? 'الفصل 2' : 'الفصل 1'}` : language === 'en' ? `Scene ${currentScene.id} • ${currentScene.id >= 17 ? 'Chapter 3' : currentScene.id >= 10 ? 'Chapter 2' : 'Chapter 1'}` : `Scène ${currentScene.id} • ${currentScene.id >= 17 ? 'Chapitre 3' : currentScene.id >= 10 ? 'Chapitre 2' : 'Chapitre 1'}`}
-                  </span>
-                  <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-[#fbf7ee] font-cinzel drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] tracking-wide">
-                    {getLocalizedScene(currentScene, language).title}
-                  </h1>
-                  <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#d97c27] to-transparent rounded-full mt-1" />
-                  <span className="text-[10px] text-[#ebdcc4]/80 font-cinzel tracking-wider mt-1 animate-pulse">
-                    ✦ {language === 'ar' ? 'تأمل المكان والسكينة...' : language === 'en' ? 'Contemplating the surroundings...' : 'Contemplation du lieu...'} ✦
-                  </span>
-                </div>
-              </div>
-            )}
 
             {/* Contemplation Overlay: 3-4s pause before advancing to next scene for deep immersion */}
             {contemplationState && (
@@ -1119,7 +1171,7 @@ export default function App() {
 
             {/* Central / Interactive Beat Controller (flex-1 min-h-0: fits comfortably without pushing the bottom bar) */}
             <div className="relative z-30 w-full flex-1 min-h-0 flex flex-col items-center justify-end pb-1 sm:pb-2 overflow-y-auto sm:overflow-visible">
-              {!isDecorPreview && !contemplationState && !sceneTransition &&
+              {!contemplationState && !sceneTransition &&
                 (currentBeat.type === 'dialogue' ||
                   currentBeat.type === 'choice' ||
                   currentBeat.type === 'memory_fragments') && (
@@ -1134,7 +1186,7 @@ export default function App() {
                 />
               )}
 
-              {!isDecorPreview && !contemplationState && !sceneTransition && currentBeat.type === 'quiz' && currentBeat.quizId && (
+              {!contemplationState && !sceneTransition && currentBeat.type === 'quiz' && currentBeat.quizId && (
                 <QuizModal
                   key={currentBeat.quizId}
                   quiz={ALL_QUIZZES[currentBeat.quizId] || ALL_QUIZZES.quiz_istiadhah}
@@ -1145,7 +1197,7 @@ export default function App() {
                 />
               )}
 
-              {!isDecorPreview && !contemplationState && !sceneTransition && currentBeat.type === 'real_action' && currentBeat.realActionId && (
+              {!contemplationState && !sceneTransition && currentBeat.type === 'real_action' && currentBeat.realActionId && (
                 <RealActionModal
                   action={ALL_ACTIONS[currentBeat.realActionId] || ALL_ACTIONS.action_lit}
                   onValidate={handleRealActionValidate}
@@ -1153,7 +1205,7 @@ export default function App() {
                 />
               )}
 
-              {!isDecorPreview && !contemplationState && !sceneTransition && currentBeat.type === 'climax_combat' && (
+              {!contemplationState && !sceneTransition && currentBeat.type === 'climax_combat' && (
                 <ClimaxCombat
                   waswasXp={progress.waswasXp || 0}
                   traits={progress.traits}
@@ -1168,11 +1220,12 @@ export default function App() {
                 />
               )}
 
-              {!isDecorPreview && !contemplationState && !sceneTransition && currentBeat.type === 'chapter_end' && (
+              {!contemplationState && !sceneTransition && currentBeat.type === 'chapter_end' && (
                 <ChapterEnd
                   chapterNumber={currentScene.id >= 17 ? 3 : currentScene.id >= 10 ? 2 : 1}
                   xpTotal={progress.xp}
                   traits={progress.traits}
+                  isSupporter={isSupporter}
                   onReplay={() => {
                     if (currentScene.id >= 17) {
                       const ch3Idx = ALL_SCENES.findIndex((s) => s.id === 17);
@@ -1215,7 +1268,13 @@ export default function App() {
                       }));
                       setActiveTab('adventure');
                     } else {
-                      // Chapter 1 completed -> jump to Chapter 2 (Scene 10)
+                      // Chapter 1 completed -> Check if supporter or has 450 XP
+                      if (!isSupporter && progress.xp < 450) {
+                        setSupportModalReason('chapter_end');
+                        setShowSupportModal(true);
+                        return;
+                      }
+                      // jump to Chapter 2 (Scene 10)
                       const ch2Idx = ALL_SCENES.findIndex((s) => s.id === 10);
                       setProgress((prev) => ({
                         ...prev,
@@ -1261,7 +1320,10 @@ export default function App() {
                   }}
                   onOpenKnowledge={() => setShowKnowledge(true)}
                   onOpenFeedback={() => handleOpenLanding(true)}
-                  onOpenSupport={() => setShowSupportModal(true)}
+                  onOpenSupport={() => {
+                    setSupportModalReason('chapter_end');
+                    setShowSupportModal(true);
+                  }}
                   customAssets={customAssets}
                 />
               )}
@@ -1399,8 +1461,24 @@ export default function App() {
       {/* Support & Mécénat / Founder Unlock Modal (Stripe Web) */}
       {showSupportModal && (
         <SupportModal
+          reason={supportModalReason}
           onClose={() => setShowSupportModal(false)}
-          onUnlocked={() => setShowSupportModal(false)}
+          onUnlocked={() => {
+            setIsSupporter(true);
+            setShowSupportModal(false);
+            if (currentScene.id === 9) {
+              const ch2Idx = ALL_SCENES.findIndex((s) => s.id === 10);
+              setProgress((prev) => ({
+                ...prev,
+                completedScenes: Array.from(new Set([...prev.completedScenes, 9])),
+                dayNumber: 2,
+                currentSceneIndex: ch2Idx !== -1 ? ch2Idx : 0,
+                currentBeatIndex: 0,
+                selectedChapter: 2
+              }));
+              setActiveTab('adventure');
+            }
+          }}
         />
       )}
 

@@ -1,7 +1,7 @@
 import { Character, Chapter, WisdomCard, Testimonial } from '../types';
 
 export const GAME_URL = "https://playnour.online/";
-export const APK_DOWNLOAD_URL = "https://drive.google.com/file/d/1BVqte-1HLojNWvxhMccLfMRyAFRC8rJH/view?usp=sharing";
+export const APK_DOWNLOAD_URL = "https://drive.google.com/file/d/1_aehDgewtb6xXSDc3x5depv_vnLRWVh0/view?usp=sharing";
 
 export const CHARACTERS: Character[] = [
   {
@@ -158,7 +158,7 @@ export const CHAPTERS: Chapter[] = [
     arabicTitle: "جبل الصبر والثبات",
     subtitle: "La Persévérance (Sabr) face à l'épreuve",
     status: "development",
-    statusLabel: "Chapitre 5 — Climax de la Saga",
+    statusLabel: "Chapitre 5 — Le Sommet de la Saga",
     synopsis: "L'ascension finale vers le sommet de la montagne. Confronté à la fatigue physique et à l'adversité, Othmân unit toutes les vertus acquises pour surmonter l'épreuve finale et faire rayonner la Lumière (Nour) sur l'ensemble de la vallée.",
     virtue: "As-Sabr (L'Endurance Noble & La Constance)",
     location: "Le Sanctuaire du Pic Céleste",

@@ -66,64 +66,14 @@ export const QuizModal: React.FC<QuizModalProps> = ({
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [mistakeReported, setMistakeReported] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const unsub = speechManager.onSpeakingChange((speaking) => {
-      setIsSpeaking(speaking);
-    });
+    speechManager.stop();
     return () => {
-      unsub();
       speechManager.stop();
     };
   }, []);
-
-  // Auto-read question and choices on open if voice is enabled (only for French)
-  useEffect(() => {
-    if (language === 'fr' && speechManager.isVoiceEnabled() && !isAnswered && normalizedOptions.length > 0) {
-      const timer = setTimeout(() => {
-        const optionsTexts = normalizedOptions.map((o) => `${o.id}. ${o.text}`);
-        speechManager.speakQuiz(
-          quiz?.question || '',
-          optionsTexts,
-          promptSpeaker
-        );
-      }, 350);
-      return () => {
-        clearTimeout(timer);
-        speechManager.stop();
-      };
-    }
-  }, [quiz?.id, isAnswered, language]);
-
-  const handleToggleSpeakQuiz = () => {
-    if (language !== 'fr') return;
-    if (isSpeaking) {
-      speechManager.stop();
-    } else {
-      const optionsTexts = normalizedOptions.map((o) => `${o.id}. ${o.text}`);
-      speechManager.speakQuiz(
-        quiz?.question || '',
-        optionsTexts,
-        promptSpeaker
-      );
-    }
-  };
-
-  const handleSpeakExplanation = () => {
-    if (language !== 'fr') return;
-    if (isSpeaking) {
-      speechManager.stop();
-    } else {
-      const isCorrect = selectedOptionId === correctOptionId;
-      speechManager.speakExplanation(
-        quiz?.explanation || '',
-        isCorrect,
-        reference ? `${reference.concept} - ${reference.reference}` : ''
-      );
-    }
-  };
 
   const handleSelectOption = (optionId: 'A' | 'B' | 'C' | 'D') => {
     speechManager.stop();
@@ -139,13 +89,6 @@ export const QuizModal: React.FC<QuizModalProps> = ({
         onWaswasMistake(15, `Doute nourri : Le Waswâs prend de la force !`);
         setMistakeReported(true);
       }
-    }
-
-    // Short, punchy audio feedback (~1s) if voice enabled and language is French
-    if (language === 'fr' && speechManager.isVoiceEnabled()) {
-      setTimeout(() => {
-        speechManager.speakFeedback(isOptionCorrect, promptSpeaker);
-      }, 300);
     }
 
     // Smoothly scroll down to reveal explanation on mobile/small screens
@@ -228,24 +171,6 @@ export const QuizModal: React.FC<QuizModalProps> = ({
                 <span className="text-xs font-bold text-[#2d6a4f] font-cinzel">
                   {language === 'ar' ? 'نورة' : 'NOURA'}
                 </span>
-                {language === 'fr' && (
-                  <button
-                    type="button"
-                    onClick={handleToggleSpeakQuiz}
-                    title={isSpeaking ? 'Arrêter la lecture' : 'Écouter la question et les choix'}
-                    className={`p-1.5 rounded-lg border-2 transition-all cursor-pointer shrink-0 active:scale-95 shadow-2xs flex items-center justify-center ${
-                      isSpeaking
-                        ? 'bg-[#d97c27] text-white border-[#3a2312] animate-pulse ring-2 ring-[#d97c27]/40'
-                        : 'bg-[#fbf7ee] hover:bg-[#f3ebd9] text-[#3a2312] border-[#3a2312]'
-                    }`}
-                  >
-                    {isSpeaking ? (
-                      <VolumeX className="w-3.5 h-3.5" />
-                    ) : (
-                      <Volume2 className="w-3.5 h-3.5" />
-                    )}
-                  </button>
-                )}
               </div>
               <p className={`font-bold text-[#3a2312] mt-0.5 ${isRtl ? 'font-amiri text-base sm:text-lg md:text-xl leading-[1.8] text-right' : 'text-sm sm:text-base leading-snug'}`}>
                 « {quiz.question} »
@@ -259,7 +184,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({
               const isSelected = selectedOptionId === option.id;
               const resolvedStyle = isAnswered
                 ? option.isCorrect
-                  ? 'bg-[#ebf5e9] border-[#4a804d] text-[#2d522f] shadow-[0_2px_0_#3a2312] font-bold'
+                ? 'bg-[#ebf5e9] border-[#4a804d] text-[#2d522f] shadow-[0_2px_0_#3a2312] font-bold'
                   : isSelected
                   ? 'bg-[#fde8e8] border-[#c53030] text-[#9b2c2c] shadow-[0_2px_0_#3a2312]'
                   : 'bg-[#ebdfc8]/50 border-[#b89f81] text-[#8c6b4e] opacity-60'
@@ -318,20 +243,6 @@ export const QuizModal: React.FC<QuizModalProps> = ({
                   </div>
 
                   <div className="flex items-center gap-2">
-                    {language === 'fr' && (
-                      <button
-                        type="button"
-                        onClick={handleSpeakExplanation}
-                        title={isSpeaking ? "Arrêter l'audio" : "Écouter l'explication"}
-                        className="p-1 rounded-lg bg-white/80 hover:bg-white text-[#3a2312] border border-[#3a2312]/30 transition-all cursor-pointer shrink-0 active:scale-95"
-                      >
-                        {isSpeaking ? (
-                          <VolumeX className="w-3.5 h-3.5 text-[#d97c27]" />
-                        ) : (
-                          <Volume2 className="w-3.5 h-3.5 text-[#2d6a4f]" />
-                        )}
-                      </button>
-                    )}
                     <span className="text-[10px] uppercase font-bold text-[#8c5a2b] font-cinzel">
                       {t.explanationHeader}
                     </span>

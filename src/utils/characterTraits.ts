@@ -108,7 +108,7 @@ export function getWaswasAdaptiveAttack(traits?: CharacterTraits): WaswasAdaptiv
       options: [
         {
           id: 'A',
-          text: '« Le vrai savoir ne reste pas figé dans l\'attente : il s\'incarne aujourd\'hui dans mon action sincère ! »',
+          text: '« Le vrai savoir ne reste pas figé dans l\'attente : il se concrétise aujourd\'hui dans mon action sincère ! »',
           concept: 'ʿAmal (Action issue du Savoir)',
           isCorrect: true,
           feedback: 'La science authentique pousse à l’action courageuse et dissipe la paralysie !'

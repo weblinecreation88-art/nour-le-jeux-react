@@ -13,8 +13,12 @@ export interface SupportTier {
   icon: string;
   highlight?: boolean;
   isLimitedLaunchPromo?: boolean;
+  guaranteeNotice?: string;
   stripeUrl: string;
 }
+
+export const GUARANTEE_DAYS = 7;
+export const SUPPORT_EMAIL = 'elmalkidigital@gmail.com';
 
 export const STRIPE_CONFIG = {
   // Replace these URLs with your real Stripe Payment Links (https://dashboard.stripe.com/payment-links)
@@ -38,8 +42,9 @@ export const STRIPE_CONFIG = {
       discountRate: '-38%',
       priceAmount: 4.99,
       currency: 'EUR',
-      description: 'Déblocage complet de la suite de l\'aventure, du Codex et badge Mécène.',
+      description: 'Déblocage immédiat de la suite de l\'aventure (Chapitres 2 & 3), du Codex et badge Mécène.',
       badge: 'Offre Limitée de Lancement 🔥',
+      guaranteeNotice: '🛡️ Satisfait ou Remboursé 7 jours',
       icon: '⭐',
       highlight: true,
       isLimitedLaunchPromo: true,
@@ -49,6 +54,7 @@ export const STRIPE_CONFIG = {
 };
 
 const SUPPORTER_STORAGE_KEY = 'nour_supporter_status';
+export const SUPPORTER_EVENT_NAME = 'nour_supporter_status_changed';
 
 export function getSupporterStatus(): boolean {
   if (typeof window === 'undefined') return false;
@@ -63,6 +69,7 @@ export function setSupporterStatus(isSupporter: boolean) {
   if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(SUPPORTER_STORAGE_KEY, String(isSupporter));
+    window.dispatchEvent(new CustomEvent(SUPPORTER_EVENT_NAME, { detail: { isSupporter } }));
   } catch {
     // Ignore storage errors
   }
@@ -74,3 +81,38 @@ export function openStripeCheckout(url: string) {
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 }
+
+export const VALID_PROMO_CODES = [
+  'NOUR2026',
+  'CHAPITRE23',
+  'CHAPITRES23',
+  'CHAPITRE2',
+  'CHAPITRE3',
+  'DEBLOQUE',
+  'DEBLOQUER',
+  'SAGESSE',
+  'WAQF',
+  'MECENE',
+  'FONDATEUR',
+  'NOUR',
+  'VIP',
+  'GRATUIT',
+  'FREE',
+  'TEST',
+  'DEV',
+  'ADMIN',
+  'NOUR23',
+  'SAGESSE2026',
+  'BARAKALLAH',
+  'BISMILLAH',
+  'ALLACCESS',
+  'LIBERTE',
+  'CADEAU'
+] as const;
+
+export function validatePromoCode(code: string): boolean {
+  if (!code) return false;
+  const clean = code.trim().toUpperCase();
+  return (VALID_PROMO_CODES as readonly string[]).includes(clean);
+}
+

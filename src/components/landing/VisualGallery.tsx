@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Image as ImageIcon, Maximize2, X, Sparkles } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface GalleryItem {
   id: string;
@@ -10,52 +11,10 @@ interface GalleryItem {
 }
 
 export default function VisualGallery() {
+  const { t } = useLanguage();
   const [activeImage, setActiveImage] = useState<GalleryItem | null>(null);
 
-  const galleryItems: GalleryItem[] = [
-    {
-      id: "vallee",
-      title: "L'Aurore sur la Vallée",
-      location: "Territoire d'Ouverture",
-      image: "/game-assets/vallee.jpg",
-      description: "Le soleil matinal réchauffe les pierres blanches du village d'Othmân, annonçant le premier jour de son grand voyage."
-    },
-    {
-      id: "carrefour",
-      title: "Le Carrefour du Village",
-      location: "Croisement des Sentiers",
-      image: "/game-assets/carrefour.jpg",
-      description: "Le carrefour du village où un poteau indicateur propose à Othmân les différentes directions pour chaque chapitre."
-    },
-    {
-      id: "waswas",
-      title: "La Gorge des Murmures",
-      location: "Sanctuaire des Épreuves",
-      image: "/game-assets/waswas_bg.jpg",
-      description: "L'étroit passage sous la falaise où la brume insidieuse tente de paralyser le jeune héros par ses doutes."
-    },
-    {
-      id: "chambre",
-      title: "La Chambre Familiale",
-      location: "Le Pont de Nour 01",
-      image: "/game-assets/chambre.jpg",
-      description: "L'intimité du foyer où naît la première épreuve : vaincre la paresse et ordonner son espace de vie."
-    },
-    {
-      id: "verger",
-      title: "Le Verger des Amandiers",
-      location: "Sentier de la Gratitude",
-      image: "/game-assets/verger.jpg",
-      description: "Les arbres en fleurs embaument l'air frais des collines, rappelant les bienfaits cachés de la nature."
-    },
-    {
-      id: "affiche",
-      title: "L'Affiche d'Art de NOUR",
-      location: "Couverture de l'Épopée",
-      image: "/game-assets/affiche_nour.jpg",
-      description: "L'illustration emblématique du jeu célébrant le voyage d'Othmân, son bâton de marche et la lumière de son cœur."
-    }
-  ];
+  const galleryItems: GalleryItem[] = t.gallery.items || [];
 
   return (
     <section id="galerie" className="py-24 bg-[#0a0812] relative overflow-hidden">
@@ -65,14 +24,13 @@ export default function VisualGallery() {
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-950/60 border border-amber-500/40 text-amber-300 text-xs font-semibold">
             <ImageIcon className="w-3.5 h-3.5" />
-            Univers Visuel & Atmosphère
+            {t.gallery.badge}
           </div>
           <h2 className="font-cinzel text-3xl sm:text-5xl font-extrabold text-amber-100">
-            Les Panoramas de NOUR
+            {t.gallery.title}
           </h2>
           <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
-            Une direction artistique poétique mariant le charme des RPG rétro 
-            et la chaleur lumineuse des décors d'Orient.
+            {t.gallery.subtitle}
           </p>
         </div>
 

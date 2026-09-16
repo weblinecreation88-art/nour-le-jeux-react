@@ -13,7 +13,7 @@ import {
   Unlock,
   ArrowRight
 } from 'lucide-react';
-import { STRIPE_CONFIG, SupportTier, openStripeCheckout, setSupporterStatus } from '../utils/stripe';
+import { STRIPE_CONFIG, SupportTier, openStripeCheckout, setSupporterStatus, validatePromoCode } from '../utils/stripe';
 import { soundManager } from '../utils/audio';
 
 interface SupportModalProps {
@@ -42,18 +42,17 @@ export const SupportModal: React.FC<SupportModalProps> = ({
   };
 
   const handleApplyPromoCode = () => {
-    const clean = promoCode.trim().toUpperCase();
-    if (clean === 'NOUR2026' || clean === 'SAGESSE' || clean === 'WAQF' || clean === 'MECENE') {
+    if (validatePromoCode(promoCode)) {
       soundManager.playQuizSuccess();
       setSupporterStatus(true);
-      setPromoFeedback('🎉 Accès Fondateur & Chapitres Débloqués avec succès !');
+      setPromoFeedback('🎉 Accès Fondateur & Chapitres 2 et 3 Débloqués avec succès !');
       setTimeout(() => {
         onUnlocked?.();
         onClose();
       }, 1200);
     } else {
       soundManager.playSelect();
-      setPromoFeedback('Code invalide. Essayez avec un lien Stripe ou contactez le support.');
+      setPromoFeedback('Code invalide. Essayez avec CHAPITRE23 ou contactez le support.');
     }
   };
 
@@ -102,7 +101,9 @@ export const SupportModal: React.FC<SupportModalProps> = ({
                   : 'Une Aventure 100% Indépendante & Saine 📖'}
               </span>
               <p className="text-xs text-[#2d522f]">
-                <strong>Nour</strong> est conçu sans aucune publicité intrusive. Votre soutien finance les voix d'acteurs de qualité, les animations et permet d'offrir cette éducation au plus grand nombre.
+                {reason === 'chapter_end'
+                  ? 'Débloquez la suite de l\'aventure (Chapitres 2 & 3) sans aucun risque grâce à notre garantie Satisfait ou Remboursé 7 jours.'
+                  : 'Nour est conçu sans aucune publicité intrusive. Votre soutien finance les voix d\'acteurs de qualité, les animations et permet d\'offrir cette éducation au plus grand nombre.'}
               </p>
             </div>
           </div>
@@ -164,6 +165,13 @@ export const SupportModal: React.FC<SupportModalProps> = ({
                     {tier.description}
                   </p>
 
+                  {tier.id === 'founder' && (
+                    <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#e8f5e9] border border-[#2d6a4f]/40 text-[#1b4332] text-[11px] font-bold font-cinzel">
+                      <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span>🛡️ Garantie 7 jours satisfait ou remboursé</span>
+                    </div>
+                  )}
+
                   <button
                     type="button"
                     onClick={(e) => {
@@ -184,6 +192,19 @@ export const SupportModal: React.FC<SupportModalProps> = ({
             })}
           </div>
 
+          {/* Reassurance Guarantee Box */}
+          <div className="p-3 rounded-2xl bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border-2 border-[#16a34a]/40 flex items-start gap-2.5 shadow-xs">
+            <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+            <div className="flex-1 text-xs text-[#14532d] leading-relaxed">
+              <span className="font-black font-cinzel block text-[#15803d]">
+                🛡️ 100% Sérénité : Satisfait ou Remboursé sous 7 jours
+              </span>
+              <p className="text-[11px] text-[#166534] mt-0.5">
+                Explorez les Chapitres 2 et 3 en toute confiance. Si l'expérience ne répond pas à vos attentes, un simple message à <strong>elmalkidigital@gmail.com</strong> sous 7 jours suffit pour un remboursement intégral et direct, sans justification.
+              </p>
+            </div>
+          </div>
+
           {/* Partner / Code Unlock Box */}
           <div className="p-3 bg-[#f3ebd9] border border-[#d2be9f] rounded-2xl flex flex-col gap-2">
             <span className="text-[10px] font-bold uppercase text-[#8c5a2b] font-cinzel">
@@ -192,9 +213,14 @@ export const SupportModal: React.FC<SupportModalProps> = ({
             <div className="flex items-center gap-2">
               <input
                 type="text"
-                placeholder="Ex: NOUR2026"
+                placeholder="Ex: CHAPITRE23 ou NOUR2026"
                 value={promoCode}
                 onChange={(e) => setPromoCode(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleApplyPromoCode();
+                  }
+                }}
                 className="flex-1 bg-white border border-[#b89f81] rounded-xl px-3 py-1.5 text-xs font-mono uppercase font-bold text-[#3a2312] focus:outline-none focus:ring-2 focus:ring-[#2d6a4f]"
               />
               <button
@@ -226,7 +252,7 @@ export const SupportModal: React.FC<SupportModalProps> = ({
             }}
             className="text-xs font-bold text-[#8c5a2b] hover:text-[#3a2312] underline font-cinzel cursor-pointer"
           >
-            Continuer l'aventure gratuitement
+            {reason === 'chapter_end' ? 'Fermer' : 'Continuer l\'aventure'}
           </button>
         </div>
       </div>
