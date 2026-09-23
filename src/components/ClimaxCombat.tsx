@@ -639,9 +639,24 @@ export const ClimaxCombat: React.FC<ClimaxCombatProps> = ({
   return (
     <div
       dir={isRtl ? 'rtl' : 'ltr'}
-      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/80 backdrop-blur-sm select-none animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 select-none animate-in fade-in duration-200 bg-black"
     >
-      <div className="w-full max-w-md bg-[#fbf7ee] border-3 border-[#3a2312] rounded-3xl shadow-[0_8px_0_#3a2312] flex flex-col max-h-[94vh] sm:max-h-[90vh] relative overflow-hidden animate-in zoom-in-95 duration-200">
+      {/* Background Split */}
+      <div className="absolute inset-0 flex w-full h-full pointer-events-none opacity-40 sm:opacity-55">
+        <div 
+          className="w-1/2 h-full bg-cover bg-center transition-all duration-700"
+          style={{ backgroundImage: "url('/game-assets/othman_room_sunrise.jpg')" }}
+        />
+        <div 
+          className="w-1/2 h-full bg-cover bg-center transition-all duration-700"
+          style={{ backgroundImage: "url('/game-assets/othman_room_waswas.jpg')" }}
+        />
+      </div>
+      
+      {/* Dark overlay to ensure modal readability */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-none" />
+
+      <div className="w-full max-w-md bg-[#fbf7ee] border-3 border-[#3a2312] rounded-3xl shadow-[0_8px_0_#3a2312] flex flex-col max-h-[94vh] sm:max-h-[90vh] relative overflow-hidden animate-in zoom-in-95 duration-200 z-10">
         {/* HEADER: Dual Mini Health Bars (Othmân vs Grand Waswâs) */}
         <div className="p-3 sm:p-3.5 bg-[#f3ebd9] border-b-2 border-[#3a2312] shrink-0 flex items-center justify-between gap-3">
           {/* Othmân Sérénité */}
