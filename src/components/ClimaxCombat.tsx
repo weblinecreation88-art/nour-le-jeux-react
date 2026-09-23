@@ -641,15 +641,15 @@ export const ClimaxCombat: React.FC<ClimaxCombatProps> = ({
       dir={isRtl ? 'rtl' : 'ltr'}
       className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 select-none animate-in fade-in duration-200 bg-black"
     >
-      {/* Background Split */}
-      <div className="absolute inset-0 flex w-full h-full pointer-events-none">
-        <div 
-          className="w-1/2 h-full bg-cover bg-center transition-all duration-700"
-          style={{ backgroundImage: "url('/game-assets/othman_room_sunrise.jpg')" }}
-        />
-        <div 
-          className="w-1/2 h-full bg-cover bg-center transition-all duration-700"
-          style={{ backgroundImage: "url('/game-assets/othman_room_waswas.jpg')" }}
+      {/* Cinematic Video Background */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none">
+        <video 
+          src="/game-assets/waswas_tornado.mp4" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="w-full h-full object-cover opacity-80"
         />
       </div>
       
