@@ -20,7 +20,7 @@ export default function Footer({ onOpenGame }: FooterProps) {
 
   const handleShareWhatsapp = () => {
     const text = encodeURIComponent(
-      t.footer.shareWhatsappText || "NOUR RPG: https://playnour.online/"
+      t.footer.shareWhatsapp || "NOUR RPG: https://playnour.online/"
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
   };
@@ -134,17 +134,17 @@ export default function Footer({ onOpenGame }: FooterProps) {
                   NOUR
                 </span>
                 <span className="text-[11px] text-amber-300/60 font-sans">
-                  {t.footer.brandSubtitle}
+                  {t.footer.subBrand}
                 </span>
               </div>
             </div>
 
             <p className="text-xs text-stone-400 leading-relaxed max-w-sm">
-              {t.footer.brandDesc}
+              {t.footer.aboutText}
             </p>
 
             <div className="text-xs text-stone-400 flex items-center gap-1">
-              <span>{t.footer.madeWithLove}</span>
+              <span>{t.footer.madeWith}</span>
             </div>
           </div>
 
@@ -155,7 +155,7 @@ export default function Footer({ onOpenGame }: FooterProps) {
             </span>
             <ul className="space-y-2 text-xs">
               <li><a href="#hero" className="hover:text-amber-300 transition-colors">{t.footer.navHome}</a></li>
-              <li><a href="#demo" className="hover:text-amber-300 transition-colors">{t.footer.navCombat}</a></li>
+              <li><a href="#demo" className="hover:text-amber-300 transition-colors">{t.footer.navDemo}</a></li>
               <li><a href="#personnages" className="hover:text-amber-300 transition-colors">{t.footer.navChars}</a></li>
               <li><a href="#mecaniques" className="hover:text-amber-300 transition-colors">{t.footer.navMechanics}</a></li>
               <li><a href="#chapitres" className="hover:text-amber-300 transition-colors">{t.footer.navChapters}</a></li>
@@ -169,8 +169,8 @@ export default function Footer({ onOpenGame }: FooterProps) {
               {t.footer.infoTitle}
             </span>
             <ul className="space-y-2 text-xs text-stone-400">
-              <li>{t.footer.infoPegi}</li>
-              <li>{t.footer.infoFormat}</li>
+              <li>{t.footer.pegi}</li>
+              <li>{t.footer.format}</li>
               <li>
                 <a 
                   href={APK_DOWNLOAD_URL} 
@@ -180,12 +180,12 @@ export default function Footer({ onOpenGame }: FooterProps) {
                   className="text-emerald-400 hover:text-emerald-300 underline font-medium inline-flex items-center gap-1"
                 >
                   <Smartphone className="w-3 h-3" />
-                  <span>{t.footer.infoApk}</span>
+                  <span>{t.footer.apkDrive}</span>
                 </a>
               </li>
-              <li>{t.footer.infoLanguages}</li>
-              <li>{t.footer.infoSupport}</li>
-              <li>{t.footer.infoServer}</li>
+              <li>{t.footer.languages}</li>
+              <li>{t.footer.support}</li>
+              <li>{t.footer.server}</li>
             </ul>
           </div>
 
@@ -196,7 +196,7 @@ export default function Footer({ onOpenGame }: FooterProps) {
           <p>© {new Date().getFullYear()} {t.footer.copyright}</p>
           <div className="flex items-center gap-6">
             <a href={GAME_URL} target="_blank" rel="noopener noreferrer" className="hover:text-amber-300 transition-colors">
-              {t.footer.playOnline}
+              {t.footer.playGame}
             </a>
             <a href="/privacy.html" className="hover:text-amber-300 transition-colors">
               {t.footer.privacy}

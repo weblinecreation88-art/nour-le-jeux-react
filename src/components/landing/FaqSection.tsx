@@ -35,24 +35,25 @@ export default function FaqSection() {
             return (
               <div
                 key={idx}
-                className="rounded-xl bg-[#13101d] border border-amber-500/20 overflow-hidden transition-colors"
+                className="rounded-2xl bg-gradient-to-b from-[#181320] via-[#120e18] to-[#0c0a12] border border-[#d4af37]/30 hover:border-[#ffd700]/60 overflow-hidden transition-all duration-300 shadow-md"
               >
                 <button
                   onClick={() => toggle(idx)}
-                  className="w-full px-6 py-4.5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-amber-500/5 transition-colors"
+                  className="w-full px-6 py-5 text-left rtl:text-right flex items-center justify-between gap-4 cursor-pointer hover:bg-[#d4af37]/5 transition-colors"
+                  aria-expanded={isOpen}
                 >
-                  <span className="font-cinzel font-bold text-sm sm:text-base text-stone-100">
+                  <span className="font-cinzel font-bold text-sm sm:text-base text-[#fbf6ec] leading-snug">
                     {faq.q}
                   </span>
                   <ChevronDown
-                    className={`w-5 h-5 text-amber-400 shrink-0 transition-transform duration-300 ${
-                      isOpen ? 'rotate-180' : ''
+                    className={`w-5 h-5 text-[#ffd700] shrink-0 transition-transform duration-300 ${
+                      isOpen ? 'rotate-180 text-emerald-400' : ''
                     }`}
                   />
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-stone-300 leading-relaxed font-sans border-t border-amber-500/10 bg-[#0f0d18]">
+                  <div className="px-6 pb-6 pt-2 text-sm sm:text-base text-[#ede2cf] leading-relaxed font-sans border-t border-[#d4af37]/15 bg-[#0e0a14]/60 animate-in fade-in duration-200">
                     {faq.a}
                   </div>
                 )}

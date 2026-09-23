@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import HeroSection from './HeroSection';
-import CreatorLetterSection from './CreatorLetterSection';
 import { GameplayVideoSection } from './GameplayVideoSection';
-import InteractiveCombatDemo from './InteractiveCombatDemo';
 import GameplayMechanics from './GameplayMechanics';
+import InteractiveCombatDemo from './InteractiveCombatDemo';
 import CharactersSection from './CharactersSection';
 import ChaptersRoadmap from './ChaptersRoadmap';
+import FamilySection from './FamilySection';
+import CreatorLetterSection from './CreatorLetterSection';
 import BookOfWisdom from './BookOfWisdom';
 import VisualGallery from './VisualGallery';
 import PricingSection from './PricingSection';
-import FaqSection from './FaqSection';
 import TestimonialsSection from './TestimonialsSection';
+import FaqSection from './FaqSection';
 import MobileStickyBar from './MobileStickyBar';
 import Footer from './Footer';
 import GameViewerModal from './GameViewerModal';
@@ -21,6 +22,7 @@ import { MessageSquare, Play, Sparkles, Download } from 'lucide-react';
 import { APK_DOWNLOAD_URL } from '../../data/gameData';
 import { trackPlayGameClick, trackApkDownloadClick } from '../../utils/analytics';
 import { LanguageProvider, useLanguage } from '../../context/LanguageContext';
+import { useTheme } from '../../context/ThemeContext';
 
 interface LandingPageProps {
   onLaunchGame: () => void;
@@ -29,6 +31,7 @@ interface LandingPageProps {
 const LandingPageContent: React.FC<LandingPageProps> = ({ onLaunchGame }) => {
   const [isGameModalOpen, setIsGameModalOpen] = useState(false);
   const { t } = useLanguage();
+  const { isParchment } = useTheme();
 
   // Directly launch the immersive browser RPG game
   const handleOpenGame = () => {
@@ -50,14 +53,16 @@ const LandingPageContent: React.FC<LandingPageProps> = ({ onLaunchGame }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a080e] text-[#f5efe6] font-sans selection:bg-[#d4af37]/30 selection:text-[#ffd700]">
+    <div id="landing-page-root" className={`landing-page-root min-h-screen font-sans selection:bg-[#d4af37]/30 selection:text-[#ffd700] transition-colors duration-300 ${
+      isParchment ? 'bg-[#f6ebd7] text-[#2b2118]' : 'bg-[#0a080e] text-[#f5efe6]'
+    }`}>
       
       {/* 1. Top Unified Navigation (AC Mirage Inspired Gilded Border) */}
       <Navbar onOpenGame={handleOpenGame} />
 
       {/* Main Content Sections */}
       <main>
-        {/* 2. Hero Section */}
+        {/* 2. Hero Section : Promesse claire, 1-Click Jouer, Réassurance */}
         <HeroSection 
           onOpenGame={handleOpenGame} 
           onScrollToDemo={handleScrollToDemo} 
@@ -67,26 +72,20 @@ const LandingPageContent: React.FC<LandingPageProps> = ({ onLaunchGame }) => {
         {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 3. Le Mot du Concepteur — Genèse d'un Père & Développeur */}
-        <CreatorLetterSection onOpenGame={handleOpenGame} />
-
-        {/* Arabesque Gilded Divider */}
-        <MirageArabesqueDivider className="my-8 sm:my-14" />
-
-        {/* 4. Gameplay Video Showcase (Extrait In-Game) */}
+        {/* 3. Gameplay Video Showcase : Réponse immédiate à "À quoi ressemble le jeu ?" */}
         <GameplayVideoSection onOpenGame={handleOpenGame} />
 
         {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 4. Interactive Waswâs Combat Simulator */}
-        <InteractiveCombatDemo onOpenGame={handleOpenGame} />
+        {/* 4. Unique Gameplay Mechanics (Ponts de Nour, Waswâs, etc.) */}
+        <GameplayMechanics />
 
         {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 5. Unique Gameplay Mechanics (Ponts de Nour, Waswâs, etc.) */}
-        <GameplayMechanics />
+        {/* 5. Interactive Waswâs Combat Simulator (Définition Waswâs + Choix avec stats) */}
+        <InteractiveCombatDemo onOpenGame={handleOpenGame} />
 
         {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
@@ -103,31 +102,43 @@ const LandingPageContent: React.FC<LandingPageProps> = ({ onLaunchGame }) => {
         {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 8. The Book of Wisdom (Le Livre du Savoir - Codex de Bagdad) */}
-        <BookOfWisdom />
+        {/* 8. Pour les Familles : Âge (8+), Confidentialité, Zéro Pub, Sources */}
+        <FamilySection onOpenGame={handleOpenGame} />
 
         {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 9. Visual Art & Panoramas Gallery */}
-        <VisualGallery />
+        {/* 9. Le Mot du Concepteur (Version condensée + Accordéon complet) */}
+        <CreatorLetterSection onOpenGame={handleOpenGame} />
 
         {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 10. Pricing & Founder Offers (Soutien & Déblocage Chapitres 2 & 3) */}
-        <PricingSection />
-
-        {/* Arabesque Gilded Divider */}
-        <MirageArabesqueDivider className="my-8 sm:my-14" />
-
-        {/* 11. Social Proof & Player Testimonials (CRO Trust Booster) */}
+        {/* 10. Social Proof & Player Testimonials (CRO Trust Booster) */}
         <TestimonialsSection />
 
         {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 12. FAQ Section */}
+        {/* 11. The Book of Wisdom (Le Livre du Savoir - Codex de Bagdad) */}
+        <BookOfWisdom />
+
+        {/* Arabesque Gilded Divider */}
+        <MirageArabesqueDivider className="my-8 sm:my-14" />
+
+        {/* 12. Visual Art & Panoramas Gallery */}
+        <VisualGallery />
+
+        {/* Arabesque Gilded Divider */}
+        <MirageArabesqueDivider className="my-8 sm:my-14" />
+
+        {/* 13. Pricing & Founder Offers (Soutien & Déblocage Chapitres 2 & 3) */}
+        <PricingSection />
+
+        {/* Arabesque Gilded Divider */}
+        <MirageArabesqueDivider className="my-8 sm:my-14" />
+
+        {/* 14. FAQ Section (8 questions indispensables répondant à toutes les objections) */}
         <FaqSection />
 
         {/* Arabesque Gilded Divider */}
@@ -161,7 +172,7 @@ const LandingPageContent: React.FC<LandingPageProps> = ({ onLaunchGame }) => {
                 className="w-full sm:w-auto px-8 py-4.5 rounded-2xl bg-gradient-to-r from-[#e5c158] via-[#ffd700] to-[#c59b27] text-stone-950 font-cinzel font-black text-base sm:text-lg tracking-wider shadow-[0_0_35px_rgba(229,193,88,0.5)] hover:shadow-[0_0_55px_rgba(229,193,88,0.85)] hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-3 ring-2 ring-[#ffd700]/70"
               >
                 <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-stone-950" />
-                <span>{t.preFooter.playGame}</span>
+                <span>{t.preFooter.ctaPlay}</span>
               </button>
 
               <a
@@ -178,9 +189,9 @@ const LandingPageContent: React.FC<LandingPageProps> = ({ onLaunchGame }) => {
 
             {/* Reassuring micro-copy */}
             <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-[#d8c29d]/80 pt-2 font-cinzel">
-              <span>✧ {t.preFooter.feature1}</span>
-              <span>✧ {t.preFooter.feature2}</span>
-              <span>✧ {t.preFooter.feature3}</span>
+              <span>{t.preFooter.benefit1}</span>
+              <span>{t.preFooter.benefit2}</span>
+              <span>{t.preFooter.benefit3}</span>
             </div>
           </div>
         </section>

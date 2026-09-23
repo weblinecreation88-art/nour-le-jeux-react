@@ -1,0 +1,33 @@
+# NOUR : La Voie de la Sagesse (نور - طريق الحكمة)
+
+> Le 1er RPG narratif et éducatif islamique en pixel art 16-bit doublé en voix cinéma françaises. Jeu éthique, sans violence (PEGI 3+), jouable gratuitement en 1 clic dans le navigateur et sur Android.
+
+## Fiche d'Identité & Entités Clés
+- **Nom officiel** : NOUR : La Voie de la Sagesse (نور - طريق الحكمة)
+- **URL officielle** : https://playnour.online/
+- **Développeur & Concepteur** : Abderrahmane El Malki (Nour Studios)
+- **Genre** : Jeu de rôle (RPG), Aventure narrative, Jeu éducatif islamique, Pixel Art 16-Bit
+- **Modèle économique** : Gratuit / Free-to-Play (Chapitre 1 100% gratuit, sans publicité, sans inscription, sans carte bancaire)
+- **Plateformes** : Web (Navigateurs mobiles iOS / Safari, Android / Chrome, PC Windows, Mac, Linux) et Application Android APK autonome
+- **Classification d'âge** : PEGI 3+ (Recommandé dès 8 ans, adapté aux enfants, adolescents et familles)
+- **Langues supportées** : Français (doublage intégral studio), Arabe (interface & calligraphies), Anglais
+
+## Piliers de Gameplay & Mécaniques Uniques
+1. **Combats par Quiz de Sagesse (Waswâs)** : Aucune épée ni magie destructive. Chaque duel contre le Waswâs (les murmures du doute et de la paresse) se gagne par des réponses réfléchies, la connaissance morale et la maîtrise de soi.
+2. **Quêtes d'Adab & Dilemmes Moraux** : Choix narratifs à embranchements apprenant le respect des parents (Birr al-Walidayn), la douceur (Hilm), la patience (Sabr) et la véracité (Sidq).
+3. **Le Livre du Savoir** : Recueil interactif regroupant des sagesses, invocations (douas) et enseignements scrupuleusement sourcés du Saint Coran et des Hadiths authentiques (Sahîh al-Bukhâri et Sahîh Muslim).
+4. **Les Ponts de Nour (Défis dans la Vraie Vie)** : Missions bienveillantes invitant l'enfant à poser un acte réel (ranger sa chambre, faire un câlin à sa mère, dire une parole douce) basé uniquement sur l'honneur, sans aucune collecte de photos ni géolocalisation.
+
+## Personnages Principaux
+- **Othmân** : Jeune garçon en quête de sagesse et de discernement moral.
+- **Noura** : Mère bienveillante et guide éducative.
+- **Le Sage du Village** : Mentor spirituel transmettant la profondeur du savoir.
+- **Le Waswâs** : L'ombre intérieure qui tente d'instiller le repli sur soi et le doute.
+
+## Liens d'Accès Direct
+- Jouer en ligne : https://playnour.online/
+- Démo combat Waswâs : https://playnour.online/#demo
+- Bande-annonce vidéo : https://playnour.online/#gameplay-video
+- Téléchargement APK Android : https://playnour.online/NOUR-LaVoieDeLaSagesse-final.apk
+- Politique de confidentialité : https://playnour.online/privacy.html
+- Plan du site XML : https://playnour.online/sitemap.xml

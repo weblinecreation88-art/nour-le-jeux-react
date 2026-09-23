@@ -138,6 +138,551 @@
   border-color: rgba(212, 175, 55, 0.35);
 }
 
+/* ========================================================
+   PARCHMENT LIGHT THEME (Ancient Illuminated Codex & Desert Gold)
+   ======================================================== */
+html.theme-parchment,
+[data-theme="parchment"] {
+  --color-background: #f6ebd7;
+  --color-on-surface: #2b2118;
+  --color-on-surface-variant: #5c4738;
+  --color-slate-surface: #ebdec7;
+  --color-deep-night: #e4ceb0;
+  --color-surface-container: #eddcc3;
+  --color-surface-container-high: #e2cca8;
+  --color-surface-container-low: #fbf5eb;
+  --color-surface-container-lowest: #ffffff;
+}
+
+html.theme-parchment body,
+[data-theme="parchment"] body {
+  background-color: #f6ebd7 !important;
+  color: #2b2118 !important;
+}
+
+/* 1. All Landing Page Sections & Main Background */
+html.theme-parchment .landing-page-root,
+html.theme-parchment .landing-page-root main,
+html.theme-parchment .landing-page-root section,
+[data-theme="parchment"] .landing-page-root,
+[data-theme="parchment"] .landing-page-root main,
+[data-theme="parchment"] .landing-page-root section {
+  background-color: #f6ebd7 !important;
+  background-image: none !important;
+  color: #2b2118 !important;
+}
+
+/* 2. Hero and specific section backgrounds */
+html.theme-parchment .landing-page-root #hero,
+[data-theme="parchment"] .landing-page-root #hero {
+  background: linear-gradient(180deg, #f8efe0 0%, #f4e8d3 50%, #f0e1c6 100%) !important;
+}
+
+html.theme-parchment .landing-page-root #hero .hero-bg-overlay,
+[data-theme="parchment"] .landing-page-root #hero .hero-bg-overlay {
+  background: linear-gradient(to top, #f6ebd7, rgba(246, 235, 215, 0.85), rgba(246, 235, 215, 0.4)) !important;
+}
+
+/* Guarantee crystal clear videos without opaque masks or filters in all themes */
+video,
+.landing-page-root video,
+html.theme-parchment video,
+[data-theme="parchment"] video {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Video Player & Overlay Controls Isolation: Never darken video UI elements over black background */
+.video-player-controls,
+.video-player-controls *,
+html.theme-parchment .video-player-controls,
+html.theme-parchment .video-player-controls *,
+[data-theme="parchment"] .video-player-controls,
+[data-theme="parchment"] .video-player-controls * {
+  color: #fbf6ec !important;
+}
+html.theme-parchment .video-player-controls .text-amber-200,
+html.theme-parchment .video-player-controls .text-amber-300,
+html.theme-parchment .video-player-controls .text-amber-400,
+html.theme-parchment .video-player-controls .text-\[\#e5c158\],
+html.theme-parchment .video-player-controls .text-\[\#ffd700\],
+[data-theme="parchment"] .video-player-controls .text-amber-200,
+[data-theme="parchment"] .video-player-controls .text-amber-300,
+[data-theme="parchment"] .video-player-controls .text-amber-400,
+[data-theme="parchment"] .video-player-controls .text-\[\#e5c158\],
+[data-theme="parchment"] .video-player-controls .text-\[\#ffd700\] {
+  color: #ffd700 !important;
+}
+html.theme-parchment .video-player-controls .text-emerald-300,
+html.theme-parchment .video-player-controls .text-emerald-400,
+[data-theme="parchment"] .video-player-controls .text-emerald-300,
+[data-theme="parchment"] .video-player-controls .text-emerald-400 {
+  color: #34d399 !important;
+}
+html.theme-parchment .video-player-controls .text-stone-300,
+html.theme-parchment .video-player-controls .text-stone-400,
+html.theme-parchment .video-player-controls .text-\[\#dfcea9\],
+[data-theme="parchment"] .video-player-controls .text-stone-300,
+[data-theme="parchment"] .video-player-controls .text-stone-400,
+[data-theme="parchment"] .video-player-controls .text-\[\#dfcea9\] {
+  color: #e2cca8 !important;
+}
+
+/* 3. Section Headings & Titles */
+html.theme-parchment .landing-page-root h1,
+html.theme-parchment .landing-page-root h2,
+html.theme-parchment .landing-page-root h3,
+html.theme-parchment .landing-page-root h4,
+html.theme-parchment .landing-page-root h5,
+html.theme-parchment .landing-page-root h6,
+[data-theme="parchment"] .landing-page-root h1,
+[data-theme="parchment"] .landing-page-root h2,
+[data-theme="parchment"] .landing-page-root h3,
+[data-theme="parchment"] .landing-page-root h4,
+[data-theme="parchment"] .landing-page-root h5,
+[data-theme="parchment"] .landing-page-root h6 {
+  color: #2b2118 !important;
+  text-shadow: none !important;
+}
+
+html.theme-parchment .landing-page-root .text-transparent.bg-clip-text,
+[data-theme="parchment"] .landing-page-root .text-transparent.bg-clip-text {
+  background: none !important;
+  -webkit-text-fill-color: #1a120b !important;
+  color: #1a120b !important;
+}
+
+/* High Contrast Headings, Subtitles & Paragraphs in Parchment Mode */
+html.theme-parchment .landing-page-root .text-amber-100,
+html.theme-parchment .landing-page-root .text-stone-100,
+html.theme-parchment .landing-page-root .text-stone-200,
+html.theme-parchment .landing-page-root .text-stone-300,
+html.theme-parchment .landing-page-root .text-amber-200,
+html.theme-parchment .landing-page-root .text-amber-300,
+html.theme-parchment .landing-page-root .text-amber-50,
+html.theme-parchment .landing-page-root .text-\[\#f5efe6\],
+html.theme-parchment .landing-page-root .text-\[\#fbf6ec\],
+html.theme-parchment .landing-page-root .text-\[\#ede2cf\],
+html.theme-parchment .landing-page-root .text-\[\#f5ebd7\],
+[data-theme="parchment"] .landing-page-root .text-amber-100,
+[data-theme="parchment"] .landing-page-root .text-stone-100,
+[data-theme="parchment"] .landing-page-root .text-stone-200,
+[data-theme="parchment"] .landing-page-root .text-stone-300,
+[data-theme="parchment"] .landing-page-root .text-amber-200,
+[data-theme="parchment"] .landing-page-root .text-amber-300,
+[data-theme="parchment"] .landing-page-root .text-amber-50,
+[data-theme="parchment"] .landing-page-root .text-\[\#f5efe6\],
+[data-theme="parchment"] .landing-page-root .text-\[\#fbf6ec\],
+[data-theme="parchment"] .landing-page-root .text-\[\#ede2cf\],
+[data-theme="parchment"] .landing-page-root .text-\[\#f5ebd7\] {
+  color: #2b2118 !important;
+}
+
+/* Subtitles under Hero and Sections */
+html.theme-parchment .landing-page-root .text-\[\#e8d8be\],
+html.theme-parchment .landing-page-root p.font-cinzel,
+html.theme-parchment .landing-page-root .font-cinzel.tracking-wide,
+[data-theme="parchment"] .landing-page-root .text-\[\#e8d8be\],
+[data-theme="parchment"] .landing-page-root p.font-cinzel,
+[data-theme="parchment"] .landing-page-root .font-cinzel.tracking-wide {
+  color: #7a4603 !important;
+  font-weight: 700 !important;
+}
+
+/* Hero Poetic Sub-tagline */
+.hero-poetic-subtitle {
+  color: #7a4603 !important;
+  font-weight: 700 !important;
+}
+html.theme-dark .hero-poetic-subtitle,
+[data-theme="dark"] .hero-poetic-subtitle {
+  color: #fce8a6 !important;
+}
+
+/* Checklists, Bullets & Feature Lists */
+html.theme-parchment .landing-page-root .text-\[\#e0cfb4\],
+html.theme-parchment .landing-page-root .text-\[\#dfcea9\],
+[data-theme="parchment"] .landing-page-root .text-\[\#e0cfb4\],
+[data-theme="parchment"] .landing-page-root .text-\[\#dfcea9\] {
+  color: #22180f !important;
+  font-weight: 600 !important;
+}
+
+/* Arabic Calligraphies & Gold Accents */
+html.theme-parchment .landing-page-root .text-\[\#f3e5ca\],
+html.theme-parchment .landing-page-root .text-\[\#fce8a6\],
+html.theme-parchment .landing-page-root .text-\[\#ffd700\],
+html.theme-parchment .landing-page-root .text-\[\#e5c158\],
+html.theme-parchment .landing-page-root .text-amber-400,
+[data-theme="parchment"] .landing-page-root .text-\[\#f3e5ca\],
+[data-theme="parchment"] .landing-page-root .text-\[\#fce8a6\],
+[data-theme="parchment"] .landing-page-root .text-\[\#ffd700\],
+[data-theme="parchment"] .landing-page-root .text-\[\#e5c158\],
+[data-theme="parchment"] .landing-page-root .text-amber-400 {
+  color: #8c5504 !important;
+  font-weight: 700 !important;
+}
+
+/* High-Contrast overrides for Tailwind arbitrary opacity classes in Parchment Mode */
+html.theme-parchment .landing-page-root .text-\[\#d8c29d\]\/85,
+html.theme-parchment .landing-page-root .text-\[\#d8c29d\]\/80,
+html.theme-parchment .landing-page-root .text-\[\#d8c29d\]\/70,
+[data-theme="parchment"] .landing-page-root .text-\[\#d8c29d\]\/85,
+[data-theme="parchment"] .landing-page-root .text-\[\#d8c29d\]\/80,
+[data-theme="parchment"] .landing-page-root .text-\[\#d8c29d\]\/70 {
+  color: #523e2c !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
+html.theme-parchment .landing-page-root .text-purple-300\/85,
+html.theme-parchment .landing-page-root .text-purple-300\/70,
+[data-theme="parchment"] .landing-page-root .text-purple-300\/85,
+[data-theme="parchment"] .landing-page-root .text-purple-300\/70 {
+  color: #4c1d95 !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
+html.theme-parchment .landing-page-root .text-amber-300\/70,
+html.theme-parchment .landing-page-root .text-amber-300\/80,
+html.theme-parchment .landing-page-root .text-amber-300\/90,
+html.theme-parchment .landing-page-root .text-amber-400\/80,
+html.theme-parchment .landing-page-root .text-amber-200\/90,
+html.theme-parchment .landing-page-root .text-\[\#ffd700\]\/90,
+html.theme-parchment .landing-page-root .text-\[\#fce8a6\]\/90,
+[data-theme="parchment"] .landing-page-root .text-amber-300\/70,
+[data-theme="parchment"] .landing-page-root .text-amber-300\/80,
+[data-theme="parchment"] .landing-page-root .text-amber-300\/90,
+[data-theme="parchment"] .landing-page-root .text-amber-400\/80,
+[data-theme="parchment"] .landing-page-root .text-amber-200\/90,
+[data-theme="parchment"] .landing-page-root .text-\[\#ffd700\]\/90,
+[data-theme="parchment"] .landing-page-root .text-\[\#fce8a6\]\/90 {
+  color: #7a4603 !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
+html.theme-parchment .landing-page-root .text-emerald-200\/90,
+html.theme-parchment .landing-page-root .text-emerald-300\/90,
+[data-theme="parchment"] .landing-page-root .text-emerald-200\/90,
+[data-theme="parchment"] .landing-page-root .text-emerald-300\/90 {
+  color: #0b6b43 !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
+html.theme-parchment .landing-page-root .text-red-400\/80,
+html.theme-parchment .landing-page-root .text-red-400,
+[data-theme="parchment"] .landing-page-root .text-red-400\/80,
+[data-theme="parchment"] .landing-page-root .text-red-400 {
+  color: #991b1b !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
+/* Icons & Checks */
+html.theme-parchment .landing-page-root svg.text-\[\#e5c158\],
+html.theme-parchment .landing-page-root svg.text-\[\#ffd700\],
+html.theme-parchment .landing-page-root svg.text-amber-400,
+[data-theme="parchment"] .landing-page-root svg.text-\[\#e5c158\],
+[data-theme="parchment"] .landing-page-root svg.text-\[\#ffd700\],
+[data-theme="parchment"] .landing-page-root svg.text-amber-400 {
+  color: #945f09 !important;
+}
+
+html.theme-parchment .landing-page-root .text-emerald-400,
+html.theme-parchment .landing-page-root .text-emerald-300,
+html.theme-parchment .landing-page-root .text-emerald-200,
+[data-theme="parchment"] .landing-page-root .text-emerald-400,
+[data-theme="parchment"] .landing-page-root .text-emerald-300,
+[data-theme="parchment"] .landing-page-root .text-emerald-200 {
+  color: #0b6b43 !important;
+  font-weight: 600 !important;
+}
+
+html.theme-parchment .landing-page-root .text-purple-300,
+html.theme-parchment .landing-page-root .text-purple-200,
+[data-theme="parchment"] .landing-page-root .text-purple-300,
+[data-theme="parchment"] .landing-page-root .text-purple-200 {
+  color: #4c1d95 !important;
+  font-weight: 600 !important;
+}
+
+html.theme-parchment .landing-page-root .text-stone-400,
+html.theme-parchment .landing-page-root .text-amber-300\/80,
+html.theme-parchment .landing-page-root .text-stone-300\/80,
+html.theme-parchment .landing-page-root .text-\[\#d8c29d\],
+[data-theme="parchment"] .landing-page-root .text-stone-400,
+[data-theme="parchment"] .landing-page-root .text-amber-300\/80,
+[data-theme="parchment"] .landing-page-root .text-stone-300\/80,
+[data-theme="parchment"] .landing-page-root .text-\[\#d8c29d\] {
+  color: #523e2c !important;
+}
+
+/* Badges Top Bar */
+html.theme-parchment .landing-page-root .bg-\[\#0a231b\]\/90,
+[data-theme="parchment"] .landing-page-root .bg-\[\#0a231b\]\/90 {
+  background-color: #d1e7dd !important;
+  border-color: #198754 !important;
+  color: #0f5132 !important;
+  font-weight: 700 !important;
+}
+
+html.theme-parchment .landing-page-root .bg-\[\#241a10\]\/90,
+[data-theme="parchment"] .landing-page-root .bg-\[\#241a10\]\/90 {
+  background-color: #faebd7 !important;
+  border-color: #c5a059 !important;
+  color: #4a2d0b !important;
+  font-weight: 700 !important;
+}
+
+html.theme-parchment .landing-page-root .bg-\[\#1e1128\]\/90,
+[data-theme="parchment"] .landing-page-root .bg-\[\#1e1128\]\/90 {
+  background-color: #eeddfa !important;
+  border-color: #9333ea !important;
+  color: #4c1d95 !important;
+  font-weight: 700 !important;
+}
+
+/* 4. Cards, Boxes, Accordions, Grids, Roadmaps & Codex */
+html.theme-parchment .landing-page-root [class*="bg-\[\#0"],
+html.theme-parchment .landing-page-root [class*="bg-\[\#1"],
+html.theme-parchment .landing-page-root [class*="bg-\[\#2"],
+html.theme-parchment .landing-page-root [class*="bg-stone-9"],
+html.theme-parchment .landing-page-root [class*="bg-amber-950"],
+html.theme-parchment .landing-page-root [class*="bg-purple-950"],
+html.theme-parchment .landing-page-root [class*="bg-emerald-950"],
+[data-theme="parchment"] .landing-page-root [class*="bg-\[\#0"],
+[data-theme="parchment"] .landing-page-root [class*="bg-\[\#1"],
+[data-theme="parchment"] .landing-page-root [class*="bg-\[\#2"],
+[data-theme="parchment"] .landing-page-root [class*="bg-stone-9"],
+[data-theme="parchment"] .landing-page-root [class*="bg-amber-950"],
+[data-theme="parchment"] .landing-page-root [class*="bg-purple-950"],
+[data-theme="parchment"] .landing-page-root [class*="bg-emerald-950"] {
+  background-color: #fffdf8 !important;
+  color: #2b2118 !important;
+}
+
+/* Gradient overrides on cards and ribbons */
+html.theme-parchment .landing-page-root .bg-gradient-to-b,
+html.theme-parchment .landing-page-root .bg-gradient-to-br,
+html.theme-parchment .landing-page-root div.bg-gradient-to-r,
+[data-theme="parchment"] .landing-page-root .bg-gradient-to-b,
+[data-theme="parchment"] .landing-page-root .bg-gradient-to-br,
+[data-theme="parchment"] .landing-page-root div.bg-gradient-to-r {
+  background-image: linear-gradient(180deg, #fffdf8 0%, #fbf6ec 100%) !important;
+}
+
+/* Preserve active golden launch & play button gradients in parchment mode */
+html.theme-parchment .landing-page-root button.bg-gradient-to-r,
+html.theme-parchment .landing-page-root a.bg-gradient-to-r,
+[data-theme="parchment"] .landing-page-root button.bg-gradient-to-r,
+[data-theme="parchment"] .landing-page-root a.bg-gradient-to-r {
+  background-image: linear-gradient(to right, #e5c158, #ffd700, #c59b27) !important;
+  color: #120e06 !important;
+}
+html.theme-parchment .landing-page-root button.bg-gradient-to-r *,
+html.theme-parchment .landing-page-root a.bg-gradient-to-r *,
+[data-theme="parchment"] .landing-page-root button.bg-gradient-to-r *,
+[data-theme="parchment"] .landing-page-root a.bg-gradient-to-r * {
+  color: #120e06 !important;
+}
+
+/* Callout Quote Ribbons and Arabic Calligraphy Cartouches in Parchment */
+html.theme-parchment .callout-ribbon,
+[data-theme="parchment"] .callout-ribbon {
+  background: linear-gradient(180deg, #fffdf8 0%, #f7ecd7 100%) !important;
+  border-color: #c5a059 !important;
+  color: #2b2118 !important;
+}
+html.theme-parchment .callout-ribbon *,
+[data-theme="parchment"] .callout-ribbon * {
+  color: #2b2118 !important;
+}
+html.theme-parchment .callout-ribbon .font-amiri,
+[data-theme="parchment"] .callout-ribbon .font-amiri {
+  color: #6b3e04 !important;
+}
+html.theme-parchment .callout-ribbon .font-cinzel,
+[data-theme="parchment"] .callout-ribbon .font-cinzel {
+  color: #7a4603 !important;
+}
+
+/* Selected Character & Codex Tabs in Parchment Mode */
+html.theme-parchment .char-tab-selected,
+[data-theme="parchment"] .char-tab-selected {
+  background: linear-gradient(180deg, #fff2db 0%, #f6e0ba 100%) !important;
+  border-color: #c5a059 !important;
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.25) !important;
+}
+html.theme-parchment .char-tab-selected .font-cinzel,
+[data-theme="parchment"] .char-tab-selected .font-cinzel {
+  color: #2b2118 !important;
+}
+html.theme-parchment .char-tab-selected .text-\[\#e5c158\],
+[data-theme="parchment"] .char-tab-selected .text-\[\#e5c158\] {
+  color: #7a4603 !important;
+}
+
+/* Specific Combat by Quiz Card in Hero */
+html.theme-parchment .hero-quiz-card,
+[data-theme="parchment"] .hero-quiz-card {
+  background: linear-gradient(180deg, #fffdf8 0%, #fbf5ea 100%) !important;
+  border: 1.5px solid rgba(197, 160, 89, 0.65) !important;
+  box-shadow: 0 4px 20px rgba(90, 64, 29, 0.12) !important;
+}
+html.theme-parchment .hero-quiz-card .text-amber-200,
+[data-theme="parchment"] .hero-quiz-card .text-amber-200 {
+  color: #2b2118 !important;
+}
+html.theme-parchment .hero-quiz-card .text-\[\#e8dac1\],
+[data-theme="parchment"] .hero-quiz-card .text-\[\#e8dac1\] {
+  color: #3f2f20 !important;
+  font-weight: 500 !important;
+}
+
+/* Dark pricing buttons styling in parchment mode */
+html.theme-parchment button.pricing-btn-dark,
+[data-theme="parchment"] button.pricing-btn-dark {
+  background-image: linear-gradient(180deg, #3d2c1d 0%, #251a10 100%) !important;
+  border-color: #c5a059 !important;
+  color: #fbf5ea !important;
+}
+html.theme-parchment button.pricing-btn-dark *,
+[data-theme="parchment"] button.pricing-btn-dark * {
+  color: #ffd700 !important;
+}
+
+html.theme-parchment button.pricing-btn-emerald,
+[data-theme="parchment"] button.pricing-btn-emerald {
+  background-image: linear-gradient(180deg, #0f5132 0%, #0a3622 100%) !important;
+  border-color: #198754 !important;
+  color: #fbf5ea !important;
+}
+html.theme-parchment button.pricing-btn-emerald *,
+[data-theme="parchment"] button.pricing-btn-emerald * {
+  color: #a7f3d0 !important;
+}
+
+/* Card Borders & Shadows */
+html.theme-parchment .landing-page-root .rounded-xl,
+html.theme-parchment .landing-page-root .rounded-2xl,
+html.theme-parchment .landing-page-root .rounded-3xl,
+[data-theme="parchment"] .landing-page-root .rounded-xl,
+[data-theme="parchment"] .landing-page-root .rounded-2xl,
+[data-theme="parchment"] .landing-page-root .rounded-3xl {
+  border-color: rgba(197, 160, 89, 0.45) !important;
+}
+
+html.theme-parchment .landing-page-root .shadow-\[0_25px_60px_rgba\(0\,0\,0\,0\.85\)\],
+html.theme-parchment .landing-page-root .shadow-\[0_10px_30px_rgba\(0\,0\,0\,0\.5\)\],
+html.theme-parchment .landing-page-root .shadow-2xl,
+[data-theme="parchment"] .landing-page-root .shadow-\[0_25px_60px_rgba\(0\,0\,0\,0\.85\)\],
+[data-theme="parchment"] .landing-page-root .shadow-\[0_10px_30px_rgba\(0\,0\,0\,0\.5\)\],
+[data-theme="parchment"] .landing-page-root .shadow-2xl {
+  box-shadow: 0 12px 35px -5px rgba(90, 64, 29, 0.12), 0 4px 10px rgba(90, 64, 29, 0.05) !important;
+}
+
+/* 5. Gilded relic frame */
+html.theme-parchment .landing-page-root .gilded-relic-frame,
+[data-theme="parchment"] .landing-page-root .gilded-relic-frame {
+  background: linear-gradient(180deg, #fffdf8 0%, #f9f2e4 100%) !important;
+  border: 2px solid rgba(197, 160, 89, 0.7) !important;
+  color: #2b2118 !important;
+}
+
+/* 6. Accordion & FAQ Items (support both rounded-xl and rounded-2xl) */
+html.theme-parchment .landing-page-root #faq .rounded-xl,
+html.theme-parchment .landing-page-root #faq .rounded-2xl,
+[data-theme="parchment"] .landing-page-root #faq .rounded-xl,
+[data-theme="parchment"] .landing-page-root #faq .rounded-2xl {
+  background-color: #fffdf8 !important;
+  border: 1px solid rgba(197, 160, 89, 0.5) !important;
+}
+
+html.theme-parchment .landing-page-root #faq .border-t,
+[data-theme="parchment"] .landing-page-root #faq .border-t {
+  background-color: #fbf5ea !important;
+  border-top-color: rgba(197, 160, 89, 0.3) !important;
+  color: #3b2b1e !important;
+}
+
+/* 7. Badges & Pills */
+html.theme-parchment .landing-page-root .rounded-full.bg-amber-950\/60,
+html.theme-parchment .landing-page-root .rounded-full.bg-amber-950\/80,
+html.theme-parchment .landing-page-root .rounded-full.bg-\[\#1b1510\],
+html.theme-parchment .landing-page-root .rounded-full.bg-\[\#241a10\]\/90,
+html.theme-parchment .landing-page-root .rounded-full.bg-\[\#1e1128\]\/90,
+html.theme-parchment .landing-page-root .rounded-full.bg-\[\#0a231b\]\/90,
+[data-theme="parchment"] .landing-page-root .rounded-full.bg-amber-950\/60,
+[data-theme="parchment"] .landing-page-root .rounded-full.bg-amber-950\/80,
+[data-theme="parchment"] .landing-page-root .rounded-full.bg-\[\#1b1510\],
+[data-theme="parchment"] .landing-page-root .rounded-full.bg-\[\#241a10\]\/90,
+[data-theme="parchment"] .landing-page-root .rounded-full.bg-\[\#1e1128\]\/90,
+[data-theme="parchment"] .landing-page-root .rounded-full.bg-\[\#0a231b\]\/90 {
+  background-color: #eeddc3 !important;
+  border-color: #c5a059 !important;
+  color: #4a321a !important;
+}
+
+/* 8. Top Navigation Bar */
+html.theme-parchment header#main-navbar,
+[data-theme="parchment"] header#main-navbar {
+  background-color: rgba(246, 235, 215, 0.96) !important;
+  border-bottom: 2px solid rgba(197, 160, 89, 0.6) !important;
+  box-shadow: 0 10px 30px rgba(90, 64, 29, 0.15) !important;
+}
+
+html.theme-parchment header#main-navbar a,
+html.theme-parchment header#main-navbar span,
+[data-theme="parchment"] header#main-navbar a,
+[data-theme="parchment"] header#main-navbar span {
+  color: #3b2b1e !important;
+}
+
+html.theme-parchment header#main-navbar nav a:hover,
+[data-theme="parchment"] header#main-navbar nav a:hover {
+  background-color: rgba(197, 160, 89, 0.2) !important;
+  color: #1a120b !important;
+}
+
+/* 9. Sticky mobile bar */
+html.theme-parchment #mobile-sticky-cta,
+[data-theme="parchment"] #mobile-sticky-cta {
+  background-color: rgba(246, 235, 215, 0.98) !important;
+  border-top: 2px solid #c5a059 !important;
+}
+
+/* 10. Footer */
+html.theme-parchment footer,
+[data-theme="parchment"] footer {
+  background-color: #eddcc3 !important;
+  border-top: 2px solid #c5a059 !important;
+  color: #2b2118 !important;
+}
+
+html.theme-parchment footer a,
+html.theme-parchment footer p,
+html.theme-parchment footer span,
+[data-theme="parchment"] footer a,
+[data-theme="parchment"] footer p,
+[data-theme="parchment"] footer span {
+  color: #4a3828 !important;
+}
+
+/* 11. Form Inputs & Feedback Modal */
+html.theme-parchment input,
+html.theme-parchment textarea,
+html.theme-parchment select,
+[data-theme="parchment"] input,
+[data-theme="parchment"] textarea,
+[data-theme="parchment"] select {
+  background-color: #fffdf8 !important;
+  border-color: #c5a059 !important;
+  color: #2b2118 !important;
+}
+
 /* Luxury Relic Frame with Gilded Corner Notches */
 .gilded-relic-frame {
   position: relative;

@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, Play, Compass, Sparkles, BookOpen, Users, ShieldAlert, Layers, Download, Crown, Menu, X, Check, MessageCircleHeart } from 'lucide-react';
+import { Volume2, VolumeX, Play, Compass, Sparkles, BookOpen, Users, ShieldAlert, Layers, Download, Crown, Menu, X, Check, MessageCircleHeart, Sun, Moon } from 'lucide-react';
 import { GAME_URL, APK_DOWNLOAD_URL } from '../../data/gameData';
 import { trackApkDownloadClick, trackPlayGameClick } from '../../utils/analytics';
 import { useLanguage } from '../../context/LanguageContext';
+import { useTheme } from '../../context/ThemeContext';
 import { Language } from '../../i18n/translations';
 
 interface NavbarProps {
@@ -56,6 +57,7 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
   const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
 
   const { language, setLanguage, t } = useLanguage();
+  const { isParchment, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -224,6 +226,28 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
             })}
           </div>
 
+          {/* Theme Switcher Button (☀️ Parchemin / 🌙 Nuit) */}
+          <button
+            id="btn-theme-toggle"
+            onClick={toggleTheme}
+            aria-label="Basculer thème clair parchemin / sombre"
+            title={isParchment ? "Passer en mode Nuit (Sombre)" : "Passer en mode Parchemin (Clair / Trésor)"}
+            className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-xl border transition-all cursor-pointer shadow-sm active:scale-95 ${
+              isParchment
+                ? 'bg-[#eddcc3] hover:bg-[#e4ceb0] border-[#c5a059] text-[#5a401d] font-bold shadow-[0_0_10px_rgba(212,175,55,0.4)]'
+                : 'bg-[#1b140e]/80 hover:bg-[#d4af37]/20 border-[#d4af37]/40 text-[#fce8a6] hover:text-[#ffd700]'
+            }`}
+          >
+            {isParchment ? (
+              <Sun className="w-4 h-4 text-amber-700 fill-amber-500/40 shrink-0" />
+            ) : (
+              <Moon className="w-4 h-4 text-amber-300 shrink-0" />
+            )}
+            <span className="hidden sm:inline font-cinzel text-[11px] font-bold">
+              {isParchment ? 'Parchemin' : 'Nuit'}
+            </span>
+          </button>
+
           {/* Ambient Sound Button */}
           <button
             id="btn-ambient-audio"
@@ -313,6 +337,41 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
                   </button>
                 );
               })}
+            </div>
+          </div>
+
+          {/* Theme Selector in Mobile Drawer */}
+          <div className="p-3 bg-amber-950/40 rounded-2xl border border-amber-500/30 space-y-2">
+            <span className="text-[11px] font-bold text-amber-300 uppercase tracking-wider block">
+              Thème Visuel / Visual Theme
+            </span>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={() => {
+                  if (isParchment) toggleTheme();
+                }}
+                className={`p-2 rounded-xl border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                  !isParchment 
+                    ? 'bg-amber-500 text-stone-950 border-amber-400 font-bold shadow-md' 
+                    : 'bg-[#151221] border-amber-500/20 text-stone-300 hover:bg-amber-500/10'
+                }`}
+              >
+                <Moon className="w-4 h-4 text-stone-950 shrink-0" />
+                <span className="text-xs font-cinzel">Nuit (Sombre)</span>
+              </button>
+              <button
+                onClick={() => {
+                  if (!isParchment) toggleTheme();
+                }}
+                className={`p-2 rounded-xl border flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                  isParchment 
+                    ? 'bg-[#c5a059] text-stone-950 border-amber-300 font-bold shadow-md' 
+                    : 'bg-[#151221] border-amber-500/20 text-stone-300 hover:bg-amber-500/10'
+                }`}
+              >
+                <Sun className="w-4 h-4 text-amber-900 fill-amber-700/40 shrink-0" />
+                <span className="text-xs font-cinzel">Parchemin (Clair)</span>
+              </button>
             </div>
           </div>
 

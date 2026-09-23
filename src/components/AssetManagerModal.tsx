@@ -34,9 +34,9 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
     { key: 'grand_waswas', label: 'Grand Waswas (Climax)', desc: 'Avatar du climax de la scène 9' },
     { key: 'jeune', label: 'Jeune Villageois', desc: 'Avatar de l’habitant du village' }
   ];
-
   const backgroundKeys: Array<{ key: keyof CustomAssetsConfig['backgrounds']; label: string; desc: string }> = [
-    { key: 'chambre', label: 'Scène 1 — La Chambre', desc: 'Réveil et lit au matin' },
+    { key: 'chambre_defait', label: 'Scène 1 — Lit défait (Avant)', desc: 'Réveil d’Othmân avant de faire son lit' },
+    { key: 'chambre', label: 'Scène 1 — Lit fait (Après)', desc: 'Chambre rangée et lit fait' },
     { key: 'carrefour', label: 'Scène 2 — Le Poteau aux Chemins', desc: 'Carrefour et poteau indicateur' },
     { key: 'waswas', label: 'Scène 3 — Le Premier Waswas', desc: 'Atmosphère brumeuse de doute' },
     { key: 'vallee', label: 'Scène 4 — « Je ne veux plus être seul »', desc: 'Abords du village et chemin fleuri' },
@@ -45,7 +45,8 @@ export const AssetManagerModal: React.FC<AssetManagerModalProps> = ({
     { key: 'geste', label: 'Scène 7 — Le Geste', desc: 'Route bordée d’oliviers' },
     { key: 'jardin', label: 'Scène 8 — Le Jardin Abandonné', desc: 'Jardin secret aux fruits bienfaisants' },
     { key: 'climax', label: 'Scène 9 — Le Grand Waswas (Climax)', desc: 'Paysage montagnard et brume mystique' },
-    { key: 'fin', label: 'Écran de Fin — Aube et Nouveau Départ', desc: 'Illustration triomphale de fin du Chapitre 1' }
+    { key: 'fin', label: 'Écran de Fin — Aube et Nouveau Départ', desc: 'Illustration triomphale de fin du Chapitre 1' },
+    { key: 'verger_amandiers', label: 'Chapitre 3 — Verger d’Amandiers', desc: 'Cueillette sous les amandiers en fleurs' }
   ];
 
   const handleFileUpload = (

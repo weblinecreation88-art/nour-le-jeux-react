@@ -28,12 +28,9 @@ function pcmToWav(pcmBuffer: Buffer, sampleRate = 24000, numChannels = 1, bitDep
   return Buffer.concat([header, pcmBuffer]);
 }
 
-async function test() {
-  const text = "L’aube éclaire doucement les murs de la chambre. Othmân est assis au bord de son lit, les yeux posés sur son sac de voyage encore vide.";
-  const voiceName = "Algenib";
+async function generateBeat(beatId: string, voiceName: string, text: string) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-tts-preview:generateContent?key=${apiKey}`;
-
-  console.log('Testing Gemini TTS API on s1_hook_1 with Algenib...');
+  console.log(`Generating ${beatId} with ${voiceName}...`);
   const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -57,23 +54,38 @@ async function test() {
   if (!res.ok) {
     const txt = await res.text();
     console.error(`HTTP error ${res.status}:`, txt);
-    return;
+    return false;
   }
 
   const data: any = await res.json();
   const part = data.candidates?.[0]?.content?.parts?.[0];
   if (!part?.inlineData?.data) {
     console.error('No audio in response:', data);
-    return;
+    return false;
   }
 
   const pcm = Buffer.from(part.inlineData.data, 'base64');
   const wav = pcmToWav(pcm, 24000);
-  const outPathMp3 = path.resolve('public/audio/ch1/s1_hook_1.mp3');
-  const outPathWav = path.resolve('public/audio/ch1/s1_hook_1.wav');
+  const outPathMp3 = path.resolve(`public/audio/ch1/${beatId}.mp3`);
+  const outPathWav = path.resolve(`public/audio/ch1/${beatId}.wav`);
   fs.writeFileSync(outPathMp3, wav);
   fs.writeFileSync(outPathWav, wav);
-  console.log(`SUCCESS! Saved s1_hook_1 (${wav.length} bytes) to ${outPathMp3}`);
+  console.log(`SUCCESS! Saved ${beatId} (${wav.length} bytes) to ${outPathMp3}`);
+  return true;
+}
+
+async function test() {
+  await generateBeat(
+    's1_hook_6',
+    'Puck',
+    "Maman... Et si je n'y arrivais pas ? À aller vers les autres, à parler, à trouver ma place..."
+  );
+  await new Promise((r) => setTimeout(r, 1500));
+  await generateBeat(
+    's1_hook_1',
+    'Algenib',
+    "L’aube venait à peine de toucher les hauteurs... Mais dans la vallée, le village était déjà éveillé. Des voix, des pas, des rires. Othmân reste assis sur son lit, les yeux posés sur son sac de voyage encore vide."
+  );
 }
 
 test().catch(console.error);

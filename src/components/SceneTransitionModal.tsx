@@ -39,15 +39,147 @@ interface SceneTransitionModalProps {
   onReplayScene: () => void;
 }
 
-// Multilingual Poetic Metadata for Chapter 1 Transitions
+// Multilingual Poetic Metadata for Scene Transitions Across All Chapters
 interface TransitionData {
   title: { fr: string; ar: string; en: string };
   subtitle: { fr: string; ar: string; en: string };
   brief: { fr: string; ar: string; en: string };
-  image: string;
+  image?: string;
+  video?: string;
 }
 
-const CHAPTER_1_TRANSITIONS: Record<number, TransitionData> = {
+// Function to resolve the authentic visual illustration for any scene
+export const getSceneIllustration = (scene: Scene, customAssets?: CustomAssetsConfig): string => {
+  const theme = scene.backgroundTheme || (scene as any).backgroundKey;
+
+  // Custom asset override if provided by player
+  if (theme && customAssets?.backgrounds && (customAssets.backgrounds as any)[theme]) {
+    return (customAssets.backgrounds as any)[theme];
+  }
+
+  // Exact theme mapping from DEFAULT_ASSETS
+  switch (theme) {
+    case 'chambre':
+    case 'chambre_maladie':
+      return customAssets?.backgrounds?.chambre || DEFAULT_ASSETS.backgrounds.chambre;
+    case 'carrefour':
+      return customAssets?.backgrounds?.carrefour || DEFAULT_ASSETS.backgrounds.carrefour;
+    case 'waswas':
+      return customAssets?.backgrounds?.waswas || DEFAULT_ASSETS.backgrounds.waswas;
+    case 'vallee':
+      return customAssets?.backgrounds?.vallee || DEFAULT_ASSETS.backgrounds.vallee;
+    case 'village':
+      return customAssets?.backgrounds?.village || DEFAULT_ASSETS.backgrounds.village;
+    case 'village_mefiant':
+      return customAssets?.backgrounds?.village_mefiant || DEFAULT_ASSETS.backgrounds.village_mefiant;
+    case 'ruelle':
+    case 'refus':
+      return customAssets?.backgrounds?.refus_jeune_corde || DEFAULT_ASSETS.backgrounds.refus_jeune_corde;
+    case 'verger':
+    case 'geste':
+      return customAssets?.backgrounds?.geste || DEFAULT_ASSETS.backgrounds.geste;
+    case 'jardin':
+      return customAssets?.backgrounds?.jardin || DEFAULT_ASSETS.backgrounds.jardin;
+    case 'climax':
+      return customAssets?.backgrounds?.climax || DEFAULT_ASSETS.backgrounds.climax;
+    case 'marche_colere':
+      return customAssets?.backgrounds?.marche_renverse || DEFAULT_ASSETS.backgrounds.marche_renverse;
+    case 'mosquee_ablutions':
+    case 'patio_remedes':
+      return customAssets?.backgrounds?.mosquee_patio || DEFAULT_ASSETS.backgrounds.mosquee_patio;
+    case 'marche_apaise':
+      return customAssets?.backgrounds?.marche_reconcilie || DEFAULT_ASSETS.backgrounds.marche_reconcilie;
+    case 'climax_hilm':
+    case 'montagne_interieure':
+      return customAssets?.backgrounds?.montagne_climax || DEFAULT_ASSETS.backgrounds.montagne_climax;
+    case 'apothicaire':
+    case 'maison_soins':
+      return customAssets?.backgrounds?.maison_soins || DEFAULT_ASSETS.backgrounds.maison_soins;
+    case 'mosquee_attelle':
+    case 'mosquee_marches':
+      return customAssets?.backgrounds?.mosquee_marches || DEFAULT_ASSETS.backgrounds.mosquee_marches;
+    case 'verger_amandiers':
+      return customAssets?.backgrounds?.verger_amandiers || DEFAULT_ASSETS.backgrounds.verger_amandiers;
+    case 'atelier_sculpture':
+      return customAssets?.backgrounds?.atelier_sculpture || DEFAULT_ASSETS.backgrounds.atelier_sculpture;
+    case 'cuisine_bouillon':
+      return customAssets?.backgrounds?.cuisine_bouillon || DEFAULT_ASSETS.backgrounds.cuisine_bouillon;
+    case 'verger_lanterne':
+      return customAssets?.backgrounds?.verger_fleur || DEFAULT_ASSETS.backgrounds.verger_fleur;
+    case 'epilogue':
+    case 'epilogue_ch3':
+      return customAssets?.backgrounds?.epilogue || DEFAULT_ASSETS.backgrounds.epilogue;
+    default:
+      break;
+  }
+
+  // Scene ID fallback
+  switch (scene.id) {
+    case 1:
+      return trans1 || DEFAULT_ASSETS.backgrounds.chambre;
+    case 2:
+      return trans2 || DEFAULT_ASSETS.backgrounds.carrefour;
+    case 3:
+      return trans3 || DEFAULT_ASSETS.backgrounds.waswas;
+    case 4:
+      return trans4 || DEFAULT_ASSETS.backgrounds.vallee;
+    case 5:
+      return trans5 || DEFAULT_ASSETS.backgrounds.village;
+    case 6:
+      return trans6 || DEFAULT_ASSETS.backgrounds.refus_jeune_corde;
+    case 7:
+      return trans7 || DEFAULT_ASSETS.backgrounds.geste;
+    case 8:
+      return trans8 || DEFAULT_ASSETS.backgrounds.jardin;
+    case 9:
+      return trans9 || DEFAULT_ASSETS.backgrounds.climax;
+    case 10:
+      return DEFAULT_ASSETS.backgrounds.carrefour;
+    case 11:
+      return DEFAULT_ASSETS.backgrounds.marche_renverse;
+    case 12:
+      return DEFAULT_ASSETS.backgrounds.village_mefiant;
+    case 13:
+      return DEFAULT_ASSETS.backgrounds.mosquee_patio;
+    case 14:
+      return DEFAULT_ASSETS.backgrounds.marche_reconcilie;
+    case 142:
+      return DEFAULT_ASSETS.backgrounds.mosquee_patio;
+    case 15:
+      return DEFAULT_ASSETS.backgrounds.montagne_climax;
+    case 16:
+      return DEFAULT_ASSETS.backgrounds.epilogue;
+    case 17:
+      return DEFAULT_ASSETS.backgrounds.chambre;
+    case 18:
+      return DEFAULT_ASSETS.backgrounds.maison_soins;
+    case 19:
+      return DEFAULT_ASSETS.backgrounds.mosquee_marches;
+    case 20:
+      return DEFAULT_ASSETS.backgrounds.maison_soins;
+    case 201:
+      return DEFAULT_ASSETS.backgrounds.verger_amandiers;
+    case 202:
+      return DEFAULT_ASSETS.backgrounds.atelier_sculpture;
+    case 21:
+      return DEFAULT_ASSETS.backgrounds.vallee;
+    case 22:
+      return DEFAULT_ASSETS.backgrounds.verger_fleur;
+    case 23:
+      return DEFAULT_ASSETS.backgrounds.cuisine_bouillon;
+    case 24:
+      return DEFAULT_ASSETS.backgrounds.jardin;
+    case 25:
+      return DEFAULT_ASSETS.backgrounds.montagne_climax;
+    case 26:
+      return DEFAULT_ASSETS.backgrounds.epilogue;
+    default:
+      return DEFAULT_ASSETS.backgrounds.carrefour;
+  }
+};
+
+const ALL_SCENE_TRANSITIONS: Record<number, TransitionData> = {
+  // CHAPITRE 1 : LE PREMIER PAS VERS L'AUTRE
   1: {
     title: { fr: 'LA CHAMBRE', ar: 'الْغُرْفَةُ', en: 'THE ROOM' },
     subtitle: { fr: "L'Éveil du Matin", ar: 'إِشْرَاقَةُ الصَّبَاحِ', en: 'Morning Awakening' },
@@ -60,13 +192,14 @@ const CHAPTER_1_TRANSITIONS: Record<number, TransitionData> = {
   },
   2: {
     title: { fr: 'LE POTEAU AUX CHEMINS', ar: 'عَمُودُ مُفْتَرَقِ الطُّرُقِ', en: 'THE CROSSROADS POST' },
-    subtitle: { fr: 'Le Choix du Départ', ar: 'خُطْوَةُ الِانْطِلَاقِ', en: 'The Departure Choice' },
+    subtitle: { fr: 'Le Chemin Commence', ar: 'خُطْوَةُ الِانْطِلَاقِ', en: 'The Journey Begins' },
     brief: {
-      fr: 'Le croisement désertique sous le grand ciel ouvert.',
-      ar: 'مُفْتَرَقُ الطُّرُقِ فِي الصَّحْرَاءِ تَحْتَ السَّمَاءِ الْمَفْتُوحَةِ.',
-      en: 'The desert crossroads under the vast open sky.'
+      fr: 'Othmân a franchi le seuil. Devant lui, les sentiers de l’aventure s’ouvrent sous le soleil levant.',
+      ar: 'عَبَرَ عُثْمَانُ عَتَبَةَ بَيْتِهِ، فَتَفَتَّحَتْ أَمَامَهُ مَسَالِكُ الرِّحْلَةِ تَحْتَ ضِيَاءِ الشَّمْسِ الْمُشْرِقَةِ.',
+      en: 'Othman has crossed the threshold. Before him, the winding trails of adventure unfold under the rising sun.'
     },
-    image: trans2
+    image: trans2,
+    video: '/game-assets/scene1/08_chemin_vers_poteau.mp4'
   },
   3: {
     title: { fr: 'LE PREMIER WASWAS', ar: 'الْوَسْوَاسُ الْأَوَّلُ', en: 'THE FIRST WASWAS' },
@@ -137,6 +270,210 @@ const CHAPTER_1_TRANSITIONS: Record<number, TransitionData> = {
       en: 'The mountain summit facing the inner storm and the rising dawn.'
     },
     image: trans9
+  },
+
+  // CHAPITRE 2 : LE CHEMIN DU HILM
+  10: {
+    title: { fr: "L'AUBE AU GRAND POTEAU", ar: 'الْفَجْرُ عِنْدَ عَمُودِ الطُّرُقِ', en: 'DAWN AT THE CROSSROADS' },
+    subtitle: { fr: 'Le Carrefour des Chemins', ar: 'مُفْتَرَقُ الطُّرُقِ', en: 'The Crossroads of Paths' },
+    brief: {
+      fr: "Othmân reprend sa marche à l'aube dorée vers de nouvelles épreuves du cœur.",
+      ar: 'يَسْتَأْنِفُ عُثْمَانُ مَسِيرَهُ عِنْدَ الْفَجْرِ نَحْوَ آفَاقٍ جَدِيدَةٍ مِنَ الْحِكْمَةِ.',
+      en: 'Othman resumes his walk at golden dawn towards new trials of the heart.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.carrefour
+  },
+  11: {
+    title: { fr: "L'ÉCLAT DU MARCHÉ", ar: 'ضَجِيجُ السُّوقِ', en: 'THE MARKET TUMULT' },
+    subtitle: { fr: "L'Accusation Injuste", ar: 'الاتِّهَامُ الْبَاطِلُ', en: 'The Unjust Accusation' },
+    brief: {
+      fr: "Devant les étals de grenades sous les minarets, l'épreuve de l'accusation injuste.",
+      ar: 'أَمَامَ أَكْشَاكِ الرُّمَّانِ تَحْتَ الْمَنَارَاتِ، يَمْتَحِنُ الصَّخَبُ صَبْرَ الْفَتَى.',
+      en: 'Before the pomegranate stalls beneath towering minarets, the test of wrongful blame.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.marche_renverse
+  },
+  12: {
+    title: { fr: "L'ÉPREUVE DU SILENCE", ar: 'امْتِحَانُ الصَّمْتِ', en: 'THE TEST OF SILENCE' },
+    subtitle: { fr: 'La Maîtrise dans la Tourmente', ar: 'ضَبْطُ النَّفْسِ عِنْدَ الْغَضَبِ', en: 'Restraint in the Storm' },
+    brief: {
+      fr: 'Face aux provocations et à la foule méfiante, le noble bouclier du silence et du Hilm.',
+      ar: 'فِي وَجْهِ اسْتِفْزَازِ الْجَمْعِ، يُشْهِرُ عُثْمَانُ دِرْعَ الصَّمْتِ وَالْحِلْمِ النَّبِيلِ.',
+      en: 'Facing provocation and wary glares, the noble shield of silence and self-control.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.village_mefiant
+  },
+  13: {
+    title: { fr: 'LA FONTAINE AUX VIGNES', ar: 'نَافُورَةُ الأَعْنَابِ', en: 'THE FOUNTAIN OF VINES' },
+    subtitle: { fr: "Éteindre le feu par l'eau", ar: 'إِطْفَاءُ الْغَضَبِ بِالْمَاءِ', en: 'Extinguish Fire with Water' },
+    brief: {
+      fr: "Le patio ombragé de la mosquée où l'eau des ablutions apaise le feu de la colère.",
+      ar: 'فِنَاءُ الْمَسْجِدِ الظَّلِيلُ حَيْثُ يُطْفِئُ مَاءُ الْوُضُوءِ بَرَكِينَ الْغَضَبِ.',
+      en: 'The shaded mosque courtyard where cooling ablution water soothes the fiery heart.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.mosquee_patio
+  },
+  14: {
+    title: { fr: 'LA PARURE DE DOUCEUR', ar: 'زِينَةُ الرِّفْقِ', en: 'THE ADORNMENT OF GENTLENESS' },
+    subtitle: { fr: 'Désarmer la discorde', ar: 'إِخْمَادُ الْفِتْنَةِ بِاللِّينِ', en: 'Disarming Discord' },
+    brief: {
+      fr: 'Le retour bienveillant auprès du marchand et le don de la grenade dorée de réconciliation.',
+      ar: 'الْعَوْدَةُ الصَّادِقَةُ لِمُسَاعَدَةِ التَّاجِرِ وَإِهْدَاءُ رُمَّانَةِ الصُّلْحِ وَالْمَوَدَّةِ.',
+      en: 'Returning with gentle service to help the merchant, sealed by the gift of peace.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.marche_reconcilie
+  },
+  142: {
+    title: { fr: 'LE MURMURE SOUS LA TREILLE', ar: 'نَجْوَى تَحْتَ الْعَرِيشِ', en: 'WHISPER BENEATH THE TRELLIS' },
+    subtitle: { fr: "L'Invocation Secrète", ar: 'دُعَاءُ الْغَيْبِ لِلْمُسِيءِ', en: 'The Secret Prayer' },
+    brief: {
+      fr: "La prière sincère et invisible formulée pour celui qui nous a heurté, au murmure de l'eau.",
+      ar: 'دُعَاءٌ صَادِقٌ بِالْهِدَايَةِ لِمَنْ أَسَاءَ، فِي خَلْوَةِ الْفِنَاءِ الظَّلِيلِ.',
+      en: 'A sincere invisible prayer of guidance for the one who wronged us, by the trickling fountain.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.mosquee_patio
+  },
+  15: {
+    title: { fr: "L'OMBRE DE LA RANCŒUR", ar: 'ظِلُّ الْحِقْدِ وَالْغِلِّ', en: 'THE SHADOW OF RESENTMENT' },
+    subtitle: { fr: 'Le Duel du Hilm', ar: 'مُعْتَرَكُ كَظْمِ الْغَيْظِ', en: 'The Duel of Restraint' },
+    brief: {
+      fr: "Éteindre les dernières braises de la rancœur pour libérer le cœur de toute amertume.",
+      ar: 'إِخْمَادُ آخِرِ جَمَرَاتِ الْغِلِّ لِتَطْهِيرِ الْفُؤَادِ مِنَ الْمَرَارَةِ.',
+      en: 'Extinguishing the last embers of grudge to free the heart from all bitterness.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.montagne_climax
+  },
+  16: {
+    title: { fr: 'LE CŒUR PAISIBLE', ar: 'الْقَلْبُ السَّلِيمُ', en: 'THE TRANQUIL HEART' },
+    subtitle: { fr: 'La Paix Victorieuse', ar: 'انْتِصَارُ السَّلَامِ', en: 'Peace Victorious' },
+    brief: {
+      fr: 'Le triomphe de la douceur et la sérénité retrouvée sous la lumière dorée du crépuscule.',
+      ar: 'انْتِصَارُ الرِّفْقِ وَعَوْدَةُ الطُّمَأْنِينَةِ تَحْتَ أَنْوَارِ الْغُرُوبِ الذَّهَبِيَّةِ.',
+      en: 'The triumph of prophetic gentleness and serenity restored under the golden sunset.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.epilogue
+  },
+
+  // CHAPITRE 3 : LA MONTAGNE INTÉRIEURE (SABR & TAWAKKUL)
+  17: {
+    title: { fr: 'LE MATIN DIFFICILE', ar: 'صَبَاحُ الْفُتُورِ', en: 'THE FRAIL MORNING' },
+    subtitle: { fr: "L'Épreuve du Corps", ar: 'ابْتِلَاءُ الْجَسَدِ', en: 'The Trial of the Body' },
+    brief: {
+      fr: 'Accueillir la maladie et la fatigue passagère avec humilité sans céder au doute.',
+      ar: 'اسْتِقْبَالُ الْمَرَضِ وَالْوَهَنِ بِالتَّسْلِيمِ وَالتَّوَاضُعِ دُونَ اسْتِسْلَامٍ لِلْيَأْسِ.',
+      en: 'Accepting physical illness and fatigue with humility without yielding to despair.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.chambre
+  },
+  18: {
+    title: { fr: "LE DISPENSAIRE DE L'APOTHICAIRE", ar: 'دُكَّانُ الصَّيْدَلِيِّ', en: 'THE APOTHECARY DISPENSARY' },
+    subtitle: { fr: 'La Quête des Causes', ar: 'الْأَخْذُ بِالْأَسْبَابِ', en: 'Seeking the Means' },
+    brief: {
+      fr: 'Lier la confiance en Dieu à la recherche attentive des remèdes dans l’officine des soins.',
+      ar: 'التَّدَاوِي وَالْأَخْذُ بِأَسْبَابِ الشِّفَاءِ مَعَ تَعَلُّقِ الْقَلْبِ بِالشَّافِي سُبْحَانَهُ.',
+      en: 'Binding reliance upon God with the mindful pursuit of healing remedies.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.maison_soins
+  },
+  19: {
+    title: { fr: 'CELUI QUI PRIE AVEC UNE ATTELLE', ar: 'الْمُصَلِّي ذُو الْجَبِيرَةِ', en: 'THE BOY IN THE SPLINT' },
+    subtitle: { fr: "L'Endurance Sereine", ar: 'الصَّبْرُ الْجَمِيلُ', en: 'Endurance Without Complaint' },
+    brief: {
+      fr: "L'enfant priant avec ardeur et dignité sur les marches de la mosquée malgré sa blessure.",
+      ar: 'الْفَتَى يُصَلِّي بِخُشُوعٍ عَلَى دَرَجِ الْمَسْجِدِ رَغْمَ إِصَابَتِهِ كَمَثَلٍ حَيٍّ فِي الصَّبْرِ.',
+      en: 'The child praying with dignity on the mosque steps despite his heavy wooden splint.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.mosquee_marches
+  },
+  20: {
+    title: { fr: 'LES REMÈDES PROPHÉTIQUES', ar: 'الْبَلْسَمُ النَّبَوِيُّ', en: 'PROPHETIC REMEDIES' },
+    subtitle: { fr: 'La Talbîna et le Miel', ar: 'التَّلْبِينَةُ وَالْعَسَلُ', en: 'Talbina and Honey' },
+    brief: {
+      fr: 'La préparation du doux breuvage d’orge et de miel pour réconforter le cœur éprouvé.',
+      ar: 'إِعْدَادُ حَسَاءِ التَّلْبِينَةِ وَالْعَسَلِ لِتَهْدِئَةِ فُؤَادِ الْمَرِيضِ وَتَجْدِيدِ قُوَاهُ.',
+      en: 'Preparing soothing barley and golden honey to comfort the strained heart.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.maison_soins
+  },
+  201: {
+    title: { fr: 'LA CUEILLETTE SOUS LES AMANDIERS', ar: 'جَنْيُ اللَّوْزِ الْمُزْهِرِ', en: 'AMONG BLOOMING ALMONDS' },
+    subtitle: { fr: 'Le Souffle du Grand Air', ar: 'نَسِيمُ الصَّبَاحِ', en: 'The Morning Breeze' },
+    brief: {
+      fr: "La marche vivifiante parmi les fleurs d'amandiers pour reprendre des forces au grand air.",
+      ar: 'جَوْلَةٌ مُنْعِشَةٌ بَيْنَ أَشْجَارِ اللَّوْزِ لِتَجْدِيدِ النَّشَاطِ فِي رِحَابِ الطَّبِيعَةِ.',
+      en: 'An invigorating walk among almond blossoms to regain stamina in the open air.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.verger_amandiers
+  },
+  202: {
+    title: { fr: "LE MANUSCRIT D'AYYŪB", ar: 'مَخْطُوطَةُ أَيُّوبَ', en: 'THE SCROLL OF AYYUB' },
+    subtitle: { fr: 'La Patience Sublime', ar: 'الصَّبْرُ الْأَيُّوبِيُّ', en: 'Sublime Patience' },
+    brief: {
+      fr: "Méditation silencieuse sur les récits d'endurance des Prophètes face aux épreuves de la vie.",
+      ar: 'تَأَمُّلٌ فِي قِصَصِ صَبْرِ الْأَنْبِيَاءِ وَيَقِينِهِمْ بِفَرَجِ اللَّهِ الْقَرِيبِ.',
+      en: 'Silent contemplation on prophetic endurance and unwavering trust in divine ease.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.atelier_sculpture
+  },
+  21: {
+    title: { fr: 'LE POIDS DE LA HALTE', ar: 'ثِقَلُ الْمَسِيرِ', en: 'THE WEIGHT OF THE ASCENT' },
+    subtitle: { fr: "L'Ascension Patiente", ar: 'خُطُوَاتٌ ثَابِتَةٌ', en: 'Patient Stepping' },
+    brief: {
+      fr: 'Avancer avec régularité sur les sentiers rocheux de la montagne sans se précipiter.',
+      ar: 'مُوَاصَلَةُ الصُّعُودِ فِي الْمَسَالِكِ الْجَبَلِيَّةِ بِخُطَى ثَابِتَةٍ دُونَ تَعَجُّلٍ.',
+      en: 'Advancing with steady cadence upon steep mountain paths without haste.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.vallee
+  },
+  22: {
+    title: { fr: 'NOMMER LA DOULEUR SANS HONTE', ar: 'الاعْتِرَافُ بِالضَّعْفِ', en: 'NAMING PAIN WITHOUT SHAME' },
+    subtitle: { fr: 'La Clarté de l’Âme', ar: 'صِدْقُ النَّفْسِ', en: 'Inner Truth' },
+    brief: {
+      fr: 'Déposer le fardeau de la fierté et accueillir ses fragilités avec sincérité pour guérir.',
+      ar: 'التَّخَلِّي عَنِ الْكِبْرِ وَقَبُولُ الضَّعْفِ الْبَشَرِيِّ كَبِدَايَةٍ حَقِيقِيَّةٍ لِلشِّفَاءِ.',
+      en: 'Laying down the burden of pride and accepting human fragility to begin true healing.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.verger_fleur
+  },
+  23: {
+    title: { fr: "L'AMĀNAH DU CORPS & LE BOUILLON", ar: 'أَمَانَةُ الْجَسَدِ وَالْحَسَاءُ', en: 'BODY AS A TRUST & WARM BROTH' },
+    subtitle: { fr: 'La Fraternité en Acte', ar: 'التَّرَاحُمُ الأَخَوِيُّ', en: 'Compassion in Action' },
+    brief: {
+      fr: 'Le bouillon fumant offert par le voisin, geste modeste de compassion qui réchauffe l’âme.',
+      ar: 'حَسَاءٌ سَاخِنٌ يُقَدِّمُهُ الْجَارُ، لَفْتَةُ أُخُوَّةٍ بَسِيطَةٍ تَبْعَثُ الدِّفْءَ فِي الْقُلُوبِ.',
+      en: 'Steaming broth offered by a neighbor, a simple act of brotherly warmth.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.cuisine_bouillon
+  },
+  24: {
+    title: { fr: 'LA GRAINE SOUS TERRE', ar: 'الْبَذْرَةُ فِي ظُلُمَاتِ التُّرَابِ', en: 'THE SEED IN THE DARK' },
+    subtitle: { fr: "L'Attente Féconde", ar: 'الصَّبْرُ الْمُثْمِرُ', en: 'Fertile Waiting' },
+    brief: {
+      fr: "Méditation sur la graine qui attend dans l'obscurité avant de percer vers le soleil.",
+      ar: 'تَأَمُّلٌ فِي الْحَبَّةِ الَّتِي تَصْبِرُ فِي عُمْقِ التُّرَابِ قَبْلَ أَنْ تَنْبُتَ نَحْوَ الضِّيَاءِ.',
+      en: 'Contemplation upon the seed waiting in silent darkness before bursting into sunlight.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.jardin
+  },
+  25: {
+    title: { fr: 'LA MONTAGNE INTÉRIEURE', ar: 'الْجَبَلُ الدَّاخِلِيُّ', en: 'THE INNER MOUNTAIN' },
+    subtitle: { fr: 'Le Sommet du Sabr', ar: 'ذِرْوَةُ الصَّبْرِ', en: 'The Summit of Sabr' },
+    brief: {
+      fr: 'Le combat décisif contre le découragement et le triomphe lumineux de la persévérance.',
+      ar: 'الْمُعْتَرَكُ الْحَاسِمُ ضِدَّ الْيَأْسِ وَانْتِصَارُ الصَّبْرِ الْمُضِيءِ فِي أَعَالِي الْقِمَمِ.',
+      en: 'The decisive stand against defeatism and the shining victory of perseverance.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.montagne_climax
+  },
+  26: {
+    title: { fr: "L'AUBE DE LA SAGESSE", ar: 'فَجْرُ الْحِكْمَةِ', en: 'DAWN OF WISDOM' },
+    subtitle: { fr: 'La Paix de l’Âme', ar: 'سَكِينَةُ الرُّوحِ', en: 'Peace of the Soul' },
+    brief: {
+      fr: 'Une paix inébranlable et un regard renouvelé sur la beauté et le sens des épreuves.',
+      ar: 'سَكِينَةٌ رَاسِخَةٌ وَرُؤْيَةٌ نُورَانِيَّةٌ مُتَجَدِّدَةٌ لِمَعْنَى الِابْتِلَاءَاتِ وَحِكْمَتِهَا.',
+      en: 'Unshakable serenity and a renewed vision of the deeper wisdom behind all trials.'
+    },
+    image: DEFAULT_ASSETS.backgrounds.epilogue
   }
 };
 
@@ -145,6 +482,7 @@ export const SceneTransitionModal: React.FC<SceneTransitionModalProps> = ({
   nextScene,
   playerXp = 0,
   onOpenQuiz,
+  customAssets,
   onProceedToNextScene,
   onReplayScene
 }) => {
@@ -196,15 +534,19 @@ export const SceneTransitionModal: React.FC<SceneTransitionModalProps> = ({
   }
 
   const stepsList = Array.from({ length: totalChapterSteps }, (_, i) => i + 1);
-  const transitionMeta = CHAPTER_1_TRANSITIONS[targetSceneId] || {
-    title: { fr: targetScene.title, ar: targetScene.title, en: targetScene.title },
-    subtitle: { fr: targetScene.subtitle || 'La Voie se poursuit', ar: 'الطَّرِيقُ يَتَوَاصَلُ', en: 'The Journey Continues' },
-    brief: {
+  const predefined = ALL_SCENE_TRANSITIONS[targetSceneId];
+  const dynamicImage = getSceneIllustration(targetScene, customAssets);
+
+  const transitionMeta: TransitionData = {
+    title: predefined?.title || { fr: targetScene.title, ar: targetScene.title, en: targetScene.title },
+    subtitle: predefined?.subtitle || { fr: targetScene.subtitle || 'La Voie se poursuit', ar: 'الطَّرِيقُ يَتَوَاصَلُ', en: 'The Journey Continues' },
+    brief: predefined?.brief || {
       fr: 'Le voyage continue. Chaque pas en avant forge le caractère et enrichit le savoir.',
       ar: 'يَسْتَمِرُّ السَّيْرُ. كُلُّ خُطْوَةٍ إِلَى الْأَمَامِ تَصْقُلُ النَّفْسَ وَتَزِيدُ فِي الْحِكْمَةِ.',
       en: 'The journey moves forward. Every step shapes the spirit and enriches wisdom.'
     },
-    image: DEFAULT_ASSETS.backgrounds.village
+    image: (predefined && predefined.image) ? predefined.image : dynamicImage,
+    video: predefined?.video
   };
 
   // Action completed in previous scene
@@ -331,11 +673,23 @@ export const SceneTransitionModal: React.FC<SceneTransitionModalProps> = ({
         {/* 3. Central 16:9 Cinematic Landscape Frame */}
         <div className="px-5 sm:px-8 py-2 z-10">
           <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border-2 border-[#d97c27]/40 shadow-md group bg-[#161322]">
-            <img
-              src={transitionMeta.image}
-              alt={transitionMeta.title[langKey]}
-              className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-1000 ease-out"
-            />
+            {transitionMeta.video ? (
+              <video
+                src={transitionMeta.video}
+                poster={transitionMeta.image}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover object-center"
+              />
+            ) : (
+              <img
+                src={transitionMeta.image}
+                alt={transitionMeta.title[langKey]}
+                className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-1000 ease-out"
+              />
+            )}
             {/* Soft Ambient Vignette */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
           </div>

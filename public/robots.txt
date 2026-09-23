@@ -1,0 +1,40 @@
+# Robots.txt for NOUR (https://playnour.online)
+# Aligned with Google Search Essentials & 2026 AI Search (GEO / AEO) Best Practices
+
+User-agent: *
+Allow: /
+Disallow: /audio/
+Disallow: /data/
+
+# Primary Search Engine Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Generative AI & AI Search Indexers (AI Overviews, Perplexity, ChatGPT Search, Claude)
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Canonical Sitemap Declaration
+Sitemap: https://playnour.online/sitemap.xml
+Host: https://playnour.online

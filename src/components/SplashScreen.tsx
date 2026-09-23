@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import officialLogo from '../assets/images/logo_nour_transparent.png';
-import { Sparkles, Play, RotateCcw, ArrowRight, ScrollText, SkipForward, Film, Volume2, VolumeX } from 'lucide-react';
+import { Sparkles, Play, RotateCcw, ArrowRight, ScrollText, SkipForward, Film, Volume2, VolumeX, Settings, Info, Lock, Clock } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 import { speechManager } from '../utils/speech';
+
+import bgCh2 from '../assets/images/bg_marche_fruits_renverses.jpg';
+import bgCh3 from '../assets/images/bg_mosquee_marches_attelle.jpg';
+import bgCh4 from '../assets/images/bg_maison_soins_apothicaire.jpg';
+import bgCh5 from '../assets/images/bg_climax_apaise.jpg';
 
 interface SplashScreenProps {
   hasSavedGame?: boolean;
@@ -24,6 +29,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
   onOpenLanding
 }) => {
   const [showCinematic, setShowCinematic] = useState(false);
+  const [screenMode, setScreenMode] = useState<'title' | 'chapters'>('title');
 
   const [cinematicProgress, setCinematicProgress] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
@@ -86,6 +92,8 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
     return () => clearInterval(interval);
   }, []);
 
+  const [pendingAction, setPendingAction] = useState<'continue' | 'new' | null>(null);
+
   const handleSkipCinematic = () => {
     try {
       sessionStorage.setItem('nour_seen_cinematic', 'true');
@@ -93,6 +101,22 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
       // ignore
     }
     setShowCinematic(false);
+
+    if (pendingAction) {
+      finalizeAction(pendingAction);
+      setPendingAction(null);
+    }
+  };
+
+  const finalizeAction = (actionType: 'continue' | 'new') => {
+    setIsFadingOut(true);
+    setTimeout(() => {
+      if (actionType === 'continue') {
+        onContinue();
+      } else {
+        onNewGame();
+      }
+    }, 700);
   };
 
   const handleReplayCinematic = () => {
@@ -101,6 +125,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
     } catch {
       // Audio fallback
     }
+    setPendingAction(null);
     setCinematicProgress(0);
     setIsPlaying(false);
     setShowCinematic(true);
@@ -132,14 +157,8 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
     } catch {
       // Audio fallback
     }
-    setIsFadingOut(true);
-    setTimeout(() => {
-      if (actionType === 'continue') {
-        onContinue();
-      } else {
-        onNewGame();
-      }
-    }, 200);
+    
+    finalizeAction(actionType);
   };
 
   return (
@@ -254,151 +273,216 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
           isFadingOut ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
         }`}
       >
-        {/* Background Looping Video (Othmân marchant vers la cité dorée) */}
-        <video
-          ref={backgroundVideoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-85"
-        >
-          <source src="/intro_loop.mp4" type="video/mp4" />
-          <source src="/intro_cinematic.mp4" type="video/mp4" />
-        </video>
-
-        {/* Darkening & Warm Radial Vignette to guarantee 100% logo and text contrast */}
+        <style>
+          {`
+            @keyframes slow-pan {
+              0% { transform: scale(1.02) translate(0px, 0px); }
+              50% { transform: scale(1.08) translate(-1%, 1%); }
+              100% { transform: scale(1.02) translate(1%, -1%); }
+            }
+            .animate-slow-pan {
+              animation: slow-pan 45s ease-in-out infinite alternate;
+            }
+          `}
+        </style>
+        {/* Background Panorama Image with Slow Pan Animation */}
         <div
-          className="absolute inset-0 pointer-events-none bg-gradient-to-b from-[#090b10]/80 via-[#090b10]/50 to-[#090b10]/90"
-          style={{
-            backgroundImage: `radial-gradient(circle at 50% 38%, rgba(217, 124, 39, 0.28) 0%, transparent 65%), radial-gradient(circle at 50% 90%, rgba(9, 11, 16, 0.85) 0%, transparent 70%)`
-          }}
+          className="absolute inset-0 w-full h-full pointer-events-none bg-cover bg-center bg-no-repeat opacity-95 animate-slow-pan"
+          style={{ backgroundImage: `url('/game-assets/title_screen_bg.jpg')` }}
+        />
+
+        {/* Darkening & Warm Radial Vignette to guarantee text contrast but keep panorama visible */}
+        <div
+          className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/40 via-transparent to-black/80"
         />
 
         {/* Top Floating Replay Cinematic Button */}
-        <div className="relative z-10 w-full max-w-sm flex justify-end">
-          <button
-            onClick={handleReplayCinematic}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/55 hover:bg-black/80 backdrop-blur-md border border-amber-500/40 text-amber-200 hover:text-white text-[11px] font-cinzel tracking-wider transition-all active:scale-95 shadow-md cursor-pointer"
-            title="Revoir la cinématique d'introduction"
-          >
-            <Film className="w-3.5 h-3.5 text-amber-400" />
-            <span>Cinématique</span>
-          </button>
-        </div>
-
-        {/* Center Official Transparent Logo with Radiant Golden Aura */}
-        <div className="flex flex-col items-center justify-center my-auto relative max-w-sm w-full z-10">
-          {/* Glowing halo backdrops */}
-          <div className="absolute w-72 h-72 rounded-full bg-amber-500/25 blur-3xl animate-pulse pointer-events-none" />
-          <div className="absolute w-52 h-52 rounded-full bg-orange-400/20 blur-2xl pointer-events-none" />
-
-          {/* Logo Container */}
-          <div className="relative group transform transition-all duration-500 hover:scale-105">
-            <img
-              src={officialLogo}
-              alt="Nour : Le Jeu - Retrouve ta Lumière"
-              className="w-64 h-64 sm:w-80 sm:h-80 object-contain drop-shadow-[0_12px_32px_rgba(217,124,39,0.55)] drop-shadow-[0_0_50px_rgba(245,158,11,0.35)] select-none"
-            />
-          </div>
-        </div>
-
-        {/* Bottom Controls (Loading vs Continue / New Game Buttons) */}
-        <div className="w-full max-w-xs flex flex-col items-center gap-3 pb-3 relative z-10">
-          {progress < 100 ? (
-            <div className="w-full space-y-2">
-              <div className="flex justify-between items-center text-xs text-amber-200 font-mono px-1">
-                <span>Éveil de la lumière...</span>
-                <span className="font-bold text-amber-300">{progress}%</span>
-              </div>
-              <div
-                className="h-2.5 w-full rounded-full overflow-hidden p-0.5 shadow-inner"
-                style={{
-                  backgroundColor: 'rgba(0, 0, 0, 0.75)',
-                  border: '1.5px solid rgba(245, 158, 11, 0.5)'
-                }}
-              >
-                <div
-                  className="h-full rounded-full transition-all duration-150"
-                  style={{
-                    width: `${progress}%`,
-                    backgroundColor: '#f59e0b',
-                    backgroundImage: 'linear-gradient(90deg, #f59e0b 0%, #fde047 50%, #f59e0b 100%)',
-                    boxShadow: '0 0 12px rgba(245, 158, 11, 0.6)'
-                  }}
-                />
-              </div>
+        {screenMode === 'chapters' ? (
+          <div className="w-full max-w-2xl mx-auto my-auto flex flex-col gap-3 relative z-10 bg-black/75 backdrop-blur-xl p-4 sm:p-6 rounded-3xl border-2 border-[#3a2312] shadow-[0_8px_32px_rgba(0,0,0,0.8)] overflow-y-auto max-h-[85vh] animate-in zoom-in-95 duration-300">
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-lg sm:text-xl font-black font-cinzel text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 tracking-widest uppercase drop-shadow-md">
+                Sélection des Chapitres
+              </h2>
+              <button onClick={() => setScreenMode('title')} className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-amber-200 transition-colors cursor-pointer">
+                <RotateCcw className="w-5 h-5" />
+              </button>
             </div>
-          ) : (
-            <div className="w-full flex flex-col gap-3 animate-in fade-in zoom-in-95 duration-300">
-              {/* Bouton Continuer / Commencer l'aventure */}
-              <button
-                onClick={() => handleAction('continue')}
-                style={{
-                  backgroundColor: '#f59e0b',
-                  backgroundImage: 'linear-gradient(135deg, #fde047 0%, #f59e0b 45%, #d97706 100%)',
-                  boxShadow: '0 0 25px rgba(245, 158, 11, 0.5), 0 4px 14px rgba(0, 0, 0, 0.6)'
-                }}
-                className="w-full flex items-center justify-between py-3.5 px-5 rounded-2xl border-2 border-[#fff3b0] hover:border-white active:scale-98 transition-all cursor-pointer group"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-black/10 border border-black/15 flex items-center justify-center shrink-0">
-                    <Play className="w-4 h-4 fill-[#180d02] text-[#180d02]" />
+            
+            <div className="flex flex-col gap-3 sm:gap-4 pb-2">
+              {[
+                { id: 1, title: "L'Aventure Intérieure", subtitle: "Le premier pas", status: "playable", image: "/game-assets/title_screen_bg.jpg" },
+                { id: 2, title: "La Maîtrise de la Colère", subtitle: "Le Marchand", status: "locked", image: bgCh2 },
+                { id: 3, title: "L'Enfant à l'Attelle", subtitle: "La Patience", status: "locked", image: bgCh3 },
+                { id: 4, title: "Le Respect aux Parents", subtitle: "L'Épreuve", status: "soon", image: bgCh4 },
+                { id: 5, title: "Le But de l'Existence", subtitle: "La Révélation", status: "soon", image: bgCh5 },
+              ].map((ch) => (
+                <div key={ch.id} className={`relative flex items-stretch gap-3 sm:gap-4 p-2 sm:p-3 rounded-2xl border ${ch.status === 'playable' ? 'border-amber-500/50 bg-amber-900/20' : 'border-white/10 bg-black/40 opacity-90'} overflow-hidden`}>
+                  {/* Thumbnail */}
+                  <div className="w-20 sm:w-28 h-20 sm:h-28 shrink-0 rounded-xl overflow-hidden relative border border-white/20 shadow-inner">
+                    <img src={ch.image} alt={ch.title} className="w-full h-full object-cover" />
+                    {ch.status !== 'playable' && (
+                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center backdrop-blur-[2px]">
+                        {ch.status === 'locked' ? <Lock className="w-6 h-6 text-amber-200/70" /> : <Clock className="w-6 h-6 text-sky-300/70" />}
+                      </div>
+                    )}
                   </div>
-                  <div className="text-left">
-                    <span className="block leading-tight font-black uppercase text-[#180d02] text-xs sm:text-sm font-cinzel tracking-wider drop-shadow-[0_1px_0_rgba(255,255,255,0.4)]">
-                      {hasSavedGame ? 'CONTINUER LA PARTIE' : 'COMMENCER L\'AVENTURE'}
-                    </span>
-                    {savedSummary && (
-                      <div className="mt-0.5">
-                        <span className="inline-block text-[10px] font-mono font-bold text-[#3a1d04] bg-amber-400/40 px-2 py-0.2 rounded-md border border-amber-700/20">
-                          Niv. {savedSummary.level} • {savedSummary.xp} XP
-                        </span>
+                  
+                  {/* Content */}
+                  <div className="flex-1 flex flex-col justify-center py-1">
+                    <div className="text-xs sm:text-sm font-bold text-amber-500/80 uppercase tracking-widest font-cinzel">Chapitre {ch.id}</div>
+                    <div className="text-sm sm:text-lg font-black text-amber-100 font-cinzel leading-tight mt-0.5">{ch.title}</div>
+                    <div className="text-[10px] sm:text-xs text-amber-200/60 mt-1">{ch.subtitle}</div>
+                  </div>
+                  
+                  {/* Action Button */}
+                  <div className="flex flex-col justify-center pr-2 shrink-0">
+                    {ch.status === 'playable' ? (
+                      <button 
+                        onClick={() => {
+                           if (hasSavedGame && ch.id === 1) {
+                             setShowNewGameConfirm(true);
+                           } else {
+                             handleAction('new');
+                           }
+                        }}
+                        className="px-4 py-2 sm:px-6 sm:py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-bold font-cinzel text-xs sm:text-sm tracking-wider shadow-[0_0_15px_rgba(245,158,11,0.4)] active:scale-95 transition-all cursor-pointer"
+                      >
+                        JOUER
+                      </button>
+                    ) : (
+                      <div className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white/5 border border-white/10 text-white/40 font-bold font-cinzel text-[10px] sm:text-xs tracking-wider flex items-center gap-1.5 shadow-inner">
+                        {ch.status === 'locked' ? <><Lock className="w-3.5 h-3.5" /> BLOQUÉ</> : <><Clock className="w-3.5 h-3.5" /> BIENTÔT</>}
                       </div>
                     )}
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-[#180d02] group-hover:translate-x-1 transition-transform shrink-0" />
-              </button>
-
-              {/* Bouton Nouvelle Partie */}
-              {hasSavedGame && (
-                <button
-                  onClick={() => {
-                    soundManager.playSelect();
-                    setShowNewGameConfirm(true);
-                  }}
-                  style={{
-                    backgroundColor: 'rgba(20, 14, 8, 0.85)',
-                    boxShadow: '0 0 16px rgba(217, 124, 39, 0.2)'
-                  }}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-amber-200 hover:text-white font-bold text-xs font-cinzel tracking-wider border-2 border-amber-500/40 hover:border-amber-400 hover:bg-amber-950/60 transition-all cursor-pointer"
-                >
-                  <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
-                  <span>NOUVELLE PARTIE</span>
-                </button>
-              )}
-
-              {/* Bouton Espace Testeurs & Questionnaire */}
-              {onOpenLanding && (
-                <button
-                  onClick={() => {
-                    soundManager.playSelect();
-                    onOpenLanding();
-                  }}
-                  className="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-amber-300/90 hover:text-amber-100 font-bold text-[11px] font-cinzel tracking-wider border border-amber-500/30 hover:border-amber-500/60 bg-black/45 hover:bg-black/70 transition-all cursor-pointer shadow-xs"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400 fill-amber-400/40" />
-                  <span>Page de Présentation & Questionnaire Testeur</span>
-                </button>
-              )}
+              ))}
             </div>
-          )}
-
-          <div className="text-xs text-amber-200/90 font-medium text-center tracking-wide drop-shadow-sm">
-            {readyToEnter ? 'Choisissez une option pour entrer' : 'Chargement de la sagesse ancestrale...'}
           </div>
-        </div>
+        ) : (
+          <>
+            {/* Center Official Transparent Logo with Radiant Golden Aura */}
+            <div className="flex flex-col items-center justify-center my-auto relative max-w-sm w-full z-10 pt-8">
+              {/* Glowing halo backdrops */}
+              <div className="absolute w-72 h-72 rounded-full bg-amber-500/25 blur-3xl animate-pulse pointer-events-none" />
+              <div className="absolute w-52 h-52 rounded-full bg-orange-400/20 blur-2xl pointer-events-none" />
+
+              {/* Logo Container */}
+              <div className="relative group transform transition-all duration-500 hover:scale-105 flex items-center justify-center">
+                <img
+                  src={officialLogo}
+                  alt="NOUR - Le Jeu"
+                  className="w-64 h-64 sm:w-80 sm:h-80 object-contain drop-shadow-[0_12px_32px_rgba(217,124,39,0.55)] drop-shadow-[0_0_50px_rgba(245,158,11,0.35)] select-none"
+                />
+              </div>
+            </div>
+
+            {/* Bottom Controls (Loading vs Continue / New Game Buttons) */}
+            <div className="w-full max-w-xs flex flex-col items-center gap-3 pb-3 relative z-10">
+              {progress < 100 ? (
+                <div className="w-full space-y-2">
+                  <div className="flex justify-between items-center text-xs text-amber-200 font-mono px-1">
+                    <span>Éveil de la lumière...</span>
+                    <span className="font-bold text-amber-300">{progress}%</span>
+                  </div>
+                  <div
+                    className="h-2.5 w-full rounded-full overflow-hidden p-0.5 shadow-inner"
+                    style={{
+                      backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                      border: '1.5px solid rgba(245, 158, 11, 0.5)'
+                    }}
+                  >
+                    <div
+                      className="h-full rounded-full transition-all duration-150"
+                      style={{
+                        width: `${progress}%`,
+                        backgroundColor: '#f59e0b',
+                        backgroundImage: 'linear-gradient(90deg, #f59e0b 0%, #fde047 50%, #f59e0b 100%)',
+                        boxShadow: '0 0 12px rgba(245, 158, 11, 0.6)'
+                      }}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="w-full flex flex-col gap-2 animate-in fade-in zoom-in-95 duration-500 delay-300">
+                  {/* PRIMARY BUTTON */}
+                  <button
+                    onClick={() => {
+                      if (hasSavedGame) {
+                        handleAction('continue');
+                      } else {
+                        setScreenMode('chapters');
+                      }
+                    }}
+                    style={{
+                      backgroundColor: 'rgba(15, 23, 42, 0.7)',
+                      backdropFilter: 'blur(8px)',
+                      boxShadow: '0 0 20px rgba(245, 158, 11, 0.4), 0 4px 14px rgba(0, 0, 0, 0.5)'
+                    }}
+                    className="w-full flex items-center justify-center gap-3 py-3.5 px-5 rounded-2xl border-2 border-amber-500/70 hover:border-amber-400 hover:bg-black/60 active:scale-95 transition-all cursor-pointer group"
+                  >
+                    <Play className="w-5 h-5 fill-amber-400 text-amber-400 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]" />
+                    <div className="text-center flex flex-col items-center">
+                      <span className="block leading-tight font-black uppercase text-white text-sm sm:text-base font-cinzel tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                        {hasSavedGame ? 'CONTINUER' : 'JOUER'}
+                      </span>
+                      {hasSavedGame && savedSummary && (
+                        <div className="mt-1">
+                          <span className="inline-block text-[10px] font-mono font-bold text-amber-200 bg-black/50 px-2 py-0.5 rounded-md border border-amber-500/40">
+                            Niv. {savedSummary.level} • {savedSummary.xp} XP
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </button>
+
+                  {/* SECONDARY BUTTONS */}
+                  <div className="grid grid-cols-1 gap-2 mt-1">
+                    <button
+                      onClick={() => {
+                        soundManager.playSelect();
+                        setScreenMode('chapters');
+                      }}
+                      className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-white/90 hover:text-white font-bold text-[11px] font-cinzel tracking-wider border border-white/20 hover:border-amber-400/50 bg-black/50 hover:bg-black/70 backdrop-blur-sm transition-all cursor-pointer shadow-sm"
+                    >
+                      <ScrollText className="w-3.5 h-3.5 text-amber-400/80" />
+                      <span>{hasSavedGame ? 'Sélection des Chapitres' : 'Sélection des Chapitres'}</span>
+                    </button>
+                    {hasSavedGame && (
+                      <button
+                        onClick={() => {
+                          soundManager.playSelect();
+                          setShowNewGameConfirm(true);
+                        }}
+                        className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-white/90 hover:text-white font-bold text-[11px] font-cinzel tracking-wider border border-white/20 hover:border-amber-400/50 bg-black/50 hover:bg-black/70 backdrop-blur-sm transition-all cursor-pointer shadow-sm"
+                      >
+                        <RotateCcw className="w-3.5 h-3.5 text-amber-400/80" />
+                        <span>Nouvelle partie</span>
+                      </button>
+                    )}
+
+                    {onOpenLanding && (
+                      <button
+                        onClick={() => {
+                          soundManager.playSelect();
+                          onOpenLanding();
+                        }}
+                        className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-white/90 hover:text-white font-bold text-[11px] font-cinzel tracking-wider border border-white/20 hover:border-amber-400/50 bg-black/50 hover:bg-black/70 backdrop-blur-sm transition-all cursor-pointer shadow-sm"
+                      >
+                        <Info className="w-3.5 h-3.5 text-slate-300" />
+                        <span>À propos du jeu</span>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              <div className="text-[10px] text-amber-200/70 font-medium text-center tracking-wide mt-1">
+                NOUR - La Voie de la Sagesse
+              </div>
+            </div>
+          </>
+        )}
 
       {/* Modal Confirmation Nouvelle Partie - Charte Graphique Nour */}
       {showNewGameConfirm && (

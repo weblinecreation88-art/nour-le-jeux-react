@@ -1,6 +1,6 @@
 import { Character, Chapter, WisdomCard, Testimonial } from '../types';
 
-export const GAME_URL = "https://playnour.online/";
+export const GAME_URL = "/play";
 export const APK_DOWNLOAD_URL = "https://drive.google.com/file/d/1_aehDgewtb6xXSDc3x5depv_vnLRWVh0/view?usp=sharing";
 
 export const CHARACTERS: Character[] = [
@@ -57,12 +57,12 @@ export const CHARACTERS: Character[] = [
   },
   {
     id: "narrateur",
-    name: "Le Sage des Sentiers",
-    arabicName: "الشيخ الحكيم",
+    name: "Le Vieux Sage",
+    arabicName: "الشَّيْخُ الحَكِيمُ",
     role: "Gardien des Savoirs",
     quote: "« Choisis ta direction au carrefour du village, car tout acte de valeur commence par une intention sincère. »",
-    description: "Le sage bienveillant qui accueille Othmân au carrefour des chemins. Témoin des voyageurs en quête de sens, il transmet au joueur les enseignements du Livre du Savoir pour éclairer sa route.",
-    portrait: "/game-assets/narrateur.png",
+    description: "Le vénérable sage qui accueille Othmân au carrefour des chemins. Témoin des voyageurs en quête de sens, il transmet au joueur les enseignements du Livre du Savoir pour éclairer sa route.",
+    portrait: "/game-assets/vieux_sage.png",
     themeColor: "sky",
     stats: {
       sagesse: 99,
@@ -105,7 +105,7 @@ export const CHAPTERS: Chapter[] = [
     synopsis: "Devant les étals du marché aux fruits, une bousculade injuste renverse les paniers. Othmân sent le sang lui monter aux tempes. Pour progresser, il devra dompter l'embrasement de l'irritation et expérimenter la puissance libératrice du pardon et de la douceur.",
     virtue: "Al-Hilm (Douceur, Clémence & Sang-froid)",
     location: "Le Marché aux Fruits & L'Atelier du Potier",
-    bgImage: "/game-assets/verger.jpg",
+    bgImage: "/game-assets/marche.jpg",
     highlights: [
       "Système de respiration et désamorçage de l'agressivité",
       "Éviter le piège de la réplique blessante",
@@ -143,7 +143,7 @@ export const CHAPTERS: Chapter[] = [
     synopsis: "Après un agacement matinal envers sa mère, Othmân quitte précipitamment la maison. Réfugié sous un grand arbre avec son ami d'enfance, ils observent en silence un oiseau nourrir son nid. Une confidence inattendue et bouleversante va alors bousculer toutes ses certitudes sur ce qu'il croyait ordinaire dans son quotidien.",
     virtue: "Birr al-Wālidayn (La Piété Filiale & La Gratitude du Cœur)",
     location: "La Maison Familiale & L'Arbre des Confidences",
-    bgImage: "/game-assets/chambre.jpg",
+    bgImage: "/game-assets/teaser_chapitre4.jpg",
     highlights: [
       "Désamorcer les murmures d'irritation et d'impatience",
       "Méditation sous le grand chêne : l'oiseau et la subsistance",

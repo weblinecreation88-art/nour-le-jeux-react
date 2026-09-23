@@ -75,7 +75,7 @@ export default function PricingSection() {
                     {t.pricing.col1Price}
                   </span>
                   <span className="text-stone-400 text-xs font-medium">
-                    {t.pricing.col1Unit}
+                    {t.pricing.col1SubPrice}
                   </span>
                 </div>
               </div>
@@ -100,7 +100,7 @@ export default function PricingSection() {
               <button
                 type="button"
                 onClick={() => handleCheckout('https://buy.stripe.com/test_3cIdRbfjj0H54gT5F63Ru00')}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-stone-800 to-stone-700 hover:from-stone-700 hover:to-stone-600 text-amber-200 font-cinzel font-bold text-xs sm:text-sm border border-amber-500/30 shadow-md active:translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="pricing-btn-dark w-full py-3 px-4 rounded-xl bg-gradient-to-r from-stone-800 to-stone-700 hover:from-stone-700 hover:to-stone-600 text-amber-200 font-cinzel font-bold text-xs sm:text-sm border border-amber-500/30 shadow-md active:translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>{t.pricing.col1Cta}</span>
                 <ExternalLink className="w-4 h-4 text-amber-400" />
@@ -276,7 +276,7 @@ export default function PricingSection() {
               <button
                 type="button"
                 onClick={scrollToRoadmap}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-900/60 to-teal-900/60 hover:from-emerald-800/70 hover:to-teal-800/70 text-emerald-200 font-cinzel font-bold text-xs sm:text-sm border border-emerald-400/40 shadow-md active:translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="pricing-btn-emerald w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-900/60 to-teal-900/60 hover:from-emerald-800/70 hover:to-teal-800/70 text-emerald-200 font-cinzel font-bold text-xs sm:text-sm border border-emerald-400/40 shadow-md active:translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>{t.pricing.col3Cta}</span>
                 <ArrowRight className="w-4 h-4 text-emerald-300" />

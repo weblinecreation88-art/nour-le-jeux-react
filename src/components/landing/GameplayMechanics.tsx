@@ -90,7 +90,9 @@ export default function GameplayMechanics() {
                 <div className="relative h-48 sm:h-56 overflow-hidden">
                   <img
                     src={mech.bgImage}
-                    alt={mech.title}
+                    alt={`${mech.title} — Mécanique de jeu NOUR RPG`}
+                    loading="lazy"
+                    decoding="async"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-65"
                   />
@@ -135,7 +137,7 @@ export default function GameplayMechanics() {
                   </div>
 
                   {/* Poetic Parchment Quote Strip */}
-                  <div className="p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-[#241a12]/80 to-[#18110b]/80 border-l-2 border-[#e5c158] border-y border-r border-[#d4af37]/20 text-xs italic text-[#fce8a6]/90 font-serif leading-relaxed shadow-sm">
+                  <div className="callout-ribbon p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-[#241a12]/80 to-[#18110b]/80 border-l-2 border-[#e5c158] border-y border-r border-[#d4af37]/20 text-xs italic text-[#fce8a6]/90 font-serif leading-relaxed shadow-sm">
                     {mech.quote}
                   </div>
                 </div>

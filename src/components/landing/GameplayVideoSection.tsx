@@ -21,6 +21,37 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
   const [isHovered, setIsHovered] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const controlsTimeoutRef = useRef<number | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<'cinematic' | 'gameplay'>('cinematic');
+
+  const videoSources = {
+    cinematic: {
+      src: '/game-assets/cinematic_chapitre1.mp4',
+      poster: '/game-assets/hero_landing.png',
+      title: "NOUR — Teaser Officiel : L'Aventure Commence (1080p Anime)",
+      badge: "🎬 NOUVEAU TEASER",
+      tag: "1080p • 60 FPS"
+    },
+    gameplay: {
+      src: '/game-assets/video-gameplay.mp4',
+      poster: '/game-assets/play_games_cover_1920x1080.jpg',
+      title: "NOUR — Démo de Gameplay (Pixel-Art RPG)",
+      badge: "🎮 GAMEPLAY IN-GAME",
+      tag: "Mobile & Web"
+    }
+  };
+
+  const handleSelectVideo = (type: 'cinematic' | 'gameplay') => {
+    if (selectedVideo === type) return;
+    setSelectedVideo(type);
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setShowControls(true);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.src = videoSources[type].src;
+      videoRef.current.load();
+    }
+  };
 
   // Auto-hide controls when playing and inactive
   const handleMouseMove = () => {
@@ -41,7 +72,11 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
       videoRef.current.play().then(() => {
         setIsPlaying(true);
       }).catch(() => {
-        setIsPlaying(false);
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          setIsMuted(true);
+          videoRef.current.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+        }
       });
     } else {
       videoRef.current.pause();
@@ -137,6 +172,34 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
           </p>
         </div>
 
+        {/* Video Mode Switcher */}
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex p-1.5 rounded-2xl bg-[#140f20]/90 border border-amber-500/40 backdrop-blur-md shadow-2xl gap-2">
+            <button
+              onClick={() => handleSelectVideo('cinematic')}
+              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-cinzel font-bold flex items-center gap-2 transition-all cursor-pointer ${
+                selectedVideo === 'cinematic'
+                  ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-stone-950 shadow-[0_0_15px_rgba(245,158,11,0.5)] scale-102'
+                  : 'text-stone-300 hover:text-amber-200 hover:bg-white/5'
+              }`}
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>🎬 Teaser Cinématique (1080p Anime)</span>
+            </button>
+            <button
+              onClick={() => handleSelectVideo('gameplay')}
+              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-cinzel font-bold flex items-center gap-2 transition-all cursor-pointer ${
+                selectedVideo === 'gameplay'
+                  ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-stone-950 shadow-[0_0_15px_rgba(245,158,11,0.5)] scale-102'
+                  : 'text-stone-300 hover:text-amber-200 hover:bg-white/5'
+              }`}
+            >
+              <Gamepad2 className="w-4 h-4" />
+              <span>🎮 Démo Gameplay (RPG)</span>
+            </button>
+          </div>
+        </div>
+
         {/* Video Player Showcase Frame */}
         <div className="relative max-w-4xl mx-auto">
           
@@ -157,12 +220,12 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block" />
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
                 <span className="ml-2 font-cinzel font-semibold text-amber-200 tracking-wide hidden sm:inline">
-                  NOUR — Démo de Gameplay (Pixel-Art RPG)
+                  {videoSources[selectedVideo].title}
                 </span>
               </div>
               <div className="flex items-center gap-2 text-stone-400 font-mono text-[11px]">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>1080p • 60 FPS</span>
+                <span>{videoSources[selectedVideo].tag}</span>
               </div>
             </div>
 
@@ -170,11 +233,14 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
             <div className="relative aspect-video bg-black flex items-center justify-center cursor-pointer" onClick={togglePlay}>
               <video
                 ref={videoRef}
-                src="/game-assets/video-gameplay.mp4"
-                poster="/game-assets/affiche_nour.jpg"
+                key={selectedVideo}
+                src={videoSources[selectedVideo].src}
+                poster={videoSources[selectedVideo].poster}
                 playsInline
                 preload="metadata"
                 muted={isMuted}
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
                 onTimeUpdate={handleTimeUpdate}
                 onLoadedMetadata={handleLoadedMetadata}
                 onEnded={handleVideoEnded}
@@ -183,8 +249,8 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
 
               {/* Big Central Play Button when paused */}
               {!isPlaying && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] transition-all">
-                  <div className="relative group/btn">
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none transition-all">
+                  <div className="relative group/btn pointer-events-auto">
                     <div className="absolute -inset-3 bg-amber-500/40 rounded-full blur-md animate-pulse" />
                     <button
                       onClick={(e) => {
@@ -198,7 +264,7 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
                       <Play className="w-7 h-7 sm:w-9 sm:h-9 fill-stone-950 translate-x-0.5" />
                     </button>
                   </div>
-                  <div className="absolute bottom-6 px-4 py-1.5 rounded-full bg-[#0e0c15]/80 border border-amber-500/30 text-amber-200 text-xs font-cinzel font-semibold backdrop-blur-md">
+                  <div className="absolute bottom-6 px-4 py-1.5 rounded-full bg-[#0e0c15]/90 border border-amber-500/40 text-amber-200 text-xs font-cinzel font-semibold shadow-xl">
                     {t.gameplayVideo.clickToStart}
                   </div>
                 </div>
@@ -206,7 +272,7 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
 
               {/* Video Bottom Control Bar */}
               <div 
-                className={`absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black/95 via-black/70 to-transparent transition-opacity duration-300 ${
+                className={`video-player-controls absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black/95 via-black/70 to-transparent transition-opacity duration-300 ${
                   showControls || !isPlaying || isHovered ? 'opacity-100' : 'opacity-0 pointer-events-none'
                 }`}
                 onClick={(e) => e.stopPropagation()}

@@ -3,6 +3,7 @@ import { getChapter1Scenes, getChapter1Quizzes, getChapter1RealActions, getDay2P
 import { CHAPTER_2_SCENES, CHAPTER_2_QUIZZES, CHAPTER_2_REAL_ACTIONS } from './data/chapter2';
 import { CHAPTER_3_SCENES, CHAPTER_3_QUIZZES, CHAPTER_3_REAL_ACTIONS } from './data/chapter3';
 import { useLanguage } from './context/LanguageContext';
+import { useTheme } from './context/ThemeContext';
 import { KNOWLEDGE_ITEMS } from './data/knowledge';
 import { INITIAL_STATS, INITIAL_QUESTS, INITIAL_BADGES, INITIAL_EQUIPMENT, INITIAL_APPEARANCE } from './data/rpgData';
 import { INITIAL_CHARACTER_TRAITS } from './utils/characterTraits';
@@ -35,10 +36,11 @@ import { LandingPage } from './components/landing/LandingPage';
 import { soundManager } from './utils/audio';
 import { speechManager } from './utils/speech';
 import { loadCustomAssets, CustomAssetsConfig, PIXEL_ASSETS, DEFAULT_ASSETS } from './utils/assets';
-import { getSupporterStatus, SUPPORTER_EVENT_NAME } from './utils/stripe';
+import { getSupporterStatus, setSupporterStatus, SUPPORTER_EVENT_NAME } from './utils/stripe';
 import { Sparkles, Play, Compass, Shield, ChevronLeft, ChevronRight, BookOpen, ScrollText, MessageSquareQuote, FastForward, Flame } from 'lucide-react';
 import {
   trackScreenView,
+  trackSceneView,
   trackQuizCompleted,
   trackRealActionValidated,
   trackSceneCompleted,
@@ -102,6 +104,7 @@ const INITIAL_PROGRESS: PlayerProgress = {
 };
 
 export default function App() {
+  const { isParchment } = useTheme();
   const [streakCelebration, setStreakCelebration] = useState<number | null>(null);
   const [habitToast, setHabitToast] = useState<string | null>(null);
 
@@ -139,11 +142,21 @@ export default function App() {
             }
           }
 
+          // Strictly clamp non-supporters to Chapter 1 scenes and chapter selection
+          const userIsSupporter = getSupporterStatus();
+          if (!userIsSupporter) {
+            if (sceneIdx >= 10) {
+              sceneIdx = 0;
+              beatIdx = 0;
+            }
+          }
+
           return {
             ...INITIAL_PROGRESS,
             ...parsed,
             currentSceneIndex: sceneIdx,
             currentBeatIndex: beatIdx,
+            selectedChapter: userIsSupporter ? (parsed.selectedChapter || 1) : 1,
             streakDays: currentStreak,
             bestStreakDays: bestStreak,
             quests,
@@ -203,7 +216,7 @@ export default function App() {
   }, []);
 
   const handleLaunchGame = () => {
-    trackGameStarted(false, progress.level, progress.xp);
+    // Transition from Landing Page to Title Screen (SplashScreen)
     setShowSplash(true);
     setViewMode('game');
 
@@ -242,8 +255,8 @@ export default function App() {
   const ALL_QUIZZES = { ...currentCh1Quizzes, ...CHAPTER_2_QUIZZES, ...CHAPTER_3_QUIZZES };
   const ALL_ACTIONS = { ...currentCh1Actions, ...CHAPTER_2_REAL_ACTIONS, ...CHAPTER_3_REAL_ACTIONS };
 
-  const [showSplash, setShowSplash] = useState(true);
-  const [activeTab, setActiveTab] = useState<TabType>('travel');
+  const [showSplash, setShowSplash] = useState(true); // Always show Title Screen when entering game mode
+  const [activeTab, setActiveTab] = useState<TabType>('adventure');
   const [customAssets, setCustomAssets] = useState<CustomAssetsConfig>(() => loadCustomAssets());
 
   const [showKnowledge, setShowKnowledge] = useState(false);
@@ -257,6 +270,21 @@ export default function App() {
 
   // Synchronisation réactive de l'état supporter (déblocage via Stripe ou Code Promo)
   useEffect(() => {
+    // Check URL parameters for Stripe success return (e.g. ?payment=success, ?supporter=true, ?session_id)
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (
+        urlParams.get('payment') === 'success' ||
+        urlParams.get('supporter') === 'true' ||
+        urlParams.get('unlocked') === 'true' ||
+        urlParams.has('session_id')
+      ) {
+        setSupporterStatus(true);
+        setIsSupporter(true);
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+
     const handleSupporterChange = (e: Event) => {
       const customEvent = e as CustomEvent<{ isSupporter: boolean }>;
       setIsSupporter(customEvent.detail?.isSupporter ?? getSupporterStatus());
@@ -349,6 +377,7 @@ export default function App() {
       trackScreenView('Profil & Vertus', 'ProfileScreen');
     } else if (activeTab === 'adventure') {
       trackScreenView(`Aventure — Scène ${currentScene.id} : ${currentScene.title}`, 'AdventureScene');
+      trackSceneView(currentScene.id, currentScene.title);
     }
   }, [viewMode, activeTab, currentScene?.id, currentScene?.title]);
 
@@ -646,6 +675,21 @@ export default function App() {
     if (sceneTransition) {
       if (sceneTransition.nextScene) {
         trackSceneCompleted(sceneTransition.completedScene.id, sceneTransition.completedScene.title);
+
+        // Check if next scene is in chapter 2 or 3 and user is not supporter
+        if (sceneTransition.nextScene.id >= 10 && !isSupporter) {
+          setProgress((prev) => ({
+            ...prev,
+            completedScenes: Array.from(
+              new Set([...prev.completedScenes, sceneTransition.completedScene.id])
+            )
+          }));
+          setSceneTransition(null);
+          setSupportModalReason('chapter_end');
+          setShowSupportModal(true);
+          return;
+        }
+
         const targetIdx = ALL_SCENES.findIndex((s) => s.id === sceneTransition.nextScene!.id);
         if (targetIdx !== -1) {
           soundManager.playSceneTransition();
@@ -680,6 +724,12 @@ export default function App() {
     soundManager.playSelect();
     const newIdx = direction === 'next' ? progress.currentSceneIndex + 1 : progress.currentSceneIndex - 1;
     if (newIdx >= 0 && newIdx < ALL_SCENES.length) {
+      const targetScene = ALL_SCENES[newIdx];
+      if (targetScene.id >= 10 && !isSupporter) {
+        setSupportModalReason('chapter_end');
+        setShowSupportModal(true);
+        return;
+      }
       soundManager.playSceneTransition();
       setProgress((prev) => ({
         ...prev,
@@ -704,8 +754,7 @@ export default function App() {
     const targetIdx = ALL_SCENES.findIndex((s) => s.id === sceneId);
     if (targetIdx !== -1) {
       const targetScene = ALL_SCENES[targetIdx];
-      const reqXpForChapter = targetScene.id >= 17 ? 780 : targetScene.id >= 10 ? 450 : 0;
-      if (targetScene.id >= 10 && !isSupporter && progress.xp < reqXpForChapter) {
+      if (targetScene.id >= 10 && !isSupporter) {
         setSupportModalReason('chapter_end');
         setShowSupportModal(true);
         return;
@@ -886,6 +935,11 @@ export default function App() {
       soundManager.playSelect();
       const targetScene = ALL_SCENES.find((s) => s.id === choice.targetSceneId);
       if (targetScene) {
+        if (targetScene.id >= 10 && !isSupporter) {
+          setSupportModalReason('chapter_end');
+          setShowSupportModal(true);
+          return;
+        }
         speechManager.stop();
         setContemplationState({
           scene: currentScene,
@@ -915,6 +969,12 @@ export default function App() {
       return;
     }
     if (choice.id === 'c2_chap2') {
+      if (!isSupporter) {
+        soundManager.playSelect();
+        setSupportModalReason('chapter_end');
+        setShowSupportModal(true);
+        return;
+      }
       soundManager.playSelect();
       const targetSceneId = currentScene.id === 10 ? 11 : 11;
       const ch2Idx = ALL_SCENES.findIndex((s) => s.id === targetSceneId);
@@ -932,6 +992,12 @@ export default function App() {
       }
     }
     if (choice.id === 'c3_chap3' || choice.id === 'c5_chap5') {
+      if (!isSupporter) {
+        soundManager.playSelect();
+        setSupportModalReason('chapter_end');
+        setShowSupportModal(true);
+        return;
+      }
       soundManager.playSelect();
       const ch3Idx = ALL_SCENES.findIndex((s) => s.id === 17);
       if (ch3Idx !== -1) {
@@ -984,7 +1050,9 @@ export default function App() {
   }
 
   return (
-    <main className="w-screen w-full h-screen h-[100dvh] max-h-[100dvh] flex flex-col justify-between overflow-hidden bg-[#f7f1e5] text-[#3a2312] select-none font-sans relative">
+    <main className={`w-screen w-full h-screen h-[100dvh] max-h-[100dvh] flex flex-col justify-between overflow-hidden select-none font-sans relative transition-colors duration-300 ${
+      isParchment ? 'bg-[#f6ebd7] text-[#2b2118]' : 'bg-[#0f131d] text-[#dfe2f1]'
+    }`}>
       {/* Top Header Bar (Unique, Transparent & Unified) */}
       <PixelioHeader
         level={progress.level}
@@ -1071,7 +1139,14 @@ export default function App() {
           <HomeScreen
             progress={progress}
             onToggleQuest={handleToggleQuest}
-            onStartAdventure={() => setActiveTab('adventure')}
+            onStartAdventure={() => {
+              if (currentScene.id >= 10 && !isSupporter) {
+                setSupportModalReason('chapter_end');
+                setShowSupportModal(true);
+                return;
+              }
+              setActiveTab('adventure');
+            }}
             onGoToMap={() => setActiveTab('travel')}
             customAssets={customAssets}
           />
@@ -1100,6 +1175,11 @@ export default function App() {
             allActions={ALL_ACTIONS}
             onToggleQuest={handleToggleQuest}
             onValidatePledgedAction={handleValidatePledgedAction}
+            isSupporter={isSupporter}
+            onOpenSupportModal={() => {
+              setSupportModalReason('chapter_end');
+              setShowSupportModal(true);
+            }}
             onStartStoryQuest={(sceneId) => {
               if (typeof sceneId === 'number') {
                 handleSelectSceneFromMap(sceneId);
@@ -1183,6 +1263,10 @@ export default function App() {
                   waswasToast={waswasToast}
                   traits={progress.traits}
                   narrativeFlags={progress.narrativeFlags}
+                  onOpenSupport={() => {
+                    setSupportModalReason('chapter_end');
+                    setShowSupportModal(true);
+                  }}
                 />
               )}
 
@@ -1256,7 +1340,12 @@ export default function App() {
                       }));
                       setActiveTab('travel');
                     } else if (currentScene.id >= 10) {
-                      // Chapter 2 completed -> jump to Chapter 3 (Scene 17)
+                      // Chapter 2 completed -> jump to Chapter 3 (Scene 17) only if supporter
+                      if (!isSupporter) {
+                        setSupportModalReason('chapter_end');
+                        setShowSupportModal(true);
+                        return;
+                      }
                       const ch3Idx = ALL_SCENES.findIndex((s) => s.id === 17);
                       setProgress((prev) => ({
                         ...prev,
@@ -1268,8 +1357,8 @@ export default function App() {
                       }));
                       setActiveTab('adventure');
                     } else {
-                      // Chapter 1 completed -> Check if supporter or has 450 XP
-                      if (!isSupporter && progress.xp < 450) {
+                      // Chapter 1 completed -> STRICTLY require isSupporter (no XP bypass)
+                      if (!isSupporter) {
                         setSupportModalReason('chapter_end');
                         setShowSupportModal(true);
                         return;
@@ -1300,20 +1389,20 @@ export default function App() {
                       setProgress((prev) => ({
                         ...prev,
                         completedScenes: Array.from(new Set([...prev.completedScenes, currentScene.id])),
-                        dayNumber: 3,
-                        currentSceneIndex: ch3Idx !== -1 ? ch3Idx : prev.currentSceneIndex,
+                        dayNumber: isSupporter ? 3 : 2,
+                        currentSceneIndex: isSupporter && ch3Idx !== -1 ? ch3Idx : prev.currentSceneIndex,
                         currentBeatIndex: 0,
-                        selectedChapter: 3
+                        selectedChapter: isSupporter ? 3 : 2
                       }));
                     } else {
                       const ch2Idx = ALL_SCENES.findIndex((s) => s.id === 10);
                       setProgress((prev) => ({
                         ...prev,
                         completedScenes: Array.from(new Set([...prev.completedScenes, currentScene.id])),
-                        dayNumber: 2,
-                        currentSceneIndex: ch2Idx !== -1 ? ch2Idx : 0,
+                        dayNumber: isSupporter ? 2 : 1,
+                        currentSceneIndex: isSupporter && ch2Idx !== -1 ? ch2Idx : prev.currentSceneIndex,
                         currentBeatIndex: 0,
-                        selectedChapter: 2
+                        selectedChapter: isSupporter ? 2 : 1
                       }));
                     }
                     setActiveTab('travel');
@@ -1420,6 +1509,22 @@ export default function App() {
           onProceedToNextScene={handleProceedToNextScene}
           onReplayScene={handleReplayScene}
         />
+      )}
+
+      {/* Wake up cinematic for the very first scene */}
+      {viewMode === 'game' && activeTab === 'adventure' && !showSplash && progress.currentSceneIndex === 0 && progress.currentBeatIndex === 0 && progress.completedScenes.length === 0 && (
+        <div 
+          className="fixed inset-0 z-[140] bg-black pointer-events-none"
+          style={{ animation: 'wakeUpFade 4s ease-out forwards' }}
+        >
+          <style>{`
+            @keyframes wakeUpFade {
+              0% { opacity: 1; }
+              25% { opacity: 1; }
+              100% { opacity: 0; }
+            }
+          `}</style>
+        </div>
       )}
 
       {/* Splash Screen Intro with Continue & New Game */}

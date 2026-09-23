@@ -202,9 +202,9 @@ export const ChapterEnd: React.FC<ChapterEndProps> = ({
                 </h1>
                 <p className="text-xs sm:text-sm text-[#6b4724] font-bold max-w-md mt-0.5">
                   {chapterNumber === 1
-                    ? isSupporter || xpTotal >= 450
+                    ? isSupporter
                       ? 'Tes sagesses et tes XP sont sauvegardés. Prêt pour la suite de l’aventure avec Othmân ?'
-                      : 'Tes sagesses et tes XP sont sauvegardés. Débloque les Chapitres 2 & 3 avec le Pack Fondateur ou en atteignant 450 XP.'
+                      : 'Tes sagesses et tes XP sont sauvegardés. Débloque les Chapitres 2 & 3 avec le Pack Fondateur ou un Code Promo.'
                     : 'Ta progression est enregistrée dans ton carnet de voyage.'}
                 </p>
               </div>
@@ -227,15 +227,15 @@ export const ChapterEnd: React.FC<ChapterEndProps> = ({
                       onContinueAdventure();
                     }}
                     className={`w-full py-3.5 px-4 rounded-2xl font-black text-xs sm:text-sm flex items-center justify-center gap-2.5 border-2 active:translate-y-0.5 transition-all cursor-pointer font-cinzel tracking-wider uppercase ${
-                      chapterNumber === 1 && !isSupporter && xpTotal < 450
+                      chapterNumber === 1 && !isSupporter
                         ? 'bg-gradient-to-r from-[#d97c27] via-[#f59e0b] to-[#d97c27] hover:brightness-110 text-[#1a1209] border-amber-300 shadow-[0_4px_16px_rgba(245,158,11,0.35)]'
                         : 'bg-[#2d6a4f] hover:bg-[#1b4332] text-white border-[#1b4332] shadow-[0_4px_0_#1b4332]'
                     }`}
                   >
-                    {chapterNumber === 1 && !isSupporter && xpTotal < 450 ? (
+                    {chapterNumber === 1 && !isSupporter ? (
                       <>
                         <Sparkles className="w-4 h-4 fill-current text-[#1a1209]" />
-                        <span>Débloquer les Chapitres 2 & 3 (4,99 €)</span>
+                        <span>Débloquer les Chapitres 2 & 3 (4,99 € ou Code Promo)</span>
                         <ArrowRight className="w-4 h-4 text-[#1a1209]" />
                       </>
                     ) : (
@@ -253,10 +253,10 @@ export const ChapterEnd: React.FC<ChapterEndProps> = ({
                     )}
                   </button>
 
-                  {chapterNumber === 1 && !isSupporter && xpTotal < 450 && (
+                  {chapterNumber === 1 && !isSupporter && (
                     <div className="flex items-center justify-center gap-1.5 text-[11px] font-bold text-[#2d6a4f] pt-0.5">
                       <span className="inline-block">🛡️</span>
-                      <span>Offre Pack Fondateur • Garantie Satisfait ou Remboursé 7j</span>
+                      <span>Offre Pack Fondateur • Paiement Sécurisé ou Code Promo</span>
                     </div>
                   )}
                 </div>

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BookOpen, Zap, Compass, Sparkles, Globe } from 'lucide-react';
+import { BookOpen, Zap, Compass, Sparkles, Globe, Sun, Moon } from 'lucide-react';
 import { soundManager } from '../utils/audio';
 import { PIXEL_ASSETS, CustomAssetsConfig } from '../utils/assets';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import { gameTranslations } from '../i18n/gameTranslations';
 import { RealFlag } from './landing/Navbar';
 import { Language } from '../i18n/translations';
@@ -35,6 +36,7 @@ export const PixelioHeader: React.FC<PixelioHeaderProps> = ({
   hasSpiritualGatePending = false
 }) => {
   const heroAvatar = customAssets?.characters?.personnage || PIXEL_ASSETS.traveler;
+  const { isParchment, toggleTheme } = useTheme();
 
   // Animated progressive XP roll-up
   const [displayedXp, setDisplayedXp] = useState(xp);
@@ -140,7 +142,11 @@ export const PixelioHeader: React.FC<PixelioHeaderProps> = ({
   return (
     <header
       dir={isRtl ? 'rtl' : 'ltr'}
-      className="w-full bg-black/55 backdrop-blur-md border-b border-amber-500/30 px-1.5 sm:px-4 pt-[max(0.35rem,env(safe-area-inset-top))] pb-1 sm:py-2 flex items-center justify-between shadow-lg z-40 select-none text-white transition-all shrink-0"
+      className={`w-full backdrop-blur-md px-1.5 sm:px-4 pt-[max(0.35rem,env(safe-area-inset-top))] pb-1 sm:py-2 flex items-center justify-between shadow-lg z-40 select-none transition-all shrink-0 ${
+        isParchment
+          ? 'bg-[#f6ebd7]/95 border-b-2 border-[#c5a059]/70 text-[#2b2118]'
+          : 'bg-black/55 border-b border-amber-500/30 text-white'
+      }`}
     >
       {/* Left: Avatar & Dual Gauges (Othmân Nour & Waswâs Ombre) */}
       <div className="flex items-center gap-1 sm:gap-3 shrink-0">
@@ -264,8 +270,32 @@ export const PixelioHeader: React.FC<PixelioHeaderProps> = ({
         </div>
       </div>
 
-      {/* Right: Actions (Language Switcher, Carte, Quiz, Savoir) */}
+      {/* Right: Actions (Theme Switcher, Language Switcher, Carte, Quiz, Savoir) */}
       <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+        {/* Theme Toggle Button (☀️ Parchemin / 🌙 Nuit) */}
+        <button
+          onClick={() => {
+            soundManager.playSelect();
+            toggleTheme();
+          }}
+          title={isParchment ? "Passer en mode Nuit (Sombre)" : "Passer en mode Parchemin (Clair / Or)"}
+          aria-label="Basculer thème clair/sombre"
+          className={`px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-xl border transition-all cursor-pointer shadow-sm flex items-center gap-1 active:scale-95 text-[10px] sm:text-xs shrink-0 ${
+            isParchment
+              ? 'bg-[#eddcc3] hover:bg-[#e4ceb0] border-[#c5a059] text-[#5a401d] shadow-[0_0_8px_rgba(212,175,55,0.3)] font-bold'
+              : 'bg-black/40 hover:bg-black/60 border-amber-400/40 hover:border-amber-400 text-amber-200'
+          }`}
+        >
+          {isParchment ? (
+            <Sun className="w-3.5 h-3.5 text-amber-700 fill-amber-500/40" />
+          ) : (
+            <Moon className="w-3.5 h-3.5 text-amber-300" />
+          )}
+          <span className="font-mono text-[9px] sm:text-[10px] hidden md:inline font-bold">
+            {isParchment ? 'Parchemin' : 'Nuit'}
+          </span>
+        </button>
+
         {/* In-Game Language Switcher */}
         <div className="relative" ref={langMenuRef}>
           <button
@@ -274,7 +304,11 @@ export const PixelioHeader: React.FC<PixelioHeaderProps> = ({
               setShowLangMenu(!showLangMenu);
             }}
             title={t.language}
-            className="px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-xl bg-black/40 hover:bg-black/60 border border-amber-400/40 hover:border-amber-400 text-amber-200 transition-all cursor-pointer shadow-sm flex items-center gap-1 active:scale-95 text-[10px] sm:text-xs shrink-0"
+            className={`px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-xl border transition-all cursor-pointer shadow-sm flex items-center gap-1 active:scale-95 text-[10px] sm:text-xs shrink-0 ${
+              isParchment
+                ? 'bg-[#eddcc3] hover:bg-[#e4ceb0] border-[#c5a059] text-[#5a401d] font-bold'
+                : 'bg-black/40 hover:bg-black/60 border-amber-400/40 hover:border-amber-400 text-amber-200'
+            }`}
           >
             <RealFlag lang={language} className="w-4 h-3 rounded-[2px]" />
             <span className="font-bold uppercase font-mono text-[9px] sm:text-[11px]">{language}</span>

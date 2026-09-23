@@ -12,6 +12,8 @@ interface QuestsScreenProps {
   onStartStoryQuest?: (sceneId?: number) => void;
   allActions?: Record<string, RealAction>;
   onValidatePledgedAction?: (actionId: string, e?: React.MouseEvent) => void;
+  isSupporter?: boolean;
+  onOpenSupportModal?: () => void;
 }
 
 export const QuestsScreen: React.FC<QuestsScreenProps> = ({
@@ -19,7 +21,9 @@ export const QuestsScreen: React.FC<QuestsScreenProps> = ({
   onToggleQuest,
   onStartStoryQuest,
   allActions = {},
-  onValidatePledgedAction
+  onValidatePledgedAction,
+  isSupporter = false,
+  onOpenSupportModal
 }) => {
   const [questTab, setQuestTab] = useState<'daily' | 'story'>('daily');
 
@@ -27,8 +31,8 @@ export const QuestsScreen: React.FC<QuestsScreenProps> = ({
   const pledgedActionIds = progress.pledgedRealActions || [];
   const completedActionIds = progress.completedRealActions || [];
 
-  const isChapter2Unlocked = progress.completedScenes.includes(9) || progress.xp >= 450;
-  const isChapter3Unlocked = progress.completedScenes.includes(16) || progress.xp >= 780;
+  const isChapter2Unlocked = Boolean(isSupporter);
+  const isChapter3Unlocked = Boolean(isSupporter);
 
   const chaptersData = [
     {
@@ -318,10 +322,17 @@ export const QuestsScreen: React.FC<QuestsScreenProps> = ({
                           {chapterCompletedCount} / {totalChapterScenes} scènes
                         </span>
                       ) : (
-                        <span className="flex items-center gap-1 text-[10px] font-bold text-stone-600 bg-stone-200 px-2 py-0.5 rounded-full border border-stone-400">
-                          <Lock className="w-3 h-3" />
-                          <span>{chapter.requiredXp} XP</span>
-                        </span>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onOpenSupportModal?.();
+                          }}
+                          className="flex items-center gap-1 text-[10px] font-black text-amber-900 bg-amber-200 hover:bg-amber-300 px-2 py-0.5 rounded-full border border-amber-400 cursor-pointer shadow-xs transition-colors"
+                        >
+                          <Lock className="w-3 h-3 text-amber-900" />
+                          <span>Pack Fondateur / Promo</span>
+                        </button>
                       )}
                     </div>
                   </div>
@@ -336,6 +347,8 @@ export const QuestsScreen: React.FC<QuestsScreenProps> = ({
                           onClick={() => {
                             if (chapter.isUnlocked && onStartStoryQuest) {
                               onStartStoryQuest(scene.id);
+                            } else if (!chapter.isUnlocked && onOpenSupportModal) {
+                              onOpenSupportModal();
                             }
                           }}
                           className={`flex items-center justify-between p-2 rounded-xl border text-[11px] font-cinzel font-bold transition-all cursor-pointer ${
@@ -343,7 +356,7 @@ export const QuestsScreen: React.FC<QuestsScreenProps> = ({
                               ? 'bg-[#ebf5e9] border-[#4a804d] text-[#1b4332]'
                               : chapter.isUnlocked
                               ? 'bg-[#f3ebd9] hover:bg-[#ebdfc8] border-[#3a2312] text-[#3a2312]'
-                              : 'bg-stone-100 border-stone-300 text-stone-400 pointer-events-none'
+                              : 'bg-stone-100 hover:bg-stone-200 border-stone-300 text-stone-500'
                           }`}
                         >
                           <div className="flex items-center gap-1.5 truncate">

@@ -10,6 +10,7 @@ interface CreatorLetterSectionProps {
 
 export default function CreatorLetterSection({ onOpenGame }: CreatorLetterSectionProps) {
   const { t } = useLanguage();
+  const [isExpanded, setIsExpanded] = React.useState(false);
 
   return (
     <section id="mot-du-concepteur" className="py-16 sm:py-24 bg-[#0a080e] relative overflow-hidden">
@@ -66,7 +67,7 @@ export default function CreatorLetterSection({ onOpenGame }: CreatorLetterSectio
             </div>
           </div>
 
-          {/* Letter Content */}
+          {/* Letter Content (Condensed Core + Expandable Accordion) */}
           <div className="space-y-5 font-serif text-sm sm:text-base leading-relaxed text-[#ede2cf]">
             
             <p className="font-bold text-[#ffd700] font-cinzel text-base sm:text-lg">
@@ -79,10 +80,9 @@ export default function CreatorLetterSection({ onOpenGame }: CreatorLetterSectio
 
             <p>{t.creatorLetter.p1}</p>
             <p>{t.creatorLetter.p2}</p>
-            <p>{t.creatorLetter.p3}</p>
 
             {/* Highlighted Callout Quote in Codex Style */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-[#2a1d12]/90 via-[#21170f]/80 to-[#18110b]/90 border-l-4 border-[#ffd700] border-y border-r border-[#d4af37]/30 text-[#fff8eb] my-4 shadow-md space-y-2 font-sans">
+            <div className="callout-ribbon p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-[#2a1d12]/90 via-[#21170f]/80 to-[#18110b]/90 border-l-4 border-[#ffd700] border-y border-r border-[#d4af37]/30 text-[#fff8eb] my-4 shadow-md space-y-2 font-sans">
               <div className="flex items-center gap-2 text-xs font-cinzel font-bold text-[#e5c158] uppercase tracking-wider">
                 <Sparkles className="w-4 h-4 text-[#ffd700]" />
                 {t.creatorLetter.calloutHeader}
@@ -92,9 +92,26 @@ export default function CreatorLetterSection({ onOpenGame }: CreatorLetterSectio
               </p>
             </div>
 
-            <p>{t.creatorLetter.p4}</p>
-            <p>{t.creatorLetter.p5}</p>
-            <p>{t.creatorLetter.p6}</p>
+            {/* Expandable Extended Narrative */}
+            {isExpanded && (
+              <div className="space-y-5 pt-2 border-t border-white/5 animate-in fade-in duration-300">
+                <p>{t.creatorLetter.p3}</p>
+                <p>{t.creatorLetter.p4}</p>
+                <p>{t.creatorLetter.p5}</p>
+                <p>{t.creatorLetter.p6}</p>
+              </div>
+            )}
+
+            {/* Toggle Accordion Button */}
+            <div className="text-center py-2">
+              <button
+                type="button"
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#241a2f]/80 hover:bg-[#342444] border border-[#d4af37]/50 text-[#ffd700] text-xs font-cinzel font-bold tracking-wider transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-md"
+              >
+                <span>{isExpanded ? t.creatorLetter.readLess : t.creatorLetter.readMore}</span>
+              </button>
+            </div>
 
             {/* Closing Dua & Benediction */}
             <div className="pt-4 border-t border-[#d4af37]/30 space-y-2">

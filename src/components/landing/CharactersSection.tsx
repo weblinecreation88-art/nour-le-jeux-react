@@ -44,9 +44,9 @@ export default function CharactersSection() {
     {
       id: "sage",
       name: t.characters.sageName,
-      arabicName: "حَكِيمُ القَرْيَة",
+      arabicName: "الشَّيْخُ الحَكِيمُ",
       role: t.characters.sageRole,
-      portrait: "/game-assets/carrefour.jpg",
+      portrait: "/game-assets/vieux_sage.png",
       quote: t.characters.sageQuote,
       description: t.characters.sageDesc,
       traits: t.characters.sageTraits,
@@ -92,7 +92,7 @@ export default function CharactersSection() {
                 onClick={() => setSelectedId(char.id)}
                 className={`p-4 rounded-xl text-left rtl:text-right transition-all duration-300 cursor-pointer border flex flex-col sm:flex-row items-center gap-3.5 ${
                   isSelected 
-                    ? 'bg-gradient-to-r from-[#241a12] via-[#1b140e] to-[#140f0c] border-[#d4af37] shadow-[0_0_20px_rgba(212,175,55,0.25)] ring-1 ring-[#e5c158]/40 scale-102' 
+                    ? 'char-tab-selected bg-gradient-to-r from-[#241a12] via-[#1b140e] to-[#140f0c] border-[#d4af37] shadow-[0_0_20px_rgba(212,175,55,0.25)] ring-1 ring-[#e5c158]/40 scale-102' 
                     : 'bg-[#141018] border-[#d4af37]/20 hover:border-[#d4af37]/50 hover:bg-[#1a1420]'
                 }`}
               >
@@ -123,7 +123,7 @@ export default function CharactersSection() {
         </div>
 
         {/* Selected Character Spotlight Card (AC Mirage Dossier) */}
-        <div className="relative rounded-2xl bg-gradient-to-b from-[#18131e] via-[#130f18] to-[#0e0b12] border-2 border-[#d4af37]/40 overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.85)] p-6 sm:p-10 gilded-relic-frame">
+        <div className="relative rounded-2xl bg-gradient-to-b from-[#181320] via-[#130f18] to-[#0e0b12] border-2 border-[#d4af37]/40 overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.85)] p-6 sm:p-10 gilded-relic-frame">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Left: Big Character Artwork & Calligraphy */}
@@ -132,7 +132,9 @@ export default function CharactersSection() {
                 <div className="absolute inset-0 bg-radial-[circle_at_50%_50%] from-[#e5c158]/15 via-transparent to-transparent pointer-events-none" />
                 <img
                   src={selectedCharacter.portrait}
-                  alt={selectedCharacter.name}
+                  alt={`${selectedCharacter.name} (${selectedCharacter.role}) — Personnage de NOUR RPG`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.9)] group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -161,7 +163,7 @@ export default function CharactersSection() {
               </div>
 
               {/* Character Quote (Parchment Ribbon Look) */}
-              <div className="p-4 sm:p-5 rounded-xl bg-gradient-to-r from-[#2a1d12]/90 via-[#21170f]/80 to-[#18110b]/90 border-l-4 border-[#e5c158] border-y border-r border-[#d4af37]/20 text-[#ede2cf] italic font-serif text-sm sm:text-base leading-relaxed shadow-md">
+              <div className="callout-ribbon p-4 sm:p-5 rounded-xl bg-gradient-to-r from-[#2a1d12]/90 via-[#21170f]/80 to-[#18110b]/90 border-l-4 border-[#e5c158] border-y border-r border-[#d4af37]/20 text-[#ede2cf] italic font-serif text-sm sm:text-base leading-relaxed shadow-md">
                 « {selectedCharacter.quote} »
               </div>
 

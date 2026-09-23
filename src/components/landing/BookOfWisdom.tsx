@@ -61,7 +61,7 @@ export default function BookOfWisdom() {
                     onClick={() => setSelectedId(card.id)}
                     className={`w-full p-3.5 sm:p-4 rounded-xl text-left rtl:text-right transition-all duration-300 cursor-pointer border flex items-center justify-between gap-3.5 ${
                       isSelected
-                        ? 'bg-gradient-to-r from-[#2a1e12] via-[#20170f] to-[#16100c] border-[#d4af37] shadow-[0_0_20px_rgba(212,175,55,0.25)] ring-1 ring-[#e5c158]/50'
+                        ? 'char-tab-selected bg-gradient-to-r from-[#2a1e12] via-[#20170f] to-[#16100c] border-[#d4af37] shadow-[0_0_20px_rgba(212,175,55,0.25)] ring-1 ring-[#e5c158]/50'
                         : 'bg-[#141017] border-[#d4af37]/20 hover:border-[#d4af37]/50 hover:bg-[#1a141e]'
                     }`}
                   >
@@ -125,7 +125,7 @@ export default function BookOfWisdom() {
               </div>
 
               {/* Calligraphy Cartouche (Baghdad Style) */}
-              <div className="p-6 rounded-xl bg-gradient-to-r from-[#21160d] via-[#1a1109] to-[#21160d] border-2 border-[#b88628] text-center shadow-lg relative overflow-hidden">
+              <div className="callout-ribbon p-6 rounded-xl bg-gradient-to-r from-[#21160d] via-[#1a1109] to-[#21160d] border-2 border-[#b88628] text-center shadow-lg relative overflow-hidden">
                 <div className="absolute inset-0 bg-radial-[circle_at_50%_50%] from-[#e5c158]/10 via-transparent to-transparent pointer-events-none" />
                 <p className="font-amiri text-2xl sm:text-4xl font-bold text-[#fce8a6] leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] select-none">
                   {selectedCard.arabicPhrase}

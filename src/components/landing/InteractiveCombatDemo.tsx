@@ -22,11 +22,11 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
       const newSerenity = Math.max(10, serenityLevel - 20);
       setWaswasLevel(newWaswas);
       setSerenityLevel(newSerenity);
-      setFeedback("🌫️ " + t.combatDemo.action4Desc);
+      setFeedback("🌫️ " + t.combatDemo.optionADesc + " ➔ (" + t.combatDemo.optionAEffect + ")");
       setIsVictorious(false);
     } else if (type === 'anger') {
       setWaswasLevel(Math.min(90, waswasLevel + 10));
-      setFeedback("⚡ " + t.combatDemo.shadowWhisper);
+      setFeedback("⚡ " + t.combatDemo.optionBDesc + " ➔ (" + t.combatDemo.optionBEffect + ")");
       setIsVictorious(false);
     } else if (type === 'wisdom') {
       setWaswasLevel(0);
@@ -56,7 +56,7 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center space-y-3 mb-12">
+        <div className="text-center space-y-3 mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-500/40 text-purple-300 text-xs font-semibold">
             <ShieldAlert className="w-3.5 h-3.5" />
             {t.combatDemo.badge}
@@ -66,6 +66,15 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
           </h2>
           <p className="text-sm sm:text-base text-stone-300 max-w-2xl mx-auto font-sans">
             {t.combatDemo.subtitle}
+          </p>
+        </div>
+
+        {/* Educational Callout: Definition of Waswâs */}
+        <div className="max-w-2xl mx-auto mb-8 p-4 rounded-xl bg-[#1c1428]/90 border border-purple-500/35 text-xs sm:text-sm text-[#ede2cf] flex items-start gap-3 shadow-lg">
+          <ShieldAlert className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
+          <p className="leading-relaxed font-sans">
+            <strong className="text-purple-200 font-cinzel tracking-wide">Qu'est-ce que le Waswâs ? </strong>
+            {t.combatDemo.waswasDefinition}
           </p>
         </div>
 
@@ -263,7 +272,7 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
               </div>
             ) : (
               /* Victory Card Banner */
-              <div className="p-6 rounded-xl bg-gradient-to-r from-emerald-950/70 via-[#192420] to-amber-950/50 border-2 border-emerald-400/60 text-center space-y-4">
+              <div className="victory-banner p-6 rounded-xl bg-gradient-to-r from-emerald-950/70 via-[#192420] to-amber-950/50 border-2 border-emerald-400/60 text-center space-y-4">
                 <div className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-400/60 mx-auto flex items-center justify-center text-emerald-300">
                   <CheckCircle className="w-6 h-6" />
                 </div>

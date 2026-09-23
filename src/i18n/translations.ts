@@ -21,6 +21,9 @@ export interface Translations {
     badge: string;
     titleLine1: string;
     titleLine2: string;
+    heroSubtitleDirect: string;
+    combatQuizPillTitle: string;
+    combatQuizPillDesc: string;
     description: string;
     ctaPlay: string;
     ctaSubtext: string;
@@ -42,6 +45,7 @@ export interface Translations {
     stat3Label: string;
     stat3Value: string;
     downloadApk: string;
+    apkNote: string;
     frictionFree: string;
     frictionDevice: string;
     frictionBackup: string;
@@ -87,6 +91,8 @@ export interface Translations {
     testNotice: string;
     testButton: string;
     apkButton: string;
+    readMore: string;
+    readLess: string;
   };
   gameplayVideo: {
     badge: string;
@@ -110,6 +116,7 @@ export interface Translations {
     badge: string;
     title: string;
     subtitle: string;
+    waswasDefinition: string;
     scene: string;
     challenge: string;
     reset: string;
@@ -325,17 +332,44 @@ export interface Translations {
     title: string;
     subTagline: string;
     subtitle: string;
-    items: Array<{
-      id: string;
-      name: string;
-      role: string;
-      badge: string;
-      content: string;
-      rating: number;
-    }>;
+    step1Badge: string;
+    step1Title: string;
+    step1Desc: string;
+    step2Badge: string;
+    step2Title: string;
+    step2Desc: string;
+    step3Badge: string;
+    step3Title: string;
+    step3Desc: string;
+    ctaForm: string;
+    ctaWhatsapp: string;
     guaranteeTitle: string;
     guaranteeDesc: string;
     pegi: string;
+  };
+  familySection: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    quizBadge: string;
+    quizTitle: string;
+    quizDesc: string;
+    ageBadge: string;
+    ageTitle: string;
+    ageDesc: string;
+    parentsBadge: string;
+    parentsTitle: string;
+    parentsDesc: string;
+    ethicsBadge: string;
+    ethicsTitle: string;
+    ethicsDesc: string;
+    sourcesBadge: string;
+    sourcesTitle: string;
+    sourcesDesc: string;
+    devicesBadge: string;
+    devicesTitle: string;
+    devicesDesc: string;
+    cardCta: string;
   };
   faq: {
     badge: string;
@@ -402,6 +436,7 @@ export interface Translations {
     backToTop: string;
   };
   mobileSticky: {
+    title: string;
     subtitle: string;
     freeText: string;
     cta: string;
@@ -427,30 +462,34 @@ export const translations: Record<Language, Translations> = {
       motDuConcepteur: 'Mot du Concepteur'
     },
     hero: {
-      badge: 'Jeu de Rôle Pixel Art 16-Bit & Valeurs Éthiques',
-      titleLine1: "L'Épopée du Cœur",
-      titleLine2: 'de la Solitude à la Fraternité',
-      description: "Accompagnez Othmân dans un voyage initiatique captivant. Affrontez les doutes intérieurs (Waswâs), relevez des défis de sagesse et accomplissez des actions réelles de bienveillance pour faire grandir votre foi.",
-      ctaPlay: 'Tester le Jeu Gratuitement (1 Clic)',
-      ctaSubtext: '100% Gratuit • Sans inscription • Immédiat dans le navigateur',
-      trustRating: '⭐ 4.9/5 • Plus de 1 200 joueurs & familles',
-      studioVoicesBadge: '🎙️ Voix Cinéma Studio Françaises & Pixel Art 16-Bit',
+      badge: "L'Alliance du Jeu Vidéo RPG & de l'Éducation Islamique",
+      titleLine1: 'NOUR — Le RPG Narratif Islamique',
+      titleLine2: 'qui transforme les choix du quotidien en aventure',
+      heroSubtitleDirect: "L'épopée du cœur — De la solitude à la fraternité",
+      combatQuizPillTitle: "⚔️ Ni épée, ni magie destructrice :",
+      combatQuizPillDesc: "Dans NOUR, les combats se mènent par des Quiz de Sagesse et de Foi. Chaque duel contre le Waswâs (le doute) se gagne par le savoir et le discernement moral !",
+      description: "Le RPG narratif en pixel art qui réconcilie plaisir du jeu vidéo et apprentissage islamique bienveillant. Au lieu de combats violents, vos enfants et vous progressez grâce à des Quiz de sagesse, affrontez le Waswâs et gagnez de l'XP éthique.",
+      ctaPlay: 'Jouer gratuitement dans le navigateur',
+      ctaSubtext: 'Aucune installation • Mobile & PC • Sans inscription',
+      trustRating: '🧪 Bêta Ouverte Collaborative • Chapitre 1 Gratuit en 1 Clic',
+      studioVoicesBadge: '🎙️ Voix en français & Pixel Art',
       adFreeBadge: '100% Sans Pub • Éthique',
-      ctaDemo: 'Tester le Combat Mental',
-      ctaVideo: 'Voir le Gameplay',
-      feature1Title: 'Choix & Conséquences',
-      feature1Desc: 'Des dialogues profondes et des embranchements qui forgent le caractère.',
-      feature2Title: 'Défis dans la Vraie Vie',
-      feature2Desc: 'Des missions quotidiennes concrètes à accomplir hors écran.',
-      feature3Title: 'Sources Authentiques',
-      feature3Desc: 'Inspiré des enseignements prophétiques, du Hilm et du Sabr.',
+      ctaDemo: 'Tester un Combat Quiz (Waswâs)',
+      ctaVideo: 'Découvrir le Gameplay (32s)',
+      feature1Title: 'Combats par Quiz de Sagesse',
+      feature1Desc: 'Remportez les duels contre le Waswâs grâce à des quiz de savoir et de discernement moral (sans armes ni magie).',
+      feature2Title: "Quiz Islamiques & Gain d'XP",
+      feature2Desc: 'Des quiz stimulants sur le Tawhīd, le comportement (Adab) et les hadiths pour faire évoluer votre personnage.',
+      feature3Title: 'Choix Moraux & Hadiths Sûrs',
+      feature3Desc: 'Des dilemmes éthiques à embranchements rigoureusement inspirés du Coran et de la Sunnah.',
       stat1Label: 'Chapitre 1 Gratuit',
       stat1Value: '100%',
       stat2Label: 'Saga Initiatique',
       stat2Value: '5 Chapitres',
       stat3Label: 'Univers Visuel',
       stat3Value: '16-Bit Pixel Art',
-      downloadApk: "Télécharger l'APK (Drive)",
+      downloadApk: "Télécharger l'APK Android (Bêta)",
+      apkNote: '📱 Également disponible : Version Android en bêta (APK autonome)',
       frictionFree: '100% Gratuit & Sans Inscription',
       frictionDevice: 'Tourne directement sur Mobile & PC',
       frictionBackup: 'Sauvegarde automatique',
@@ -463,10 +502,10 @@ export const translations: Record<Language, Translations> = {
       othmanQuote: '« Le chemin commence... »',
       waswasTitle: 'Le Waswâs',
       waswasRole: "L'Ombre intérieure",
-      featWaswasTitle: 'Combat contre le Waswâs',
-      featWaswasDesc: 'Un système de jauge psychologique innovant où vous terrassez les murmures du doute et de la honte par la lucidité et la sérénité.',
-      featBridgesTitle: 'Les « Ponts de Nour »',
-      featBridgesDesc: "Le jeu brise l'écran : gagnez des points de cœur en accomplissant de réelles actions quotidiennes (ordonner son lit, sourire, écouter).",
+      featWaswasTitle: 'Combats par Quiz contre le Waswâs',
+      featWaswasDesc: "Au lieu d'armes ou de sorts destructeurs, chaque confrontation est un duel de connaissances et de sagesse où vous dissipez le doute par des réponses éclairées.",
+      featBridgesTitle: "Quiz d'Apprentissage & XP",
+      featBridgesDesc: "Validez vos connaissances et accumulez de l'XP à travers des quiz éducatifs sur le Tawhīd, la patience et les nobles caractères, ponctués de petits rappels bienveillants.",
       featCrossroadsTitle: 'Le Carrefour du Village',
       featCrossroadsDesc: 'Un poteau indicateur propose à Othmân 5 directions : rompre la solitude, le Hilm (douceur), le Sabr (patience), le Birr (bonté envers les parents) et le grand Climax.',
       featKnowledgeTitle: 'Le Livre du Savoir',
@@ -495,7 +534,9 @@ export const translations: Record<Language, Translations> = {
       arabicPeace: 'والسلام عليكم ورحمة الله',
       testNotice: 'Testez gratuitement le Chapitre 1 avec vos enfants directement dans votre navigateur',
       testButton: 'Tester le Jeu (1 Clic)',
-      apkButton: 'APK Android'
+      apkButton: 'APK Android',
+      readMore: "Lire la lettre complète d'Abderrahmane 📜",
+      readLess: 'Réduire la lettre ▴'
     },
     gameplayVideo: {
       badge: 'Démonstration en Direct',
@@ -519,6 +560,7 @@ export const translations: Record<Language, Translations> = {
       badge: 'Simulateur Interactif',
       title: 'Le Combat contre le Waswâs',
       subtitle: "Face aux murmures intérieurs qui vous poussent à l'isolement, choisissez l'attitude prophétique pour restaurer la sérénité du cœur.",
+      waswasDefinition: "Le Waswâs désigne les murmures intérieurs du doute, de la timidité paralysante ou du découragement. Dans NOUR, aucun combat n'est violent : la victoire s'obtient par la clarté du cœur, la foi et la sérénité.",
       scene: 'Scène : Le Carrefour des Chemins',
       challenge: 'Épreuve : La peur du rejet',
       reset: 'Réinitialiser',
@@ -542,15 +584,15 @@ export const translations: Record<Language, Translations> = {
       action4Desc: 'Avancer avec dignité sans craindre le regard ou le refus.',
       optionATitle: 'Option A : Céder au doute',
       optionADesc: "« C'est vrai... Je suis trop timide, je ferais mieux de faire demi-tour et de rentrer chez moi. »",
-      optionAEffect: '+25% Doute Waswâs',
+      optionAEffect: '-20 Sérénité • +25 Waswâs',
       optionBTitle: "Option B : S'imposer par la colère",
       optionBDesc: "« Je vais crier et taper du pied pour qu'ils soient bien obligés de me prêter attention ! »",
-      optionBEffect: 'Trouble & instabilité',
+      optionBEffect: '+10 Waswâs (Colère stérile)',
       optionCTitle: 'Option C : Discernement & Foi',
       optionCDesc: "« أَعُوذُ بِاللَّهِ — Je cherche refuge auprès d'Allah. Mon intention est pure : un sourire est une aumône, j'avance en paix. »",
-      optionCEffect: '✨ Dissipe 100% du Waswâs !',
-      victoryTitle: 'Fiche du Livre du Savoir Débloquée !',
-      victoryDesc: "Vous venez d'expérimenter la première mécanique du jeu. Dans le chapitre 1 complet, Othmân rencontre de nombreux villageois et débloque plus de 15 sagesses.",
+      optionCEffect: '✨ +100 Sérénité • Waswâs Dissipé !',
+      victoryTitle: 'Victoire Intérieure ! Sentier Débloqué',
+      victoryDesc: "Othmân respire, formule l'Istiʿādhah et avance avec dignité. Le sentier de la Patience (Sabr) s'ouvre devant lui.",
       replayDemo: 'Réessayer le simulateur',
       footerNote: "Dans NOUR, aucun combat n'utilise la violence physique. La victoire s'obtient par la clarté du cœur, la foi et l'éthique de la parole.",
       victoryPlay: 'Lancer le Chapitre 1 Complet',
@@ -571,13 +613,13 @@ export const translations: Record<Language, Translations> = {
         "Victoires par la présence du cœur et l'action vertueuse"
       ],
       mech2Title: 'Les Ponts de Nour',
-      mech2Desc: 'Des dialogues guidés par la bienveillance pour transformer les conflits en opportunités de réconciliation.',
+      mech2Desc: "Chaque bonne action accomplie dans la vraie vie peut ouvrir un nouveau chemin dans l'aventure. Basé sur l'honneur et la confiance : aucune photo ni donnée privée n'est demandée. Idéal en famille.",
       mech2Badge: 'Actions Hors-Écran',
       mech2Quote: "« As-tu pensé à ordonner ton lit ou ton coin ce matin ? Prends une minute dans le monde réel... le jeu t'attend ici ! »",
       mech2Points: [
-        "Passerelles bienveillantes entre l'histoire virtuelle et le quotidien",
-        'Développement de la responsabilité personnelle dès le réveil',
-        "Valorisation de l'aide désintéressée envers les aînés"
+        "Missions bienveillantes concrètes basées sur l'honneur et la confiance réciproque",
+        '100% respectueux de la vie privée : zéro caméra, zéro donnée collectée',
+        'Idéal pour ouvrir un dialogue complice et constructif parent-enfant'
       ],
       mech3Title: 'Le Poteau aux Chemins',
       mech3Desc: 'Un carrefour central symbolique où chaque embranchement explore une vertu fondamentale.',
@@ -624,10 +666,10 @@ export const translations: Record<Language, Translations> = {
       waswasQuote: "« Tu n'y arriveras jamais... Reste au lit, la montagne est trop haute, personne n'attend après toi... »",
       waswasDesc: "Une brume chuchotante sans forme corporelle, née des doutes, de la fatigue et de la peur du regard d'autrui. Elle ne possède aucun pouvoir réel, si ce n'est d'amplifier les craintes d'Othmân pour le figer dans l'inaction.",
       waswasTraits: ['Murmures toxiques', 'Brume insaisissable', 'Amplificateur de peur', 'Dissipable par la foi'],
-      sageName: 'Le Sage des Sentiers',
+      sageName: 'Le Vieux Sage',
       sageRole: 'Gardien des Savoirs',
       sageQuote: "« Choisis ta direction au carrefour du village, car tout acte de valeur commence par une intention sincère. »",
-      sageDesc: "Le sage bienveillant qui accueille Othmân au carrefour des chemins. Témoin des voyageurs en quête de sens, il transmet au joueur les enseignements du Livre du Savoir pour éclairer sa route.",
+      sageDesc: "Le vénérable sage qui accueille Othmân au carrefour des chemins. Témoin des voyageurs en quête de sens, il transmet au joueur les enseignements du Livre du Savoir pour éclairer sa route.",
       sageTraits: ['Livre du Savoir', 'Mémoire des anciens', "Vision d'ensemble", "Clarté d'esprit"]
     },
     roadmap: {
@@ -681,7 +723,7 @@ export const translations: Record<Language, Translations> = {
           synopsis: "Devant les étals du marché aux fruits, une bousculade injuste renverse les paniers. Othmân sent le sang lui monter aux tempes. Pour progresser, il devra dompter l'embrasement de l'irritation et expérimenter la puissance libératrice du pardon et de la douceur.",
           virtue: 'Al-Hilm (Douceur, Clémence & Sang-froid)',
           location: "Le Marché aux Fruits & L'Atelier du Potier",
-          bgImage: '/game-assets/verger.jpg',
+          bgImage: '/game-assets/marche.jpg',
           highlights: [
             "Système de respiration et désamorçage de l'agressivité",
             'Éviter le piège de la réplique blessante',
@@ -719,7 +761,7 @@ export const translations: Record<Language, Translations> = {
           synopsis: "Après un agacement matinal envers sa mère, Othmân quitte précipitamment la maison. Réfugié sous un grand arbre avec son ami d'enfance, ils observent en silence un oiseau nourrir son nid. Une confidence inattendue et bouleversante va alors bousculer toutes ses certitudes sur ce qu'il croyait ordinaire dans son quotidien.",
           virtue: 'Birr al-Wālidayn (La Piété Filiale & La Gratitude du Cœur)',
           location: "La Maison Familiale & L'Arbre des Confidences",
-          bgImage: '/game-assets/chambre.jpg',
+          bgImage: '/game-assets/teaser_chapitre4.jpg',
           highlights: [
             "Désamorcer les murmures d'irritation et d'impatience",
             'Méditation sous le grand chêne : l’oiseau et la subsistance',
@@ -911,39 +953,48 @@ export const translations: Record<Language, Translations> = {
       col3Cta: 'Découvrir la Roadmap Complète'
     },
     testimonials: {
-      badge: "L'Écho de la Communauté",
-      title: 'Adopté par les Familles & Joueurs',
-      subTagline: '✧ Témoignages Authentiques • Note Moyenne 4.9/5 ✧',
-      subtitle: 'Découvrez pourquoi parents, éducateurs et rôlistes saluent la bienveillance et la fraîcheur novatrice de l’aventure NOUR.',
-      items: [
-        {
-          id: '1',
-          name: 'Yassine B.',
-          role: 'Père de famille & Gamer',
-          badge: 'Joueur du Chapitre 1',
-          content: "Enfin un RPG avec une âme ! Mes deux garçons de 9 et 12 ans ont adoré Othmân. Ce qui m'a bluffé, c'est le 'Pont de Nour' : après la scène, mon fils s'est levé spontanément pour ranger son lit ! C'est du jeu vidéo noble et intelligent.",
-          rating: 5
-        },
-        {
-          id: '2',
-          name: 'Amina L.',
-          role: 'Enseignante & Passionnée de récits interactifs',
-          badge: 'Critique Jeu Narratif',
-          content: "La mécanique du combat contre le Waswâs est une trouvaille de game design brillante. Au lieu de taper sur des gobelins avec une hache, on apprend à identifier ses pensées automatiques négatives et à les désamorcer par la sérénité.",
-          rating: 5
-        },
-        {
-          id: '3',
-          name: 'Sofiane M.',
-          role: 'Développeur Indie & Rôliste',
-          badge: 'Testeur Bêta',
-          content: "L'ambiance sonore, les dialogues ciselés et le pixel art oriental apportent une fraîcheur immense dans le paysage du RPG. Une expérience accessible immédiatement dans le navigateur sans rien installer.",
-          rating: 5
-        }
-      ],
-      guaranteeTitle: 'Garantie Sans Violence • 100% Éthique & Bienveillant',
-      guaranteeDesc: 'Une expérience saine, sans micro-transactions, sans pop-ups publicitaires, respectueuse de votre attention.',
-      pegi: 'PEGI 3+ / Tout Public'
+      badge: '🧪 Bêta Ouverte Collaborative',
+      title: "Façonnons l'Aventure NOUR Ensemble",
+      subTagline: '✧ Pas de Faux Avis • Votre Ressenti Sincère Façonne le Jeu ✧',
+      subtitle: "NOUR est une œuvre indépendante en plein essor. Le Chapitre 1 est 100% gratuit et sans inscription : nous avons besoin de vos critiques franches, de vos ressentis de joueurs et de parents pour perfectionner l'expérience.",
+      step1Badge: 'Étape 1',
+      step1Title: 'Jouez au Chapitre 1 (Gratuit)',
+      step1Desc: "Lancez le jeu en 1 clic dans votre navigateur. Explorez les dialogues doublés en voix de cinéma, testez les combats par quiz et vivez l'histoire d'Othmân sans rien installer.",
+      step2Badge: 'Étape 2',
+      step2Title: 'Donnez votre Avis Sans Filtre',
+      step2Desc: "Qu'avez-vous aimé ? Vos enfants ont-ils accroché ? Y a-t-il des blocages ou des passages trop lents ? Partagez vos impressions en 2 minutes via notre questionnaire ou sur WhatsApp.",
+      step3Badge: 'Étape 3',
+      step3Title: 'Contribuez aux Prochains Chapitres',
+      step3Desc: "Vos idées d'énigmes, retours d'Adab et remarques constructives guideront le développement des Chapitres 2 à 5. Les meilleurs testeurs seront crédités dans le jeu !",
+      ctaForm: 'Remplir le questionnaire de retour (2 min) ✍️',
+      ctaWhatsapp: 'Envoyer un retour direct sur WhatsApp 💬',
+      guaranteeTitle: 'Démarche 100% Transparente & Éthique',
+      guaranteeDesc: "Ici, aucun avis préfabriqué. Nous croyons en la sincérité, au travail bien fait et à l'entraide communautaire pour bâtir un jeu d'exception.",
+      pegi: 'Projet Collaboratif Bêta'
+    },
+    familySection: {
+      badge: 'Conçu pour les Familles & la Sérénité',
+      title: 'Pour qui est pensé NOUR ?',
+      subtitle: "La solution idéale pour les parents : réconcilier l'attrait irrésistible des jeux vidéo avec un apprentissage islamique authentique, ludique et bienveillant.",
+      quizBadge: 'Jeu & Savoir',
+      quizTitle: "L'Alliance du Jeu Vidéo & de l'Éducation Islamique",
+      quizDesc: "Fini les cours théoriques austères ou les écrans passifs : vos enfants testent et enrichissent leurs connaissances (Tawhīd, Adab, Hadiths) à travers des quiz interactifs stimulants intégrés au cœur de l'aventure RPG.",
+      ageBadge: 'Dès 8 ans',
+      ageTitle: 'Enfants, Ados & Parents',
+      ageDesc: 'Conçu pour captiver les enfants dès l’âge de 8 ans tout en offrant aux adolescents et parents une aventure réflexive profonde.',
+      parentsBadge: 'Transmission',
+      parentsTitle: 'Accompagnement Parental Facile',
+      parentsDesc: 'Idéal pour créer un moment de complicité et de discussion bienveillante en famille autour des situations du quotidien.',
+      ethicsBadge: '100% Éthique',
+      ethicsTitle: 'Zéro Pub & Respect Absolu de la Vie Privée',
+      ethicsDesc: 'Aucune publicité intrusive, aucune inscription obligatoire. Les défis réels reposent sur l’honneur : aucune caméra, photo ni donnée privée n’est demandée.',
+      sourcesBadge: 'Authenticité',
+      sourcesTitle: 'Sources Religieuses Rigoureuses',
+      sourcesDesc: 'Inspiré des enseignements authentiques du Noble Coran et des Hadiths (Bukhâri & Muslim), axé sur l’Adab, le Hilm et la fraternité.',
+      devicesBadge: 'Accessible Partout',
+      devicesTitle: '1 Clic sur Téléphone, Tablette & PC',
+      devicesDesc: 'Tourne instantanément dans votre navigateur web (Safari iPhone, Chrome Android, ordinateurs) sans téléchargement préalable obligatoire.',
+      cardCta: 'Tester en famille dès maintenant'
     },
     faq: {
       badge: 'Questions Fréquentes',
@@ -951,24 +1002,36 @@ export const translations: Record<Language, Translations> = {
       subtitle: 'Des réponses claires à vos questions sur l’accessibilité, les tarifs et les plateformes.',
       items: [
         {
-          q: 'Sur quels appareils peut-on jouer à NOUR ?',
-          a: "NOUR fonctionne de manière fluide et instantanée sur tous les navigateurs modernes (smartphones iOS & Android, tablettes et PC sans aucune installation). Pour les utilisateurs Android souhaitant une expérience application dédiée, un fichier APK officiel est également disponible au téléchargement direct."
+          q: 'Le jeu est-il gratuit ? Faut-il payer pour jouer ?',
+          a: "Le Chapitre 1 complet (« Vaincre la Solitude ») est 100% gratuit et sans engagement. Vous pouvez y jouer immédiatement sans carte bancaire. Pour débloquer les chapitres suivants et soutenir le studio indépendant (enregistrements studio des comédiens de doublage et graphismes pixel art), un Pack Fondateur optionnel à prix modique est proposé."
         },
         {
-          q: 'Le jeu est-il gratuit ? Quels sont les tarifs des chapitres ?',
-          a: "Le Chapitre 1 complet (« Vaincre la Solitude ») est 100% gratuit et accessible immédiatement à tous, sans publicité intrusive ni inscription requise. Pour débloquer la suite de l'aventure (Chapitres 2 et 3) et financer les enregistrements de voix studio et les décors, nous proposons une Offre de Lancement exclusive (Pack Fondateur à 4,99 € au lieu de 7,99 €) ainsi qu'un soutien libre (1,99 € — Thé de l'Artisan). Il s'agit d'un accès définitif et à vie, sans abonnement récurrent."
+          q: 'Faut-il créer un compte ou installer une application ?',
+          a: "Non, aucune inscription ni mot de passe n'est exigé ! Le jeu se lance en 1 clic directement dans votre navigateur web habituel (sur mobile comme sur ordinateur). Votre progression est sauvegardée automatiquement sur votre appareil."
         },
         {
-          q: 'À quelle tranche d’âge NOUR s’adresse-t-il ?',
-          a: "Le jeu s'adresse aussi bien aux enfants dès 7-8 ans qu'aux adolescents et adultes. Les thématiques abordées (surmonter la solitude, gérer sa colère par la douceur, fortifier sa confiance en Dieu, honorer ses parents avec reconnaissance) résonnent avec profondeur à tout âge de la vie."
+          q: 'Sur quels appareils fonctionne NOUR ?',
+          a: "NOUR est compatible avec tous les smartphones (iPhone via Safari, Android via Chrome), tablettes (iPad, tablettes Android) et ordinateurs (PC Windows, Mac, Linux). Une version application Android (fichier APK autonome) est également mise à disposition pour jouer hors-ligne."
         },
         {
-          q: "Que sont les 'Ponts de Nour' ?",
-          a: "Ce sont des quêtes novatrices qui dépassent l'écran : à certains moments clés, le jeu invite avec bienveillance le joueur à poser un acte réel dans son quotidien (ranger son espace, remercier un parent, sourire à un proche) pour ancrer les valeurs du récit dans la vraie vie."
+          q: 'Y a-t-il des publicités ou des pièges pour les enfants ?',
+          a: "Absolument aucune. Le jeu est garanti 100% sans publicité, sans bannières distrayantes, sans pop-up et sans micro-transactions pièges. C'est un espace de jeu éthique, sain et protecteur pour l'attention des jeunes joueurs."
         },
         {
-          q: 'Quand sortiront les prochains chapitres (Chapitres 2, 3, 4 et 5) ?',
-          a: "Les Chapitres 2 (« Le Chemin du Hilm ») et 3 (« L'Enfant à l'Attelle — Sabr ») sont en cours de finalisation et débloquables via le Pack Fondateur. Le Chapitre 4 (« Ce que tu as encore » — Birr al-Wālidayn) est actuellement en phase active de scénarisation. Vous pouvez suivre l'avancée de chaque étape en direct dans la section interactive « Le Carrefour des Sentiers » de cette page d'accueil."
+          q: 'À partir de quel âge le jeu est-il recommandé ?',
+          a: "NOUR est particulièrement recommandé à partir de 8 ans (lecture autonome ou accompagnée). Les parents peuvent parfaitement jouer côte à côte avec leurs enfants pour échanger sur les choix moraux et spirituels d'Othmân."
+        },
+        {
+          q: 'Comment fonctionnent les « Ponts de Nour » (défis dans la vraie vie) ?',
+          a: "À certains moments clés, le jeu invite avec délicatesse le joueur à poser un acte réel dans son foyer (ranger sa chambre, exprimer sa gratitude à ses parents, sourire). Ce système fonctionne à 100% sur l'honneur et la confiance personnelle : aucune photo, vidéo ni géolocalisation n'est demandée."
+        },
+        {
+          q: 'Quelles sont les sources religieuses utilisées ?',
+          a: "Tous les récits, rappels et quiz s'appuient scrupuleusement sur le Noble Coran et les recueils de Hadiths prophétiques authentiques (Sahîh al-Bukhâri et Sahîh Muslim). Les références précises sont consultables dans le Livre du Savoir du jeu."
+        },
+        {
+          q: 'Existe-t-il une version Android installable ?',
+          a: "Oui, un fichier APK officiel est disponible en téléchargement direct et sécurisé pour les utilisateurs Android qui souhaitent installer l'icône sur leur écran d'accueil et profiter d'un confort hors-ligne optimal."
         }
       ]
     },
@@ -1031,9 +1094,10 @@ export const translations: Record<Language, Translations> = {
       backToTop: 'Haut de page'
     },
     mobileSticky: {
-      subtitle: 'NOUR : RPG Islamique',
+      title: 'NOUR : Le RPG Islamique',
+      subtitle: '100% Gratuit • Sans Inscription',
       freeText: '100% Gratuit • Sans Inscription',
-      cta: 'Tester (1 Clic)'
+      cta: 'Jouer (1 Clic)'
     }
   },
   en: {
@@ -1054,30 +1118,34 @@ export const translations: Record<Language, Translations> = {
       motDuConcepteur: 'A Word from the Designer'
     },
     hero: {
-      badge: '16-Bit Pixel Art RPG & Ethical Wisdom',
-      titleLine1: 'The Epic of the Heart',
-      titleLine2: 'From Solitude to Fraternity',
-      description: 'Join Othmân on a captivating journey of self-discovery. Confront inner doubts (Waswâs), overcome challenges of wisdom, and perform real acts of kindness to strengthen your faith.',
-      ctaPlay: 'Try the game for free (1 click)',
-      ctaSubtext: '100% Free & No Registration Required • Runs directly on Mobile & PC',
-      trustRating: '⭐ 4.9/5 • Over 1,200 players & families',
-      studioVoicesBadge: '🎙️ French Studio Cinema Voices & 16-Bit Pixel Art',
+      badge: 'The Alliance of 16-Bit RPG Gaming & Islamic Education',
+      titleLine1: 'NOUR — The Narrative Islamic RPG',
+      titleLine2: 'Transforming everyday choices into an adventure',
+      heroSubtitleDirect: 'The Epic of the Heart — From Solitude to Fraternity',
+      combatQuizPillTitle: '⚔️ No swords, no destructive magic:',
+      combatQuizPillDesc: 'In NOUR, battles are fought with Wisdom Quizzes. Defeat inner doubts (Waswâs) through knowledge, faith, and ethical discernment!',
+      description: 'The pixel-art narrative RPG reconciling video game fun with thoughtful Islamic learning. Instead of violent combat, progress through Wisdom Quizzes, conquer inner doubts (Waswâs), and earn ethical XP.',
+      ctaPlay: 'Play Free in Browser',
+      ctaSubtext: 'Zero installation • Mobile & PC • No signup required',
+      trustRating: '🧪 Collaborative Open Beta • Free Chapter 1 in 1 Click',
+      studioVoicesBadge: '🎙️ French Voices & Pixel Art',
       adFreeBadge: '100% Ad-Free • Ethical',
-      ctaDemo: 'Testing Mental Combat',
-      ctaVideo: 'Watch the Gameplay',
-      feature1Title: 'Choices & Consequences',
-      feature1Desc: 'Rich narrative branching dialogues that forge inner character.',
-      feature2Title: 'Real-Life Challenges',
-      feature2Desc: 'Practical daily kindness missions to complete offline.',
-      feature3Title: 'Authentic Sources',
-      feature3Desc: 'Rooted in prophetic wisdom, forbearance (Hilm), and patience (Sabr).',
+      ctaDemo: 'Test a Quiz Combat (Waswâs)',
+      ctaVideo: 'Watch Gameplay (32s)',
+      feature1Title: 'Battles via Wisdom Quizzes',
+      feature1Desc: 'Win duels against Waswâs with knowledge and moral discernment instead of weapons or destructive magic.',
+      feature2Title: 'Islamic Quizzes & XP Rewards',
+      feature2Desc: 'Engaging interactive quizzes on Tawheed, prophetic ethics (Adab), and hadiths to level up your character.',
+      feature3Title: 'Moral Choices & Authentic Sources',
+      feature3Desc: 'Narrative branching dilemmas strictly grounded in the Quran and authentic Sunnah.',
       stat1Label: 'Free Chapter 1',
       stat1Value: '100%',
       stat2Label: '5 Chapters',
       stat2Value: '5 Chapters',
       stat3Label: '16-Bit',
       stat3Value: '16-Bit Pixel Art',
-      downloadApk: 'Download the APK (Drive)',
+      downloadApk: 'Download Android APK (Beta)',
+      apkNote: '📱 Also available: Android Beta App (standalone APK)',
       frictionFree: '100% Free & No Registration Required',
       frictionDevice: 'Runs directly on Mobile & PC',
       frictionBackup: 'Automatic backup',
@@ -1090,10 +1158,10 @@ export const translations: Record<Language, Translations> = {
       othmanQuote: '"The journey begins..."',
       waswasTitle: 'Le Waswâs',
       waswasRole: 'The Inner Shadow',
-      featWaswasTitle: 'Combat against Waswas',
-      featWaswasDesc: 'An innovative psychological gauge system where you overcome the whispers of doubt and shame with lucidity and serenity.',
-      featBridgesTitle: 'The "Bridges of Nour"',
-      featBridgesDesc: 'The game breaks the screen: earn heart points by performing real everyday actions (tidying your bed, smiling, listening).',
+      featWaswasTitle: 'Quiz Battles against Waswâs',
+      featWaswasDesc: 'Instead of weapons or destructive spells, each confrontation is a duel of knowledge and wisdom where you dispel doubt with enlightened answers.',
+      featBridgesTitle: 'Knowledge Quizzes & XP Progression',
+      featBridgesDesc: 'Validate your understanding and gain XP through educational quizzes on Tawheed, patience, and noble manners, accompanied by gentle ethical reminders.',
       featCrossroadsTitle: 'The Village Crossroads',
       featCrossroadsDesc: 'A signpost offers Othmân 5 directions: breaking the solitude, Hilm (gentleness), Sabr (patience), Birr (kindness towards parents) and the great Climax.',
       featKnowledgeTitle: 'The Book of Knowledge',
@@ -1114,15 +1182,17 @@ export const translations: Record<Language, Translations> = {
       calloutHeader: 'What sets NOUR apart from all other games',
       calloutQuote: '"Here, there is no magic or destructive sword fights, but a much nobler and more essential struggle: the inner battle against one\'s own waswas (whispers and doubts), to bring about serenity and kindness."',
       p4: 'In a sun-drenched Eastern land, we follow young Othman and his mother, Noura . Each encounter becomes an opportunity for Othman to learn about his religion and about himself. Through four main chapters , he discovers Tawhid (Divine Unity), the danger of Shirk (associating partners with God), the strength of Sabr (patience), Shukr (gratitude), ʿIlm (beneficial knowledge), and many other fundamental virtues.',
-      p5: 'All of this is presented in the light of the Holy Quran and the authentic hadiths of our beloved Prophet ﷺ and our pious predecessors. As I am neither a student of religious sciences nor a scholar, I keep in mind the words of our scholars: transmitting knowledge with evidence, even humbly, is essential . This is why every statement and every quiz clearly cites its authentic source .',
-      p6: 'The game is currently in Beta , so please be lenient! If you notice any mistakes, typos, or awkward phrasing, I will be immensely grateful to make the necessary corrections. A Muslim is a brother and a mirror to his brother, and it is in this spirit of mutual support that NOUR was created.',
-      dua: '"May Allah make this project a cause of goodness for our children, and may He count it as a good deed on our scales on the Day of Judgment. Amen."',
-      signoff: 'Have a good journey on the Path of Wisdom!',
+      p5: 'All this in the light of the Holy Quran and the authentic hadiths of our beloved Prophet ﷺ and our pious predecessors. Being neither a student of religious sciences nor a scholar, I keep in mind the words of our scholars: transmitting knowledge with evidence, even humbly, is essential. This is why each word and each quiz mentions precisely the authentic source from which it is taken.',
+      p6: 'The game is currently in Beta version, so please be forgiving! If you notice the slightest mistake, translation typo, or clumsiness, I will be immensely grateful to make the necessary corrections. A Muslim is the brother and the mirror of his brother, and it is in this spirit of mutual support that NOUR was shaped.',
+      dua: '"May Allah make this project a source of good for our children, and may He count it as a good deed on our scales on the Day of Judgment. Āmīn."',
+      signoff: 'Have a great journey on the Path of Wisdom!',
       designerTitle: 'Abderrahmane El Malki — Designer of NOUR',
-      arabicPeace: "Peace and God's mercy be upon you",
+      arabicPeace: 'والسلام عليكم ورحمة الله',
       testNotice: 'Try Chapter 1 for free with your children directly in your browser',
-      testButton: 'Test the Game (1 Click)',
-      apkButton: 'APK Android'
+      testButton: 'Try the game (1 Click)',
+      apkButton: 'APK Android',
+      readMore: "Read Abderrahmane's full letter 📜",
+      readLess: 'Show less ▴'
     },
     gameplayVideo: {
       badge: 'Live Demonstration',
@@ -1146,6 +1216,7 @@ export const translations: Record<Language, Translations> = {
       badge: 'Interactive Simulator',
       title: 'The Fight Against Waswas',
       subtitle: 'Faced with inner whispers that push you towards isolation, choose the prophetic attitude to restore serenity of heart.',
+      waswasDefinition: 'Waswâs represents inner whispers of doubt, social anxiety, or hesitation. In NOUR, battles are never physical: victory is earned through mindfulness, faith, and peaceful resolve.',
       scene: 'Scene: The Crossroads',
       challenge: 'Challenge: The fear of rejection',
       reset: 'Reset',
@@ -1169,15 +1240,15 @@ export const translations: Record<Language, Translations> = {
       action4Desc: 'Step forward with dignity without fearing rejection or prejudice.',
       optionATitle: 'Option A: Give in to doubt',
       optionADesc: '"That\'s true... I\'m too shy, I\'d better turn around and go home."',
-      optionAEffect: '+25% Doubt Waswâs',
+      optionAEffect: '-20 Serenity • +25 Waswâs',
       optionBTitle: 'Option B: Assert oneself through anger',
       optionBDesc: '"I\'m going to shout and stomp my feet so they\'ll have to pay attention to me!"',
-      optionBEffect: 'Trouble & instability',
+      optionBEffect: '+10 Waswâs (Fruitless Anger)',
       optionCTitle: 'Option C: Discernment & Faith',
       optionCDesc: '“I seek refuge in Allah. My intention is pure: a smile is charity, I move forward in peace.”',
-      optionCEffect: '✨ Dispels 100% of Waswas!',
-      victoryTitle: 'Light Restored!',
-      victoryDesc: "The fog has cleared. Othman’s heart shines with serene confidence and hope.",
+      optionCEffect: '✨ +100 Serenity • Waswâs Cleared!',
+      victoryTitle: 'Inner Victory! New Path Unlocked',
+      victoryDesc: 'Othmân breathes deeply, recites Istiʿādhah, and steps forward with dignity. The Path of Patience (Sabr) is unlocked.',
       replayDemo: 'Try the simulator again',
       footerNote: 'In NOUR, no battle uses physical violence. Victory is achieved through clarity of heart, faith, and ethical word.',
       victoryPlay: 'Launch Complete Chapter 1',
@@ -1198,13 +1269,13 @@ export const translations: Record<Language, Translations> = {
         'Victories through heartfelt presence and virtuous action'
       ],
       mech2Title: 'The Bridges of Nour',
-      mech2Desc: 'Dialogues guided by goodwill to transform conflicts into opportunities for reconciliation.',
+      mech2Desc: 'Every good deed accomplished in real life opens a new path in the adventure. Honor and trust-based: no photos or private data requested. Ideal for families.',
       mech2Badge: 'Off-Screen Actions',
       mech2Quote: '"Did you think about tidying your bed or your corner this morning? Take a minute in the real world... the game is waiting for you here!"',
       mech2Points: [
-        'Kind bridges between virtual history and everyday life',
-        'Developing personal responsibility from the moment one wakes up',
-        'Promoting selfless assistance to seniors'
+        'Meaningful offline kindness missions based on personal integrity and trust',
+        '100% privacy-friendly: no cameras, no personal data tracked',
+        'Ideal for inspiring positive family conversations between parents and children'
       ],
       mech3Title: 'The Post at the Paths',
       mech3Desc: 'A symbolic central crossroads where each branch explores a fundamental virtue.',
@@ -1251,10 +1322,10 @@ export const translations: Record<Language, Translations> = {
       waswasQuote: '"You will never succeed... Stay in bed, the mountain is too high, no one is waiting for you..."',
       waswasDesc: 'A whispering mist without physical form, born of doubt, fatigue, and the fear of judgment. It has no real power other than magnifying Othmân\'s fears to freeze him in inaction.',
       waswasTraits: ['Toxic whispers', 'Elusive mist', 'Fear amplifier', 'Dispelled by faith'],
-      sageName: 'The Sage of the Paths',
+      sageName: 'The Old Sage',
       sageRole: 'Guardian of Knowledge',
       sageQuote: '"Choose your direction at the village crossroads, for every valuable deed begins with a sincere intention."',
-      sageDesc: 'The benevolent elder who welcomes Othmân at the crossroads. Witness to travelers seeking purpose, he imparts the teachings of the Book of Knowledge to illuminate their path.',
+      sageDesc: 'The venerable elder who welcomes Othmân at the crossroads. Witness to travelers seeking purpose, he imparts the teachings of the Book of Knowledge to illuminate their path.',
       sageTraits: ["Book of Knowledge", "Elders' memory", 'Big picture vision', 'Clarity of mind']
     },
     roadmap: {
@@ -1308,7 +1379,7 @@ export const translations: Record<Language, Translations> = {
           synopsis: 'In front of the fruit market stalls, an unfair shove knocks over the baskets. Othmân feels the blood rushing to his temples. To progress, he will have to tame the flare of irritation and experience the liberating power of forgiveness and gentleness.',
           virtue: 'Al-Hilm (Gentleness, Clemency & Composure)',
           location: 'The Fruit Market & Pottery Workshop',
-          bgImage: '/game-assets/verger.jpg',
+          bgImage: '/game-assets/marche.jpg',
           highlights: [
             'Breathing system and defusing aggression',
             'Avoiding the trap of hurtful replies',
@@ -1346,7 +1417,7 @@ export const translations: Record<Language, Translations> = {
           synopsis: 'After a morning outburst of irritation with his mother, Othman rushes out of the house. Taking refuge under a large tree with his childhood friend, they silently watch a bird feeding its nest. An unexpected and profound revelation will shake his perspective on what he thought was ordinary.',
           virtue: 'Birr al-Wālidayn (Kindness Towards Parents & Gratitude)',
           location: 'The Family Home & Tree of Confidences',
-          bgImage: '/game-assets/chambre.jpg',
+          bgImage: '/game-assets/teaser_chapitre4.jpg',
           highlights: [
             'Defusing whispers of irritation and impatience',
             'Meditation under the great oak: the bird and sustenance',
@@ -1538,39 +1609,48 @@ export const translations: Record<Language, Translations> = {
       col3Cta: 'Discover the Complete Roadmap'
     },
     testimonials: {
-      badge: 'The Echo of the Community',
-      title: 'Adopted by Families & Gamers',
-      subTagline: '✧ Authentic Testimonials • Average rating 4.9/5 ✧',
-      subtitle: 'Discover why parents, educators and role-players applaud the kindness and innovative freshness of the NOUR adventure.',
-      items: [
-        {
-          id: '1',
-          name: 'Yassine B.',
-          role: 'Family man & Gamer',
-          badge: 'Chapter 1 Player',
-          content: '" Finally, an RPG with soul! My two boys, aged 9 and 12, loved Othman. What blew me away was the \'Bridge of Nour\' scene: after the scene, my son spontaneously got up to make his bed! It\'s noble and intelligent video gaming. "',
-          rating: 5
-        },
-        {
-          id: '2',
-          name: 'Amina L.',
-          role: 'Teacher & Passionate about interactive storytelling',
-          badge: 'Narrative Game Review',
-          content: '" The mechanics of combat against the Waswâs are a brilliant game design innovation. Instead of hitting goblins with an axe, you learn to identify your negative automatic thoughts and defuse them with serenity. "',
-          rating: 5
-        },
-        {
-          id: '3',
-          name: 'Sofiane M.',
-          role: 'Indie Developer & Role-Player',
-          badge: 'Beta Tester',
-          content: '" The sound design, the sharp dialogue, and the oriental pixel art bring immense freshness to the RPG landscape. An experience accessible immediately in the browser without installing anything. "',
-          rating: 5
-        }
-      ],
-      guaranteeTitle: 'Violence-Free Guarantee • 100% Ethical & Caring',
-      guaranteeDesc: 'A healthy experience, without microtransactions, without pop-up ads, respectful of your attention.',
-      pegi: 'PEGI 3+ / Suitable for all audiences'
+      badge: '🧪 Collaborative Open Beta',
+      title: 'Let’s Shape the NOUR Adventure Together',
+      subTagline: '✧ No Fake Reviews • Your Genuine Feedback Shapes the Game ✧',
+      subtitle: 'NOUR is a blooming independent project. Chapter 1 is 100% free and open to everyone: we need your honest feedback, player impressions, and parental insights to craft the best possible experience.',
+      step1Badge: 'Step 1',
+      step1Title: 'Play Chapter 1 (Free)',
+      step1Desc: 'Launch the game in 1 click right in your browser. Experience voice-acted narrative, quiz combats, and Othmân’s quest with zero download required.',
+      step2Badge: 'Step 2',
+      step2Title: 'Share Unfiltered Feedback',
+      step2Desc: 'What did you enjoy? Did your kids connect with the story? Any confusing parts? Share your impressions in 2 minutes via our form or on WhatsApp.',
+      step3Badge: 'Step 3',
+      step3Title: 'Contribute to Future Chapters',
+      step3Desc: 'Your puzzle suggestions, ethical dilemmas, and constructive critique will directly shape Chapters 2 to 5. Top beta contributors will be credited in the game!',
+      ctaForm: 'Fill out Beta Feedback Form (2 min) ✍️',
+      ctaWhatsapp: 'Send Direct Feedback on WhatsApp 💬',
+      guaranteeTitle: '100% Transparent & Ethical Commitment',
+      guaranteeDesc: 'No fabricated reviews here. We believe in authenticity, dedicated craftsmanship, and community collaboration to create something truly exceptional.',
+      pegi: 'Beta Collaborative Project'
+    },
+    familySection: {
+      badge: 'Designed for Families & Serenity',
+      title: 'Who is NOUR designed for?',
+      subtitle: 'The ideal solution for parents: reconciling the irresistible fun of video games with authentic, educational, and benevolent Islamic learning.',
+      quizBadge: 'Gaming & Learning',
+      quizTitle: 'The Bridge Between Gaming & Islamic Education',
+      quizDesc: 'No more boring lectures or passive screen time: children enthusiastically learn Tawheed, prophetic manners (Adab), and hadiths through engaging interactive quizzes embedded in the adventure.',
+      ageBadge: 'Ages 8 and up',
+      ageTitle: 'Kids, Teens & Parents',
+      ageDesc: 'Built to engage children from age 8 while offering teens and parents a reflective and meaningful narrative.',
+      parentsBadge: 'Parental Bond',
+      parentsTitle: 'Encouraging Family Dialogue',
+      parentsDesc: 'An ideal interactive companion to spark positive conversations around emotional intelligence and everyday values.',
+      ethicsBadge: '100% Ethical',
+      ethicsTitle: 'Zero Ads & Absolute Privacy',
+      ethicsDesc: 'No annoying ads, no forced account creation. Real-life challenges are honor-based: no camera, photos or personal data collected.',
+      sourcesBadge: 'Authentic',
+      sourcesTitle: 'Verified Sources & Universal Values',
+      sourcesDesc: "Grounded in the Noble Qur'an and authentic hadiths (Bukhari & Muslim), emphasizing Adab, patience, and kind character.",
+      devicesBadge: 'Universal Access',
+      devicesTitle: '1-Click on Mobile, Tablet & PC',
+      devicesDesc: 'Runs immediately inside your web browser (Safari iOS, Chrome Android, desktop) without any mandatory app download.',
+      cardCta: 'Start playing together for free'
     },
     faq: {
       badge: 'Frequently Asked Questions',
@@ -1578,24 +1658,36 @@ export const translations: Record<Language, Translations> = {
       subtitle: 'Clear answers to your questions about accessibility, pricing and platforms.',
       items: [
         {
-          q: 'On which devices can NOUR be played?',
-          a: 'NOUR works smoothly and instantly on all modern browsers (iOS & Android smartphones, tablets, and PCs without any installation). For Android users who prefer a dedicated app experience, an official APK file is also available for direct download.'
+          q: 'Is the game free? Are there any hidden fees?',
+          a: 'The complete Chapter 1 (« Overcoming Loneliness ») is 100% free with no commitment. You can play right away without entering credit card info. An optional low-cost Founder’s Pack is available for those who wish to support our indie animation studio and french voice actors.'
         },
         {
-          q: 'Is the game free? What are the prices for each chapter?',
-          a: "The complete Chapter 1 (« Overcoming Loneliness ») is 100% free and immediately accessible to everyone, with no intrusive ads or registration required. To unlock the continuation of the adventure (Chapters 2 and 3) and fund studio voice acting and handcrafted artwork, we offer an exclusive Introductory Offer (Founder's Pack at €4.99 instead of €7.99) as well as voluntary support (€1.99 — Artisan's Tea). This provides lifetime permanent access, with no recurring subscriptions."
+          q: 'Do I need to create an account or download an app?',
+          a: 'No, no registration or password is required! The game starts with 1 click directly in your preferred mobile or desktop browser. Progress is saved automatically to your device.'
         },
         {
-          q: 'What age group is NOUR aimed at?',
-          a: 'The game is designed for children from 7-8 years old as well as teenagers and adults. The core themes explored (overcoming loneliness, managing anger through gentleness, fortifying trust in God, honoring parents with gratitude) resonate deeply at every stage of life.'
+          q: 'Which devices does NOUR support?',
+          a: 'NOUR works seamlessly across all smartphones (iPhone via Safari, Android via Chrome), tablets (iPad, Android tablets), and computers (Windows, Mac, Linux). An official standalone Android APK is also available for offline play.'
         },
         {
-          q: "What are the 'Ponts de Nour'?",
-          a: "These are innovative quests that transcend the screen: at key story moments, the game kindly invites the player to perform a real act in their daily life (tidying their room, thanking a parent, smiling at a loved one) to anchor the story's values in the real world."
+          q: 'Are there any ads or predatory micro-transactions?',
+          a: 'None at all. The game is guaranteed 100% ad-free, banner-free, and popup-free. It provides a peaceful, ethical, and wholesome digital environment that respects players’ attention.'
         },
         {
-          q: 'When will the next chapters (Chapters 2, 3, 4 and 5) be released?',
-          a: 'Chapters 2 (« The Hilm Road ») and 3 (« The Child in a Splint — Sabr ») are being finalized and can be unlocked via the Founder\'s Pack. Chapter 4 (« What You Still Have » — Birr al-Wālidayn) is currently in active screenwriting. You can follow the live progress of each step in the interactive « The Village Crossroads » roadmap section on this page.'
+          q: 'What age is recommended and how can parents participate?',
+          a: 'NOUR is recommended from age 8 and up. Parents can easily play alongside their children or discuss Othmân’s choices and real-life deeds together after each session.'
+        },
+        {
+          q: 'How do the "Bridges of Nour" (real-life challenges) work?',
+          a: 'At pivotal narrative points, the game invites the player to accomplish a kind deed in their home (tidying a room, expressing gratitude, smiling). This operates 100% on honor and personal reflection: no photos, videos, or GPS tracking are ever requested.'
+        },
+        {
+          q: 'What religious and ethical sources are used?',
+          a: "All stories, reminders, and quizzes are faithfully based on the Noble Qur'an and authentic prophetic hadith collections (Sahih al-Bukhari and Sahih Muslim). Precise references are viewable in the in-game Book of Knowledge."
+        },
+        {
+          q: 'Is there an installable Android version available?',
+          a: 'Yes, an official APK file is provided for direct and secure download for Android users who prefer having the app icon on their home screen with offline capability.'
         }
       ]
     },
@@ -1658,9 +1750,10 @@ export const translations: Record<Language, Translations> = {
       backToTop: 'Back to Top'
     },
     mobileSticky: {
-      subtitle: 'NOUR: Islamic RPG',
+      title: 'NOUR: The Islamic RPG',
+      subtitle: '100% Free • Instant Play',
       freeText: '100% Free • No Registration Required',
-      cta: 'Try (1 Click)'
+      cta: 'Play (1 Click)'
     }
   },
   ar: {
@@ -1681,30 +1774,34 @@ export const translations: Record<Language, Translations> = {
       motDuConcepteur: 'كلمة المطور'
     },
     hero: {
-      badge: 'لعبة تقمص أدوار بيكسل آرت ١٦ بت وقيم إسلامية نبيلة',
-      titleLine1: 'ملحمة القلـب',
-      titleLine2: 'من العزلة إلى الألفة والأخوة',
-      description: 'عِش مع «عثمان» رحلة روحية ملهمة. واجه وساوس الشك والخوف، وتجاوز التحديات الأخلاقية، وأنجز مهمات طيبة في الحياة الحقيقية لتزكية النفس وبناء الإيمان.',
-      ctaPlay: 'جرّب اللعبة مجاناً (بنقرة واحدة)',
-      ctaSubtext: '١٠٠٪ مجاناً • دون تسجيل • تعمل مباشرة في المتصفح',
-      trustRating: '⭐ ٤.٩/٥ • أكثر من ١٢٠٠ لاعب وعائلة',
-      studioVoicesBadge: '🎙️ أصوات سينمائية استوديو وبيكسل آرت ١٦ بت',
+      badge: 'الجمع المبتكر بين متعة ألعاب RPG والتربية الإسلامية الهادفة',
+      titleLine1: 'نُور — لعبة الأدوار الروائية الإسلامية',
+      titleLine2: 'تحوّل مواقف الحياة اليومية إلى مغامرة قيم',
+      heroSubtitleDirect: 'ملحمة القلب — من العزلة إلى الألفة والأخوة',
+      combatQuizPillTitle: '⚔️ بلا سيوف وبلا سحر هدّام :',
+      combatQuizPillDesc: 'في نُور، معارك اللعبة تُخاض باختبارات الحكمة (الكويزات) والمعرفة. كل نزال ضد الوسواس يُحسم بالعلم واليقين الأخلاقي!',
+      description: 'لعبة الأدوار الروائية التي تجمع بين متعة ألعاب الفيديو والتربية الإسلامية الهادفة. بدلاً من القتال العنيف، يتقدم أطفالكم باختبارات الحكمة ويدحرون وساوس الشك ويكسبون نقاط الإيمان.',
+      ctaPlay: 'العب مجاناً في المتصفح',
+      ctaSubtext: 'دون تثبيت • للجوال والكمبيوتر • دون تسجيل',
+      trustRating: '🧪 نسخة تجريبية مفتوحة • الفصل الأول مجاني بنقرة واحدة',
+      studioVoicesBadge: '🎙️ أصوات بالفرنسية وبيكسل آرت',
       adFreeBadge: '١٠٠٪ دون إعلانات • أخلاقية',
-      ctaDemo: 'تجربة مواجهة الوسواس',
-      ctaVideo: 'مشاهدة أسلوب اللعب',
-      feature1Title: 'خيارات وعواقب',
-      feature1Desc: 'حوارات عميقة ومسارات تفاعلية تصقل الشخصية والضمير.',
-      feature2Title: 'مهمات في الحياة الواقعية',
-      feature2Desc: 'تطبيقات عملية يومية خارج الشاشة لغرس الفضائل.',
-      feature3Title: 'مصادر نبوية أصيلة',
-      feature3Desc: 'مستوحاة من الحِلم النبوي والصبر وبر الوالدين.',
+      ctaDemo: 'جرّب مواجهة الوسواس (كويز)',
+      ctaVideo: 'استكشف أسلوب اللعب (٣٢ ث)',
+      feature1Title: 'معارك باختبارات الحكمة (كويز)',
+      feature1Desc: 'انتصر في النزالات ضد الوسواس بحسن الاختيار والعلم النافع بدلاً من السيوف والسحر.',
+      feature2Title: 'كويزات إسلامية ونقاط خبرة (XP)',
+      feature2Desc: 'اختبارات تفاعلية مشوقة في التوحيد والآداب والأحاديث النبوية لتطوير شخصيتك.',
+      feature3Title: 'خيارات أخلاقية ومصادر موثوقة',
+      feature3Desc: 'مسارات وقرارات روائية مستندة إلى القرآن الكريم وصحيح السنة.',
       stat1Label: 'الفصل الأول مجاناً',
       stat1Value: '١٠٠٪',
       stat2Label: 'ملحمة متكاملة',
       stat2Value: '٥ فصول',
       stat3Label: 'عالم بصري كلاسيكي',
       stat3Value: 'بيكسل آرت ١٦ بت',
-      downloadApk: 'تحميل التطبيق APK (درايف)',
+      downloadApk: 'تحميل تطبيق أندرويد (نسخة بيتا)',
+      apkNote: '📱 متوفر أيضاً: تطبيق أندرويد التجريبي (ملف APK مستقل)',
       frictionFree: '١٠٠٪ مجاناً ودون تسجيل',
       frictionDevice: 'تعمل مباشرة على الجوال والحاسوب',
       frictionBackup: 'حفظ تلقائي للتقدم',
@@ -1717,10 +1814,10 @@ export const translations: Record<Language, Translations> = {
       othmanQuote: '« الرحلة تبدأ هنا... »',
       waswasTitle: 'الوسواس',
       waswasRole: 'الظل الداخلي',
-      featWaswasTitle: 'مواجهة الوسواس',
-      featWaswasDesc: 'نظام نفسي مبتكر لقياس طمأنينة القلب، تدفع به خواطر الشك واليأس باليقين والاستعاذة.',
-      featBridgesTitle: 'جسور النور',
-      featBridgesDesc: 'تتجاوز اللعبة حدود الشاشة : اكسب نقاط الإيمان بإنجاز أعمال خيرية حقيقية (ترتيب فراشك، الابتسام، مساعدة الأهل).',
+      featWaswasTitle: 'معارك الكويز ضد الوسواس',
+      featWaswasDesc: 'بدلاً من الأسلحة أو السحر الهدام، كل مواجهة هي مبارزة في العلم والحكمة تدحر فيها وساوس الشك بالإجابات والخيارات الصائبة.',
+      featBridgesTitle: 'كويزات المعرفة ونقاط XP',
+      featBridgesDesc: 'اكسب نقاط الخبرة وعزز حصيلتك المعرفية باختبارات تربوية في التوحيد والحلم وحسن الخلق، مع تذكيرات طيبة بالحياة اليومية.',
       featCrossroadsTitle: 'مفترق طرق القرية',
       featCrossroadsDesc: 'عمود خشبي تاريخي يوجه عثمان إلى ٥ مسارات قلبية : كسر العزلة، الحِلم، الصبر، بر الوالدين والذروة الكبرى.',
       featKnowledgeTitle: 'كتاب الحكمة',
@@ -1749,7 +1846,9 @@ export const translations: Record<Language, Translations> = {
       arabicPeace: 'والسلام عليكم ورحمة الله وبركاته',
       testNotice: 'جرّب الفصل الأول مجاناً مع أطفالك مباشرة في المتصفح',
       testButton: 'تجربة اللعبة (بنقرة واحدة)',
-      apkButton: 'تطبيق أندرويد'
+      apkButton: 'تطبيق أندرويد',
+      readMore: 'قراءة رسالة عبد الرحمن كاملة 📜',
+      readLess: 'إخفاء التفاصيل ▴'
     },
     gameplayVideo: {
       badge: 'استعراض حي',
@@ -1773,6 +1872,7 @@ export const translations: Record<Language, Translations> = {
       badge: 'محاكي تفاعلي',
       title: 'معركة التغلب على الوسواس',
       subtitle: 'حين تراودك أصوات الإحباط وتدعوك للعزلة، اختر الموقف النبوي لاستعادة طمأنينة القلب.',
+      waswasDefinition: 'الوسواس هو تلك الهواجس الداخلية التي تبث الخوف أو التردد أو الإحباط. في لعبة نُور، لا معارك جسدية: النصر يُحسم بحضور القلب وحسن التوكل واليقين.',
       scene: 'المشهد : مفترق طرق القرية',
       challenge: 'التحدي : الخوف من الرفض والوحدة',
       reset: 'إعادة ضبط',
@@ -1796,15 +1896,15 @@ export const translations: Record<Language, Translations> = {
       action4Desc: 'الإقدام بوقار وثقة بالله دون خوف من رفض الآخرين.',
       optionATitle: 'الخيار أ : الاستسلام للتردد',
       optionADesc: '« هذا صحيح... أنا خجول جداً، الأفضل أن أعود إلى البيت وأغلق الباب. »',
-      optionAEffect: '+٢٥٪ شك ووسواس',
+      optionAEffect: '-٢٠ طمأنينة • +٢٥ وسواس',
       optionBTitle: 'الخيار ب : التعبير بالغضب والصراخ',
       optionBDesc: '« سأصرخ وألفت انتباههم بالقوة ليجبروا على النظر إلي! »',
-      optionBEffect: 'اضطراب وعدم اتزان',
+      optionBEffect: '+١٠ وسواس (غضب بلا جدوى)',
       optionCTitle: 'الخيار ج : البصيرة والإيمان',
       optionCDesc: '« أَعُوذُ بِاللَّهِ — نيتي طيبة، وتبسمي في وجه أخي صدقة، أتقدم بسلام. »',
-      optionCEffect: '✨ تبديد ١٠٠٪ من الوسواس !',
-      victoryTitle: 'أشرق النور في القلب وتم فتح بطاقة الحكمة !',
-      victoryDesc: 'لقد اختبرت الميكانيكية الروحية الأولى. في الفصل الأول الكامل، يلتقي عثمان بأهل القرية ويفتح أكثر من ١٥ درساً نورانياً.',
+      optionCEffect: '✨ +١٠٠ طمأنينة • تبديد الوسواس بالكامل !',
+      victoryTitle: 'أشرق النور وانفتح مسار الحكمة !',
+      victoryDesc: 'يتنفس عثمان بعمق، ويستعيذ بالله بقلب صادق، ويمضي بوقار. تم فتح مسار الصبر.',
       replayDemo: 'إعادة تجربة المحاكي',
       footerNote: 'في لعبة «نور»، لا معارك بدنية أو عنف. النصر يتحقق بصفاء السريرة، والإيمان، والكلمة الطيبة.',
       victoryPlay: 'تشغيل الفصل الأول كاملاً',
@@ -1825,13 +1925,13 @@ export const translations: Record<Language, Translations> = {
         'الانتصار بحضور القلب والعمل الصالح'
       ],
       mech2Title: 'جسور النور والعمل الحقيقي',
-      mech2Desc: 'خيارات كلامية مبنية على اللين والمودة لتحويل الخلافات إلى فرص تآلف.',
+      mech2Desc: 'كل عمل طيب تنجزه في واقعك يفتح طريقاً جديداً في المغامرة. قائم على الأمانة الذاتية: لا نطلب أي صور أو بيانات شخصية. مثالي للأسرة.',
       mech2Badge: 'مهمات خارج الشاشة',
       mech2Quote: '« هل رتبت سريرك وزاويتك هذا الصباح؟ خذ دقيقة في عالمك الحقيقي... واللعبة تنتظرك هنا! »',
       mech2Points: [
-        'جسور تربوية حية بين القصة التفاعلية واليوم الواقعي',
-        'تحمل المسؤولية الشخصية وتهذيب المكان والنفس',
-        'تقدير كبار السن ومساعدتهم بقلب سليم'
+        'مهمات بر وخير عملية قائمة على الأمانة وحسن المراقبة الذاتية',
+        '١٠٠٪ خصوصية تامة : دون كاميرا ودون جمع لأي بيانات شخصية',
+        'فرصة رائعة لفتح حوار تربوي دافئ ومثمر بين الآباء والأبناء'
       ],
       mech3Title: 'عمود مفترق الطرق',
       mech3Desc: 'مفترق رمزي تتفرع منه مسارات الفصول، كل مسار يستكشف فضيلة قلبية كبرى.',
@@ -1878,7 +1978,7 @@ export const translations: Record<Language, Translations> = {
       waswasQuote: '« لن تنجح أبداً... ابق في فراشك فالطريق شاق ولا أحد يكترث بك... »',
       waswasDesc: 'ضباب هامس لا جسد له، يولد من الشكوك والتعب والخوف من نظرات الآخرين. لا يملك سلطاناً حقيقياً إلا تضخيم المخاوف لتعطيل عثمان عن الخير.',
       waswasTraits: ['وساوس محبطة', 'ضباب زائل', 'تضخيم المخاوف', 'يندحر بالإيمان'],
-      sageName: 'حكيم المفترق',
+      sageName: 'الشيخ الحكيم',
       sageRole: 'حارس الحكمة والمعارف',
       sageQuote: '« اختر وجهتك عند مفترق القرية، فكل عمل ذي بال إنما يبدأ بنيّة خالصة. »',
       sageDesc: 'شيخ وقور يستقبل عثمان عند مفترق الطرقات، يلقي عليه دروس كتاب الحكمة وينير له معالم السير.',
@@ -1935,7 +2035,7 @@ export const translations: Record<Language, Translations> = {
           synopsis: 'في سوق الفواكه المزدحم، يؤدي تصادم غير مقصود إلى سقوط السلال. يشعر عثمان بالغضب يشتعل في صدره، وعليه أن يختبر قوة الحلم والعفو.',
           virtue: 'الحِلم والعفو وسكينة النفس',
           location: 'سوق الفواكه وورشة الخزاف',
-          bgImage: '/game-assets/verger.jpg',
+          bgImage: '/game-assets/marche.jpg',
           highlights: [
             'تمارين التنفس وتهدئة فورة الغضب',
             'تجنب الردود الجارحة في مواقف النزاع',
@@ -1973,7 +2073,7 @@ export const translations: Record<Language, Translations> = {
           synopsis: 'إثر لحظة ضيق عابرة مع والدته في الصباح، يخرج عثمان متأثراً. وتحت الشجرة العظيمة مع صديقه، يتأملان طائراً يطعم فراخه، فتحدث مكاشفة تفتح عينيه على أعظم نعم حياته.',
           virtue: 'بر الوالدين والإحسان والشكر',
           location: 'بيت العائلة وشجرة المكاشفة',
-          bgImage: '/game-assets/chambre.jpg',
+          bgImage: '/game-assets/teaser_chapitre4.jpg',
           highlights: [
             'دحر وساوس التبرم ونفاد الصبر',
             'تأمل الطير والرزق تحت الشجرة الكبيرة',
@@ -2165,39 +2265,48 @@ export const translations: Record<Language, Translations> = {
       col3Cta: 'استعراض خارطة الطريق الكاملة'
     },
     testimonials: {
-      badge: 'أصداء المجتمع',
-      title: 'ثقة العائلات واللاعبين',
-      subTagline: '✧ تقييمات صادقة • معدل ٤.٩ من ٥ ✧',
-      subtitle: 'اكتشف لماذا يشيد الآباء والمربون وعشاق الألعاب التربوية بروح ورسالة لعبة «نور».',
-      items: [
-        {
-          id: '1',
-          name: 'ياسين ب.',
-          role: 'رب أسرة ولاعب ألعاب إلكترونية',
-          badge: 'لاعب الفصل الأول',
-          content: 'أخيراً لعبة فيديو ذات رسالة وروح! ولداي (٩ و ١٢ عاماً) أحبا عثمان بشدة. وما أدهشني هو مشهد \"جسر النور\": بعد انتهاء المشهد، قام ابني تلقائياً ليرتب سريره! هذا هو اللعب الراقي والنافع.',
-          rating: 5
-        },
-        {
-          id: '2',
-          name: 'أمينة ل.',
-          role: 'معلمة ومهتمة بالقصص التفاعلية',
-          badge: 'مراجعة الألعاب الروائية',
-          content: 'آلية مواجهة الوسواس ابتكار تربوي وفني رائع. بدلاً من الضرب والفؤوس، يتعلم الطفل كيف يتعرف على الخواطر السلبية ويدفعها بالطمأنينة والذكر.',
-          rating: 5
-        },
-        {
-          id: '3',
-          name: 'سفيان م.',
-          role: 'مطور ومحب لألعاب تقمص الأدوار',
-          badge: 'مختبر النسخة التجريبية',
-          content: 'المؤثرات الصوتية والحوارات المتقنة ورسومات البيكسل المشرقية تمنح تجربة منعشة ومميزة. تجربة تعمل فوراً في المتصفح دون الحاجة لتثبيت أي شيء.',
-          rating: 5
-        }
-      ],
-      guaranteeTitle: 'خالية من العنف • ١٠٠٪ قيم إيجابية وتربوية',
-      guaranteeDesc: 'تجربة نقية، دون إعلانات منبثقة، تحترم وقتك وتركيز أسرتك.',
-      pegi: 'تصنيف مناسب لجميع الأعمار'
+      badge: '🧪 مشروع مفتوح للتجربة والتطوير',
+      title: 'لنصنع مغامرة «نُور» معاً خطوة بخطوة',
+      subtitle: '«نور» عمل مستقل في مرحلة التطوير. الفصل الأول متاح مجاناً للجميع: نحتاج بكل صدق إلى نقدكم البنّاء وانطباعاتكم لتطوير الفصول القادمة بما يليق بأبنائنا.',
+      subTagline: '✧ دون تقييمات مصطنعة • رأيك الحقيقي هو بوصلة التطوير ✧',
+      step1Badge: 'الخطوة ١',
+      step1Title: 'جرّب الفصل الأول (مجاناً)',
+      step1Desc: 'ابدأ اللعب بنقرة واحدة في المتصفح. اختبر الحوارات ومواجهة الوسواس ومعارك الكويز دون تحميل أي تطبيق.',
+      step2Badge: 'الخطوة ٢',
+      step2Title: 'شاركنا انطباعك الصادق',
+      step2Desc: 'ما الذي أعجبك؟ وهل تفاعل أطفالك مع القصة؟ هل واجهت أي صعوبة؟ أخبرنا في دقيقتين عبر الاستبيان أو رسالة واتساب مباشرة.',
+      step3Badge: 'الخطوة ٣',
+      step3Title: 'ساهم في الفصول القادمة',
+      step3Desc: 'مقترحاتكم وأفكاركم في الألغاز والآداب ستُدمج في الفصول من ٢ إلى ٥، مع تخليد أسماء أبرز المساهمين في شكر وتقدير اللعبة!',
+      ctaForm: 'تعبئة استبيان المختبرين (دقيقتان) ✍️',
+      ctaWhatsapp: 'مراسلتنا مباشرة عبر واتساب 💬',
+      guaranteeTitle: 'شفافية كاملة والتزام أخلاقي',
+      guaranteeDesc: 'لا نضع أي مراجعات مصطنعة. نؤمن بالصدق والإتقان والتعاون المجتمعي لبناء لعبة ترقى لتطلعات أسرنا.',
+      pegi: 'مشروع تجريبي تشاركي'
+    },
+    familySection: {
+      badge: 'مصمم للعائلات وغرس الفضائل',
+      title: 'لمن صُممت لعبة نُور ؟',
+      subtitle: 'الحل الأمثل للآباء : الجمع بين شغف الأبناء بألعاب الفيديو والتربية الإسلامية الأصيلة والنافعة.',
+      quizBadge: 'لعب وتعلّم',
+      quizTitle: 'الجمع بين متعة اللعب والتربية الإسلامية',
+      quizDesc: 'وداعاً للدروس الجافة والشاشات السلبية: يتعلم أطفالك التوحيد والآداب والأحاديث بحماس عبر اختبارات تفاعلية مشوقة مدمجة في صلب المغامرة.',
+      ageBadge: 'من سن ٨ سنوات فما فوق',
+      ageTitle: 'للأطفال واليافعين والآباء',
+      ageDesc: 'تجربة ملهمة تناسب عقول ونفوس الصغار وتفتح آفاق الحوار التربوي البنّاء مع اليافعين والكبار.',
+      parentsBadge: 'تربية وحوار',
+      parentsTitle: 'مرافقة تربوية عائلية ممتعة',
+      parentsDesc: 'فرصة رائعة لاجتماع الأسرة ومناقشة مواقف الحياة اليومية وغرس معاني الحِلم والصبر والأخوة.',
+      ethicsBadge: '١٠٠٪ آمنة وأخلاقية',
+      ethicsTitle: 'دون إعلانات ودون جمع لأي بيانات شخصية',
+      ethicsDesc: 'خالية تماماً من الإعلانات المزعجة والتسجيل الإجباري. مهمات الحياة الواقعية قائمة على الأمانة الذاتية دون كاميرا أو صور.',
+      sourcesBadge: 'أصالة ومصداقية',
+      sourcesTitle: 'مصادر قرآنية ونبوية موثقة',
+      sourcesDesc: 'مبنية على هدي القرآن الكريم وصحيح السنة النبوية (البخاري ومسلم) لترسيخ مكارم الأخلاق والآداب.',
+      devicesBadge: 'سهولة الوصول',
+      devicesTitle: 'بنقرة واحدة على الجوال واللوحي والحاسوب',
+      devicesDesc: 'تعمل مباشرة في متصفحك المفضل (سفاري، كروم، إيدج) دون الحاجة لأي تثبيت مسبق.',
+      cardCta: 'جرّب اللعبة مع عائلتك الآن'
     },
     faq: {
       badge: 'الأسئلة الشائعة',
@@ -2205,24 +2314,36 @@ export const translations: Record<Language, Translations> = {
       subtitle: 'إجابات واضحة ومباشرة حول الأجهزة المدعومة والأسعار والمراحل القادمة.',
       items: [
         {
-          q: 'على أي أجهزة يمكن تشغيل لعبة «نور» ؟',
-          a: 'تعمل اللعبة بسلاسة تامة على جميع المتصفحات الحديثة (الهواتف الذكية بنظامي iOS وأندرويد، الأجهزة اللوحية، والحواسيب الشخصية دون تثبيت). ولمستخدمي أندرويد الراغبين في تثبيت تطبيق مستقل، نوفر أيضاً ملف APK رسمياً للتحميل المباشر.'
+          q: 'هل اللعبة مجانية بالكامل ؟ وهل توجد أي رسوم خفية ؟',
+          a: 'الفصل الأول كاملاً («كسر العزلة») مجاني ١٠٠٪ دون أي شروط أو بطاقة بنكية. ويمكنكم الاستمتاع به فوراً. ولفتح بقية الفصول ودعم الاستوديو المستقل في إنتاج الأصوات ورسومات البيكسل، نوفر باقة المؤسسين الاختيارية بسعر رمزي مخفض.'
         },
         {
-          q: 'هل اللعبة مجانية ؟ وما هي أسعار الفصول ؟',
-          a: 'الفصل الأول كاملاً («كسر العزلة») مجاني ١٠٠٪ ومتاح للجميع دون أي إعلانات مزعجة أو اشتراك. ولفتح بقية المغامرة ودعم إنتاج الأصوات والرسومات، نوفر باقة المؤسسين بسعر مخفض (٤.٩٩ €) وهي ملكية دائمة مدى الحياة دون أي رسوم متكررة.'
+          q: 'هل يجب إنشاء حساب أو تحميل تطبيق للعب ؟',
+          a: 'لا، لا يلزمك أي تسجيل أو بريد إلكتروني أو كلمة مرور! تنطلق اللعبة بنقرة واحدة مباشرة في متصفحك على الهاتف أو الحاسوب، ويُحفظ تقدمك تلقائياً على جهازك.'
         },
         {
-          q: 'ما الفئة العمرية المستهدفة في اللعبة ؟',
-          a: 'صُممت اللعبة لتناسب الأطفال من عمر ٧-٨ سنوات فما فوق، إضافة إلى اليافعين والكبار، حيث تعالج موضوعات تهم كل مسلم في حياته اليومية.'
+          q: 'على أي أجهزة وأنظمة تعمل لعبة «نور» ؟',
+          a: 'تعمل بسلاسة فائقة على هواتف آيفون (سفاري) وهواتف أندرويد (كروم)، والأجهزة اللوحية (آيباد وأندرويد)، وحواسيب ويندوز وماك ولينكس. كما يتوفر تطبيق APK مستقل لمستخدمي أندرويد للعب دون إنترنت.'
         },
         {
-          q: 'ما هي «جسور النور» ؟',
-          a: 'هي مهمات عملية مبتكرة تتجاوز الشاشة : في لحظات معينة من القصة، تدعو اللعبة اللاعب بلطف إلى أداء عمل طيب حقيقي في يومه (ترتيب غرفته، شكر والديه، مساعدة صديق) لترسيخ الفضيلة في الواقع.'
+          q: 'هل تحتوي اللعبة على إعلانات أو مشتريات خادعة للأطفال ؟',
+          a: 'إطلاقاً. اللعبة خالية ١٠٠٪ من أي إعلانات منبثقة أو لافتات مزعجة أو مشتريات عشوائية. إنها بيئة رقمية هادئة ونقية ومأمونة تماماً على انتباه الأطفال ونفوسهم.'
         },
         {
-          q: 'متى تصدر الفصول القادمة ؟',
-          a: 'الفصلان ٢ و ٣ قيد اللمسات الأخيرة ومتاحان عبر باقة المؤسسين، والفصل ٤ في مرحلة السيناريو. يمكنك متابعة التحديثات المباشرة عبر خارطة الطريق في هذه الصفحة.'
+          q: 'ما هو السن المناسب للعبة وكيف يشارك الوالدان ؟',
+          a: 'نوصي باللعبة من عمر ٨ سنوات فما فوق (قراءة مستقلة أو بمساعدة). ويُعد جلوس الوالدين مع أطفالهم فرصة ثمينة لمناقشة قرارات عثمان الأخلاقية والدروس المستفادة.'
+        },
+        {
+          q: 'كيف تعمل «جسور النور» (مهمات الحياة الواقعية) ؟ وهل تطلبون أدلة ؟',
+          a: 'في مواقف معينة، تدعو اللعبة اللاعب بلطف إلى أداء عمل طيب في بيته (ترتيب غرفته، بر والديه، الابتسام). الأمر قائم كلياً على الأمانة والتربية الذاتية : لا نطلب أي صور ولا فيديوهات ولا نجمع أي بيانات.'
+        },
+        {
+          q: 'ما هي المصادر الدينية والأخلاقية المعتمدة في اللعبة ؟',
+          a: 'تستند جميع القصص والفوائد والأسئلة بدقة إلى القرآن الكريم وكتب السنة النبوية الصحيحة (صحيحي البخاري ومسلم). وتُذكر المراجع بوضوح داخل كتاب الحكمة في اللعبة.'
+        },
+        {
+          q: 'هل تتوفر نسخة تطبيق أندرويد قابلة للتثبيت ؟',
+          a: 'نعم، يتوفر ملف APK رسمي للتحميل المباشر والآمن لمن يفضل وضع أيقونة اللعبة على شاشة هاتفه الرئيسية واللعب دون الحاجة لاتصال دائم بالإنترنت.'
         }
       ]
     },
@@ -2285,9 +2406,10 @@ export const translations: Record<Language, Translations> = {
       backToTop: 'العودة للأعلى'
     },
     mobileSticky: {
-      subtitle: 'نور : لعبة أدوار إسلامية',
+      title: 'نُور : لعبة الأدوار الإسلامية',
+      subtitle: '١٠٠٪ مجاناً • دون تسجيل',
       freeText: '١٠٠٪ مجاناً • دون تسجيل',
-      cta: 'تجربة (بنقرة واحدة)'
+      cta: 'العب الآن'
     }
   }
 };

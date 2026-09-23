@@ -349,132 +349,156 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         id: 's1_hook_1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'The dawn softly illuminates the walls of the room. Othman sits at the edge of his bed, his eyes fixed on his still-empty travel bag.',
+        text: 'Dawn had barely touched the hilltops... But down in the valley, the village was already awake. Voices, footsteps, laughter. Othman sits on his bed, his eyes fixed on his still-empty travel bag.',
         emotion: 'thoughtful'
       },
       {
         id: 's1_hook_2',
         type: 'dialogue',
-        speaker: 'noura',
-        text: 'Today is the day, Othman. The day you decided to head down toward the village.',
-        emotion: 'smiling'
+        speaker: 'personnage',
+        text: 'Today... I go down. (Silence) Well... I try.',
+        emotion: 'worried'
       },
       {
         id: 's1_hook_3',
         type: 'dialogue',
-        speaker: 'personnage',
-        text: 'Yes... I have always lived sheltered on this hill. I want to learn, explore the world, and connect with others... but as soon as I think about it, I fear I will never belong.',
-        emotion: 'worried',
-        waswasXpAmount: 10,
-        waswasReason: 'Fear of the unknown & feeling of inadequacy'
+        speaker: 'noura',
+        text: 'Are you talking to your bag now?',
+        emotion: 'smiling'
       },
       {
         id: 's1_hook_4',
         type: 'dialogue',
+        speaker: 'personnage',
+        text: 'It listens to me better than people do.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_hook_5',
+        type: 'dialogue',
         speaker: 'noura',
-        text: 'Wisdom and noble companions are never found by staying locked inside, my son. How would you like to begin your day?',
+        text: 'Then maybe it is time to introduce it to the world.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_hook_6',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: "Mother... What if I can't do it? Reaching out to others, speaking, finding my place...",
+        emotion: 'worried'
+      },
+      {
+        id: 's1_hook_7',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: "You are already trying to know what the whole road will be like... when you haven't even taken the first step.",
+        emotion: 'thoughtful'
+      },
+      {
+        id: 's1_waswas_comfort',
+        type: 'dialogue',
+        speaker: 'waswas',
+        text: 'Stay here... Here, nobody looks at you. Nobody judges you. You know this room, you are safe here. Outside... you have no idea what awaits you.',
+        emotion: 'shadow',
+        waswasXpAmount: 10,
+        waswasReason: 'The comfort zone trap and fear of being judged'
+      },
+      {
+        id: 's1_noura_hear',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'Did you hear that?',
+        emotion: 'thoughtful'
+      },
+      {
+        id: 's1_othman_hear',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: '...Yes.',
+        emotion: 'worried'
+      },
+      {
+        id: 's1_noura_push',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'Then do not give it more room than it deserves. You cannot overcome doubt by sitting still. How would you like to begin?',
         emotion: 'smiling'
       },
       {
         id: 's1_choice_morning',
         type: 'choice',
         speaker: 'personnage',
-        text: '« How does Othman choose to begin his morning? »',
+        text: '« What does Othman do before leaving? »',
         choices: [
           {
-            id: 'c_eau',
-            label: '💧 Drink fresh water (Prophetic Adab)',
-            responsePreview: '« I will start by drinking a glass of water. »',
-            choiceType: 'habit',
-            traitGains: { adab: 5, ilm: 3 },
-            setNarrativeFlags: { morning_gesture: 'water' },
-            habitMessage: 'Prophetic Adab • Othman calms his body and mind.'
-          },
-          {
             id: 'c_ordre',
-            label: '🧹 Tidy my room and make my bed (Discipline & Niyyah)',
-            responsePreview: '« I will start by tidying my room. »',
+            label: '🧹 Make the bed (Bring order to clear the mind)',
+            responsePreview: '« I will start by making my bed. »',
             choiceType: 'habit',
             traitGains: { discipline: 5, sabr: 3 },
             setNarrativeFlags: { morning_gesture: 'order' },
-            habitMessage: 'Discipline & Purity • Othman arranges his space with care.'
+            habitMessage: 'Discipline & Clarity • Othman brings order to his space.'
+          },
+          {
+            id: 'c_eau',
+            label: '💧 Drink some water (Soothe throat and heart)',
+            responsePreview: '« I will start by drinking some water. »',
+            choiceType: 'habit',
+            traitGains: { adab: 5, ilm: 3 },
+            setNarrativeFlags: { morning_gesture: 'water' },
+            habitMessage: 'Prophetic Adab • Othman soothes his body and mind.'
           },
           {
             id: 'c_sandales',
-            label: '👟 Prepare my sandals for departure (Tawakkul)',
-            responsePreview: '« I will get my sandals ready, I am ready to step out. »',
+            label: '👟 Ready the sandals (Put an end to hesitation)',
+            responsePreview: '« I will prepare my sandals for departure. »',
             choiceType: 'habit',
             traitGains: { sabr: 5, vitalite: 3 },
             setNarrativeFlags: { morning_gesture: 'sandals' },
-            habitMessage: 'Resolve & Tawakkul • Othman prepares to cross the threshold.'
+            habitMessage: 'Resolve & Tawakkul • Othman readies himself for departure.'
           }
         ]
       },
 
-      // --- BRANCH 1: DRINKING WATER ---
-      {
-        id: 's1_water_othman',
-        type: 'dialogue',
-        speaker: 'personnage',
-        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
-        text: 'I will start by drinking some fresh water.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_water_noura_ask',
-        type: 'dialogue',
-        speaker: 'noura',
-        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
-        text: 'Before drinking... do you remember the etiquettes taught by the Prophet ﷺ?',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_water_quiz',
-        type: 'quiz',
-        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
-        quizId: 'quiz_adab_boire',
-        unlockedConceptId: 'adab_boire'
-      },
-      {
-        id: 's1_water_noura_teach',
-        type: 'dialogue',
-        speaker: 'noura',
-        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
-        text: 'Take your time. The Prophet ﷺ taught a mindful way of drinking: start with Bismillāh, drink with your right hand, and sip in three calm breaths. Even simple daily habits become worship when done with awareness.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_water_othman_drink',
-        type: 'dialogue',
-        speaker: 'personnage',
-        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
-        text: 'Al-Hamdulillāh... The water is so cool and refreshing. I feel peaceful and ready to move forward.',
-        emotion: 'smiling',
-        actionVignette: {
-          icon: '💧',
-          badge: 'Daily Sunnah',
-          title: 'The Adab of Drinking',
-          description: 'Sit down, say Bismillāh, and drink peacefully with the right hand.',
-          glowColor: 'cyan'
-        }
-      },
-
-      // --- BRANCH 2: TIDYING THE ROOM ---
+      // --- BRANCH 1: MAKING BED (Niyyah) ---
       {
         id: 's1_order_othman',
         type: 'dialogue',
         speaker: 'personnage',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
-        text: 'I will start by tidying my room and making my bed.',
+        text: 'I will start by bringing a little order here.',
         emotion: 'thoughtful'
+      },
+      {
+        id: 's1_order_noura',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
+        text: 'A small gesture. But sometimes, that is all it takes to get started.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_order_othman_done',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
+        text: 'It is strange... I thought it was just a bed, but the room already feels so much clearer.',
+        emotion: 'smiling',
+        actionVignette: {
+          icon: '🧹',
+          badge: 'Discipline & Clarity',
+          title: 'Bringing Order',
+          description: 'Arranging outer space to bring inner mental clarity.',
+          glowColor: 'amber'
+        }
       },
       {
         id: 's1_order_noura_ask',
         type: 'dialogue',
         speaker: 'noura',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
-        text: 'A great beginning. Bringing order to your space helps bring clarity to your mind. But do you know with what intention we should do this?',
-        emotion: 'smiling'
+        text: 'Order around us helps bring inner clarity. But tell me... Why do you truly wish to begin this day?',
+        emotion: 'thoughtful'
       },
       {
         id: 's1_order_quiz',
@@ -488,118 +512,176 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
         type: 'dialogue',
         speaker: 'noura',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
-        text: '« Actions are judged only by intentions ». Making your bed or tidying your room becomes an act of beauty and worship as long as the heart is sincere.',
+        text: 'The intention. Even before the very first step, there is something nobody else sees: what you truly desire to achieve for Allah.',
         emotion: 'smiling'
       },
       {
-        id: 's1_order_othman_done',
+        id: 's1_order_othman_niyyah',
         type: 'dialogue',
         speaker: 'personnage',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
-        text: 'Everything is in order now. My eyes look upon my travel bag... I am ready to head down.',
-        emotion: 'determined',
-        actionVignette: {
-          icon: '🧹',
-          badge: 'Purity & Order',
-          title: 'Sincere Intention (Niyyah)',
-          description: 'Arranging outer space to bring inner mental clarity with pure devotion.',
-          glowColor: 'amber'
-        }
+        text: 'Then... I want to set out to learn. And to try to become better.',
+        emotion: 'determined'
+      },
+      {
+        id: 's1_order_noura_finish',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
+        text: 'That is a worthy beginning.',
+        emotion: 'smiling'
       },
 
-      // --- BRANCH 3: SANDALS & TAWAKKUL ---
+      // --- BRANCH 2: DRINKING WATER ---
+      {
+        id: 's1_water_othman',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'My throat is dry. I will start by drinking some water.',
+        emotion: 'thoughtful'
+      },
+      {
+        id: 's1_water_noura',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'Even everyday habits become precious when done with mindfulness. Just remember the beautiful etiquette taught by the Sunnah.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_water_othman_drink',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'Bismillāh... (Othman sits and drinks peacefully with his right hand in three sips) ...Al-Hamdulillāh.',
+        emotion: 'smiling',
+        actionVignette: {
+          icon: '💧',
+          badge: 'Daily Sunnah',
+          title: 'The Adab of Drinking',
+          description: 'Sit down, say Bismillāh, and drink peacefully with the right hand.',
+          glowColor: 'cyan'
+        }
+      },
+      {
+        id: 's1_water_noura_teach',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'Caring for the little things... is also learning to be mindful of the great ones.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_water_othman_done',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'I already feel much calmer and ready to move forward.',
+        emotion: 'determined'
+      },
+
+      // --- BRANCH 3: SANDALS (Tawakkul) ---
       {
         id: 's1_sandals_othman',
         type: 'dialogue',
         speaker: 'personnage',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
-        text: 'I will prepare my sandals. I believe I am ready to step outside.',
+        text: 'I will get my sandals ready. This time, I won’t look for another excuse.',
         emotion: 'determined'
       },
       {
-        id: 's1_sandals_noura_ask',
+        id: 's1_sandals_noura',
         type: 'dialogue',
         speaker: 'noura',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
-        text: 'Prepare to cross the threshold. Before stepping out of your home, there is a powerful supplication you can learn.',
-        emotion: 'smiling'
+        text: 'Preparation is good. But prepare your heart as well: when you leave your home, to whom do you truly entrust your way?',
+        emotion: 'thoughtful'
       },
       {
-        id: 's1_sandals_quiz',
-        type: 'quiz',
+        id: 's1_sandals_othman_confie',
+        type: 'dialogue',
+        speaker: 'personnage',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
-        quizId: 'quiz_doua_maison',
-        unlockedConceptId: 'tawakkul_depart'
+        text: 'To Allah.',
+        emotion: 'smiling'
       },
       {
         id: 's1_sandals_noura_teach',
         type: 'dialogue',
         speaker: 'noura',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
-        text: 'Exactly: entrusting your steps to Allah before stepping into the world gives unshakeable strength.',
+        text: 'Then take the proper means, step forward... and place your complete trust in Him.',
         emotion: 'smiling'
       },
       {
-        id: 's1_sandals_othman_recite',
+        id: 's1_sandals_othman_done',
         type: 'dialogue',
         speaker: 'personnage',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
         arabicText: 'بِسْمِ اللَّهِ ، تَوَكَّلْتُ عَلَى اللَّهِ ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ',
-        text: '« Bismillāh, tawakkaltu ʿalā Allāh, wa lâ hawla wa lâ quwwata illā billâh »\n\n(In the name of Allah, I place my trust in Allah, and there is no power nor might except with Allah).',
+        text: '« Bismillāh, tawakkaltu ʿalā Allāh... » My sandals are tied, my step is firm.',
         emotion: 'determined',
         actionVignette: {
-          icon: '🚪',
-          badge: 'Tawakkul at Threshold',
-          title: 'The Departure Duʿāʾ',
-          description: '« Bismillāh, tawakkaltu ʿalā Allāh... » — Entrusting one’s journey to the Creator.',
+          icon: '👟',
+          badge: 'Resolve & Tawakkul',
+          title: 'Entrusting Steps',
+          description: 'Taking the means and placing trust in Allah upon setting forth.',
           glowColor: 'emerald'
         }
       },
 
       // --- CONVERGENCE AT THE DOOR ---
       {
-        id: 's1_door_hesitation',
+        id: 's1_door_approach',
         type: 'dialogue',
-        speaker: 'personnage',
-        text: 'My hand touches the iron handle... Mother, my heart is racing all of a sudden. What if nobody wants me out there?',
-        emotion: 'worried'
+        speaker: 'narration',
+        text: 'Othman takes his bag and slings it over his shoulder. His hand rests on the iron latch. The distant sounds of the village return, warmer and more lively.',
+        emotion: 'thoughtful'
       },
       {
-        id: 's1_waswas_whisper',
+        id: 's1_door_waswas',
         type: 'dialogue',
         speaker: 'waswas',
-        text: 'Do you really think you can succeed out there? Stay inside. You will stammer at the very first word. Go back to your room...',
+        text: 'You can still stay. Nobody is forcing you to go out. You are so comfortable right here...',
         emotion: 'shadow',
         waswasXpAmount: 10,
-        waswasReason: 'The first whisper of doubt emerges at the door'
+        waswasReason: 'The final whisper of doubt at the door'
       },
       {
-        id: 's1_noura_wisdom',
+        id: 's1_door_noura',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'Do you hear that? Doubt always tries to paralyze you at the threshold. Do not debate with it: place your trust in Allah and take your step!',
+        text: 'Othman... you don’t need to know the entire road. Only the very next step.',
         emotion: 'smiling'
       },
       {
         id: 's1_door_choice',
         type: 'choice',
         speaker: 'personnage',
-        text: 'Othman firmly places his hand on the door handle:',
+        text: 'Othman takes a deep breath and turns the handle:',
         choices: [
           {
             id: 'c_door_push',
-            label: '« Bismillāh! » — Push the door open and step forward despite doubt',
-            badge: 'Taking Action',
+            label: '✨ « BISMILLĀH — STEP FORWARD »',
+            badge: 'First Step',
             traitGains: { sabr: 5, discipline: 4 },
-            habitMessage: 'Courage • Othman overcomes doubt through action.'
+            habitMessage: 'Courage • Othman crosses the threshold.'
           }
         ]
       },
       {
-        id: 's1_door_open',
+        id: 's1_door_exit',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'The wooden door opens onto the crisp morning air. Othman crosses the threshold. The whispers fade behind him as he walks down the hillside toward the edge of the woods.',
+        text: 'The door swings open! Golden dawn light floods the room. The shadowy whispers vanish at once. Othman firmly steps across the threshold.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_vista_narration',
+        type: 'dialogue',
+        speaker: 'narration',
+        text: 'Before him, the hill winds down toward the sunlit valley. Fresh morning air fills his lungs. In the distance, the great Crossroads Post stands in the light...',
         emotion: 'smiling'
       }
     ]
@@ -644,45 +726,45 @@ export const CHAPTER_1_SCENES_EN: Scene[] = [
       {
         id: 's2_b6',
         type: 'choice',
-        speaker: 'personnage',
-        text: '« Today, what does Othman choose to work on? »',
+        speaker: 'noura',
+        text: '« Which path would you like to guide Othman toward today? »',
         choices: [
           {
             id: 'c1',
-            label: '🌿 Chapter 1: « Connecting with Others » — Meeting with goodwill & trust (Taʿāruf)',
+            label: '🌿 Chapter 1: « Fighting the Waswas » — Overcoming doubts & connecting with others (Taʿāruf)',
             badge: 'Available • Chapter 1',
             interactiveSpot: { x: '35%', y: '55%' }
           },
           {
             id: 'c2',
-            label: '📖 Chapter 2: « Seeking Knowledge » — The school of scholars, humility & science (ʿIlm)',
+            label: '⚖️ Chapter 2: « Mastering Anger » — The marketplace trial & clemency (Hilm)',
             disabled: true,
             badge: 'Coming Soon • Chapter 2',
-            disabledReason: 'Othman takes the path to the grand library and discovers the patience of learning.',
+            disabledReason: 'Today, facing marketplace disputes, Othman learns to stay calm, master his anger, and forgive (Hilm).',
             interactiveSpot: { x: '50%', y: '45%' }
           },
           {
             id: 'c3',
-            label: '🛡️ Chapter 3: « Mastering Anger » — The marketplace trial & clemency (Hilm)',
+            label: '🍯 Chapter 3: « Facing Illness » — Prophetic remedies & trust in God (Tawakkul)',
             disabled: true,
             badge: 'Coming Soon • Chapter 3',
-            disabledReason: 'Facing provocations in the marketplace, Othman learns to master anger through noble composure.',
+            disabledReason: 'Today, facing pain and illness (with the boy in the arm splint), Othman discovers prophetic remedies and complete trust in God (Tawakkul).',
             interactiveSpot: { x: '65%', y: '50%' }
           },
           {
             id: 'c4',
-            label: '🩹 Chapter 4: « Enduring the Trial » — Patience in hardship & mutual support (Sabr)',
+            label: '👨‍👩‍👧 Chapter 4: « Kindness to Parents » — Respect, love & daily care (Birr al-Walidayn)',
             disabled: true,
             badge: 'Coming Soon • Chapter 4',
-            disabledReason: 'Alongside those who suffer, Othman learns fortitude and brotherly aid.',
+            disabledReason: 'Today, Othman learns the crucial importance of parents, loving obedience, and caring for them daily (Birr al-Walidayn).',
             interactiveSpot: { x: '75%', y: '60%' }
           },
           {
             id: 'c5',
-            label: '🌳 Chapter 5: « Honoring Roots » — Gratitude & kindness toward parents (Birr)',
+            label: '⛰️ Chapter 5: « The Inner Mountain » — Purity of intention (Niyyah & Sincerity)',
             disabled: true,
             badge: 'Coming Soon • Chapter 5',
-            disabledReason: 'A quest of remembrance and filial devotion beneath the great ancient tree.',
+            disabledReason: 'Today, Othman learns to act with pure intention solely for God and conquer great trials with faith (Niyyah).',
             interactiveSpot: { x: '85%', y: '45%' }
           }
         ]

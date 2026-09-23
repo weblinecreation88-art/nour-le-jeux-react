@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+
+  <!-- 1. Page d'Accueil Principale (Français - Version Canonique & x-default) -->
+  <url>
+    <loc>https://playnour.online/</loc>
+    <lastmod>2026-09-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://playnour.online/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://playnour.online/?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://playnour.online/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://playnour.online/" />
+
+    <!-- Google Image Extension (Images Clés Indexées) -->
+    <image:image>
+      <image:loc>https://playnour.online/affiche_nour_whatsapp.jpg</image:loc>
+      <image:title>NOUR — Affiche Officielle du Jeu RPG Islamique en Pixel Art</image:title>
+      <image:caption>Aventure initiatique d'Othmân : Combats par quiz de sagesse et apprentissage de l'Adab</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://playnour.online/game-assets/chambre.jpg</image:loc>
+      <image:title>NOUR — La Chambre d'Othmân (Chapitre 1 : Vaincre la Solitude)</image:title>
+      <image:caption>Le point de départ de l'aventure d'Othmân en pixel art 16-bit</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://playnour.online/game-assets/verger.jpg</image:loc>
+      <image:title>NOUR — Le Verger des Amandiers (Épreuve du Hilm et de la Patience)</image:title>
+      <image:caption>Rencontre et apprentissage de la sagesse face au Waswâs</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://playnour.online/game-assets/marche.jpg</image:loc>
+      <image:title>NOUR — Le Marché de la Ville (Quête de Fraternité et d'Adab)</image:title>
+      <image:caption>Dilemme moral et application concrète des valeurs islamiques</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://playnour.online/game-assets/village_accueillant.jpg</image:loc>
+      <image:title>NOUR — Le Village Apaisé (Victoire sur le Doute)</image:title>
+      <image:caption>Épilogue et sérénité retrouvée dans la communauté</image:caption>
+    </image:image>
+
+    <!-- Google Video Extension (Trailer & Gameplay Indexés dans l'onglet Vidéos) -->
+    <video:video>
+      <video:thumbnail_loc>https://playnour.online/affiche_nour_whatsapp.jpg</video:thumbnail_loc>
+      <video:title>NOUR — Bande-Annonce Officielle du RPG Islamique en Pixel Art</video:title>
+      <video:description>Découvrez le gameplay de NOUR : le 1er jeu de rôle narratif islamique doublé en voix françaises. Combats par quiz de foi et de discernement contre le Waswâs.</video:description>
+      <video:content_loc>https://playnour.online/nour_le_jeu_trailer_25s.mp4</video:content_loc>
+      <video:player_loc>https://playnour.online/#gameplay-video</video:player_loc>
+      <video:duration>25</video:duration>
+      <video:publication_date>2026-03-01T00:00:00+00:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>jeu islamique</video:tag>
+      <video:tag>rpg islamique</video:tag>
+      <video:tag>waswas</video:tag>
+      <video:tag>adab</video:tag>
+      <video:tag>pixel art</video:tag>
+      <video:tag>jeu musulman</video:tag>
+    </video:video>
+  </url>
+
+  <!-- 2. Version Arabe (Multilingue) -->
+  <url>
+    <loc>https://playnour.online/?lang=ar</loc>
+    <lastmod>2026-09-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://playnour.online/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://playnour.online/?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://playnour.online/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://playnour.online/" />
+
+    <image:image>
+      <image:loc>https://playnour.online/affiche_nour_whatsapp.jpg</image:loc>
+      <image:title>لعبة نُور — طريق الحكمة | أول لعبة تقمص أدوار إسلامية بيكسل آرت</image:title>
+      <image:caption>مغامرة عثمان التربوية : مواجهة الوسواس بمسابقات الحكمة والأدب النبوي</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 3. Version Anglaise (Multilingue) -->
+  <url>
+    <loc>https://playnour.online/?lang=en</loc>
+    <lastmod>2026-09-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://playnour.online/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://playnour.online/?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://playnour.online/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://playnour.online/" />
+
+    <image:image>
+      <image:loc>https://playnour.online/affiche_nour_whatsapp.jpg</image:loc>
+      <image:title>NOUR — The Path of Wisdom | Islamic Pixel Art Narrative RPG</image:title>
+      <image:caption>Join Othman in a moral RPG adventure: Quiz-based combat against Waswas and real-life Adab quests</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 4. Page de Confidentialité et Protection des Données (Conformité E-E-A-T & Google Search Essentials) -->
+  <url>
+    <loc>https://playnour.online/privacy.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://playnour.online/privacy.html" />
+  </url>
+
+</urlset>

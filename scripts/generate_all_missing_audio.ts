@@ -156,7 +156,13 @@ async function main() {
     if (targetScenes && !targetScenes.includes(scene.id)) continue;
 
     for (const beat of scene.beats) {
-      if (beat.type === 'dialogue' && beat.id && beat.text) {
+      if (
+        beat.type === 'dialogue' &&
+        beat.id &&
+        beat.text &&
+        beat.speaker !== 'waswas' &&
+        beat.speaker !== 'grand_waswas'
+      ) {
         beatsToProcess.push({
           id: beat.id,
           speaker: beat.speaker,

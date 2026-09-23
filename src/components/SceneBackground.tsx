@@ -2,6 +2,116 @@ import React from 'react';
 import { Scene, Beat, DialogueChoice } from '../types';
 import { CustomAssetsConfig, DEFAULT_ASSETS } from '../utils/assets';
 
+interface StoryboardShot {
+  id: string;
+  src: string;
+  videoSrc?: string;
+  alt: string;
+}
+
+const SCENE_1_SHOTS: StoryboardShot[] = [
+  {
+    id: 'shot_fenetre',
+    src: '/game-assets/scene1/01_chambre_othman_fenetre.png',
+    videoSrc: '/game-assets/scene1/01_chambre_othman_fenetre.mp4',
+    alt: 'Othmân à l’aube assis sur son lit face à la fenêtre moucharabieh'
+  },
+  {
+    id: 'shot_noura',
+    src: '/game-assets/scene1/02_noura_entree_chambre.png',
+    alt: 'Noura apparaissant dans l’embrasure de la porte baignée de soleil'
+  },
+  {
+    id: 'shot_waswas',
+    src: '/game-assets/scene1/05_waswas_chambre.png',
+    videoSrc: '/game-assets/waswas_smoke.mp4',
+    alt: 'L’ombre insidieuse du Waswâs murmurant le doute dans la chambre'
+  },
+  {
+    id: 'shot_lit',
+    src: '/game-assets/scene1/03_othman_refait_lit.png',
+    alt: 'Othmân repliant sa couverture et ordonnant son lit'
+  },
+  {
+    id: 'shot_eau_sandales',
+    src: '/game-assets/scene1/04_choix_eau_sandales.png',
+    alt: 'La carafe d’eau fraîche et les sandales prêtes au départ'
+  },
+  {
+    id: 'shot_loquet',
+    src: '/game-assets/scene1/06_main_sur_porte.png',
+    alt: 'Main résolue d’Othmân posée sur le loquet de fer de la porte'
+  },
+  {
+    id: 'shot_sortie',
+    src: '/game-assets/scene1/07_sortie_vers_village.png',
+    alt: 'Othmân franchissant la porte ouverte sur la ruelle baignée d’or'
+  },
+  {
+    id: 'shot_poteau',
+    src: '/game-assets/scene1/08_chemin_vers_poteau.png',
+    videoSrc: '/game-assets/scene1/08_chemin_vers_poteau.mp4',
+    alt: 'Vue panoramique sur le sentier et le Poteau aux Chemins au loin'
+  }
+];
+
+const getScene1ActiveShotId = (beatId?: string): string => {
+  if (!beatId) return 'shot_fenetre';
+
+  // 1. Hook & monologue initial
+  if (['s1_hook_1', 's1_hook_2'].includes(beatId)) return 'shot_fenetre';
+
+  // 2. Arrivée et échange avec Noura
+  if (['s1_hook_3', 's1_hook_4', 's1_hook_5', 's1_hook_6', 's1_hook_7'].includes(beatId)) return 'shot_noura';
+
+  // 3. Apparition du Waswâs (Ombre & murmure)
+  if (['s1_waswas_comfort', 's1_noura_hear', 's1_othman_hear', 's1_noura_push'].includes(beatId)) return 'shot_waswas';
+
+  // 4. Choix du geste matinal (Othmân assis en réflexion)
+  if (['s1_choice_morning'].includes(beatId)) return 'shot_fenetre';
+
+  // 5. Branche Lit / Ordre & Niyyah
+  if ([
+    's1_order_othman',
+    's1_order_noura',
+    's1_order_othman_done',
+    's1_order_noura_ask',
+    's1_order_quiz',
+    's1_order_noura_teach',
+    's1_order_othman_niyyah',
+    's1_order_noura_finish'
+  ].includes(beatId)) {
+    return 'shot_lit';
+  }
+
+  // 6. Branche Eau & Sandales (Adab & Tawakkul)
+  if ([
+    's1_water_othman',
+    's1_water_noura',
+    's1_water_othman_drink',
+    's1_water_noura_teach',
+    's1_water_othman_done',
+    's1_sandals_othman',
+    's1_sandals_noura',
+    's1_sandals_othman_confie',
+    's1_sandals_noura_teach',
+    's1_sandals_othman_done'
+  ].includes(beatId)) {
+    return 'shot_eau_sandales';
+  }
+
+  // 7. La Porte & Dernier murmure de doute
+  if (['s1_door_approach', 's1_door_waswas', 's1_door_noura', 's1_door_choice'].includes(beatId)) return 'shot_loquet';
+
+  // 8. Franchir le seuil au soleil
+  if (['s1_door_exit'].includes(beatId)) return 'shot_sortie';
+
+  // 9. Panorama d'ouverture vers le Poteau aux Chemins
+  if (['s1_vista_narration'].includes(beatId)) return 'shot_poteau';
+
+  return 'shot_fenetre';
+};
+
 interface SceneBackgroundProps {
   scene: Scene;
   currentBeat?: Beat;
@@ -33,68 +143,168 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
       ? 'jardin'
       : rawTheme;
 
-  // Dynamic Real-Action Scene for Scene 1 (Chambre):
-  // Bed messy vs Bed made based on completedRealActions ('action_lit')
+  // Dynamic Cinematic Storyboard Scene for Scene 1 (Chambre):
+  // 8 beat-by-beat dynamic shots with smooth crossfading transitions
   if (theme === 'chambre') {
-    const isBedMade =
-      completedRealActions.includes('action_lit') ||
-      Boolean(
-        currentBeat &&
-        currentBeat.id &&
-        !['s1_intro_1', 's1_intro_2', 's1_intro_3', 's1_b1', 's1_b2', 's1_b3', 's1_b4', 's1_b5', 's1_b6', 's1_b6_choice', 's1_b7', 's1_pont_lit', 's1_b8', 's1_b9'].includes(currentBeat.id)
+    const hasCustomChambre =
+      customAssets?.backgrounds?.chambre &&
+      customAssets.backgrounds.chambre !== DEFAULT_ASSETS.backgrounds.chambre;
+
+    // If user explicitly configured a custom background in Asset Manager, honor it
+    if (hasCustomChambre) {
+      const isBedMade =
+        completedRealActions.includes('action_lit') ||
+        Boolean(
+          currentBeat &&
+          currentBeat.id &&
+          [
+            's1_order_othman_done',
+            's1_order_noura_ask',
+            's1_order_quiz',
+            's1_order_noura_teach',
+            's1_order_othman_niyyah',
+            's1_order_noura_finish',
+            's1_door_approach',
+            's1_door_waswas',
+            's1_door_noura',
+            's1_door_choice',
+            's1_door_exit',
+            's1_vista_narration'
+          ].includes(currentBeat.id)
+        );
+      const bgDefait = customAssets?.backgrounds?.chambre_defait || DEFAULT_ASSETS.backgrounds.chambre_defait;
+      const bgFait = customAssets?.backgrounds?.chambre || DEFAULT_ASSETS.backgrounds.chambre;
+
+      return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
+          {bgDefait && (
+            <div
+              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+                isBedMade ? 'opacity-0 pointer-events-none' : 'opacity-100'
+              }`}
+            >
+              <img
+                src={bgDefait}
+                className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+                alt=""
+                referrerPolicy="no-referrer"
+              />
+              <img
+                src={bgDefait}
+                alt="Chambre au réveil — Lit défait"
+                className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                  isContemplating ? 'scale-105' : 'scale-100'
+                }`}
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          )}
+
+          {bgFait && (
+            <div
+              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
+                isBedMade ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
+            >
+              <img
+                src={bgFait}
+                className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+                alt=""
+                referrerPolicy="no-referrer"
+              />
+              <img
+                src={bgFait}
+                alt="Chambre rangée — Lit fait"
+                className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                  isContemplating ? 'scale-105' : 'scale-100'
+                }`}
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          )}
+
+          <div
+            className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
+              isContemplating
+                ? 'bg-gradient-to-t from-black/40 via-transparent to-black/20'
+                : 'bg-gradient-to-t from-black/20 via-transparent to-black/10'
+            }`}
+          />
+        </div>
       );
-    const bgDefait = customAssets?.backgrounds?.chambre_defait || DEFAULT_ASSETS.backgrounds.chambre_defait;
-    const bgFait = customAssets?.backgrounds?.chambre || DEFAULT_ASSETS.backgrounds.chambre;
+    }
+
+    // Dynamic 8-Shot Cinematic Storyboard for Scene 1 (La Chambre)
+    const activeShotId = getScene1ActiveShotId(currentBeat?.id);
+    const fallbackBg = DEFAULT_ASSETS.backgrounds.chambre;
 
     return (
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
-        {/* Layer 1: Lit défait (Visible when bed is NOT made) */}
-        {bgDefait && (
-          <div
-            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
-              isBedMade ? 'opacity-0 pointer-events-none' : 'opacity-100'
-            }`}
-          >
-            <img
-              src={bgDefait}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
-            />
-            <img
-              src={bgDefait}
-              alt="Chambre au réveil — Lit défait"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
-                isContemplating ? 'scale-105' : 'scale-100'
+        {/* Pre-mounted layers for instant, smooth crossfade without network delay or flicker */}
+        {SCENE_1_SHOTS.map((shot) => {
+          const isActive = activeShotId === shot.id;
+          return (
+            <div
+              key={shot.id}
+              className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 ease-in-out ${
+                isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'
               }`}
-              referrerPolicy="no-referrer"
-            />
-          </div>
-        )}
-
-        {/* Layer 2: Lit fait (Fades in when bed IS made) */}
-        {bgFait && (
-          <div
-            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
-              isBedMade ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            }`}
-          >
-            <img
-              src={bgFait}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
-            />
-            <img
-              src={bgFait}
-              alt="Chambre rangée — Lit fait"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
-                isContemplating ? 'scale-105' : 'scale-100'
-              }`}
-              referrerPolicy="no-referrer"
-            />
-          </div>
-        )}
+            >
+              {/* Blurred atmospheric glow filling widescreen / portrait boundaries */}
+              {shot.videoSrc ? (
+                <video
+                  src={shot.videoSrc}
+                  poster={shot.src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+                />
+              ) : (
+                <img
+                  src={shot.src}
+                  className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
+                  alt=""
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    if (fallbackBg && e.currentTarget.src !== fallbackBg) {
+                      e.currentTarget.src = fallbackBg;
+                    }
+                  }}
+                />
+              )}
+              {/* Crisp 3:4 storyboard illustration or living animated video perfectly centered */}
+              {shot.videoSrc ? (
+                <video
+                  src={shot.videoSrc}
+                  poster={shot.src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                    isContemplating ? 'scale-105' : 'scale-100'
+                  }`}
+                />
+              ) : (
+                <img
+                  src={shot.src}
+                  alt={shot.alt}
+                  className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+                    isContemplating ? 'scale-105' : 'scale-100'
+                  }`}
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    if (fallbackBg && e.currentTarget.src !== fallbackBg) {
+                      e.currentTarget.src = fallbackBg;
+                    }
+                  }}
+                />
+              )}
+            </div>
+          );
+        })}
 
         {/* Subtle dark gradient overlay for dialogue legibility (softer during contemplation) */}
         <div
@@ -109,61 +319,34 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
   }
 
   // Dynamic Real-Action Scene for Scene 2 (Carrefour):
-  // Backpack on ground vs picked up and strapped on based on completedRealActions ('action_depart')
+  // Always show the video now, no need to wait for action_depart
   if (theme === 'carrefour') {
-    const isDepartReady = completedRealActions.includes('action_depart');
-    const bgSacPose = customAssets?.backgrounds?.carrefour_sac_pose || DEFAULT_ASSETS.backgrounds.carrefour_sac_pose;
     const bgDepart = customAssets?.backgrounds?.carrefour || DEFAULT_ASSETS.backgrounds.carrefour;
 
     return (
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
-        {/* Layer 1: Sac posé au sol (Visible avant de valider l'action du départ) */}
-        {bgSacPose && (
-          <div
-            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
-              isDepartReady ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        <div className="absolute inset-0 flex items-center justify-center">
+          <video
+            src="/game-assets/carrefour_poteau.mp4"
+            poster={bgDepart}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
+          />
+          <video
+            src="/game-assets/carrefour_poteau.mp4"
+            poster={bgDepart}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out pointer-events-none ${
+              isContemplating ? 'scale-105' : 'scale-100'
             }`}
-          >
-            <img
-              src={bgSacPose}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
-            />
-            <img
-              src={bgSacPose}
-              alt="Carrefour des chemins — Pause et hésitation"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
-                isContemplating ? 'scale-105' : 'scale-100'
-              }`}
-              referrerPolicy="no-referrer"
-            />
-          </div>
-        )}
-
-        {/* Layer 2: Sac ramassé / Prêt pour la marche (Visible après la duʿāʾ et l'action) */}
-        {bgDepart && (
-          <div
-            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
-              isDepartReady ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            }`}
-          >
-            <img
-              src={bgDepart}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
-            />
-            <img
-              src={bgDepart}
-              alt="Carrefour des chemins — En route vers le village"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
-                isContemplating ? 'scale-105' : 'scale-100'
-              }`}
-              referrerPolicy="no-referrer"
-            />
-          </div>
-        )}
+          />
+        </div>
 
         {/* Subtle dark gradient overlay for dialogue legibility (softer during contemplation) */}
         <div
@@ -322,19 +505,25 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
         {bgEpilogue && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <img
-              src={bgEpilogue}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
+            <video
+              src="/game-assets/climax_pavillon_sunset.mp4"
+              poster={bgEpilogue}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
             />
-            <img
-              src={bgEpilogue}
-              alt="Coucher de soleil baignant la vallée — Minarets à l'horizon"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+            <video
+              src="/game-assets/climax_pavillon_sunset.mp4"
+              poster={bgEpilogue}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out pointer-events-none ${
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
-              referrerPolicy="no-referrer"
             />
           </div>
         )}
@@ -567,19 +756,25 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isIstiadhahDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
-            <img
-              src={bgMist}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
+            <video
+              src="/game-assets/waswas_smoke.mp4"
+              poster={bgMist}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
             />
-            <img
-              src={bgMist}
-              alt="Sentier envahi par la brume du Waswas"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+            <video
+              src="/game-assets/waswas_smoke.mp4"
+              poster={bgMist}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out pointer-events-none ${
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
-              referrerPolicy="no-referrer"
             />
           </div>
         )}
@@ -626,14 +821,25 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
     if (bgVallee) {
       return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
-          <img src={bgVallee} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
-          <img
-            src={bgVallee}
-            alt={scene.title || "Vue sur la vallée"}
-            className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+          <video
+            src="/game-assets/vallee_belvedere.mp4"
+            poster={bgVallee}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
+          />
+          <video
+            src="/game-assets/vallee_belvedere.mp4"
+            poster={bgVallee}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out pointer-events-none ${
               isContemplating ? 'scale-105' : 'scale-100'
             }`}
-            referrerPolicy="no-referrer"
           />
           <div
             className={`absolute inset-0 transition-all duration-1000 pointer-events-none z-10 ${
@@ -690,19 +896,25 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isVillageFriendly ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            <img
-              src={bgAccueillant}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
+            <video
+              src="/game-assets/village_sunlight.mp4"
+              poster={bgAccueillant}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
             />
-            <img
-              src={bgAccueillant}
-              alt="Place du village — Accueil chaleureux et fraternel"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+            <video
+              src="/game-assets/village_sunlight.mp4"
+              poster={bgAccueillant}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out pointer-events-none ${
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
-              referrerPolicy="no-referrer"
             />
           </div>
         )}
@@ -761,19 +973,25 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isSabrDone ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            <img
-              src={bgRuelleApaisee}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
+            <video
+              src="/game-assets/ruelle_cobblestone.mp4"
+              poster={bgRuelleApaisee}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
             />
-            <img
-              src={bgRuelleApaisee}
-              alt="Ruelle du village — Sérénité et patience (Sabr)"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+            <video
+              src="/game-assets/ruelle_cobblestone.mp4"
+              poster={bgRuelleApaisee}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out pointer-events-none ${
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
-              referrerPolicy="no-referrer"
             />
           </div>
         )}
@@ -808,29 +1026,25 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isGesteDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
-            <img
-              src={bgRenverse}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                if (DEFAULT_ASSETS.backgrounds.geste_renverse && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.geste_renverse) {
-                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.geste_renverse;
-                }
-              }}
+            <video
+              src="/game-assets/verger_paysan.mp4"
+              poster={bgRenverse}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
             />
-            <img
-              src={bgRenverse}
-              alt="Chemin des oliviers — Paniers renversés et fruits éparpillés"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+            <video
+              src="/game-assets/verger_paysan.mp4"
+              poster={bgRenverse}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out pointer-events-none ${
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                if (DEFAULT_ASSETS.backgrounds.geste_renverse && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.geste_renverse) {
-                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.geste_renverse;
-                }
-              }}
             />
           </div>
         )}
@@ -842,29 +1056,25 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isGesteDone ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            <img
-              src={bgRanges}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                if (DEFAULT_ASSETS.backgrounds.geste && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.geste) {
-                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.geste;
-                }
-              }}
+            <video
+              src="/game-assets/verger_oliviers.mp4"
+              poster={bgRanges}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
             />
-            <img
-              src={bgRanges}
-              alt="Chemin des oliviers — Fruits ramassés et paniers bien rangés"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+            <video
+              src="/game-assets/verger_oliviers.mp4"
+              poster={bgRanges}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out pointer-events-none ${
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                if (DEFAULT_ASSETS.backgrounds.geste && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.geste) {
-                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.geste;
-                }
-              }}
             />
           </div>
         )}
@@ -900,29 +1110,25 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isJardinRevived ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
-            <img
-              src={bgEncombre}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                if (DEFAULT_ASSETS.backgrounds.jardin_encombre && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.jardin_encombre) {
-                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.jardin_encombre;
-                }
-              }}
+            <video
+              src="/game-assets/jardin_encombre.mp4"
+              poster={bgEncombre}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
             />
-            <img
-              src={bgEncombre}
-              alt="Jardin abandonné — Ruisseau obstrué de branchages et feuilles mortes"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+            <video
+              src="/game-assets/jardin_encombre.mp4"
+              poster={bgEncombre}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out pointer-events-none ${
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                if (DEFAULT_ASSETS.backgrounds.jardin_encombre && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.jardin_encombre) {
-                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.jardin_encombre;
-                }
-              }}
             />
           </div>
         )}
@@ -934,29 +1140,25 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isJardinRevived ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            <img
-              src={bgRevived}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                if (DEFAULT_ASSETS.backgrounds.jardin && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.jardin) {
-                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.jardin;
-                }
-              }}
+            <video
+              src="/game-assets/jardin_fleuri.mp4"
+              poster={bgRevived}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
             />
-            <img
-              src={bgRevived}
-              alt="Jardin revivifié — Eau limpide et bienfaits du Créateur (Shukr)"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+            <video
+              src="/game-assets/jardin_fleuri.mp4"
+              poster={bgRevived}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out pointer-events-none ${
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                if (DEFAULT_ASSETS.backgrounds.jardin && e.currentTarget.src !== DEFAULT_ASSETS.backgrounds.jardin) {
-                  e.currentTarget.src = DEFAULT_ASSETS.backgrounds.jardin;
-                }
-              }}
             />
           </div>
         )}
@@ -1070,19 +1272,25 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               dawnOpacity > 0 ? '' : 'pointer-events-none'
             }`}
           >
-            <img
-              src={bgPavillonApaise}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
+            <video
+              src="/game-assets/climax_pavillon_sunset.mp4"
+              poster={bgPavillonApaise}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
             />
-            <img
-              src={bgPavillonApaise}
-              alt="Pavillon antique apaisé — Le Waswas est vaincu par la foi et l'action"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+            <video
+              src="/game-assets/climax_pavillon_sunset.mp4"
+              poster={bgPavillonApaise}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out pointer-events-none ${
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
-              referrerPolicy="no-referrer"
             />
           </div>
         )}

@@ -349,41 +349,99 @@ export const CHAPTER_1_SCENES_AR: Scene[] = [
         id: 's1_hook_1',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'يُضِيءُ نُورُ الْفَجْرِ جُدْرَانَ الْغُرْفَةِ بِلُطْفٍ. يَجْلِسُ عُثْمَانُ عَلَى حَافَّةِ سَرِيرِهِ، وَعَيْنَاهُ تَرْنُوَانِ إِلَى حَقِيبَةِ سَفَرِهِ الَّتِي مَا زَالَتْ فَاغِرَةً.',
+        text: 'كَانَ الْفَجْرُ قَدْ لَامَسَ رُؤُوسَ التِّلَالِ... وَفِي الْوَادِي، كَانَتِ الْقَرْيَةُ قَدِ اسْتَيْقَظَتْ بِالْفِعْلِ. أَصْوَاتٌ، خُطُوَاتٌ، وَضَحِكَاتٌ. يَجْلِسُ عُثْمَانُ عَلَى سَرِيرِهِ، وَعَيْنَاهُ تَرْنُوَانِ إِلَى حَقِيبَتِهِ الَّتِي مَا زَالَتْ فَاغِرَةً.',
         emotion: 'thoughtful'
       },
       {
         id: 's1_hook_2',
         type: 'dialogue',
-        speaker: 'noura',
-        text: 'الْيَوْمُ هُوَ الْيَوْمُ الْمَوْعُودُ يَا عُثْمَانُ. الْيَوْمُ الَّذِي عَزَمْتَ فِيهِ عَلَى النُّزُولِ نَحْوَ الْقَرْيَةِ.',
-        emotion: 'smiling'
+        speaker: 'personnage',
+        text: 'الْيَوْمَ... أَنْزِلُ إِلَيْهِمْ. (صَمْتٌ) أَعْنِي... سَأُحَاوِلُ.',
+        emotion: 'worried'
       },
       {
         id: 's1_hook_3',
         type: 'dialogue',
-        speaker: 'personnage',
-        text: 'نَعَمْ... لَطَالَمَا عِشْتُ فِي أَمَانٍ وَعُزْلَةٍ فَوْقَ هَذِهِ التَّلَّةِ. أُرِيدُ أَنْ أَتَعَلَّمَ، وَأَنْ أَسْتَكْشِفَ الْعَالَمَ، وَأَنْ أَتَعَرَّفَ عَلَى الْآخَرِينَ... لَكِنْ كُلَّمَا فَكَّرْتُ فِي ذَلِكَ، أَخَافُ أَلَّا أَجِدَ لِي مَكَانًا بَيْنَهُمْ.',
-        emotion: 'worried',
-        waswasXpAmount: 10,
-        waswasReason: 'الْخَوْفُ مِنَ الْمَجْهُولِ وَالشُّعُورُ بِالْعُزْلَةِ'
+        speaker: 'noura',
+        text: 'أَصِرْتَ تُحَدِّثُ حَقِيبَتَكَ الْآنَ؟',
+        emotion: 'smiling'
       },
       {
         id: 's1_hook_4',
         type: 'dialogue',
+        speaker: 'personnage',
+        text: 'إِنَّهَا تَسْمَعُنِي أَفْضَلَ مِنَ النَّاسِ.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_hook_5',
+        type: 'dialogue',
         speaker: 'noura',
-        text: 'الْحِكْمَةُ وَالصُّحْبَةُ الطَّيِّبَةُ لَا تُنَالَانِ بِالْبَقَاءِ حَبِيسَ الْجُدْرَانِ يَا بُنَيَّ. بِمَاذَا تُرِيدُ أَنْ تَبْدَأَ يَوْمَكَ؟',
+        text: 'إِذَنْ لَعَلَّهُ حَانَ الْوَقْتُ لِتُعَرِّفَهَا عَلَى الْعَالَمِ.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_hook_6',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: 'أُمِّي... مَاذَا لَوْ عَجَزْتُ؟ أَنْ أَقْتَرِبَ مِنَ النَّاسِ، أَنْ أَتَحَدَّثَ، أَنْ أَجِدَ لِي مَكَانًا...',
+        emotion: 'worried'
+      },
+      {
+        id: 's1_hook_7',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'تَسْعَى لِمَعْرِفَةِ مَا يَحْمِلُهُ كُلُّ الطَّرِيقِ... وَأَنْتَ لَمْ تَخْطُ خُطْوَتَكَ الْأُولَى بَعْدُ.',
+        emotion: 'thoughtful'
+      },
+      {
+        id: 's1_waswas_comfort',
+        type: 'dialogue',
+        speaker: 'waswas',
+        text: 'ابْقَ هُنَا... هُنَا لَا يَرَاكَ أَحَدٌ، وَلَا يَحْكُمْ عَلَيْكَ أَحَدٌ. أَنْتَ تَعْرِفُ هَذِهِ الْغُرْفَةَ، وَأَنْتَ فِيهَا فِي أَمَانٍ. أَمَّا فِي الْخَارِجِ... فَلَا تَدْرِي مَا يَنْتَظِرُكَ.',
+        emotion: 'shadow',
+        waswasXpAmount: 10,
+        waswasReason: 'فِتْنَةُ الرَّاحَةِ وَالْخَوْفُ مِنْ نَظَرَاتِ النَّاسِ'
+      },
+      {
+        id: 's1_noura_hear',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'أَسَمِعْتَ ذَلِكَ؟',
+        emotion: 'thoughtful'
+      },
+      {
+        id: 's1_othman_hear',
+        type: 'dialogue',
+        speaker: 'personnage',
+        text: '...نَعَمْ.',
+        emotion: 'worried'
+      },
+      {
+        id: 's1_noura_push',
+        type: 'dialogue',
+        speaker: 'noura',
+        text: 'فَلَا تَمْنَحْهُ مَكَانًا أَكْبَرَ مِمَّا يَسْتَحِقُّ. لَا يُهْزَمُ الشَّكُّ بِالْجُلُوسِ. بِمَاذَا تُرِيدُ أَنْ تَبْدَأَ؟',
         emotion: 'smiling'
       },
       {
         id: 's1_choice_morning',
         type: 'choice',
         speaker: 'personnage',
-        text: '« بِمَاذَا يَخْتَارُ عُثْمَانُ أَنْ يَبْدَأَ صَبَاحَهُ؟ »',
+        text: '« مَاذَا يَفْعَلُ عُثْمَانُ قَبْلَ الرَّحِيلِ؟ »',
         choices: [
           {
+            id: 'c_ordre',
+            label: '🧹 تَرْتِيبُ الْفِرَاشِ (نِظَامٌ يُصْفِي الْبَالَ)',
+            responsePreview: '« سَأَبْدَأُ بِتَرْتِيبِ فِرَاشِي. »',
+            choiceType: 'habit',
+            traitGains: { discipline: 5, sabr: 3 },
+            setNarrativeFlags: { morning_gesture: 'order' },
+            habitMessage: 'نِظَامٌ وَصَفَاءٌ • عُثْمَانُ يُصْلِحُ مَكَانَهُ.'
+          },
+          {
             id: 'c_eau',
-            label: '💧 شُرْبُ كُوبٍ مِنَ الْمَاءِ الْعَذْبِ (أَدَبُ السُّنَّةِ)',
+            label: '💧 شُرْبُ قَلِيلٍ مِنَ الْمَاءِ (تَسْكِينُ الْعَطَشِ وَالْقَلْبِ)',
             responsePreview: '« سَأَبْدَأُ بِشُرْبِ قَلِيلٍ مِنَ الْمَاءِ. »',
             choiceType: 'habit',
             traitGains: { adab: 5, ilm: 3 },
@@ -391,90 +449,56 @@ export const CHAPTER_1_SCENES_AR: Scene[] = [
             habitMessage: 'أَدَبٌ نَبَوِيٌّ • عُثْمَانُ يُهَدِّئُ بَدَنَهُ وَنَفْسَهُ.'
           },
           {
-            id: 'c_ordre',
-            label: '🧹 تَرْتِيبُ الْغُرْفَةِ وَصُنْعُ السَّرِيرِ (النِّظَامُ وَالنِّيَّةُ)',
-            responsePreview: '« سَأَبْدَأُ بِتَرْتِيبِ غُرْفَتِي وَفِرَاشِي. »',
-            choiceType: 'habit',
-            traitGains: { discipline: 5, sabr: 3 },
-            setNarrativeFlags: { morning_gesture: 'order' },
-            habitMessage: 'نِظَامٌ وَطَهَارَةٌ • عُثْمَانُ يُصْلِحُ مَكَانَهُ بِعِنَايَةٍ.'
-          },
-          {
             id: 'c_sandales',
-            label: '👟 إِعْدَادُ النَّعْلَيْنِ لِلْمَسِيرِ (التَّوَكُّلُ)',
-            responsePreview: '« سَأُعِدُّ نَعْلَيَّ لِلِانْطِلَاقِ، أَنَا مُسْتَعِدٌّ لِلْخُرُوجِ. »',
+            label: '👟 إِعْدَادُ النَّعْلَيْنِ (حَسْمُ التَّرَدُّدِ وَالْعَزْمُ)',
+            responsePreview: '« سَأُعِدُّ نَعْلَيَّ لِلِانْطِلَاقِ. »',
             choiceType: 'habit',
             traitGains: { sabr: 5, vitalite: 3 },
             setNarrativeFlags: { morning_gesture: 'sandals' },
-            habitMessage: 'عَزِيمَةٌ وَتَوَكُّلٌ • عُثْمَانُ يَتَأَهَّبُ لِخَوْضِ الطَّرِيقِ.'
+            habitMessage: 'عَزْمٌ وَتَوَكُّلٌ • عُثْمَانُ يَتَأَهَّبُ لِلْمَسِيرِ.'
           }
         ]
       },
 
-      // --- تَفَرُّعُ شُرْبِ الْمَاءِ ---
-      {
-        id: 's1_water_othman',
-        type: 'dialogue',
-        speaker: 'personnage',
-        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
-        text: 'سَأَبْدَأُ بِشُرْبِ قَلِيلٍ مِنَ الْمَاءِ الْعَذْبِ.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_water_noura_ask',
-        type: 'dialogue',
-        speaker: 'noura',
-        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
-        text: 'قَبْلَ أَنْ تَشْرَبَ... هَلْ تَذْكُرُ الْآدَابَ الطَّيِّبَةَ الَّتِي عَلَّمَنَا إِيَّاهَا النَّبِيُّ ﷺ عِنْدَ الشُّرْبِ؟',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_water_quiz',
-        type: 'quiz',
-        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
-        quizId: 'quiz_adab_boire',
-        unlockedConceptId: 'adab_boire'
-      },
-      {
-        id: 's1_water_noura_teach',
-        type: 'dialogue',
-        speaker: 'noura',
-        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
-        text: 'تَمَهَّلْ فِي شُرْبِكَ. عَلَّمَنَا النَّبِيُّ ﷺ أَنْ نَسْتَحْضِرَ الْأَدَبَ : نَبْدَأُ بِبِسْمِ اللَّهِ، نَشْرَبُ بِالْيَمِينِ، وَعَلَى ثَلَاثِ دَفَعَاتٍ هَادِئَةٍ. حَتَّى الْعَادَاتُ الْيَوْمِيَّةُ الْبَسِيطَةُ تَنْقَلِبُ عِبَادَةً حِينَ تَصْحَبُهَا النِّيَّةُ الصَّالِحَةُ.',
-        emotion: 'smiling'
-      },
-      {
-        id: 's1_water_othman_drink',
-        type: 'dialogue',
-        speaker: 'personnage',
-        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
-        text: 'الْحَمْدُ لِلَّهِ... الْمَاءُ بَارِدٌ وَعَذْبٌ يُنْعِشُ الْفُؤَادَ. أَشْعُرُ بِالسَّكِينَةِ وَالْقُدْرَةِ عَلَى الْمُضِيِّ قُدُمًا.',
-        emotion: 'smiling',
-        actionVignette: {
-          icon: '💧',
-          badge: 'سُنَّةٌ يَوْمِيَّةٌ',
-          title: 'أَدَبُ الشُّرْبِ النَّبَوِيُّ',
-          description: 'الْجُلُوسُ، التَّسْمِيَةُ، وَالشُّرْبُ بِالْيُمْنَى عَلَى ثَلَاثِ دَفَعَاتٍ هَادِئَةٍ.',
-          glowColor: 'cyan'
-        }
-      },
-
-      // --- تَفَرُّعُ تَرْتِيبِ الْغُرْفَةِ ---
+      // --- BRANCHE 1 : تَرْتِيبُ الْفِرَاشِ (Niyyah) ---
       {
         id: 's1_order_othman',
         type: 'dialogue',
         speaker: 'personnage',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
-        text: 'سَأَبْدَأُ بِتَرْتِيبِ غُرْفَتِي وَإِصْلَاحِ سَرِيرِي.',
+        text: 'سَأَبْدَأُ بِتَرْتِيبِ الْمَكَانِ قَلِيلًا.',
         emotion: 'thoughtful'
+      },
+      {
+        id: 's1_order_noura',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
+        text: 'عَمَلٌ يَسِيرٌ. لَكِنَّهُ أَحْيَانًا كُلُّ مَا تَلْزَمُكَ بِدَايَتُهُ.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_order_othman_done',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
+        text: 'أَمْرٌ عَجِيبٌ... ظَنَنْتُهُ مُجَرَّدَ فِرَاشٍ، لَكِنَّ الْغُرْفَةَ بَدَتْ فَجْأَةً أَكْثَرَ صَفَاءً وَنُورًا.',
+        emotion: 'smiling',
+        actionVignette: {
+          icon: '🧹',
+          badge: 'نِظَامٌ وَصَفَاءٌ',
+          title: 'تَرْتِيبُ الْمَكَانِ',
+          description: 'تَرْتِيبُ الظَّاهِرِ لِجَلْبِ السَّكِينَةِ وَصَفَاءِ الْبَالِ.',
+          glowColor: 'amber'
+        }
       },
       {
         id: 's1_order_noura_ask',
         type: 'dialogue',
         speaker: 'noura',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
-        text: 'بِدَايَةٌ مُبَارَكَةٌ. تَرْتِيبُ الْمَكَانِ يُعِينُ عَلَى تَرْتِيبِ الْأَفْكَارِ وَصَفَاءِ الْبَالِ. لَكِنْ هَلْ تَعْلَمُ بِأَيِّ نِيَّةٍ نَقُومُ بِذَلِكَ؟',
-        emotion: 'smiling'
+        text: 'النِّظَامُ حَوْلَنَا يُعِينُ عَلَى اسْتِعَادَةِ صَفَاءِ الْبَالِ. لَكِنْ قُلْ لِي... لِمَاذَا تُرِيدُ حَقًّا بَدْءَ هَذَا الْيَوْمِ؟',
+        emotion: 'thoughtful'
       },
       {
         id: 's1_order_quiz',
@@ -488,118 +512,176 @@ export const CHAPTER_1_SCENES_AR: Scene[] = [
         type: 'dialogue',
         speaker: 'noura',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
-        text: '« إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ ». حَتَّى تَرْتِيبُ غِطَائِكَ يَصِيرُ قُرْبَةً وَجَمَالًا حِينَ يَكُونُ الْقَلْبُ صَادِقًا مُبْتَغِيًا رِضَا اللَّهِ.',
+        text: 'النِّيَّةُ الصَّادِقَةُ. قَبْلَ أَنْ تَخْطُوَ خُطْوَتَكَ، هُنَاكَ شَيْءٌ لَا يَرَاهُ أَحَدٌ سِوَى اللَّهِ : مَا تَبْتَغِيهِ حَقًّا فِي قَلْبِكَ.',
         emotion: 'smiling'
       },
       {
-        id: 's1_order_othman_done',
+        id: 's1_order_othman_niyyah',
         type: 'dialogue',
         speaker: 'personnage',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
-        text: 'أَصْبَحَ كُلُّ شَيْءٍ مُرَتَّبًا وَمُشْرِقًا. عَيْنَايَ تَتَّجِهَانِ نَحْوَ حَقِيبَةِ السَّفَرِ... أَنَا مُسْتَعِدٌّ لِلنُّزُولِ.',
-        emotion: 'determined',
-        actionVignette: {
-          icon: '🧹',
-          badge: 'طَهَارَةٌ وَنِظَامٌ',
-          title: 'إِخْلَاصُ النِّيَّةِ',
-          description: 'تَرْتِيبُ الْمَكَانِ الظَّاهِرِ لِجَلْبِ صَفَاءِ الْبَاطِنِ بِطَاعَةٍ وَإِخْلَاصٍ.',
-          glowColor: 'amber'
-        }
+        text: 'إِذَنْ... أُرِيدُ أَنْ أَمْضِيَ لِأَتَعَلَّمَ، وَلِأَكُونَ إِنْسَانًا أَفْضَلَ.',
+        emotion: 'determined'
+      },
+      {
+        id: 's1_order_noura_finish',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'order' },
+        text: 'تِلْكَ بِدَايَةٌ كَرِيمَةٌ وَطَيِّبَةٌ.',
+        emotion: 'smiling'
       },
 
-      // --- تَفَرُّعُ النَّعْلَيْنِ وَالتَّوَكُّلِ ---
+      // --- BRANCHE 2 : شُرْبُ الْمَاءِ (Adab) ---
+      {
+        id: 's1_water_othman',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'حَلْقِي جَافٌّ. سَأَبْدَأُ بِشُرْبِ قَلِيلٍ مِنَ الْمَاءِ.',
+        emotion: 'thoughtful'
+      },
+      {
+        id: 's1_water_noura',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'حَتَّى الْعَادَاتُ الْيَوْمِيَّةُ الْبَسِيطَةُ تَغْدُو كَنْزًا حِينَ نَفْعَلُهَا بِوَعْيٍ وَأَدَبٍ. تَذَكَّرْ فَقَطْ هَدْيَ السُّنَّةِ الطَّيِّبَةِ.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_water_othman_drink',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'بِسْمِ اللَّهِ... (يَجْلِسُ عُثْمَانُ وَيَشْرَبُ بِيَمِينِهِ عَلَى ثَلَاثِ دَفَعَاتٍ هَادِئَةٍ) ...الْحَمْدُ لِلَّهِ.',
+        emotion: 'smiling',
+        actionVignette: {
+          icon: '💧',
+          badge: 'سُنَّةٌ يَوْمِيَّةٌ',
+          title: 'أَدَبُ الشُّرْبِ النَّبَوِيُّ',
+          description: 'الْجُلُوسُ، التَّسْمِيَةُ، وَالشُّرْبُ بِالْيُمْنَى عَلَى ثَلَاثِ دَفَعَاتٍ هَادِئَةٍ.',
+          glowColor: 'cyan'
+        }
+      },
+      {
+        id: 's1_water_noura_teach',
+        type: 'dialogue',
+        speaker: 'noura',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'الْعِنَايَةُ بِصَغَائِرِ الْأُمُورِ... هِيَ تَدْرِيبٌ لِلْقَلْبِ عَلَى رِعَايَةِ جَلَائِلِهَا.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_water_othman_done',
+        type: 'dialogue',
+        speaker: 'personnage',
+        requiredNarrativeFlag: { flag: 'morning_gesture', value: 'water' },
+        text: 'أَشْعُرُ بِالسَّكِينَةِ تَسْرِي فِي عُرُوقِي، وَأَنَا مُسْتَعِدٌّ لِلْمُضِيِّ قُدُمًا.',
+        emotion: 'determined'
+      },
+
+      // --- BRANCHE 3 : النَّعْلَانِ وَالتَّوَكُّلُ ---
       {
         id: 's1_sandals_othman',
         type: 'dialogue',
         speaker: 'personnage',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
-        text: 'سَأُعِدُّ نَعْلَيَّ. أَظُنُّ أَنَّنِي جَاهِزٌ لِلْخُرُوجِ إِلَى الْخَارِجِ.',
+        text: 'سَأُعِدُّ نَعْلَيَّ. هَذِهِ الْمَرَّةَ، لَنْ أَبْحَثَ عَنْ أَعْذَارٍ أُخْرَى لِلتَّأْجِيلِ.',
         emotion: 'determined'
       },
       {
-        id: 's1_sandals_noura_ask',
+        id: 's1_sandals_noura',
         type: 'dialogue',
         speaker: 'noura',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
-        text: 'اسْتَعِدَّ لِعُبُورِ الْعَتَبَةِ. قَبْلَ أَنْ تَخْطُوَ خَارِجَ الْبَيْتِ، هُنَاكَ دُعَاءٌ نَبَوِيٌّ عَظِيمٌ يَحْفَظُكَ فِي مَسِيرِكَ.',
-        emotion: 'smiling'
+        text: 'حُسْنُ التَّأَهُّبِ أَمْرٌ طَيِّبٌ. لَكِنْ جَهِّزْ قَلْبَكَ أَيْضًا : حِينَ تَخْرُجُ مِنْ دَارِكَ، إِلَى مَنْ تُفَوِّضُ مَسِيرَكَ؟',
+        emotion: 'thoughtful'
       },
       {
-        id: 's1_sandals_quiz',
-        type: 'quiz',
+        id: 's1_sandals_othman_confie',
+        type: 'dialogue',
+        speaker: 'personnage',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
-        quizId: 'quiz_doua_maison',
-        unlockedConceptId: 'tawakkul_depart'
+        text: 'إِلَى اللَّهِ سُبْحَانَهُ.',
+        emotion: 'smiling'
       },
       {
         id: 's1_sandals_noura_teach',
         type: 'dialogue',
         speaker: 'noura',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
-        text: 'أَحْسَنْتَ : تَفْوِيضُ الْأَمْرِ إِلَى اللَّهِ عِنْدَ الْخُرُوجِ يَمْنَحُ الْقَلْبَ قُوَّةً لَا تَتَزَعْزَعُ.',
+        text: 'فَخُذْ بِالْأَسْبَابِ وَامْضِ... وَأَلْقِ رِحَالَكَ فِي رِحَابِ التَّوَكُّلِ عَلَيْهِ.',
         emotion: 'smiling'
       },
       {
-        id: 's1_sandals_othman_recite',
+        id: 's1_sandals_othman_done',
         type: 'dialogue',
         speaker: 'personnage',
         requiredNarrativeFlag: { flag: 'morning_gesture', value: 'sandals' },
         arabicText: 'بِسْمِ اللَّهِ ، تَوَكَّلْتُ عَلَى اللَّهِ ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ',
-        text: '« بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ ».',
+        text: '« بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ... » نَعْلَايَ جَاهِزَتَانِ، وَخُطْوَتِي ثَابِتَةٌ.',
         emotion: 'determined',
         actionVignette: {
-          icon: '🚪',
-          badge: 'التَّوَكُّلُ عِنْدَ الْعَتَبَةِ',
-          title: 'دُعَاءُ الْخُرُوجِ مِنَ الْمَنْزِلِ',
-          description: '« بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ... » — تَفْوِيضُ الْخُطُوَاتِ كُلِّهَا لِلْخَالِقِ الْعَظِيمِ.',
+          icon: '👟',
+          badge: 'عَزْمٌ وَتَوَكُّلٌ',
+          title: 'تَفْوِيضُ الْأَمْرِ',
+          description: 'الْأَخْذُ بِالْأَسْبَابِ مَعَ صِدْقِ التَّوَكُّلِ عَلَى اللَّهِ عِنْدَ الْمَسِيرِ.',
           glowColor: 'emerald'
         }
       },
 
-      // --- الِالْتِقَاءُ عِنْدَ الْبَابِ ---
+      // --- CONVERGENCE : عِنْدَ الْبَابِ ---
       {
-        id: 's1_door_hesitation',
+        id: 's1_door_approach',
         type: 'dialogue',
-        speaker: 'personnage',
-        text: 'يَدِي تَلْمِسُ مِقْبَضَ الْبَابِ الْحَدِيدِيَّ... أُمِّي، قَلْبِي يَنْبِضُ بِشِدَّةٍ فَجْأَةً. مَاذَا لَوْ لَمْ يَرْغَبْ أَحَدٌ فِي رُؤْيَتِي هُنَاكَ؟',
-        emotion: 'worried'
+        speaker: 'narration',
+        text: 'يَحْمِلُ عُثْمَانُ حَقِيبَتَهُ وَيَضَعُهَا عَلَى كَتِفِهِ. تَسْتَقِرُّ يَدُهُ عَلَى مِقْبَضِ الْبَابِ الْحَدِيدِيِّ. يَعُودُ صَوْتُ الْقَرْيَةِ أَكْثَرَ قُرْبًا وَحَيَوِيَّةً.',
+        emotion: 'thoughtful'
       },
       {
-        id: 's1_waswas_whisper',
+        id: 's1_door_waswas',
         type: 'dialogue',
         speaker: 'waswas',
-        text: 'أَتَظُنُّ نَفْسَكَ قَادِرًا عَلَى النَّجَاحِ؟ ابْقَ دَاخِلَ غُرْفَتِكَ. سَتَتَلَعْثَمُ مَعَ أَوَّلِ كَلِمَةٍ. عُدْ إِلَى سَرِيرِكَ...',
+        text: 'مَا زَالَ بِمَقْدُورِكَ الْبَقَاءُ. لَا أَحَدَ يُجْبِرُكَ عَلَى الْخُرُوجِ. أَنْتَ فِي رَاحَةٍ تَامَّةٍ هُنَا...',
         emotion: 'shadow',
         waswasXpAmount: 10,
-        waswasReason: 'وَسْوَاسُ التَّرَدُّدِ يَنْبَعِثُ عِنْدَ عَتَبَةِ الْبَابِ'
+        waswasReason: 'وَسْوَاسُ التَّرَدُّدِ الْأَخِيرُ عِنْدَ الْبَابِ'
       },
       {
-        id: 's1_noura_wisdom',
+        id: 's1_door_noura',
         type: 'dialogue',
         speaker: 'noura',
-        text: 'أَتَسْمَعُ هَذَا؟ الشَّكُّ يُحَاوِلُ دَائِمًا تَقْيِيدَكَ عِنْدَ الْعَتَبَةِ. لَا تُجَادِلْهُ : تَوَكَّلْ عَلَى اللَّهِ وَاخْطُ خُطْوَتَكَ !',
+        text: 'يَا عُثْمَانُ... لَا تَلْزَمُكَ مَعْرِفَةُ كُلِّ مَسَارِ الطَّرِيقِ، بَلْ يَكْفِيكَ أَنْ تَخْطُوَ خُطْوَتَكَ الْقَادِمَةَ.',
         emotion: 'smiling'
       },
       {
         id: 's1_door_choice',
         type: 'choice',
         speaker: 'personnage',
-        text: 'يَضَعُ عُثْمَانُ يَدَهُ بِثَبَاتٍ عَلَى مِقْبَضِ الْبَابِ :',
+        text: 'يَتَنَفَّسُ عُثْمَانُ بِعُمْقٍ وَيَدْفَعُ مِقْبَضَ الْبَابِ :',
         choices: [
           {
             id: 'c_door_push',
-            label: '« بِسْمِ اللَّهِ ! » — ادْفَعِ الْبَابَ وَتَقَدَّمْ رَغْمَ الشَّكِّ',
-            badge: 'الْمُبَادَرَةُ بِالْعَمَلِ',
+            label: '✨ « بِسْمِ اللَّهِ — تَقَدَّمْ »',
+            badge: 'الْخُطْوَةُ الْأُولَى',
             traitGains: { sabr: 5, discipline: 4 },
-            habitMessage: 'شَجَاعَةٌ • عُثْمَانُ يَقْهَرُ التَّرَدُّدَ بِالْفِعْلِ الصَّادِقِ.'
+            habitMessage: 'شَجَاعَةٌ • عُثْمَانُ يَعْبُرُ الْعَتَبَةَ.'
           }
         ]
       },
       {
-        id: 's1_door_open',
+        id: 's1_door_exit',
         type: 'dialogue',
         speaker: 'narration',
-        text: 'يَنْفَتِحُ الْبَابُ الْخَشَبِيُّ عَلَى نَسِيمِ الصَّبَاحِ الْعَلِيلِ. يَعْبُرُ عُثْمَانُ الْعَتَبَةَ، فَتَتَلَاشَى الْوَسَاوِسُ خَلْفَهُ بَيْنَمَا يَنْزِلُ الرَّبْوَةَ نَحْوَ حَافَّةِ الْغَابَةِ.',
+        text: 'يَنْفَتِحُ الْبَابُ ! نُورُ الْفَجْرِ الذَّهَبِيُّ يَغْمُرُ الْغُرْفَةَ بِضِيَائِهِ. تَتَبَدَّدُ سُحُبُ الْوَسْوَاسِ فِي لَحْظَةٍ، وَيَعْبُرُ عُثْمَانُ الْعَتَبَةَ بِثَبَاتٍ.',
+        emotion: 'smiling'
+      },
+      {
+        id: 's1_vista_narration',
+        type: 'dialogue',
+        speaker: 'narration',
+        text: 'أَمَامَهُ، يَنْحَدِرُ التَّلُّ نَحْوَ الْوَادِي الْمُضَاءِ بِالشَّمْسِ. نَسِيمُ الصَّبَاحِ الْعَلِيلُ يَمْلَأُ صَدْرَهُ. وَعَلَى بُعْدِ خُطُوَاتٍ، يَرْتَفِعُ عَمُودُ مُفْتَرَقِ الطُّرُقِ فِي ضِيَاءِ النَّهَارِ...',
         emotion: 'smiling'
       }
     ]
@@ -644,45 +726,45 @@ export const CHAPTER_1_SCENES_AR: Scene[] = [
       {
         id: 's2_b6',
         type: 'choice',
-        speaker: 'personnage',
-        text: '« مَاذَا يَخْتَارُ عُثْمَانُ أَنْ يَعْمَلَ عَلَيْهِ الْيَوْمَ؟ »',
+        speaker: 'noura',
+        text: '« إِلَى أَيِّ طَرِيقٍ تُرِيدُ أَنْ تُوَجِّهَ عُثْمَانَ الْيَوْمَ؟ »',
         choices: [
           {
             id: 'c1',
-            label: '🌿 الْفَصْلُ ١ : « الْإِقْبَالُ عَلَى النَّاسِ » — اللِّقَاءُ بِالْوُدِّ وَالتَّعَارُفِ (التَّعَارُف)',
+            label: '🌿 الْفَصْلُ ١ : « مُحَارَبَةُ الْوَسْوَاسِ » — قَهْرُ الشُّكُوكِ وَالْإِقْبَالُ عَلَى النَّاسِ (التَّعَارُف)',
             badge: 'مُتَاحٌ • الْفَصْلُ ١',
             interactiveSpot: { x: '35%', y: '55%' }
           },
           {
             id: 'c2',
-            label: '📖 الْفَصْلُ ٢ : « طَلَبُ الْعِلْمِ » — مَدْرَسَةُ الْعُلَمَاءِ وَالتَّوَاضُعُ (العِلْم)',
+            label: '⚖️ الْفَصْلُ ٢ : « كَظْمُ الْغَيْظِ » — اخْتِبَارُ السُّوقِ وَالْعَفْوُ (الحِلْم)',
             disabled: true,
             badge: 'قَرِيبًا • الْفَصْلُ ٢',
-            disabledReason: 'يَسْلُكُ عُثْمَانُ طَرِيقَ الْمَكْتَبَةِ الْكُبْرَى وَيَتَعَلَّمُ صَبْرَ طَالِبِ الْعِلْمِ.',
+            disabledReason: 'الْيَوْمَ، أَمَامَ خِلَافَاتِ السُّوقِ، يَتَعَلَّمُ عُثْمَانُ كَظْمَ الْغَيْظِ وَالْحِلْمَ وَالْعَفْوَ عَنِ النَّاسِ (الحِلْم).',
             interactiveSpot: { x: '50%', y: '45%' }
           },
           {
             id: 'c3',
-            label: '🛡️ الْفَصْلُ ٣ : « كَظْمُ الْغَيْظِ » — اخْتِبَارُ السُّوقِ وَالْحِلْمُ (الحِلْم)',
+            label: '🍯 الْفَصْلُ ٣ : « عِنْدَ الْمَرَضِ » — الطِّبُّ النَّبَوِيُّ وَالتَّوَكُّلُ (صَاحِبُ الْجَبِيرَةِ)',
             disabled: true,
             badge: 'قَرِيبًا • الْفَصْلُ ٣',
-            disabledReason: 'أَمَامَ اسْتِفْزَازَاتِ السُّوقِ، يَتَعَلَّمُ عُثْمَانُ تَرْوِيضَ الْغَضَبِ بِالْحِلْمِ وَالْوَقَارِ.',
+            disabledReason: 'الْيَوْمَ، عِنْدَ مُوَاجَهَةِ الْأَلَمِ وَالْمَرَضِ (مَعَ الْفَتَى ذِي الْجَبِيرَةِ)، يَتَعَلَّمُ عُثْمَانُ الرُّخَصَ وَالطِّبَّ النَّبَوِيَّ وَالتَّوَكُّلَ عَلَى اللَّهِ (التَّوَكُّل).',
             interactiveSpot: { x: '65%', y: '50%' }
           },
           {
             id: 'c4',
-            label: '🩹 الْفَصْلُ ٤ : « تَجَاوُزُ الِابْتِلَاءِ » — الصَّبْرُ عِنْدَ الشِّدَّةِ وَالتَّكَافُلُ (الصَّبْر)',
+            label: '👨‍👩‍👧 الْفَصْلُ ٤ : « بِرُّ الْوَالِدَيْنِ » — حُسْنُ الصُّحْبَةِ وَالْإِحْسَانُ الدَّائِمُ (بِرُّ الْوَالِدَيْنِ)',
             disabled: true,
             badge: 'قَرِيبًا • الْفَصْلُ ٤',
-            disabledReason: 'بِجِوَارِ مَنْ يُعَانُونَ، يَتَعَلَّمُ عُثْمَانُ رِبَاطَةَ الْجَأْشِ وَعَوْنَ الْمُبْتَلَى.',
+            disabledReason: 'الْيَوْمَ، يَتَعَلَّمُ عُثْمَانُ عَظِيمَ حَقِّ الْوَالِدَيْنِ، وَوُجُوبَ طَاعَتِهِمَا بِمَحَبَّةٍ وَخِدْمَتِهِمَا يَوْمِيًّا (بِرُّ الْوَالِدَيْنِ).',
             interactiveSpot: { x: '75%', y: '60%' }
           },
           {
             id: 'c5',
-            label: '🌳 الْفَصْلُ ٥ : « إِكْرَامُ الْجُذُورِ » — الْبِرُّ وَالْوَفَاءُ لِلْوَالِدَيْنِ (البِرّ)',
+            label: '⛰️ الْفَصْلُ ٥ : « الْجَبَلُ الْبَاطِنِيُّ » — إِخْلَاصُ النِّيَّةِ لِلَّهِ (النِّيَّةُ وَالتَّوَكُّل)',
             disabled: true,
             badge: 'قَرِيبًا • الْفَصْلُ ٥',
-            disabledReason: 'رِحْلَةُ وَفَاءٍ وَامْتِنَانٍ تَحْتَ ظِلَالِ الشَّجَرَةِ الْعَتِيقَةِ.',
+            disabledReason: 'الْيَوْمَ، يَتَعَلَّمُ عُثْمَانُ تَصْفِيَةَ النِّيَّةِ لِلَّهِ وَحْدَهُ وَتَجَاوُزَ الشَّدَائِدِ بِصِدْقِ الْعَزِيمَةِ (النِّيَّة).',
             interactiveSpot: { x: '85%', y: '45%' }
           }
         ]

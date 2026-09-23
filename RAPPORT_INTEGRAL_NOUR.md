@@ -336,87 +336,123 @@ Si la Sérénité d'Othmân tombe à 0 face au Grand Waswâs :
 ---
 
 ## SCÈNE 1 : LA CHAMBRE
-*Sous-titre : « Le premier pas »*  
+*Sous-titre : « L’Éveil & le Premier Pas »*  
 *Lieu : Chambre d’Othmân au matin. Lit défait, lumière dorée filtrant par la fenêtre.*  
-*Prérequis : 0 XP | Jauge Waswâs initiale : 0/100*
+*Prérequis : 0 XP | Jauge Waswâs initiale : 0/100*  
+*Objectif FTUE : 60 à 90 secondes — Faire sortir Othmân de sa zone de confort vers le monde.*
 
 ```text
-[LE VIEUX SAGE] (Souriant)
-السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ
-As-salâmu ʿalaykum wa rahmatullâhi wa barakâtuh !
-Bienvenue dans Nour le Jeu, où tes actions dans la vraie vie font avancer l'histoire.
+[NARRATION] (Ambiance calme, lumière d'aube)
+L’aube venait à peine de toucher les hauteurs... Mais dans la vallée, le village était déjà éveillé. Des voix, des pas, des rires. Othmân reste assis sur son lit, les yeux posés sur son sac de voyage encore vide.
 
-[LE VIEUX SAGE] (Pensif)
-Nour est l'histoire du jeune Othmân. Une quête initiatique d'apprentissage, de bienveillance et de surpassement des doutes.
+[OTHMÂN] (Inquiet, serrant la lanière)
+Aujourd’hui... je descends. (Silence) Enfin... j’essaie.
 
-[NOURA] (Souriante)
-Debout, Othmân ! Le soleil commence déjà à chauffer la pierre de la terrasse. Si tu traînes encore sous tes couvertures, ton pain va refroidir.
+[NOURA] (Souriante, dans l'embrasure de la porte)
+Tu parles à ton sac maintenant ?
 
-[LE VIEUX SAGE]
-Othmân se redresse lentement sur son coude et tourne le regard vers l'embrasure de la fenêtre. Au loin, des éclats de rire d'enfants résonnent dans la ruelle.
+[OTHMÂN] (Sourire timide)
+Il m’écoute mieux que les gens.
+
+[NOURA] (Bienveillante)
+Alors peut-être qu’il est temps de lui présenter le monde.
 
 [OTHMÂN] (Inquiet)
-Ils ont l'air de bien s'amuser dehors... Tout le monde a quelqu'un avec qui courir et parler.
-Moi aussi j'aimerais avoir des amis. Mais... par quoi on commence quand on a l'impression d'être invisible ?
+Maman... Et si je n’y arrivais pas ? À aller vers les autres, à parler, à trouver ma place...
+
+[NOURA] (Pensif)
+Tu cherches déjà à savoir comment sera toute la route... alors que tu n’as pas encore fait le premier pas.
 ```
-> 🌑 **IMPACT WASWÂS : +10 Doute** (*Doute & sentiment d'invisibilité*)  
-> *Effet audio : Onde sourde descendante. La jauge violette monte à 10/100.*
+
+> 🌑 **IMPACT WASWÂS : +10 Doute** (*Surgissement immédiat : la tentation du confort*)  
+> *Effet audio : Onde sourde descendante et murmure glacé.*
 
 ```text
-[NOURA] (Pensive)
-Alors pourquoi restes-tu enfermé ici avec tes pensées en désordre ?
+[LE WASWÂS] (Ombre feutrée)
+Reste ici... Ici, personne ne te regarde. Personne ne te juge. Tu connais cette chambre, tu y es en sécurité. Dehors... tu ne sais pas ce qui t’attend.
 
-[OTHMÂN] (Pensif)
-Parce que dès que je pense à sortir vers les gens, j'ai l'impression que la montagne est trop haute.
+[NOURA] (Attentive)
+Tu l’as entendu ?
+
+[OTHMÂN] (Inquiet)
+...Oui.
+
+[NOURA] (Souriante et ferme)
+Alors ne lui donne pas plus de place qu’il n’en mérite. On ne combat pas le doute en restant assis. Par quoi veux-tu commencer ?
 ```
-> 🌑 **IMPACT WASWÂS : +10 Doute** (*Découragement devant l'effort*)  
-> *La jauge violette monte à 20/100.*
+
+> 🔀 **CHOIX D'ATTITUDE INITIAL D'OTHMÂN :**  
+> 1. **Option A : 🧹 Ranger son lit (Mettre de l’ordre pour y voir clair)**  
+> 2. **Option B : 💧 Boire un peu d’eau (Apaiser la gorge et le cœur)**  
+> 3. **Option C : 👟 Préparer ses sandales (En finir avec les hésitations)**  
+
+---
+
+### Déroulé selon la Branche :
+
+* **Si Branche Lit (Niyyah & Clarté) :**
+  ```text
+  [OTHMÂN] : Je vais commencer par mettre un peu d'ordre.
+  [NOURA] : Un petit geste. Mais parfois, c’est tout ce qu’il faut pour commencer.
+  (Effet visuel : Le lit devient fait, la pièce s'illumine).
+  [OTHMÂN] : C’est étrange... Je pensais que c’était seulement un lit, mais la pièce a déjà l’air plus claire.
+  [NOURA] : L’ordre autour de nous aide à retrouver un peu de clarté. Mais dis-moi... Pourquoi veux-tu commencer cette journée ?
+  ```
+  * **Quiz Niyyah** : *« Quelle chose donne notamment sa valeur à une action auprès d’Allah ? »* → **L'intention avec laquelle on agit** (*Sahih al-Bukhari 1*).
+  ```text
+  [NOURA] : L’intention. Avant même le premier pas, il y a quelque chose que personne ne voit : ce que tu veux réellement accomplir pour Allah.
+  [OTHMÂN] : Alors... je veux partir pour apprendre. Et essayer de devenir meilleur.
+  [NOURA] : Voilà un digne commencement.
+  ```
+
+* **Si Branche Eau (Adab Prophétique) :**
+  ```text
+  [OTHMÂN] : J’ai la gorge sèche. Je vais d’abord boire un peu d’eau.
+  [NOURA] : Même les petites habitudes deviennent précieuses lorsqu’on les accomplit avec attention. Souviens-toi simplement de la manière enseignée par la Sunnah.
+  [OTHMÂN] : Bismillâh... (Othmân s'assoit et boit en 3 gorgées de la main droite) ...Al-Hamdulillâh.
+  [NOURA] : Prendre soin des petites choses... c’est aussi apprendre à être attentif aux grandes.
+  [OTHMÂN] : Je me sens déjà plus calme et prêt à avancer.
+  ```
+
+* **Si Branche Sandales (Tawakkul & Action) :**
+  ```text
+  [OTHMÂN] : Je vais préparer mes sandales. Cette fois, je ne vais pas chercher une autre excuse.
+  [NOURA] : Se préparer est bien. Mais prépare aussi ton cœur : lorsque tu quittes ta maison, à qui confies-tu réellement ton chemin ?
+  [OTHMÂN] : À Allah.
+  [NOURA] : Alors avance en prenant les moyens... et place ta confiance en Lui.
+  [OTHMÂN] : « Bismillâh, tawakkaltu ʿalâ Allâh... » Mes sandales sont nouées, mon pas est assuré.
+  ```
+
+---
+
+### Climax & Sortie : L'Épreuve du Seuil
 
 ```text
-[NOURA] (Souriante)
-On ne gravit pas une montagne d'un seul bond, mon fils. On pose un pied devant l'autre. Et si ton tout premier pas de la journée commençait juste là, sous tes yeux ?
+[NARRATION]
+Othmân prend son sac et le passe à l’épaule. Sa main se pose sur la poignée de fer. Le son du village revient, plus vivant.
 
-[OTHMÂN] (Surpris)
-Mon lit ? Tu veux que je commence par faire mon lit ?
-
-[NOURA] (Souriante)
-Range tes draps. Mets de l'ordre dans ton coin, et ton esprit y verra déjà plus clair.
+[LE WASWÂS] (Ombre glaciale, ultime tentative)
+Tu peux encore rester. Personne ne t’oblige à sortir. Tu es si bien ici...
 ```
-
-> 🌉 **LE PONT DE NOUR (Interpellation du joueur dans la vraie vie)**  
-> *Noura : « Et toi qui accompagnes Othmân derrière ton écran... As-tu pensé à ordonner ton lit ou ton coin ce matin ? Prends une minute dans ta vraie vie : la clarté de la journée commence là où tu reposes ta tête. »*
-
-> ⚡ **ACTION RÉELLE N°1 : Ranger son lit**  
-> *Consigne : « Prends 60 secondes dans ton monde réel : tire tes draps, replace ton oreiller et mets de l'ordre. »*  
-> *Récompense : +25 XP | Effet visuel en jeu : Le décor change instantanément : le lit d'Othmân devient impeccablement fait et la chambre s'illumine.*
+> 🌑 **IMPACT WASWÂS : +10 Doute** (*Le murmure ultime au seuil*)
 
 ```text
-[OTHMÂN] (Souriant)
-Bon... c'est fait ! Les draps sont bien tirés et l'oreiller est droit. C'est bête, mais la pièce a déjà l'air beaucoup plus accueillante.
-Par contre, à force de soupirer et de gamberger, j'ai la gorge sèche comme le désert.
-
-[NOURA] (Souriante)
-Regarde la cruche et le verre d'eau fraîche sur la table de chevet. Mais assieds-toi calmement avant de boire ! Tu te souviens de ce que nous a enseigné le Prophète ﷺ ?
-
-[OTHMÂN] (Souriant)
-Oui maman : s'asseoir, tenir le verre de la main droite, dire « Bismillâh » et boire paisiblement en trois gorgées.
+[NOURA] (Souriante et rassurante)
+Othmân... tu n’as pas besoin de connaître toute la route. Seulement le prochain pas.
 ```
 
-> 🌉 **LE PONT DE NOUR**  
-> *Noura : « Et toi dans ton quotidien... Prends un verre d'eau fraîche, assieds-toi calmement, dis « Bismillâh », et bois paisiblement en trois gorgées de la main droite. Conclus par « Al-Hamdulillâh ». »*
-
-> ⚡ **ACTION RÉELLE N°2 : L'Adab du verre d'eau**  
-> *Consigne : « Accomplis cette Sunnah bienfaisante dans ta vraie vie. »*  
-> *Récompense : +25 XP*
+> ⚡ **LE CHOIX DÉCISIF DU JOUEUR :**  
+> 👉 **`[ ✨ « BISMILLÂH — AVANCER » ]`**  
+> *(+5 Sabr, +4 Discipline | Courage : Othmân franchit le seuil)*
 
 ```text
-[OTHMÂN] (Souriant)
-Al-Hamdulillâh ! C'est fou comme une habitude aussi simple apporte du calme quand on y met l'intention.
+[NARRATION]
+La porte s’ouvre ! Une lumière d’aube dorée envahit la chambre. Le murmure sombre s’évanouit d’un coup. Othmân franchit résolument le seuil.
 
-[NOURA] (Souriante)
-Tu vois ? Deux victoires avant même d'avoir franchi le seuil de ta porte ! Avant de partir, jette un œil à ton paquetage : l'onglet « Quêtes » garde la trace de tes défis de la journée. Le monde t'attend, Othmân.
+[NARRATION — Plan Large]
+Devant lui, la colline descend vers la vallée embrasée de soleil. Le grand air emplit ses poumons. Au loin, le grand Poteau aux Chemins se découpe dans la lumière...
 ```
-*Bilan Scène 1 : +50 XP cumulés.*
+*Bilan Scène 1 : ~70 secondes de gameplay immersif, 0 blocage artificiel, transition directe et glorieuse vers la Scène 2.*
 
 ---
 

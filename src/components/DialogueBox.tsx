@@ -8,6 +8,7 @@ import { speechManager, isSilentSpeaker } from '../utils/speech';
 import { CustomAssetsConfig } from '../utils/assets';
 import { openStripeCheckout } from '../utils/stripe';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import { gameTranslations } from '../i18n/gameTranslations';
 import { TRAIT_CONFIG, getPersonalityProfile } from '../utils/characterTraits';
 import { getLocalizedBeatText, getLocalizedChoiceLabel } from '../utils/narrativeI18n';
@@ -20,6 +21,7 @@ interface DialogueBoxProps {
   waswasToast?: { amount: number; reason?: string; isNegative?: boolean } | null;
   traits?: CharacterTraits;
   narrativeFlags?: Record<string, boolean | string | number>;
+  onOpenSupport?: () => void;
 }
 
 export const DialogueBox: React.FC<DialogueBoxProps> = ({
@@ -29,9 +31,11 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
   customAssets,
   waswasToast,
   traits,
-  narrativeFlags
+  narrativeFlags,
+  onOpenSupport
 }) => {
   const { language, isRtl } = useLanguage();
+  const { isParchment } = useTheme();
   const gameUI = gameTranslations[language] || gameTranslations.fr;
   const [displayedText, setDisplayedText] = useState('');
   const [selectedChoiceId, setSelectedChoiceId] = useState<string | null>(null);
@@ -46,6 +50,7 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
   } | null>(null);
   const [isTyping, setIsTyping] = useState(true);
   const textRef = useRef<string>('');
+  const typingIntervalRef = useRef<any>(null);
 
   // Dynamic character profile & dominant trait calculation
   const dominantTrait = traits
@@ -171,6 +176,10 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
   }, [beat.id, beat.waswasXpAmount, beat.waswasReason, waswasToast]);
 
   useEffect(() => {
+    if (typingIntervalRef.current) {
+      clearInterval(typingIntervalRef.current);
+      typingIntervalRef.current = null;
+    }
     setDisplayedText('');
     setSelectedChoiceId(null);
     setIsTyping(true);
@@ -189,7 +198,7 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
     const speed = 18; // ms per char
 
     // Fast typing effect
-    const interval = setInterval(() => {
+    typingIntervalRef.current = setInterval(() => {
       index += 1;
       if (index <= fullText.length) {
         setDisplayedText(fullText.slice(0, index));
@@ -198,12 +207,18 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
         }
       } else {
         setIsTyping(false);
-        clearInterval(interval);
+        if (typingIntervalRef.current) {
+          clearInterval(typingIntervalRef.current);
+          typingIntervalRef.current = null;
+        }
       }
     }, speed);
 
     return () => {
-      clearInterval(interval);
+      if (typingIntervalRef.current) {
+        clearInterval(typingIntervalRef.current);
+        typingIntervalRef.current = null;
+      }
       speechManager.stop();
     };
   }, [beat.id, fullText, beat.speaker]);
@@ -213,7 +228,11 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
     speechManager.unlock();
 
     if (isTyping) {
-      // Instant reveal
+      // Instant reveal & stop interval immediately so it doesn't overwrite text
+      if (typingIntervalRef.current) {
+        clearInterval(typingIntervalRef.current);
+        typingIntervalRef.current = null;
+      }
       setDisplayedText(fullText);
       setIsTyping(false);
     } else {
@@ -254,6 +273,30 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
   };
 
   const getSpeakerTagStyle = () => {
+    if (isParchment) {
+      if (beat.isPontDeNour) {
+        return 'bg-[#2d6a4f] text-emerald-100 border-emerald-500 shadow-md font-bold';
+      }
+      switch (beat.speaker) {
+        case 'personnage':
+          return 'bg-[#193b68] text-sky-100 border-sky-300 shadow-md font-bold';
+        case 'noura':
+          return 'bg-[#1b4d3e] text-emerald-100 border-emerald-300 shadow-md font-bold';
+        case 'waswas':
+        case 'grand_waswas':
+          return 'bg-[#4a154b] text-fuchsia-100 border-fuchsia-300 shadow-md font-bold';
+        case 'jeune':
+          return 'bg-[#5c3a21] text-amber-100 border-amber-300 shadow-md font-bold';
+        case 'enfant':
+          return 'bg-[#0e4d64] text-cyan-100 border-cyan-300 shadow-md font-bold';
+        case 'marchand':
+          return 'bg-[#6a2b10] text-amber-100 border-amber-300 shadow-md font-bold';
+        case 'narration':
+          return 'bg-[#4a2e12] text-amber-200 border-amber-300 shadow-md font-bold';
+        default:
+          return 'bg-[#3b2a1a] text-amber-100 border-amber-300 shadow-md font-bold';
+      }
+    }
     if (beat.isPontDeNour) {
       return 'bg-emerald-950/80 text-emerald-200 border-emerald-400/70 shadow-[0_0_14px_rgba(82,183,136,0.4)]';
     }
@@ -355,14 +398,23 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
         customAssets={customAssets}
       />
 
-      {/* Main Zelda-Style Glassmorphic Translucent Dialogue Frame (100% Sharp Transparent Background) */}
       <div
-        onClick={(!beat.choices || beat.choices.length === 0) ? handleSkipOrNext : undefined}
-        className={`w-full relative z-20 bg-black/35 sm:bg-black/30 border ${
-          beat.isPontDeNour
-            ? 'border-emerald-400/70 ring-2 ring-[#52b788]/60 shadow-[0_8px_32px_rgba(45,106,79,0.5)]'
-            : 'border-amber-400/50 shadow-[0_8px_32px_rgba(0,0,0,0.6)] ring-1 ring-white/10'
-        } rounded-2xl sm:rounded-3xl pt-3.5 pb-2.5 px-3.5 sm:pt-5 sm:pb-4 sm:px-5 transition-all duration-200 cursor-pointer group text-[#ffffff]`}
+        onClick={
+          isTyping
+            ? handleSkipOrNext
+            : (!beat.choices || beat.choices.length === 0)
+            ? handleSkipOrNext
+            : undefined
+        }
+        className={`w-full relative z-20 border ${
+          isParchment
+            ? beat.isPontDeNour
+              ? 'bg-[#f4faef]/95 border-2 border-emerald-600 shadow-[0_12px_36px_rgba(45,106,79,0.3)] ring-2 ring-emerald-400/40 text-[#1b3d2b]'
+              : 'bg-[#fdfaf2]/95 border-2 border-[#c5a059] shadow-[0_12px_36px_rgba(100,70,20,0.25)] ring-1 ring-[#c5a059]/40 text-[#241a12]'
+            : beat.isPontDeNour
+            ? 'bg-black/35 sm:bg-black/30 border-emerald-400/70 ring-2 ring-[#52b788]/60 shadow-[0_8px_32px_rgba(45,106,79,0.5)] text-[#ffffff]'
+            : 'bg-black/35 sm:bg-black/30 border-amber-400/50 shadow-[0_8px_32px_rgba(0,0,0,0.6)] ring-1 ring-white/10 text-[#ffffff]'
+        } rounded-2xl sm:rounded-3xl pt-3.5 pb-2.5 px-3.5 sm:pt-5 sm:pb-4 sm:px-5 transition-all duration-200 cursor-pointer group`}
       >
         {/* Floating Waswâs Info Banner in purple directly above the dialogue box */}
         {activeWaswasImpact && (
@@ -541,17 +593,23 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
 
             {/* Arabic Script callout if present */}
             {fullArabicText && (
-              <div className="py-1 px-2 border-r-3 border-[#d97c27] text-right font-amiri text-base sm:text-lg md:text-xl text-amber-300 drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)] tracking-wide dir-rtl my-0.5">
+              <div className={`py-1 px-2 border-r-3 border-[#d97c27] text-right font-amiri text-base sm:text-lg md:text-xl tracking-wide dir-rtl my-0.5 ${
+                isParchment ? 'text-amber-800' : 'text-amber-300 drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]'
+              }`}>
                 {fullArabicText}
               </div>
             )}
 
-            {/* Main Dialogue Text lines with high-contrast text shadow for 100% readability over transparent background */}
+            {/* Main Dialogue Text lines */}
             <div
-              className={`text-[#ffffff] whitespace-pre-line min-h-[32px] sm:min-h-[44px] [text-shadow:_0_1px_4px_rgb(0_0_0_/_95%),_0_2px_8px_rgb(0_0_0_/_85%)] ${
+              className={`whitespace-pre-line min-h-[32px] sm:min-h-[44px] ${
+                isParchment
+                  ? 'text-[#2b2118] font-semibold tracking-normal'
+                  : 'text-[#ffffff] [text-shadow:_0_1px_4px_rgb(0_0_0_/_95%),_0_2px_8px_rgb(0_0_0_/_85%)] font-medium'
+              } ${
                 isRtl
-                  ? 'font-amiri text-base sm:text-lg md:text-xl leading-[1.9] text-right font-semibold'
-                  : 'text-xs sm:text-sm md:text-base leading-snug sm:leading-relaxed font-medium'
+                  ? 'font-amiri text-base sm:text-lg md:text-xl leading-[1.9] text-right'
+                  : 'text-xs sm:text-sm md:text-base leading-snug sm:leading-relaxed'
               }`}
             >
               {displayedText}
@@ -562,30 +620,40 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
 
             {/* Click to continue prompt */}
             {!isTyping && (!beat.choices || beat.choices.length === 0) && (
-              <div className="flex justify-end items-center gap-1.5 text-[11px] sm:text-xs font-bold text-amber-300 font-cinzel pt-1 animate-pulse select-none [text-shadow:_0_1px_4px_rgb(0_0_0_/_95%)]">
+              <div className={`flex justify-end items-center gap-1.5 text-[11px] sm:text-xs font-bold font-cinzel pt-1 animate-pulse select-none ${
+                isParchment ? 'text-amber-800' : 'text-amber-300 [text-shadow:_0_1px_4px_rgb(0_0_0_/_95%)]'
+              }`}>
                 <span>Continuer</span>
-                <CornerDownLeft className="w-3.5 h-3.5 text-amber-300" />
+                <CornerDownLeft className={`w-3.5 h-3.5 ${isParchment ? 'text-amber-800' : 'text-amber-300'}`} />
               </div>
             )}
 
             {/* Zelda-Style Response Menu with Arrow Indicator */}
             {beat.choices && beat.choices.length > 0 && !isTyping && (
-              <div className="mt-2 pt-2 border-t border-white/15 flex flex-col gap-2 animate-in fade-in duration-300">
+              <div className={`mt-2 pt-2 border-t flex flex-col gap-2 animate-in fade-in duration-300 ${
+                isParchment ? 'border-[#c5a059]/40' : 'border-white/15'
+              }`}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] sm:text-[11px] font-bold text-amber-300 font-cinzel uppercase tracking-wider flex items-center gap-1 [text-shadow:_0_1px_4px_rgb(0_0_0_/_95%)]">
+                    <span className={`text-[10px] sm:text-[11px] font-bold font-cinzel uppercase tracking-wider flex items-center gap-1 ${
+                      isParchment ? 'text-amber-900' : 'text-amber-300 [text-shadow:_0_1px_4px_rgb(0_0_0_/_95%)]'
+                    }`}>
                       <span>✦</span>
                       <span>Réponse :</span>
                     </span>
                   </div>
                   {selectedChoiceId && (
-                    <span className="text-[9px] sm:text-[10px] bg-emerald-950/90 text-emerald-300 border border-emerald-500/60 px-2 py-0.5 rounded-full font-bold shadow-md">
+                    <span className={`text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full font-bold shadow-md ${
+                      isParchment
+                        ? 'bg-emerald-700 text-white border border-emerald-800'
+                        : 'bg-emerald-950/90 text-emerald-300 border border-emerald-500/60'
+                    }`}>
                       Choix validé ✓
                     </span>
                   )}
                 </div>
                 
-                {/* Vertical Stacked Zelda-Style Choice Capsules */}
+                {/* Vertical Stacked Choice Capsules */}
                 <div className="flex flex-col gap-1.5 sm:gap-2">
                   {beat.choices.map((choice, idx) => {
                     const isSelected = selectedChoiceId === choice.id;
@@ -614,7 +682,11 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
                             });
                           }}
                           className={`flex items-center justify-between p-2.5 sm:p-3 rounded-2xl border transition-all cursor-pointer text-left relative ${
-                            isCursorActive
+                            isParchment
+                              ? isCursorActive
+                                ? 'bg-[#ebd8af] border-amber-600 text-amber-950 shadow-[0_0_12px_rgba(217,119,6,0.3)] translate-x-1 font-bold'
+                                : 'bg-[#f4ebd7]/95 border-[#c5a059]/60 text-[#4a3525] hover:bg-[#ede0c8]'
+                              : isCursorActive
                               ? 'bg-amber-950/40 border-amber-400/80 text-amber-100 shadow-[0_0_14px_rgba(251,191,36,0.25)] translate-x-1'
                               : 'bg-black/35 border-white/10 text-stone-300 hover:bg-black/55'
                           }`}
@@ -622,11 +694,15 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
                           <div className="flex items-center gap-2.5 min-w-0 flex-1">
                             {/* Zelda Pointer Arrow */}
                             <span className={`text-sm sm:text-base font-black transition-all ${
-                              isCursorActive ? 'text-amber-400 opacity-100 animate-pulse drop-shadow-[0_0_8px_rgba(251,191,36,0.9)]' : 'opacity-0 w-2'
+                              isCursorActive
+                                ? isParchment ? 'text-amber-700 opacity-100 animate-pulse' : 'text-amber-400 opacity-100 animate-pulse drop-shadow-[0_0_8px_rgba(251,191,36,0.9)]'
+                                : 'opacity-0 w-2'
                             }`}>
                               ▶
                             </span>
-                            <span className="text-xs sm:text-sm font-semibold leading-snug line-clamp-2 [text-shadow:_0_1px_3px_rgb(0_0_0_/_90%)]">
+                            <span className={`text-xs sm:text-sm font-semibold leading-snug line-clamp-2 ${
+                              isParchment ? 'text-[#36271a]' : '[text-shadow:_0_1px_3px_rgb(0_0_0_/_90%)]'
+                            }`}>
                               {getLocalizedChoiceLabel(choice, language)}
                             </span>
                           </div>
@@ -637,7 +713,7 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
                                 {choice.badge}
                               </span>
                             )}
-                            <Lock className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                            <Lock className={`w-3.5 h-3.5 shrink-0 ${isParchment ? 'text-amber-800' : 'text-amber-400'}`} />
                           </div>
                         </button>
                       );
@@ -660,7 +736,13 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
                           }, 350);
                         }}
                         className={`flex items-center justify-between p-2.5 sm:p-3 rounded-2xl border transition-all cursor-pointer text-left relative ${
-                          isSelected
+                          isParchment
+                            ? isSelected
+                              ? 'bg-emerald-100 border-2 border-emerald-600 text-emerald-950 shadow-[0_0_16px_rgba(16,185,129,0.3)] scale-[1.01] font-bold'
+                              : isCursorActive
+                              ? 'bg-[#ebd8af] border-2 border-amber-600 text-amber-950 shadow-[0_0_14px_rgba(217,119,6,0.35)] translate-x-1 sm:translate-x-1.5 font-bold'
+                              : 'bg-[#f4ebd7]/95 hover:bg-[#ede0c8] border-[#c5a059]/60 text-[#2b2118]'
+                            : isSelected
                             ? 'bg-emerald-950/70 border-emerald-400 text-emerald-100 shadow-[0_0_20px_rgba(52,211,153,0.4)] scale-[1.01]'
                             : isCursorActive
                             ? 'bg-amber-950/50 border-amber-400 text-white shadow-[0_0_16px_rgba(251,191,36,0.35)] translate-x-1 sm:translate-x-1.5'
@@ -671,14 +753,16 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
                           {/* Zelda Glowing Pointer Arrow */}
                           <span className={`text-sm sm:text-base font-black transition-all shrink-0 ${
                             isCursorActive || isSelected
-                              ? 'text-amber-400 opacity-100 animate-pulse drop-shadow-[0_0_8px_rgba(251,191,36,0.9)]'
+                              ? isParchment ? 'text-amber-700 opacity-100 animate-pulse' : 'text-amber-400 opacity-100 animate-pulse drop-shadow-[0_0_8px_rgba(251,191,36,0.9)]'
                               : 'opacity-0 w-2.5'
                           }`}>
                             ▶
                           </span>
 
-                          <span className={`text-xs sm:text-sm leading-snug [text-shadow:_0_1px_3px_rgb(0_0_0_/_90%)] ${
-                            isCursorActive ? 'text-amber-100 font-bold' : 'text-[#f5f0e6] font-semibold'
+                          <span className={`text-xs sm:text-sm leading-snug ${
+                            isParchment
+                              ? isCursorActive ? 'text-amber-950 font-bold' : 'text-[#2b2118] font-semibold'
+                              : isCursorActive ? 'text-amber-100 font-bold [text-shadow:_0_1px_3px_rgb(0_0_0_/_90%)]' : 'text-[#f5f0e6] font-semibold [text-shadow:_0_1px_3px_rgb(0_0_0_/_90%)]'
                           }`}>
                             {getLocalizedChoiceLabel(choice, language)}
                           </span>
@@ -814,6 +898,21 @@ export const DialogueBox: React.FC<DialogueBoxProps> = ({
                     <span>Débloquer sur Stripe ({lockedChoicePopup.promoPrice || '4,99 €'})</span>
                     <ExternalLink className="w-4 h-4" />
                   </button>
+
+                  {onOpenSupport && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playSelect();
+                        setLockedChoicePopup(null);
+                        onOpenSupport();
+                      }}
+                      className="w-full py-2.5 px-3 rounded-xl bg-[#2d6a4f] hover:bg-[#1b4332] text-white font-black text-xs font-cinzel border border-[#1b4332] shadow-xs active:translate-y-0.5 transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 fill-amber-300 text-amber-300" />
+                      <span>J'ai un Code Promo (Débloquer)</span>
+                    </button>
+                  )}
 
                   <button
                     type="button"

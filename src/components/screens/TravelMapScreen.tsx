@@ -44,26 +44,17 @@ export const TravelMapScreen: React.FC<TravelMapScreenProps> = ({
 }) => {
   const allScenesCombined = [...CHAPTER_1_SCENES, ...CHAPTER_2_SCENES, ...CHAPTER_3_SCENES];
   const currentActiveScene = allScenesCombined[currentSceneIndex] || CHAPTER_1_SCENES[0];
-  const isChapter2Unlocked =
-    isSupporter ||
-    playerXp >= 450 ||
-    completedScenes.includes(9) ||
-    currentActiveScene.id >= 10;
-  const isChapter3Unlocked =
-    isSupporter ||
-    playerXp >= 780 ||
-    completedScenes.includes(16) ||
-    currentActiveScene.id >= 17;
+  const isChapter2Unlocked = Boolean(isSupporter);
+  const isChapter3Unlocked = Boolean(isSupporter);
 
-  // Auto-select smart chapter: if initialChapter given use it, else current scene chapter, or highest unlocked
+  // Auto-select smart chapter: only Chapter 1 is available unless supporter (paid or promo)
   const [activeChapter, setActiveChapter] = useState<1 | 2 | 3>(() => {
+    if (!isSupporter) return 1;
     if (initialChapter === 1 || initialChapter === 2 || initialChapter === 3) {
       return initialChapter;
     }
-    if (currentActiveScene.id >= 17 || (isSupporter && completedScenes.includes(16))) return 3;
-    if (currentActiveScene.id >= 10 || (isSupporter && completedScenes.includes(9))) return 2;
-    if (playerXp >= 780) return 3;
-    if (playerXp >= 450) return 2;
+    if (currentActiveScene.id >= 17 && completedScenes.includes(16)) return 3;
+    if (currentActiveScene.id >= 10 && completedScenes.includes(9)) return 2;
     return 1;
   });
 
@@ -206,17 +197,15 @@ export const TravelMapScreen: React.FC<TravelMapScreenProps> = ({
   const handleNextChapter = () => {
     if (activeChapter < 3) {
       soundManager.playSelect();
-      if (!nextChapterConfig?.isUnlocked) {
-        const reqXp = nextChapterConfig?.requiredXp || 0;
-        if (!isSupporter && playerXp < reqXp) {
-          setLockedSceneModal({
-            sceneTitle: `Chapitre ${nextChapterConfig?.number} : ${nextChapterConfig?.title}`,
-            requiredXp: reqXp,
-            gateReason: `Termine le chapitre précédent ou atteins ${reqXp} XP pour débloquer cette aventure !`,
-            isSpiritualGate: true
-          });
-          return;
-        }
+      const nextChap = (activeChapter + 1) as 2 | 3;
+      if (!isSupporter) {
+        setLockedSceneModal({
+          sceneTitle: `Chapitre ${nextChap} : ${CHAPTERS[nextChap - 1]?.title || 'Verrouillé'}`,
+          requiredXp: nextChap === 2 ? 450 : 780,
+          gateReason: 'Accès réservé aux Membres Fondateurs. Débloquez les Chapitres 2 & 3 avec le Pack Fondateur (4,99 €) ou appliquez votre Code Promo.',
+          isFounderRequired: true
+        });
+        return;
       }
       setSlideDirection('right');
       setActiveChapter((prev) => (prev + 1) as 1 | 2 | 3);
@@ -225,17 +214,15 @@ export const TravelMapScreen: React.FC<TravelMapScreenProps> = ({
 
   const handleSelectChapterDirectly = (chapterNumber: 1 | 2 | 3) => {
     if (chapterNumber === activeChapter) return;
-    const target = CHAPTERS[chapterNumber - 1];
-    if (!target.isUnlocked) {
-      if (!isSupporter && playerXp < target.requiredXp) {
-        setLockedSceneModal({
-          sceneTitle: `Chapitre ${target.number} : ${target.title}`,
-          requiredXp: target.requiredXp,
-          gateReason: `Termine le chapitre précédent ou atteins ${target.requiredXp} XP pour débloquer cette aventure !`,
-          isSpiritualGate: true
-        });
-        return;
-      }
+    if (chapterNumber > 1 && !isSupporter) {
+      soundManager.playSelect();
+      setLockedSceneModal({
+        sceneTitle: `Chapitre ${chapterNumber} : ${CHAPTERS[chapterNumber - 1]?.title || 'Verrouillé'}`,
+        requiredXp: chapterNumber === 2 ? 450 : 780,
+        gateReason: 'Accès réservé aux Membres Fondateurs. Débloquez les Chapitres 2 & 3 avec le Pack Fondateur (4,99 €) ou appliquez votre Code Promo.',
+        isFounderRequired: true
+      });
+      return;
     }
     soundManager.playSelect();
     setSlideDirection(chapterNumber > activeChapter ? 'right' : 'left');
@@ -266,14 +253,14 @@ export const TravelMapScreen: React.FC<TravelMapScreenProps> = ({
   // Resolve focused scene details
   const focusedScene = allScenesCombined.find((s) => s.id === selectedSceneId) || nextPlayableScene;
   const isFocusedCompleted = completedScenes.includes(focusedScene.id);
-  const isFocusedLocked =
-    playerXp < (focusedScene.requiredXp || 0) ||
-    (focusedScene.id >= 17
-      ? !isSupporter && playerXp < 780
-      : focusedScene.id >= 10
-      ? !isSupporter && playerXp < 450
-      : false);
   const isFocusedCurrent = focusedScene.id === nextPlayableScene.id && !isFocusedCompleted;
+  
+  // A scene is progression-locked if it's neither completed nor the current next scene
+  const isProgressionLocked = !isFocusedCompleted && !isFocusedCurrent;
+  const isFocusedLocked =
+    isProgressionLocked ||
+    playerXp < (focusedScene.requiredXp || 0) ||
+    (focusedScene.id >= 10 ? !isSupporter : false);
 
   const handleNodeClick = (
     sceneId: number,
@@ -285,12 +272,24 @@ export const TravelMapScreen: React.FC<TravelMapScreenProps> = ({
     soundManager.playSelect();
     setSelectedSceneId(sceneId);
 
-    const reqXpForChapter = sceneId >= 17 ? 780 : sceneId >= 10 ? 450 : 0;
-    if (sceneId >= 10 && !isSupporter && playerXp < reqXpForChapter) {
+    const isNodeCompleted = completedScenes.includes(sceneId);
+    const isNodeCurrent = sceneId === nextPlayableScene.id && !isNodeCompleted;
+
+    if (!isNodeCompleted && !isNodeCurrent) {
       setLockedSceneModal({
         sceneTitle,
-        requiredXp: reqXpForChapter,
-        gateReason: 'Cette étape fait partie du Chapitre 2 ou 3. Débloquez la suite avec le Pack Fondateur (4,99 €) ou en atteignant les XP requis.',
+        requiredXp: 0,
+        gateReason: 'Vous devez d\'abord terminer les étapes précédentes pour accéder à celle-ci.',
+        isFounderRequired: false
+      });
+      return;
+    }
+
+    if (sceneId >= 10 && !isSupporter) {
+      setLockedSceneModal({
+        sceneTitle,
+        requiredXp: sceneId >= 17 ? 780 : 450,
+        gateReason: 'Cette étape fait partie du Chapitre 2 ou 3. Débloquez la suite avec le Pack Fondateur (4,99 €) ou appliquez votre Code Promo.',
         isFounderRequired: true
       });
       return;
@@ -304,12 +303,11 @@ export const TravelMapScreen: React.FC<TravelMapScreenProps> = ({
   const handleLaunchScene = (sceneId: number) => {
     const target = allScenesCombined.find((s) => s.id === sceneId);
     if (!target) return;
-    const reqXpForChapter = target.id >= 17 ? 780 : target.id >= 10 ? 450 : 0;
-    if (target.id >= 10 && !isSupporter && playerXp < reqXpForChapter) {
+    if (target.id >= 10 && !isSupporter) {
       setLockedSceneModal({
         sceneTitle: target.title,
-        requiredXp: reqXpForChapter,
-        gateReason: 'Cette étape fait partie du Chapitre 2 ou 3. Débloquez la suite avec le Pack Fondateur (4,99 €) ou en atteignant les XP requis.',
+        requiredXp: target.id >= 17 ? 780 : 450,
+        gateReason: 'Cette étape fait partie du Chapitre 2 ou 3. Débloquez la suite avec le Pack Fondateur (4,99 €) ou appliquez votre Code Promo.',
         isFounderRequired: true
       });
       return;
@@ -482,8 +480,8 @@ export const TravelMapScreen: React.FC<TravelMapScreenProps> = ({
           {/* Nœuds interactifs le long du chemin */}
           {currentChapterConfig.scenes.map((scene, index) => {
             const isCompleted = completedScenes.includes(scene.id);
-            const isUnlocked = playerXp >= (scene.requiredXp || 0);
             const isCurrent = scene.id === nextPlayableScene.id && !isCompleted;
+            const isUnlocked = (isCompleted || isCurrent) && playerXp >= (scene.requiredXp || 0);
             const isSelected = scene.id === focusedScene.id;
             const pos = currentChapterConfig.positions[index] || { top: '50%', left: '50%' };
             const isBoss = scene.id === 9 || scene.id === 15 || scene.id === 25;
@@ -603,24 +601,24 @@ export const TravelMapScreen: React.FC<TravelMapScreenProps> = ({
           <div className="mt-3 pt-2 border-t border-[#ebdcc4] flex flex-col gap-2">
             {isFocusedLocked ? (
               <div className="flex flex-col gap-1.5">
-                {focusedScene.id >= 10 && !isSupporter && playerXp < (focusedScene.id >= 17 ? 780 : 450) ? (
+                {focusedScene.id >= 10 && !isSupporter ? (
                   <div className="flex flex-col gap-1 w-full">
                     <button
                       onClick={() =>
                         setLockedSceneModal({
                           sceneTitle: focusedScene.title,
                           requiredXp: focusedScene.id >= 17 ? 780 : 450,
-                          gateReason: 'Cette étape fait partie du Chapitre 2 ou 3. Débloquez la suite avec le Pack Fondateur (4,99 €) avec la garantie Satisfait ou Remboursé 7 jours sans risque.',
+                          gateReason: 'Cette étape fait partie du Chapitre 2 ou 3. Débloquez la suite avec le Pack Fondateur (4,99 €) ou votre Code Promo.',
                           isFounderRequired: true
                         })
                       }
                       className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-stone-950 font-black font-cinzel text-xs border-2 border-[#3a2312] shadow-xs active:translate-y-0.5 cursor-pointer flex items-center justify-center gap-2"
                     >
                       <Lock className="w-4 h-4 text-stone-900" />
-                      <span>Pack Fondateur Requis (4,99 €)</span>
+                      <span>Pack Fondateur ou Code Promo (4,99 €)</span>
                     </button>
                     <span className="text-[10px] text-emerald-800 font-bold text-center">
-                      🛡️ Garantie 7 jours satisfait ou remboursé
+                      🛡️ Accès Immédiat • Paiement ou Code Promo
                     </span>
                   </div>
                 ) : (
@@ -720,7 +718,7 @@ export const TravelMapScreen: React.FC<TravelMapScreenProps> = ({
                   className="w-full py-2.5 px-3 rounded-xl bg-[#2d6a4f] hover:bg-[#1b4332] text-white font-black text-xs font-cinzel shadow-md flex items-center justify-center gap-2 cursor-pointer active:translate-y-0.5 border-2 border-[#1b4332]"
                 >
                   <Sparkles className="w-4 h-4 fill-amber-300 text-amber-300" />
-                  <span>Débloquer le Pack Fondateur (4,99 €)</span>
+                  <span>Débloquer (Paiement ou Code Promo)</span>
                 </button>
 
                 <button

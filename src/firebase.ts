@@ -18,8 +18,15 @@ export const app = initializeApp(firebaseConfig);
 // Initialize Firestore
 export const db = getFirestore(app);
 
-// Initialize Analytics conditionally (safely for Capacitor / SSR / web)
-export const analyticsPromise = typeof window !== "undefined"
+// Simple inline bot check to prevent automatic session_start / first_visit from crawlers & bots
+const isBot = typeof window !== "undefined" && (
+  Boolean(navigator.webdriver) ||
+  /bot|crawler|spider|headless|lighthouse|facebookexternalhit|meta-externalagent|bytespider|tiktokbot|googlebot|bingbot|pingdom/i.test(navigator.userAgent || "") ||
+  (window.screen && (window.screen.width === 0 || window.screen.height === 0))
+);
+
+// Initialize Analytics conditionally (safely for Capacitor / SSR / web, and excluding bots)
+export const analyticsPromise = typeof window !== "undefined" && !isBot
   ? isSupported().then((supported) => (supported ? getAnalytics(app) : null))
   : Promise.resolve(null);
 
