@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { getChapter1Scenes, getChapter1Quizzes, getChapter1RealActions, getDay2PoteauBeats } from './data/chapter1';
 import { CHAPTER_2_SCENES, CHAPTER_2_QUIZZES, CHAPTER_2_REAL_ACTIONS } from './data/chapter2';
 import { CHAPTER_3_SCENES, CHAPTER_3_QUIZZES, CHAPTER_3_REAL_ACTIONS } from './data/chapter3';
@@ -17,6 +17,7 @@ import { QuestsScreen } from './components/screens/QuestsScreen';
 import { InventoryScreen } from './components/screens/InventoryScreen';
 import { ProfileScreen } from './components/screens/ProfileScreen';
 import { SceneBackground } from './components/SceneBackground';
+import { StoryShotOverlay } from './components/StoryShotOverlay';
 import { DialogueBox } from './components/DialogueBox';
 import { QuizModal } from './components/QuizModal';
 import { IslamicQuizModal } from './components/IslamicQuizModal';
@@ -32,7 +33,8 @@ import { ContemplationOverlay } from './components/ContemplationOverlay';
 import { SplashScreen } from './components/SplashScreen';
 import { XpHarvestOverlay } from './components/XpHarvestOverlay';
 import { SupportModal } from './components/SupportModal';
-import { LandingPage } from './components/landing/LandingPage';
+// Chargée à la demande : les joueurs qui arrivent sur /play ne téléchargent pas la landing
+const LandingPage = lazy(() => import('./components/landing/LandingPage').then((m) => ({ default: m.LandingPage })));
 import { soundManager } from './utils/audio';
 import { speechManager } from './utils/speech';
 import { loadCustomAssets, CustomAssetsConfig, PIXEL_ASSETS, DEFAULT_ASSETS } from './utils/assets';
@@ -1035,7 +1037,11 @@ export default function App() {
   );
 
   if (viewMode === 'landing') {
-    return <LandingPage onLaunchGame={handleLaunchGame} />;
+    return (
+      <Suspense fallback={<div className="min-h-screen bg-[#f6ebd7]" />}>
+        <LandingPage onLaunchGame={handleLaunchGame} />
+      </Suspense>
+    );
   }
 
   return (
@@ -1216,6 +1222,7 @@ export default function App() {
               isContemplating={!!contemplationState}
               completedRealActions={progress.completedRealActions}
             />
+            <StoryShotOverlay scene={currentScene} currentBeat={currentBeat} isContemplating={!!contemplationState} />
 
             {/* Contemplation Overlay: 3-4s pause before advancing to next scene for deep immersion */}
             {contemplationState && (

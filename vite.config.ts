@@ -11,6 +11,19 @@ export default defineConfig(() => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          // Sépare les dépendances lourdes du code du jeu : meilleur cache navigateur entre deux déploiements
+          manualChunks: {
+            'vendor-react': ['react', 'react-dom'],
+            'vendor-firebase': ['firebase/app', 'firebase/analytics', 'firebase/firestore'],
+            'vendor-analytics': ['posthog-js', '@posthog/react'],
+            'vendor-ui': ['motion', 'lucide-react'],
+          },
+        },
+      },
+    },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
