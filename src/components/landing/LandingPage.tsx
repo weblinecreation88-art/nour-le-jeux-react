@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import Navbar from './Navbar';
 import HeroSection from './HeroSection';
 import { GameplayVideoSection } from './GameplayVideoSection';
-import GameplayMechanics from './GameplayMechanics';
 import InteractiveCombatDemo from './InteractiveCombatDemo';
 import CharactersSection from './CharactersSection';
 import ChaptersRoadmap from './ChaptersRoadmap';
 import FamilySection from './FamilySection';
 import CreatorLetterSection from './CreatorLetterSection';
-import BookOfWisdom from './BookOfWisdom';
+import EmailCaptureSection from './EmailCaptureSection';
+import UnifiedBenefitsSection from './UnifiedBenefitsSection';
 import VisualGallery from './VisualGallery';
 import PricingSection from './PricingSection';
 import TestimonialsSection from './TestimonialsSection';
@@ -62,89 +62,66 @@ const LandingPageContent: React.FC<LandingPageProps> = ({ onLaunchGame }) => {
 
       {/* Main Content Sections */}
       <main>
-        {/* 2. Hero Section : Promesse claire, 1-Click Jouer, Réassurance */}
+        {/* 1. Hero Section */}
         <HeroSection 
           onOpenGame={handleOpenGame} 
           onScrollToDemo={handleScrollToDemo} 
           onScrollToVideo={handleScrollToVideo}
         />
 
-        {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 3. Gameplay Video Showcase : Réponse immédiate à "À quoi ressemble le jeu ?" */}
+        {/* 2. Gameplay Video Showcase */}
         <GameplayVideoSection onOpenGame={handleOpenGame} />
 
-        {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 4. Unique Gameplay Mechanics (Ponts de Nour, Waswâs, etc.) */}
-        <GameplayMechanics />
+        {/* 3. Trust / Family Section (Why parents trust us: no violence, no ads, no data, verified content) */}
+        <FamilySection onOpenGame={handleOpenGame} />
 
-        {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 5. Interactive Waswâs Combat Simulator (Définition Waswâs + Choix avec stats) */}
+        {/* 4. Unified Benefits Section (Merge GameplayMechanics, BookOfWisdom, Real Life actions) */}
+        <UnifiedBenefitsSection />
+
+        <MirageArabesqueDivider className="my-8 sm:my-14" />
+
+        {/* 5. Interactive Waswâs Combat Simulator */}
         <InteractiveCombatDemo onOpenGame={handleOpenGame} />
 
-        {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 6. Characters Showcase (Othmân, Noura, Waswâs, Sage) */}
+        {/* 6. Characters Showcase */}
         <CharactersSection />
 
-        {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
         {/* 7. The 5 Chapters Roadmap */}
         <ChaptersRoadmap onOpenGame={handleOpenGame} />
 
-        {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 8. Pour les Familles : Âge (8+), Confidentialité, Zéro Pub, Sources */}
-        <FamilySection onOpenGame={handleOpenGame} />
-
-        {/* Arabesque Gilded Divider */}
-        <MirageArabesqueDivider className="my-8 sm:my-14" />
-
-        {/* 9. Le Mot du Concepteur (Version condensée + Accordéon complet) */}
+        {/* 8. Creator Letter Section (Qui est derrière NOUR) */}
         <CreatorLetterSection onOpenGame={handleOpenGame} />
 
-        {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 10. Social Proof & Player Testimonials (CRO Trust Booster) */}
+        {/* 9. Avis (Testimonials) */}
         <TestimonialsSection />
 
-        {/* Arabesque Gilded Divider */}
         <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 11. The Book of Wisdom (Le Livre du Savoir - Codex de Bagdad) */}
-        <BookOfWisdom />
-
-        {/* Arabesque Gilded Divider */}
-        <MirageArabesqueDivider className="my-8 sm:my-14" />
-
-        {/* 12. Visual Art & Panoramas Gallery */}
-        <VisualGallery />
-
-        {/* Arabesque Gilded Divider */}
-        <MirageArabesqueDivider className="my-8 sm:my-14" />
-
-        {/* 13. Pricing & Founder Offers (Soutien & Déblocage Chapitres 2 & 3) */}
-        <PricingSection />
-
-        {/* Arabesque Gilded Divider */}
-        <MirageArabesqueDivider className="my-8 sm:my-14" />
-
-        {/* 14. FAQ Section (8 questions indispensables répondant à toutes les objections) */}
+        {/* 10. FAQ Section */}
         <FaqSection />
 
-        {/* Arabesque Gilded Divider */}
-        <MirageArabesqueDivider className="my-10 sm:my-16" />
+        <MirageArabesqueDivider className="my-8 sm:my-14" />
 
-        {/* 13. High-Impact Pre-Footer Closing Call To Action */}
+        {/* 11. Email Capture */}
+        <EmailCaptureSection />
+
+        <MirageArabesqueDivider className="my-8 sm:my-14" />
+
+        {/* 12. Pre-Footer Closing Call To Action */}
         <section className="py-16 sm:py-24 bg-gradient-to-b from-[#150f1b] via-[#100b16] to-[#0a080e] border-t border-[#d4af37]/30 relative overflow-hidden text-center">
           <div className="absolute inset-0 bg-radial-[circle_at_50%_50%] from-[#e5c158]/10 via-transparent to-transparent pointer-events-none" />
           
@@ -196,7 +173,7 @@ const LandingPageContent: React.FC<LandingPageProps> = ({ onLaunchGame }) => {
           </div>
         </section>
 
-        {/* 14. Beta Tester Feedback Form Section */}
+        {/* Beta Tester Feedback Form Section */}
         <section id="tester-questionnaire" className="py-20 bg-[#0c0912] relative border-t border-[#d4af37]/25">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10 space-y-3">

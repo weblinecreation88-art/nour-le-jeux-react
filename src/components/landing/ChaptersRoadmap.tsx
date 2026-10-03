@@ -53,14 +53,14 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-950/80 border border-amber-500/40 text-amber-300 text-xs font-semibold shadow-inner">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-950/80 border border-amber-500/40 text-amber-300 text-base font-semibold shadow-inner">
             <Layers className="w-3.5 h-3.5 text-amber-400" />
             {t.roadmap.badge}
           </div>
           <h2 className="font-cinzel text-3xl sm:text-5xl font-extrabold text-amber-100">
             {t.roadmap.title}
           </h2>
-          <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
+          <p className="text-stone-300 text-base sm:text-base leading-relaxed">
             {t.roadmap.subtitle}
           </p>
         </div>
@@ -69,7 +69,7 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
         <div className="mb-6 flex flex-col gap-3">
           
           {/* Top helper indicator & auto-slide controls */}
-          <div className="flex items-center justify-between text-xs text-stone-400 px-1">
+          <div className="flex items-center justify-between text-base text-stone-400 px-1">
             <div className="flex items-center gap-2">
               <span className="font-bold text-amber-400 uppercase tracking-wider text-[11px] font-cinzel">
                 {t.roadmap.chooseChapter} ({activeIndex + 1}/{chapters.length})
@@ -106,7 +106,7 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
           </div>
 
           {/* Chapters Horizontal Navigation Tabs */}
-          <div className="flex items-center gap-3 overflow-x-auto pb-3 pt-1 px-1 no-scrollbar">
+          <div className="flex flex-wrap sm:flex-nowrap items-center justify-start sm:justify-center gap-3 pb-3 pt-1 px-1">
             {chapters.map((ch, idx) => {
               const isSelected = activeIndex === idx;
               const isAvailable = ch.status === 'available';
@@ -208,7 +208,7 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
               </div>
 
               {/* Location pin */}
-              <div className="absolute bottom-6 left-6 right-6 p-3 rounded-2xl bg-[#0c0a12]/85 backdrop-blur-md border border-amber-500/30 text-xs text-stone-200 flex items-center gap-2.5 shadow-md">
+              <div className="absolute bottom-6 left-6 right-6 p-3 rounded-2xl bg-[#0c0a12]/85 backdrop-blur-md border border-amber-500/30 text-base text-stone-200 flex items-center gap-2.5 shadow-md">
                 <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
                 <span className="font-medium">{activeChapter.location}</span>
               </div>
@@ -238,17 +238,17 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
               <div className="space-y-4">
                 <div className="space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded-md bg-amber-500/20 border border-amber-500/40 text-xs font-mono uppercase tracking-widest text-amber-300 font-bold">
+                    <span className="px-2.5 py-0.5 rounded-md bg-amber-500/20 border border-amber-500/40 text-base font-mono uppercase tracking-widest text-amber-300 font-bold">
                       {activeChapter.number}
                     </span>
-                    <span className="text-xs text-stone-400">
+                    <span className="text-base text-stone-400">
                       • {activeChapter.statusLabel}
                     </span>
                   </div>
                   <h3 className="font-cinzel text-2xl sm:text-4xl font-extrabold text-amber-100 leading-tight">
                     {activeChapter.title}
                   </h3>
-                  <p className="text-sm sm:text-base font-semibold text-amber-200/90">
+                  <p className="text-base sm:text-base font-semibold text-amber-200/90">
                     {activeChapter.subtitle}
                   </p>
                 </div>
@@ -262,14 +262,14 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
                     <span className="text-[10px] uppercase font-bold text-amber-300/80 block font-cinzel tracking-wider">
                       {t.roadmap.virtueToMaster}
                     </span>
-                    <span className="text-sm sm:text-base font-bold text-amber-100 font-cinzel">
+                    <span className="text-base sm:text-base font-bold text-amber-100 font-cinzel">
                       {activeChapter.virtue}
                     </span>
                   </div>
                 </div>
 
                 {/* Synopsis */}
-                <p className="text-sm sm:text-base text-stone-300 leading-relaxed font-sans">
+                <p className="text-base sm:text-base text-stone-300 leading-relaxed font-sans">
                   {activeChapter.synopsis}
                 </p>
 
@@ -280,7 +280,7 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {activeChapter.highlights.map((h, i) => (
-                      <div key={i} className="flex items-start gap-2.5 text-xs text-stone-300 p-2.5 rounded-xl bg-[#191526] border border-amber-500/10">
+                      <div key={i} className="flex items-start gap-2.5 text-base text-stone-300 p-2.5 rounded-xl bg-[#191526] border border-amber-500/10">
                         <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                         <span className="leading-snug">{h}</span>
                       </div>
@@ -294,13 +294,13 @@ export default function ChaptersRoadmap({ onOpenGame }: ChaptersRoadmapProps) {
                 {activeChapter.status === 'available' ? (
                   <button
                     onClick={onOpenGame}
-                    className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-stone-950 font-cinzel font-black text-xs sm:text-sm uppercase tracking-wider shadow-[0_0_25px_rgba(245,158,11,0.5)] hover:scale-105 active:translate-y-0.5 transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-stone-950 font-cinzel font-black text-base sm:text-base uppercase tracking-wider shadow-[0_0_25px_rgba(245,158,11,0.5)] hover:scale-105 active:translate-y-0.5 transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
                     <Play className="w-4 h-4 fill-stone-950" />
                     <span>{t.roadmap.playChapter1Now}</span>
                   </button>
                 ) : (
-                  <div className="w-full sm:w-auto px-5 py-3 rounded-2xl bg-stone-900 border border-stone-700 text-stone-300 text-xs flex items-center gap-2.5">
+                  <div className="w-full sm:w-auto px-5 py-3 rounded-2xl bg-stone-900 border border-stone-700 text-stone-300 text-base flex items-center gap-2.5">
                     <Lock className="w-4 h-4 text-amber-400" />
                     <span>{t.roadmap.founderPackUnlock}</span>
                   </div>

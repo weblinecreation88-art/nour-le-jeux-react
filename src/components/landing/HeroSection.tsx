@@ -167,16 +167,6 @@ export default function HeroSection({ onOpenGame, onScrollToDemo, onScrollToVide
                   <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-[#120e06] group-hover:scale-110 transition-transform shrink-0" />
                   <span>{t.hero.ctaPlay}</span>
                 </button>
-
-                {/* Secondary Action: Video Discovery Button */}
-                <button
-                  id="btn-hero-video"
-                  onClick={onScrollToVideo}
-                  className="w-full sm:w-auto px-6 py-4 rounded-2xl bg-[#1a1424]/90 hover:bg-[#281f38] border border-[#d4af37]/50 hover:border-[#ffd700] text-[#f5ebd7] font-cinzel font-bold text-sm tracking-wide transition-all hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center gap-2 shadow-lg"
-                >
-                  <Film className="w-4 h-4 text-[#e5c158]" />
-                  <span>{t.hero.ctaVideo}</span>
-                </button>
               </div>
 
               {/* Friction Reducers Micro-Copy */}
@@ -195,31 +185,42 @@ export default function HeroSection({ onOpenGame, onScrollToDemo, onScrollToVide
                 </span>
               </div>
 
-              {/* Discreet Secondary Link: Android APK (Non-intrusive & Reassuring) */}
+              {/* Discreet Secondary Links: Video, Demo & Android APK */}
               <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3 text-xs">
+                <button
+                  id="btn-hero-video"
+                  onClick={onScrollToVideo}
+                  className="inline-flex items-center gap-1.5 text-xs text-[#d8c29d] font-semibold hover:text-[#f5ebd7] transition-colors cursor-pointer"
+                >
+                  <Film className="w-3.5 h-3.5 text-[#e5c158]" />
+                  <span>{t.hero.ctaVideo}</span>
+                </button>
+                
+                <span className="text-stone-500 hidden sm:inline">•</span>
+
+                <button
+                  id="btn-hero-demo"
+                  onClick={onScrollToDemo}
+                  className="inline-flex items-center gap-1.5 text-xs text-purple-300 font-semibold hover:text-purple-200 transition-colors cursor-pointer"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                  <span>{t.hero.ctaDemo}</span>
+                </button>
+
+                <span className="text-stone-500 hidden sm:inline">•</span>
+
                 <a
                   id="btn-hero-apk"
                   href={APK_DOWNLOAD_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackApkDownloadClick('hero_discreet_link')}
-                  className="inline-flex items-center gap-1.5 text-xs text-emerald-800 dark:text-emerald-300 font-semibold hover:text-emerald-900 dark:hover:text-emerald-200 transition-colors underline underline-offset-4 decoration-emerald-500/50"
+                  className="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-semibold hover:text-emerald-300 transition-colors underline underline-offset-4 decoration-emerald-500/50"
                   title="Télécharger l'application Android (Bêta)"
                 >
-                  <Download className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
+                  <Download className="w-3.5 h-3.5 text-emerald-500" />
                   <span>{t.hero.apkNote}</span>
                 </a>
-
-                <span className="text-stone-500 hidden sm:inline">•</span>
-
-                <button
-                  id="btn-hero-demo"
-                  onClick={onScrollToDemo}
-                  className="inline-flex items-center gap-1.5 text-xs text-purple-900 dark:text-purple-300 font-semibold hover:text-purple-950 dark:hover:text-purple-200 transition-colors cursor-pointer"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-purple-600 dark:text-purple-300" />
-                  <span>{t.hero.ctaDemo} ↗</span>
-                </button>
               </div>
             </div>
 

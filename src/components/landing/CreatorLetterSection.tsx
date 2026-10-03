@@ -43,8 +43,20 @@ export default function CreatorLetterSection({ onOpenGame }: CreatorLetterSectio
           {/* Top Vintage Stamp & Bismillah Calligraphy */}
           <div className="flex flex-col sm:flex-row items-center justify-between border-b border-[#d4af37]/30 pb-6 mb-8 gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#d4af37] via-[#b88628] to-[#805713] p-0.5 shadow-md shrink-0 flex items-center justify-center text-[#fff8eb]">
-                <span className="font-amiri text-3xl font-bold">ن</span>
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-[#d4af37] via-[#b88628] to-[#805713] p-0.5 shadow-md shrink-0 flex items-center justify-center text-[#fff8eb] overflow-hidden">
+                <img 
+                  src="/game-assets/creator-photo.jpg" 
+                  alt={t.creatorLetter.authorName}
+                  className="w-full h-full rounded-[14px] object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    if (target.nextElementSibling) {
+                      (target.nextElementSibling as HTMLElement).style.display = 'block';
+                    }
+                  }}
+                />
+                <span className="font-amiri text-3xl font-bold" style={{ display: 'none' }}>ن</span>
               </div>
               <div>
                 <span className="text-[11px] font-cinzel uppercase tracking-widest text-[#e5c158] font-bold block">

@@ -19,3 +19,6 @@ android/build/
 # Local Firebase & Media Archives
 .firebase/
 _media_archive/
+
+# Scripts de patch ponctuels
+/fix_*.py

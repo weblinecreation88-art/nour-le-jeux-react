@@ -1,8 +1,8 @@
 @echo off
-set "JAVA_HOME=C:\Program Files\Microsoft\jdk-21.0.12.101-hotspot"
+
 set "ANDROID_HOME=C:\Users\ABDER\AppData\Local\Android\Sdk"
 set "PATH=%JAVA_HOME%\bin;%PATH%"
-echo Building Release APK with JAVA_HOME: %JAVA_HOME%
+set "JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-21.0.11.10-hotspot"`r`necho Building Release APK with JAVA_HOME: %JAVA_HOME%
 call gradlew.bat --stop
 call gradlew.bat assembleRelease
 if %ERRORLEVEL% equ 0 (

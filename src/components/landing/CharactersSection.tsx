@@ -67,23 +67,23 @@ export default function CharactersSection() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1b1510] border border-[#d4af37]/40 text-[#f5efe6] text-xs font-cinzel font-semibold tracking-wider shadow-[0_0_15px_rgba(212,175,55,0.15)]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1b1510] border border-[#d4af37]/40 text-[#f5efe6] text-base font-cinzel font-semibold tracking-wider shadow-[0_0_15px_rgba(212,175,55,0.15)]">
             <Users className="w-3.5 h-3.5 text-[#e5c158]" />
             {t.characters.badge}
           </div>
           <h2 className="font-cinzel text-3xl sm:text-5xl font-extrabold text-[#fbf6ec] tracking-wide">
             {t.characters.title}
           </h2>
-          <div className="flex items-center justify-center gap-2 text-xs font-cinzel tracking-widest text-[#d8c29d]/80 uppercase">
+          <div className="flex items-center justify-center gap-2 text-base font-cinzel tracking-widest text-[#d8c29d]/80 uppercase">
             <span>{t.characters.subTagline}</span>
           </div>
-          <p className="text-[#d8c29d] text-sm sm:text-base leading-relaxed font-sans max-w-2xl mx-auto">
+          <p className="text-[#d8c29d] text-base sm:text-base leading-relaxed font-sans max-w-2xl mx-auto">
             {t.characters.subtitle}
           </p>
         </div>
 
         {/* Character Navigation Tabs (Portraits) */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+        <div className="flex flex-col sm:grid sm:grid-cols-4 gap-3 mb-12">
           {localizedCharacters.map((char) => {
             const isSelected = selectedCharacter.id === char.id;
             return (
@@ -154,7 +154,7 @@ export default function CharactersSection() {
               
               {/* Name & Role Header */}
               <div className="space-y-1.5">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#20170f] border border-[#d4af37]/40 text-[#e5c158] text-xs font-cinzel font-semibold">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#20170f] border border-[#d4af37]/40 text-[#e5c158] text-base font-cinzel font-semibold">
                   ✧ {selectedCharacter.role}
                 </div>
                 <h3 className="font-cinzel text-3xl sm:text-4xl font-black text-[#fbf6ec]">
@@ -163,12 +163,12 @@ export default function CharactersSection() {
               </div>
 
               {/* Character Quote (Parchment Ribbon Look) */}
-              <div className="callout-ribbon p-4 sm:p-5 rounded-xl bg-gradient-to-r from-[#2a1d12]/90 via-[#21170f]/80 to-[#18110b]/90 border-l-4 border-[#e5c158] border-y border-r border-[#d4af37]/20 text-[#ede2cf] italic font-serif text-sm sm:text-base leading-relaxed shadow-md">
+              <div className="callout-ribbon p-4 sm:p-5 rounded-xl bg-gradient-to-r from-[#2a1d12]/90 via-[#21170f]/80 to-[#18110b]/90 border-l-4 border-[#e5c158] border-y border-r border-[#d4af37]/20 text-[#ede2cf] italic font-serif text-base sm:text-base leading-relaxed shadow-md">
                 « {selectedCharacter.quote} »
               </div>
 
               {/* Bio description */}
-              <p className="text-sm sm:text-base text-[#d8c29d] leading-relaxed font-sans">
+              <p className="text-base sm:text-base text-[#d8c29d] leading-relaxed font-sans">
                 {selectedCharacter.description}
               </p>
 
@@ -181,7 +181,7 @@ export default function CharactersSection() {
                   {selectedCharacter.traits.map((trait) => (
                     <span
                       key={trait}
-                      className="px-3 py-1 rounded-full bg-[#1b1420] border border-[#d4af37]/30 text-xs text-[#ede2cf] font-medium shadow-sm"
+                      className="px-3 py-1 rounded-full bg-[#1b1420] border border-[#d4af37]/30 text-base text-[#ede2cf] font-medium shadow-sm"
                     >
                       {trait}
                     </span>
@@ -198,7 +198,7 @@ export default function CharactersSection() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Sagesse */}
                   <div className="space-y-1">
-                    <div className="flex justify-between text-xs text-[#d8c29d]">
+                    <div className="flex justify-between text-base text-[#d8c29d]">
                       <span className="flex items-center gap-1.5 font-cinzel font-semibold">
                         <BookOpen className="w-3.5 h-3.5 text-sky-400" /> {t.characters.statWisdom}
                       </span>
@@ -214,7 +214,7 @@ export default function CharactersSection() {
 
                   {/* Sérénité */}
                   <div className="space-y-1">
-                    <div className="flex justify-between text-xs text-[#d8c29d]">
+                    <div className="flex justify-between text-base text-[#d8c29d]">
                       <span className="flex items-center gap-1.5 font-cinzel font-semibold">
                         <Heart className="w-3.5 h-3.5 text-emerald-400" /> {t.characters.statPeace}
                       </span>
@@ -230,7 +230,7 @@ export default function CharactersSection() {
 
                   {/* Courage */}
                   <div className="space-y-1">
-                    <div className="flex justify-between text-xs text-[#d8c29d]">
+                    <div className="flex justify-between text-base text-[#d8c29d]">
                       <span className="flex items-center gap-1.5 font-cinzel font-semibold">
                         <Shield className="w-3.5 h-3.5 text-[#e5c158]" /> {t.characters.statCourage}
                       </span>
@@ -246,7 +246,7 @@ export default function CharactersSection() {
 
                   {/* Hilm */}
                   <div className="space-y-1">
-                    <div className="flex justify-between text-xs text-[#d8c29d]">
+                    <div className="flex justify-between text-base text-[#d8c29d]">
                       <span className="flex items-center gap-1.5 font-cinzel font-semibold">
                         <Sparkles className="w-3.5 h-3.5 text-amber-300" /> {t.characters.statHilm}
                       </span>

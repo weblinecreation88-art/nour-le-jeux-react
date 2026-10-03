@@ -423,9 +423,9 @@ export const GameplayVideoSection: React.FC<GameplayVideoSectionProps> = ({ onOp
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackApkDownloadClick('video_section')}
-            className="w-full sm:w-auto px-6 py-4 rounded-xl bg-emerald-800/80 hover:bg-emerald-700/90 border border-emerald-400/50 text-emerald-100 font-cinzel font-bold text-sm tracking-wide shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+            className="w-full sm:w-auto px-6 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 border border-emerald-400 text-white font-cinzel font-bold text-base tracking-wide shadow-[0_0_20px_rgba(16,185,129,0.5)] hover:shadow-[0_0_30px_rgba(16,185,129,0.7)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2.5 cursor-pointer"
           >
-            <Download className="w-4 h-4 text-emerald-300" />
+            <Download className="w-5 h-5 text-white" />
             <span>{t.gameplayVideo.ctaDownloadApk}</span>
           </a>
         </div>

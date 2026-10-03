@@ -232,7 +232,7 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
             onClick={toggleTheme}
             aria-label="Basculer thème clair parchemin / sombre"
             title={isParchment ? "Passer en mode Nuit (Sombre)" : "Passer en mode Parchemin (Clair / Trésor)"}
-            className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-xl border transition-all cursor-pointer shadow-sm active:scale-95 ${
+            className={`hidden sm:flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-xl border transition-all cursor-pointer shadow-sm active:scale-95 ${
               isParchment
                 ? 'bg-[#eddcc3] hover:bg-[#e4ceb0] border-[#c5a059] text-[#5a401d] font-bold shadow-[0_0_10px_rgba(212,175,55,0.4)]'
                 : 'bg-[#1b140e]/80 hover:bg-[#d4af37]/20 border-[#d4af37]/40 text-[#fce8a6] hover:text-[#ffd700]'
@@ -254,7 +254,7 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
             onClick={toggleAmbientSound}
             aria-label="Ambiance sonore"
             title={isAudioPlaying ? t.navbar.musicOff : t.navbar.musicOn}
-            className="p-2 sm:px-2.5 sm:py-1.5 rounded-xl border border-[#d4af37]/35 bg-[#1b140e]/60 hover:bg-[#d4af37]/20 text-[#e5c158] hover:text-[#ffd700] text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="hidden sm:flex p-2 sm:px-2.5 sm:py-1.5 rounded-xl border border-[#d4af37]/35 bg-[#1b140e]/60 hover:bg-[#d4af37]/20 text-[#e5c158] hover:text-[#ffd700] text-xs font-medium items-center gap-1.5 transition-colors cursor-pointer"
           >
             {isAudioPlaying ? (
               <Volume2 className="w-4 h-4 text-emerald-400 animate-pulse" />
@@ -271,7 +271,7 @@ export default function Navbar({ onOpenGame }: NavbarProps) {
               trackPlayGameClick('navbar_play');
               onOpenGame();
             }}
-            className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#e5c158] via-[#ffd700] to-[#c59b27] text-stone-950 font-bold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(229,193,88,0.45)] hover:shadow-[0_0_25px_rgba(229,193,88,0.8)] transition-all transform hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-1.5 ring-1 ring-[#ffd700]/60"
+            className="hidden sm:flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#e5c158] via-[#ffd700] to-[#c59b27] text-stone-950 font-bold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(229,193,88,0.45)] hover:shadow-[0_0_25px_rgba(229,193,88,0.8)] transition-all transform hover:scale-105 active:scale-95 cursor-pointer items-center gap-1.5 ring-1 ring-[#ffd700]/60"
           >
             <Play className="w-3.5 h-3.5 fill-stone-950 shrink-0" />
             <span className="font-cinzel">{t.navbar.play}</span>

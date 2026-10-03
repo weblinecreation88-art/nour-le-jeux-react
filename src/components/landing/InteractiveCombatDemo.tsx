@@ -57,20 +57,20 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
         
         {/* Section Header */}
         <div className="text-center space-y-3 mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-500/40 text-purple-300 text-xs font-semibold">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/60 border border-purple-500/40 text-purple-300 text-base font-semibold">
             <ShieldAlert className="w-3.5 h-3.5" />
             {t.combatDemo.badge}
           </div>
           <h2 className="font-cinzel text-2xl sm:text-4xl font-extrabold text-amber-100">
             {t.combatDemo.title}
           </h2>
-          <p className="text-sm sm:text-base text-stone-300 max-w-2xl mx-auto font-sans">
+          <p className="text-base sm:text-base text-stone-300 max-w-2xl mx-auto font-sans">
             {t.combatDemo.subtitle}
           </p>
         </div>
 
         {/* Educational Callout: Definition of Waswâs */}
-        <div className="max-w-2xl mx-auto mb-8 p-4 rounded-xl bg-[#1c1428]/90 border border-purple-500/35 text-xs sm:text-sm text-[#ede2cf] flex items-start gap-3 shadow-lg">
+        <div className="max-w-2xl mx-auto mb-8 p-4 rounded-xl bg-[#1c1428]/90 border border-purple-500/35 text-base sm:text-base text-[#ede2cf] flex items-start gap-3 shadow-lg">
           <ShieldAlert className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
           <p className="leading-relaxed font-sans">
             <strong className="text-purple-200 font-cinzel tracking-wide">Qu'est-ce que le Waswâs ? </strong>
@@ -82,7 +82,7 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
         <div className="relative rounded-2xl bg-[#14111e] border-2 border-amber-500/30 overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.8)]">
           
           {/* Top Bar: Scene Location and State */}
-          <div className="bg-[#0b0912] px-6 py-3 border-b border-amber-500/20 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="bg-[#0b0912] px-6 py-3 border-b border-amber-500/20 flex flex-wrap items-center justify-between gap-3 text-base">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
               <span className="font-cinzel font-bold text-amber-200">{t.combatDemo.scene}</span>
@@ -122,8 +122,8 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-cinzel font-bold text-sm text-amber-200">{t.characters.othmanName}</span>
-                    <span className="text-xs font-mono text-emerald-400">{serenityLevel}{t.combatDemo.othmanSerenity}</span>
+                    <span className="font-cinzel font-bold text-base text-amber-200">{t.characters.othmanName}</span>
+                    <span className="text-base font-mono text-emerald-400">{serenityLevel}{t.combatDemo.othmanSerenity}</span>
                   </div>
                   {/* Serenity Bar */}
                   <div className="w-full h-2.5 rounded-full bg-stone-900 overflow-hidden border border-emerald-500/30">
@@ -151,8 +151,8 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-cinzel font-bold text-sm text-purple-200">{t.combatDemo.waswasTitle}</span>
-                    <span className="text-xs font-mono text-purple-300">{waswasLevel}{t.combatDemo.waswasTrouble}</span>
+                    <span className="font-cinzel font-bold text-base text-purple-200">{t.combatDemo.waswasTitle}</span>
+                    <span className="text-base font-mono text-purple-300">{waswasLevel}{t.combatDemo.waswasTrouble}</span>
                   </div>
                   {/* Waswâs Gauge */}
                   <div className="w-full h-2.5 rounded-full bg-stone-900 overflow-hidden border border-purple-500/30">
@@ -183,7 +183,7 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                   <span className="text-[11px] font-mono uppercase font-bold tracking-wider text-amber-300/80 block">
                     {isVictorious ? t.combatDemo.victoryTitle : t.combatDemo.waswasWhisperHeader}
                   </span>
-                  <p className="text-sm sm:text-base italic text-stone-200 leading-relaxed font-serif">
+                  <p className="text-base sm:text-base italic text-stone-200 leading-relaxed font-serif">
                     {isVictorious 
                       ? t.combatDemo.victoryDesc
                       : t.combatDemo.waswasWhisper
@@ -207,7 +207,7 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
             {/* Choices Grid */}
             {!isVictorious ? (
               <div className="space-y-3">
-                <span className="text-xs uppercase tracking-wider font-cinzel font-bold text-amber-300 block">
+                <span className="text-base uppercase tracking-wider font-cinzel font-bold text-amber-300 block">
                   {t.combatDemo.question}
                 </span>
                 
@@ -222,7 +222,7 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                       <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 group-hover:text-purple-300 block mb-1">
                         {t.combatDemo.optionATitle}
                       </span>
-                      <p className="text-xs text-stone-300 leading-snug">
+                      <p className="text-base text-stone-300 leading-snug">
                         {t.combatDemo.optionADesc}
                       </p>
                     </div>
@@ -240,7 +240,7 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                       <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 group-hover:text-amber-300 block mb-1">
                         {t.combatDemo.optionBTitle}
                       </span>
-                      <p className="text-xs text-stone-300 leading-snug">
+                      <p className="text-base text-stone-300 leading-snug">
                         {t.combatDemo.optionBDesc}
                       </p>
                     </div>
@@ -259,7 +259,7 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                         <Sparkles className="w-3 h-3 text-amber-400" />
                         {t.combatDemo.optionCTitle}
                       </span>
-                      <p className="text-xs text-amber-100 font-medium leading-snug">
+                      <p className="text-base text-amber-100 font-medium leading-snug">
                         {t.combatDemo.optionCDesc}
                       </p>
                     </div>
@@ -280,21 +280,21 @@ export default function InteractiveCombatDemo({ onOpenGame }: InteractiveCombatD
                   <h4 className="font-cinzel text-lg font-bold text-emerald-200">
                     {t.combatDemo.victoryTitle}
                   </h4>
-                  <p className="text-xs text-stone-300 max-w-lg mx-auto mt-1">
+                  <p className="text-base text-stone-300 max-w-lg mx-auto mt-1">
                     {t.combatDemo.victoryDesc}
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                   <button
                     onClick={onOpenGame}
-                    className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 text-stone-950 font-cinzel font-bold text-xs uppercase tracking-wider shadow-lg hover:scale-105 transition-all cursor-pointer flex items-center gap-2"
+                    className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 text-stone-950 font-cinzel font-bold text-base uppercase tracking-wider shadow-lg hover:scale-105 transition-all cursor-pointer flex items-center gap-2"
                   >
                     <Play className="w-3.5 h-3.5 fill-stone-950" />
                     <span>{t.combatDemo.victoryPlay}</span>
                   </button>
                   <button
                     onClick={handleReset}
-                    className="px-4 py-2.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-300 hover:text-stone-100 text-xs font-medium cursor-pointer"
+                    className="px-4 py-2.5 rounded-lg bg-stone-900 border border-stone-700 text-stone-300 hover:text-stone-100 text-base font-medium cursor-pointer"
                   >
                     {t.combatDemo.victoryReplay}
                   </button>

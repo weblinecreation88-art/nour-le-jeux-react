@@ -1,4 +1,22 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+
+const SafeVideo = (props: React.VideoHTMLAttributes<HTMLVideoElement> & { isActive?: boolean }) => {
+  const { isActive = true, ...videoProps } = props;
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      if (isActive) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [props.src, isActive]);
+  return <video ref={videoRef} autoPlay={isActive} loop muted playsInline {...videoProps} />;
+};
+
 import { Scene, Beat, DialogueChoice } from '../types';
 import { CustomAssetsConfig, DEFAULT_ASSETS } from '../utils/assets';
 
@@ -252,15 +270,7 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
             >
               {/* Blurred atmospheric glow filling widescreen / portrait boundaries */}
               {shot.videoSrc ? (
-                <video
-                  src={shot.videoSrc}
-                  poster={shot.src}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-                />
+                <img src={shot.src} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110" alt="" referrerPolicy="no-referrer" />
               ) : (
                 <img
                   src={shot.src}
@@ -276,7 +286,7 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               )}
               {/* Crisp 3:4 storyboard illustration or living animated video perfectly centered */}
               {shot.videoSrc ? (
-                <video
+                <SafeVideo isActive={isActive}
                   src={shot.videoSrc}
                   poster={shot.src}
                   autoPlay
@@ -326,16 +336,8 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
     return (
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
         <div className="absolute inset-0 flex items-center justify-center">
-          <video
-            src="/game-assets/carrefour_poteau.mp4"
-            poster={bgDepart}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
-          />
-          <video
+          <img src={bgDepart} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none" alt="" referrerPolicy="no-referrer" />
+          <SafeVideo
             src="/game-assets/carrefour_poteau.mp4"
             poster={bgDepart}
             autoPlay
@@ -505,16 +507,8 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
         {bgEpilogue && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <video
-              src="/game-assets/climax_pavillon_sunset.mp4"
-              poster={bgEpilogue}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
-            />
-            <video
+          <img src={bgEpilogue} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none" alt="" referrerPolicy="no-referrer" />
+            <SafeVideo
               src="/game-assets/climax_pavillon_sunset.mp4"
               poster={bgEpilogue}
               autoPlay
@@ -756,16 +750,8 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isIstiadhahDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
-            <video
-              src="/game-assets/waswas_smoke.mp4"
-              poster={bgMist}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
-            />
-            <video
+            <img src={bgMist} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none" alt="" referrerPolicy="no-referrer" />
+            <SafeVideo
               src="/game-assets/waswas_smoke.mp4"
               poster={bgMist}
               autoPlay
@@ -821,16 +807,8 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
     if (bgVallee) {
       return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
-          <video
-            src="/game-assets/vallee_belvedere.mp4"
-            poster={bgVallee}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
-          />
-          <video
+          <img src={bgVallee} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none" alt="" referrerPolicy="no-referrer" />
+          <SafeVideo
             src="/game-assets/vallee_belvedere.mp4"
             poster={bgVallee}
             autoPlay
@@ -896,16 +874,8 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isVillageFriendly ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            <video
-              src="/game-assets/village_sunlight.mp4"
-              poster={bgAccueillant}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
-            />
-            <video
+            <img src={bgAccueillant} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none" alt="" referrerPolicy="no-referrer" />
+            <SafeVideo
               src="/game-assets/village_sunlight.mp4"
               poster={bgAccueillant}
               autoPlay
@@ -973,16 +943,8 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isSabrDone ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            <video
-              src="/game-assets/ruelle_cobblestone.mp4"
-              poster={bgRuelleApaisee}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
-            />
-            <video
+            <img src={bgRuelleApaisee} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none" alt="" referrerPolicy="no-referrer" />
+            <SafeVideo
               src="/game-assets/ruelle_cobblestone.mp4"
               poster={bgRuelleApaisee}
               autoPlay
@@ -1026,16 +988,8 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isGesteDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
-            <video
-              src="/game-assets/verger_paysan.mp4"
-              poster={bgRenverse}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
-            />
-            <video
+            <img src={bgRenverse} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none" alt="" referrerPolicy="no-referrer" />
+            <SafeVideo
               src="/game-assets/verger_paysan.mp4"
               poster={bgRenverse}
               autoPlay
@@ -1056,16 +1010,8 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isGesteDone ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            <video
-              src="/game-assets/verger_oliviers.mp4"
-              poster={bgRanges}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
-            />
-            <video
+            <img src={bgRanges} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none" alt="" referrerPolicy="no-referrer" />
+            <SafeVideo
               src="/game-assets/verger_oliviers.mp4"
               poster={bgRanges}
               autoPlay
@@ -1110,16 +1056,8 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isJardinRevived ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
-            <video
-              src="/game-assets/jardin_encombre.mp4"
-              poster={bgEncombre}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
-            />
-            <video
+            <img src={bgEncombre} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none" alt="" referrerPolicy="no-referrer" />
+            <SafeVideo
               src="/game-assets/jardin_encombre.mp4"
               poster={bgEncombre}
               autoPlay
@@ -1140,16 +1078,8 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               isJardinRevived ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
-            <video
-              src="/game-assets/jardin_fleuri.mp4"
-              poster={bgRevived}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
-            />
-            <video
+            <img src={bgRevived} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none" alt="" referrerPolicy="no-referrer" />
+            <SafeVideo
               src="/game-assets/jardin_fleuri.mp4"
               poster={bgRevived}
               autoPlay
@@ -1241,25 +1171,19 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
     return (
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none flex items-center justify-center bg-[#181422]">
         {/* Layer 1: Le Vortex Sombre du Grand Waswas */}
-        {bgVortex && (
+                {bgVortex && (
           <div
             className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
               isWaswasDefeated ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
-            <img
-              src={bgVortex}
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110"
-              alt=""
-              referrerPolicy="no-referrer"
-            />
-            <img
-              src={bgVortex}
-              alt="Le Grand Waswas — Vortex d'angoisse au-dessus du pavillon"
-              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out ${
+            <img src={bgVortex} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none" alt="" referrerPolicy="no-referrer" />
+            <SafeVideo
+              src="/game-assets/waswas_tornado.mp4"
+              poster={bgVortex}
+              className={`relative w-full h-full object-contain object-center transition-transform duration-[4000ms] ease-out pointer-events-none ${
                 isContemplating ? 'scale-105' : 'scale-100'
               }`}
-              referrerPolicy="no-referrer"
             />
           </div>
         )}
@@ -1272,16 +1196,8 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
               dawnOpacity > 0 ? '' : 'pointer-events-none'
             }`}
           >
-            <video
-              src="/game-assets/climax_pavillon_sunset.mp4"
-              poster={bgPavillonApaise}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none"
-            />
-            <video
+            <img src={bgPavillonApaise} className="absolute inset-0 w-full h-full object-cover opacity-40 blur-2xl transform scale-110 pointer-events-none" alt="" referrerPolicy="no-referrer" />
+            <SafeVideo
               src="/game-assets/climax_pavillon_sunset.mp4"
               poster={bgPavillonApaise}
               autoPlay
@@ -1554,3 +1470,6 @@ export const SceneBackground: React.FC<SceneBackgroundProps> = ({
     </div>
   );
 };
+
+
+

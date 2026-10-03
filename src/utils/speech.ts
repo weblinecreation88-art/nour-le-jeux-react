@@ -536,7 +536,6 @@ class SpeechManager {
       try {
         this.currentAudio.pause();
         this.currentAudio.currentTime = 0;
-        this.currentAudio.src = '';
       } catch {}
       this.currentAudio = null;
     }

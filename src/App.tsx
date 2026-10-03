@@ -133,23 +133,12 @@ export default function App() {
             } else if (daysDiff > 1) {
               currentStreak = 1;
             }
-
-            // Circadian Day 2 Loop: If Chapter 1 was finished, reset to Day 2 at Carrefour
-            if (parsed.completedScenes && parsed.completedScenes.includes(9)) {
-              dayNum = 2;
-              sceneIdx = 1; // Scene 2: Carrefour
-              beatIdx = 0;
-            }
           }
 
           // Strictly clamp non-supporters to Chapter 1 scenes and chapter selection
           const userIsSupporter = getSupporterStatus();
-          if (!userIsSupporter) {
-            if (sceneIdx >= 10) {
-              sceneIdx = 0;
-              beatIdx = 0;
-            }
-          }
+          // We will not reset the sceneIdx aggressively here because it can cause data loss for offline players.
+          // Instead, gameplay gates will naturally block them from progressing.
 
           return {
             ...INITIAL_PROGRESS,
@@ -1214,7 +1203,7 @@ export default function App() {
         )}
 
         {/* Narrative Adventure Mode (Dialogue, Quiz, Combat, Real Actions) */}
-        {activeTab === 'adventure' && (
+        {activeTab === 'adventure' && !showSplash && (
           <div className="relative w-full h-full flex flex-col justify-between overflow-hidden bg-[#181422]">
             {/* Visual Environment Canvas */}
             <SceneBackground
