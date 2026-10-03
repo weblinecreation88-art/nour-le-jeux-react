@@ -18,7 +18,7 @@ import path from 'path';
 import sharp from 'sharp';
 
 const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || '';
-const model = process.env.GEMINI_IMAGE_MODEL || 'gemini-2.5-flash-image';
+const model = process.env.GEMINI_IMAGE_MODEL || 'gemini-3-pro-image-preview';
 
 if (!apiKey) {
   console.error('❌ Clé GEMINI_API_KEY absente : ajoute-la dans le fichier .env');

@@ -1,63 +1,295 @@
 {
-  "style": "Painterly anime illustration in the style of a Studio Ghibli background painting, warm golden-hour light, soft volumetric sunbeams, rich warm palette (ochre, terracotta, teal, cream), detailed Mediterranean / Andalusian-Ottoman village architecture, cinematic composition, vertical 3:4 framing. IMPORTANT: every human character is FACELESS — the face is a smooth skin-coloured oval with no eyes, no nose, no mouth, exactly like the reference images. Othmân: boy of about 12, messy dark-brown hair, teal hooded cape over a cream tunic, brown leather strap across the chest, small brown leather travel bag. Noura (his mother): cream hijab, long rust-red dress with a blue tunic, leather satchel. The Waswâs is NEVER a creature: only a swirling violet-purple smoke or mist. No text, no letters, no watermark, no UI.",
+  "style": "Highly detailed painterly anime illustration, matching EXACTLY the rendering of reference image 2 (rich textures, deep warm shadows, glowing light, fine architectural detail) — NOT a flat cartoon or children's-book style; Studio Ghibli background-painting quality, warm golden-hour light, soft volumetric sunbeams, rich warm palette (ochre, terracotta, teal, cream), detailed Mediterranean / Andalusian-Ottoman village architecture, cinematic composition, vertical 3:4 framing. IMPORTANT: every human character is FACELESS — the face is a smooth skin-coloured oval with no eyes, no nose, no mouth, exactly like the reference images. Othmân: boy of about 12, messy dark-brown hair, teal hooded cape over a cream tunic, brown leather strap across the chest, small brown leather travel bag. Noura (his mother): cream hijab, long rust-red dress with a blue tunic, leather satchel. The Waswâs is NEVER a creature: only a swirling violet-purple smoke or mist. No text, no letters, no watermark, no UI. Only Othmân wears the teal hooded cape; every other villager or child wears different clothes taken from the character sheet. Never show violet smoke unless the scene explicitly mentions the Waswâs or mist.",
   "references": [
     "src/assets/images/characters_master_sheet.jpg",
     "public/game-assets/scene1/02_noura_entree_chambre.png"
   ],
   "outputDir": "public/game-assets/ch1_shots",
   "shots": [
-    { "id": "s2_sac_pose", "scene": 2, "beats": ["s2_b1", "s2_b2_noura"], "ref": "src/assets/images/bg_carrefour_poteau_1788269918837.jpg",
-      "prompt": "At a crossroads at the edge of a forest, Othmân has just set his travel bag down on the ground at the foot of a tall oak signpost and wipes his forehead with his sleeve. Noura stands beside him, one hand gently pointing at the signpost. Morning light filters through the trees." },
-    { "id": "s2_panneaux", "scene": 2, "beats": ["s2_b3_othman", "s2_b4_noura"], "ref": "src/assets/images/bg_carrefour_poteau_1788269918837.jpg",
-      "prompt": "Low-angle view from behind Othmân looking up at a tall weathered oak signpost with five carved wooden arrow boards pointing in different directions toward a village, an orchard, a market, a mountain and a house. Golden sky, birds, sense of choice and wonder." },
-    { "id": "s2_tawakkul", "scene": 2, "beats": ["s2_choice_reaction", "s2_tawakkul_reminder", "s2_act"], "ref": "src/assets/images/bg_carrefour_sac_pose.jpg",
-      "prompt": "Othmân kneels to check the contents of his open leather bag (a small book, a flask of water, bread wrapped in cloth), one hand placed on his heart in confident trust. Noura looks down at him tenderly. Warm sunbeams fall on them at the crossroads." },
-
-    { "id": "s3_brume", "scene": 3, "beats": ["s3_b1", "s3_b2", "s3_b3", "s3_b6", "s3_b7"], "ref": "src/assets/images/bg_scene_waswas_pure_mist_1788273203805.jpg",
-      "prompt": "A narrow rocky mountain path between steep boulders. Heavy violet-purple mist rises from the ground and coils around Othmân, who hunches his shoulders and clutches the strap of his bag, unsettled. Noura stands slightly behind him, calm and upright, a soft warm light around her. Cool shadows, oppressive but not horrific, suitable for children." },
-    { "id": "s3_refuge", "scene": 3, "beats": ["s3_b7_bis", "s3_b9", "s3_b10", "s3_b11"], "ref": "src/assets/images/bg_scene_waswas_pure_mist_1788273203805.jpg",
-      "prompt": "On the misty rocky path, Othmân stands with both palms open in supplication, head slightly bowed, reciting a prayer of refuge. A soft golden glow radiates from him and pushes the violet mist back; the purple smoke wavers and thins. Noura watches, hand on her heart." },
-    { "id": "s3_pas", "scene": 3, "beats": ["s3_b14", "s3_pont_istiadhah", "s3_act_istiadhah", "s3_b16", "s3_b17", "s3_b18"], "ref": "src/assets/images/bg_scene_waswas_clair.jpg",
-      "prompt": "Dynamic side view: Othmân plants a wooden walking staff firmly on the stone path and takes a big determined step forward, cape flowing. Cracks of golden light split the remaining violet mist ahead of him. Sense of courage and motion." },
-    { "id": "s3_eclat", "scene": 3, "beats": ["s3_b19", "s3_b19_reaction", "s3_b19_noura", "s3_b20"], "ref": "src/assets/images/bg_scene_waswas_clair.jpg",
-      "prompt": "The violet mist bursts into a shower of golden sparkles. The mountain path is now bright and warm, lined with wildflowers (poppies, chamomile, lavender). Othmân raises his arms in joyful relief while Noura smiles beside him. Luminous, uplifting." },
-
-    { "id": "s4_balcon", "scene": 4, "beats": ["s4_b1", "s4_b2", "s4_b3", "s4_b4", "s4_b5"], "ref": "src/assets/images/bg_vallee_village_approach_1788270427768.jpg",
-      "prompt": "Seen from behind, Othmân and Noura stand on a grassy slope overlooking a valley village with red-tiled roofs glittering in the sun, orchards, tiny silhouettes of villagers walking in the lanes, a mosque minaret. Othmân hesitates, holding his bag strap tightly; Noura gestures encouragingly toward the village." },
-    { "id": "s4_vigneron", "scene": 4, "beats": ["s4_b14", "s4_b15", "s4_approach_choice"], "ref": "src/assets/images/bg_vallee_village_approach_1788270427768.jpg",
-      "prompt": "At the edge of the village, an elderly man in a white turban and brown vest straightens up from pruning his grapevines and waves warmly at Othmân, who greets him with a hand on his heart. Vine trellis, stone wall, warm late-morning light. Feeling of relief and kindness." },
-
-    { "id": "s5_dispute", "scene": 5, "beats": ["s5_b3", "s5_b4", "s5_b5", "s5_b6"], "ref": "src/assets/images/bg_village_mefiant.jpg",
-      "prompt": "Village square near market stalls: two merchants (one with a red turban) argue loudly over a burst sack of grain. In the foreground Othmân puffs out his chest and starts toward them, but Noura gently places her hand on his shoulder to hold him back. Wary villagers with crossed arms in the background near the fountain." },
-    { "id": "s5_salam", "scene": 5, "beats": ["s5_pont_salam", "s5_act_salam", "s5_b11"], "ref": "src/assets/images/bg_village_mefiant.jpg",
-      "prompt": "Othmân stands near the stone fountain in the village square, right hand placed on his heart, slightly bowing as he offers a warm greeting of peace to a group of villagers. A beam of golden sunlight falls on him. The villagers are about to soften." },
-
-    { "id": "s6_atelier", "scene": 6, "beats": ["s6_b1", "s6_b2", "s6_b3", "s6_refus_choice"], "ref": "src/assets/images/bg_scene_refus_jeune_corde.jpg",
-      "prompt": "A shaded village alley under a cool stone arch. A boy of Othmân's age (village child outfit: small cream cap, green vest) sits at a wooden workbench braiding a thick hemp rope, coils of rope and tools around him. Othmân approaches with a friendly wave. The young artisan keeps his eyes on his work." },
-    { "id": "s6_main_tendue", "scene": 6, "beats": ["s6_b8", "s6_b9", "s6_b10", "s6_b11", "s6_b12"], "ref": "src/assets/images/bg_scene_refus_ruelle_1788270843346.jpg",
-      "prompt": "The alley is now quiet: the workbench is empty, the young artisan disappears into the dark doorway of his workshop carrying his rope. Othmân stands alone in the middle of the alley, hand still half extended in the air, shoulders slightly slumped. Noura approaches him from behind. Melancholic but gentle mood, soft shadows." },
-    { "id": "s6_hamdulillah", "scene": 6, "beats": ["s6_b16", "s6_pont_sabr", "s6_act_sabr", "s6_b18", "s6_b19", "s6_b20"], "ref": "src/assets/images/bg_scene_refus_ruelle_1788270843346.jpg",
-      "prompt": "Othmân stands calmly in the alley, eyes lifted toward a shaft of warm light coming through the stone arch, one hand on his chest, at peace. Bougainvillea flowers on the wall. Noura stands beside him, proud and serene." },
-
-    { "id": "s7_chute", "scene": 7, "beats": ["s7_b1", "s7_b2", "s7_aid_choice"], "ref": "src/assets/images/bg_scene_geste_oliviers_1788271406874.jpg",
-      "prompt": "On a dusty path lined with olive trees, an elderly farmer in a white turban has stumbled and sits on the ground; his two large wicker baskets lie overturned, ripe figs and olives scattered across the road. Othmân rushes toward him, Noura following. Afternoon golden light, dust in the air." },
-    { "id": "s7_ramasse", "scene": 7, "beats": ["s7_b3", "s7_b4", "s7_b5", "s7_b6", "s7_b7", "s7_b9", "s7_b12", "s7_b13"], "ref": "src/assets/images/bg_scene_geste_oliviers_1788271406874.jpg",
-      "prompt": "Close, intimate shot: Othmân kneels in the dust and carefully gathers figs and olives one by one into a wicker basket. The old farmer, now sitting on a low stone wall, rests. Noura crouches nearby, watching with a gentle questioning gesture. Humble, quiet atmosphere." },
-
-    { "id": "s8_decouverte", "scene": 8, "beats": ["s8_b4", "s8_b5", "s8_b6", "s8_b7"], "ref": "src/assets/images/bg_scene_jardin_encombre.jpg",
-      "prompt": "In an abandoned dry-stone terraced orchard overgrown with weeds and dead branches, Othmân crouches and pushes aside dry leaves, revealing fresh green rosemary sprouts, a few ripe figs and a thin trickle of clear water murmuring between the stones. Soft light falls exactly on the discovery. Noura stands behind him, smiling." },
-    { "id": "s8_ruisseau", "scene": 8, "beats": ["s8_b10", "s8_b12", "s8_pont_shukr", "s8_act_shukr", "s8_b15", "s8_b16", "s8_b17"], "ref": "src/assets/images/bg_scene_jardin_abandonne_1788271802094.jpg",
-      "prompt": "Othmân pulls the last dead branch out of a small stream: the water now flows freely, crystal clear, sparkling in the sun through the revived terraced orchard with green grass and fig trees. Noura watches with her hands together in gratitude. Vivid, hopeful light." },
-
-    { "id": "s9_doute", "scene": 9, "beats": ["s9_b2", "s9_b3", "s9_b4", "s9_b7"], "ref": "src/assets/images/bg_climax_pure_mist_1788273223875.jpg",
-      "prompt": "A dark mountain pass between ancient stone columns under icy shadows. A huge swirling vortex of violet-black smoke towers over the scene. Othmân, small in the frame, has fallen to one knee, head lowered, doubting. Noura stands a step behind him, a faint warm light around her. Dramatic but child-friendly." },
-    { "id": "s9_souvenirs", "scene": 9, "beats": ["s9_b8"], "ref": "src/assets/images/bg_climax_pure_mist_1788273223875.jpg",
-      "prompt": "Golden sparks light up in the darkness of the mountain pass and form floating glowing memory vignettes around Othmân: a neatly made bed, a hand raised in prayer, villagers smiling at a fountain, a boy braiding rope, figs gathered into a basket, a clear stream in an orchard. Othmân looks up at them in wonder. Magical, warm against the cold violet mist." },
-    { "id": "s9_releve", "scene": 9, "beats": ["s9_b9", "s9_b10", "s9_b11", "s9_b12", "s9_ordeal_choice", "s9_proclamation"], "ref": "src/assets/images/bg_climax_pure_mist_1788273223875.jpg",
-      "prompt": "Othmân rises back to his feet, standing tall and determined facing the violet vortex, his cape blown by the wind. Noura has her hand on his shoulder. A golden aura grows around him and starts to tear the dark smoke apart." },
-    { "id": "s9_aube", "scene": 9, "beats": ["s9_b21", "s9_b22", "s9_b23", "s9_b24", "s9_b25", "s9_b32"], "ref": "src/assets/images/bg_climax_apaise.jpg",
-      "prompt": "The summit at sunrise: the golden sun crosses the ridge and floods the ancient stone columns with dazzling light, the last wisps of violet smoke dissolve into sparkles. Othmân and Noura stand side by side, seen from behind, looking at the luminous horizon. Peaceful, triumphant silence." },
-    { "id": "s9_horizon", "scene": 9, "beats": ["s9_b33", "s9_pont_mission", "s9_b34", "s9_b35", "s9_b36", "s9_b37"], "ref": "src/assets/images/bg_epilogue_coucher_soleil.jpg",
-      "prompt": "Wide landscape: Othmân and Noura walk down a winding mountain path toward a golden horizon; far below, the village with children playing ball in the square; beyond the ridges, new lands (a market town with domes) appear under a clear sky. Hopeful journey continues." }
+    {
+      "id": "s2_sac_pose",
+      "scene": 2,
+      "beats": [
+        "s2_b1",
+        "s2_b2_noura"
+      ],
+      "ref": "src/assets/images/bg_carrefour_poteau_1788269918837.jpg",
+      "prompt": "At a crossroads at the edge of a forest, Othmân has just set his travel bag down on the ground at the foot of a tall oak signpost and wipes his forehead with his sleeve. Noura stands beside him, one hand gently pointing at the signpost. Morning light filters through the trees. The arrow boards of the signpost are completely blank weathered wood with NO writing, NO letters and NO symbols."
+    },
+    {
+      "id": "s2_panneaux",
+      "scene": 2,
+      "beats": [
+        "s2_b3_othman",
+        "s2_b4_noura"
+      ],
+      "ref": "src/assets/images/bg_carrefour_poteau_1788269918837.jpg",
+      "prompt": "Low-angle view from behind Othmân looking up at a tall weathered oak signpost with five carved wooden arrow boards pointing in different directions toward a village, an orchard, a market, a mountain and a house. Golden sky, birds, sense of choice and wonder."
+    },
+    {
+      "id": "s2_tawakkul",
+      "scene": 2,
+      "beats": [
+        "s2_choice_reaction",
+        "s2_tawakkul_reminder",
+        "s2_act"
+      ],
+      "ref": "src/assets/images/bg_carrefour_sac_pose.jpg",
+      "prompt": "Othmân kneels to check the contents of his open leather bag (a small book, a flask of water, bread wrapped in cloth), one hand placed on his heart in confident trust. Noura looks down at him tenderly. Warm sunbeams fall on them at the crossroads."
+    },
+    {
+      "id": "s3_brume",
+      "scene": 3,
+      "beats": [
+        "s3_b1",
+        "s3_b2",
+        "s3_b3",
+        "s3_b6",
+        "s3_b7"
+      ],
+      "ref": "src/assets/images/bg_scene_waswas_pure_mist_1788273203805.jpg",
+      "prompt": "A narrow rocky mountain path between steep boulders. Heavy violet-purple mist rises from the ground and coils around Othmân, who hunches his shoulders and clutches the strap of his bag, unsettled. Noura stands slightly behind him, calm and upright, a soft warm light around her. Cool shadows, oppressive but not horrific, suitable for children."
+    },
+    {
+      "id": "s3_refuge",
+      "scene": 3,
+      "beats": [
+        "s3_b7_bis",
+        "s3_b9",
+        "s3_b10",
+        "s3_b11"
+      ],
+      "ref": "src/assets/images/bg_scene_waswas_pure_mist_1788273203805.jpg",
+      "prompt": "On the misty rocky path, Othmân stands with both palms open in supplication, head slightly bowed, reciting a prayer of refuge. A soft golden glow radiates from him and pushes the violet mist back; the purple smoke wavers and thins. Noura watches, hand on her heart."
+    },
+    {
+      "id": "s3_pas",
+      "scene": 3,
+      "beats": [
+        "s3_b14",
+        "s3_pont_istiadhah",
+        "s3_act_istiadhah",
+        "s3_b16",
+        "s3_b17",
+        "s3_b18"
+      ],
+      "ref": "src/assets/images/bg_scene_waswas_clair.jpg",
+      "prompt": "Dynamic side view: Othmân plants a wooden walking staff firmly on the stone path and takes a big determined step forward, cape flowing. Cracks of golden light split the remaining violet mist ahead of him. Sense of courage and motion."
+    },
+    {
+      "id": "s3_eclat",
+      "scene": 3,
+      "beats": [
+        "s3_b19",
+        "s3_b19_reaction",
+        "s3_b19_noura",
+        "s3_b20"
+      ],
+      "ref": "src/assets/images/bg_scene_waswas_clair.jpg",
+      "prompt": "The violet mist bursts into a shower of golden sparkles. The mountain path is now bright and warm, lined with wildflowers (poppies, chamomile, lavender). Othmân raises his arms in joyful relief while Noura smiles beside him. Luminous, uplifting."
+    },
+    {
+      "id": "s4_balcon",
+      "scene": 4,
+      "beats": [
+        "s4_b1",
+        "s4_b2",
+        "s4_b3",
+        "s4_b4",
+        "s4_b5"
+      ],
+      "ref": "src/assets/images/bg_vallee_village_approach_1788270427768.jpg",
+      "prompt": "Seen from behind, Othmân and Noura stand on a grassy slope overlooking a valley village with red-tiled roofs glittering in the sun, orchards, tiny silhouettes of villagers walking in the lanes, a mosque minaret. Othmân hesitates, holding his bag strap tightly; Noura gestures encouragingly toward the village."
+    },
+    {
+      "id": "s4_vigneron",
+      "scene": 4,
+      "beats": [
+        "s4_b14",
+        "s4_b15",
+        "s4_approach_choice"
+      ],
+      "ref": "src/assets/images/bg_vallee_village_approach_1788270427768.jpg",
+      "prompt": "At the edge of the village, an elderly man in a white turban and brown vest straightens up from pruning his grapevines and waves warmly at Othmân, who greets him with a hand on his heart. Vine trellis, stone wall, warm late-morning light. Feeling of relief and kindness."
+    },
+    {
+      "id": "s5_dispute",
+      "scene": 5,
+      "beats": [
+        "s5_b3",
+        "s5_b4",
+        "s5_b5",
+        "s5_b6"
+      ],
+      "ref": "src/assets/images/bg_village_mefiant.jpg",
+      "prompt": "Village square near market stalls: two merchants (one with a red turban) argue loudly over a burst sack of grain. In the foreground Othmân puffs out his chest and starts toward them, but Noura gently places her hand on his shoulder to hold him back. Wary villagers with crossed arms in the background near the fountain."
+    },
+    {
+      "id": "s5_salam",
+      "scene": 5,
+      "beats": [
+        "s5_pont_salam",
+        "s5_act_salam",
+        "s5_b11"
+      ],
+      "ref": "src/assets/images/bg_village_mefiant.jpg",
+      "prompt": "Othmân stands near the stone fountain in the village square, right hand placed on his heart, slightly bowing as he offers a warm greeting of peace to a group of villagers. A beam of golden sunlight falls on him. The villagers are about to soften."
+    },
+    {
+      "id": "s6_atelier",
+      "scene": 6,
+      "beats": [
+        "s6_b1",
+        "s6_b2",
+        "s6_b3",
+        "s6_refus_choice"
+      ],
+      "ref": "src/assets/images/bg_scene_refus_jeune_corde.jpg",
+      "prompt": "A shaded village alley under a cool stone arch. A boy of Othmân's age (the ENFANT from the character sheet: small cream cap, green vest, no cape) sits at a wooden workbench braiding a thick hemp rope, coils of rope and tools around him. Othmân approaches with a friendly wave. The young artisan keeps his eyes on his work. Othmân has his hood DOWN, his messy dark-brown hair clearly visible."
+    },
+    {
+      "id": "s6_main_tendue",
+      "scene": 6,
+      "beats": [
+        "s6_b8",
+        "s6_b9",
+        "s6_b10",
+        "s6_b11",
+        "s6_b12"
+      ],
+      "ref": "src/assets/images/bg_scene_refus_ruelle_1788270843346.jpg",
+      "prompt": "The alley is now quiet: the workbench is empty, the young artisan (a village boy with a small cream cap and a green vest, NOT a cape) disappears into the dark doorway of his workshop carrying his rope. Othmân stands alone in the middle of the alley, hand still half extended in the air, shoulders slightly slumped. Noura approaches him from behind. Melancholic but gentle mood, soft shadows."
+    },
+    {
+      "id": "s6_hamdulillah",
+      "scene": 6,
+      "beats": [
+        "s6_b16",
+        "s6_pont_sabr",
+        "s6_act_sabr",
+        "s6_b18",
+        "s6_b19",
+        "s6_b20"
+      ],
+      "ref": "src/assets/images/bg_scene_refus_ruelle_1788270843346.jpg",
+      "prompt": "Othmân stands calmly in the alley, eyes lifted toward a shaft of warm light coming through the stone arch, one hand on his chest, at peace. Bougainvillea flowers on the wall. Noura stands beside him, proud and serene."
+    },
+    {
+      "id": "s7_chute",
+      "scene": 7,
+      "beats": [
+        "s7_b1",
+        "s7_b2",
+        "s7_aid_choice"
+      ],
+      "ref": "src/assets/images/bg_scene_geste_oliviers_1788271406874.jpg",
+      "prompt": "On a dusty path lined with olive trees, an elderly farmer in a white turban has stumbled and sits on the ground; his two large wicker baskets lie overturned, ripe figs and olives scattered across the road. Othmân rushes toward him, Noura following. Afternoon golden light, dust in the air."
+    },
+    {
+      "id": "s7_ramasse",
+      "scene": 7,
+      "beats": [
+        "s7_b3",
+        "s7_b4",
+        "s7_b5",
+        "s7_b6",
+        "s7_b7",
+        "s7_b9",
+        "s7_b12",
+        "s7_b13"
+      ],
+      "ref": "src/assets/images/bg_scene_geste_oliviers_1788271406874.jpg",
+      "prompt": "Close, intimate shot: Othmân kneels in the dust and carefully gathers figs and olives one by one into a wicker basket. The old farmer, now sitting on a low stone wall, rests. Noura crouches nearby, watching with a gentle questioning gesture. Humble, quiet atmosphere."
+    },
+    {
+      "id": "s8_decouverte",
+      "scene": 8,
+      "beats": [
+        "s8_b4",
+        "s8_b5",
+        "s8_b6",
+        "s8_b7"
+      ],
+      "ref": "src/assets/images/bg_scene_jardin_encombre.jpg",
+      "prompt": "In an abandoned dry-stone terraced orchard overgrown with weeds and dead branches, Othmân crouches and pushes aside dry leaves, revealing fresh green rosemary sprouts, a few ripe figs and a thin trickle of clear water murmuring between the stones. Soft light falls exactly on the discovery. Noura stands behind him, smiling."
+    },
+    {
+      "id": "s8_ruisseau",
+      "scene": 8,
+      "beats": [
+        "s8_b10",
+        "s8_b12",
+        "s8_pont_shukr",
+        "s8_act_shukr",
+        "s8_b15",
+        "s8_b16",
+        "s8_b17"
+      ],
+      "ref": "src/assets/images/bg_scene_jardin_abandonne_1788271802094.jpg",
+      "prompt": "Othmân pulls the last dead branch out of a small stream: the water now flows freely, crystal clear, sparkling in the sun through the revived terraced orchard with green grass and fig trees. Noura watches with her hands together in gratitude. Vivid, hopeful light."
+    },
+    {
+      "id": "s9_doute",
+      "scene": 9,
+      "beats": [
+        "s9_b2",
+        "s9_b3",
+        "s9_b4",
+        "s9_b7"
+      ],
+      "ref": "src/assets/images/bg_climax_pure_mist_1788273223875.jpg",
+      "prompt": "A dark mountain pass between ancient stone columns under icy shadows. A huge swirling vortex of violet-black smoke towers over the scene. Othmân, small in the frame, has fallen to one knee, head lowered, doubting. Noura stands a step behind him, a faint warm light around her. Dramatic but child-friendly."
+    },
+    {
+      "id": "s9_souvenirs",
+      "scene": 9,
+      "beats": [
+        "s9_b8"
+      ],
+      "ref": "src/assets/images/bg_climax_pure_mist_1788273223875.jpg",
+      "prompt": "Golden sparks light up in the darkness of the mountain pass and form floating glowing memory vignettes around Othmân: a neatly made bed, a hand raised in prayer, villagers smiling at a fountain, a boy braiding rope, figs gathered into a basket, a clear stream in an orchard. Othmân looks up at them in wonder. Magical, warm against the cold violet mist."
+    },
+    {
+      "id": "s9_releve",
+      "scene": 9,
+      "beats": [
+        "s9_b9",
+        "s9_b10",
+        "s9_b11",
+        "s9_b12",
+        "s9_ordeal_choice",
+        "s9_proclamation"
+      ],
+      "ref": "src/assets/images/bg_climax_pure_mist_1788273223875.jpg",
+      "prompt": "Othmân rises back to his feet, standing tall and determined facing the violet vortex, his cape blown by the wind. Noura has her hand on his shoulder. A golden aura grows around him and starts to tear the dark smoke apart."
+    },
+    {
+      "id": "s9_aube",
+      "scene": 9,
+      "beats": [
+        "s9_b21",
+        "s9_b22",
+        "s9_b23",
+        "s9_b24",
+        "s9_b25",
+        "s9_b32"
+      ],
+      "ref": "src/assets/images/bg_climax_apaise.jpg",
+      "prompt": "Mountain summit at sunrise among ancient stone columns. On the LEFT, the boy Othmân (teal cape) stands seen from behind; on the RIGHT, close beside him, his mother Noura (cream hijab, rust dress) rests her hand on his shoulder. They are the only two figures, a pair, side by side, looking at the golden sun rising over the ridge. Dazzling warm light floods the columns; the last wisps of violet smoke dissolve into golden sparkles in the sky. Peaceful, triumphant silence."
+    },
+    {
+      "id": "s9_horizon",
+      "scene": 9,
+      "beats": [
+        "s9_b33",
+        "s9_pont_mission",
+        "s9_b34",
+        "s9_b35",
+        "s9_b36",
+        "s9_b37"
+      ],
+      "ref": "src/assets/images/bg_epilogue_coucher_soleil.jpg",
+      "prompt": "Wide landscape: Othmân and Noura walk down a winding mountain path toward a golden horizon; far below, the village with children playing ball in the square; beyond the ridges, new lands (a market town with domes) appear under a clear sky. Hopeful journey continues."
+    }
   ]
 }

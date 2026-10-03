@@ -104,7 +104,7 @@ Chapitre terminé ................  29
 - Les fonds importés depuis `src/assets/images` pèsent entre 500 Ko et 1,2 Mo chacun : les convertir en WebP (gain d'environ 60 %).
 
 **G. Intégrer les nouvelles images**
-- Générer les 23 plans (voir la section 4), les relire un par un, puis régénérer ceux qui ne respectent pas la charte.
+- ✅ Les 23 plans sont générés et relus (3 Mo au total). Trois ont été refaits : du texte sur les panneaux, une Noura dédoublée et un Othmân confondu avec Noura.
 - Étendre le même principe aux chapitres 2 et 3 : créer `storyboard_ch2.json` sur le même modèle.
 
 ### P2 — Hygiène du dépôt
