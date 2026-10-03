@@ -1,11 +1,88 @@
 {
-  "style": "Highly detailed painterly anime illustration, matching EXACTLY the rendering of reference image 2 (rich textures, deep warm shadows, glowing light, fine architectural detail) — NOT a flat cartoon or children's-book style; Studio Ghibli background-painting quality, warm golden-hour light, soft volumetric sunbeams, rich warm palette (ochre, terracotta, teal, cream), detailed Mediterranean / Andalusian-Ottoman village architecture, cinematic composition, vertical 3:4 framing. IMPORTANT: every human character is FACELESS — the face is a smooth skin-coloured oval with no eyes, no nose, no mouth, exactly like the reference images. Othmân: boy of about 12, messy dark-brown hair, teal hooded cape over a cream tunic, brown leather strap across the chest, small brown leather travel bag. Noura (his mother): cream hijab, long rust-red dress with a blue tunic, leather satchel. The Waswâs is NEVER a creature: only a swirling violet-purple smoke or mist. No text, no letters, no watermark, no UI. Only Othmân wears the teal hooded cape; every other villager or child wears different clothes taken from the character sheet. Never show violet smoke unless the scene explicitly mentions the Waswâs or mist.",
+  "style": "Highly detailed painterly anime illustration, matching EXACTLY the rendering of reference image 2 (rich textures, deep warm shadows, glowing light, fine architectural detail) — NOT a flat cartoon or children's-book style; Studio Ghibli background-painting quality, warm golden-hour light, soft volumetric sunbeams, rich warm palette (ochre, terracotta, teal, cream), detailed Mediterranean / Andalusian-Ottoman village architecture, cinematic composition, vertical 3:4 framing. IMPORTANT: every human character is FACELESS — the face is a smooth skin-coloured oval with no eyes, no nose, NO MOUTH (not even a small smile line or an open mouth), exactly like the reference images. Othmân: boy of about 12, messy dark-brown hair, teal hooded cape over a cream tunic, brown leather strap across the chest, small brown leather travel bag. Noura (his mother): cream hijab, long rust-red dress with a blue tunic, leather satchel. The Waswâs is NEVER a creature: only a swirling violet-purple smoke or mist. No text, no letters, no watermark, no UI. Only Othmân wears the teal hooded cape; every other villager or child wears different clothes taken from the character sheet. Never show violet smoke unless the scene explicitly mentions the Waswâs or mist.",
   "references": [
     "src/assets/images/characters_master_sheet.jpg",
     "public/game-assets/scene1/02_noura_entree_chambre.png"
   ],
   "outputDir": "public/game-assets/ch1_shots",
   "shots": [
+    {
+      "id": "s1_sac",
+      "scene": 1,
+      "beats": [
+        "s1_hook_2"
+      ],
+      "ref": "public/game-assets/scene1/01_chambre_othman_fenetre.png",
+      "prompt": "Othmân sits on the edge of his bed at dawn and speaks quietly to his small brown leather travel bag, which he holds on his knees; shoulders hunched, hesitant, lonely mood, soft golden light from the lattice window. The scene takes place in Othmân's bedroom shown in reference image 3: warm clay walls, carved wooden mashrabiya window, woven red-orange patterned blanket on a wooden bed, hanging brass lantern, dawn sunbeams casting lattice patterns. Othmân's hood is DOWN, his messy dark-brown hair clearly visible."
+    },
+    {
+      "id": "s1_confiance",
+      "scene": 1,
+      "beats": [
+        "s1_noura_reply1",
+        "s1_othman_reply2",
+        "s1_noura_reply2"
+      ],
+      "ref": "public/game-assets/scene1/02_noura_entree_chambre.png",
+      "prompt": "Noura sits beside Othmân on the edge of the bed, her hand gently resting on his shoulder; Othmân looks down at his hands, worried; tender mother-son moment, the travel bag at their feet, dawn light through the window. The scene takes place in Othmân's bedroom shown in reference image 3: warm clay walls, carved wooden mashrabiya window, woven red-orange patterned blanket on a wooden bed, hanging brass lantern, dawn sunbeams casting lattice patterns."
+    },
+    {
+      "id": "s1_chambre_claire",
+      "scene": 1,
+      "beats": [
+        "s1_order_othman_done",
+        "s1_order_noura_ask",
+        "s1_order_quiz"
+      ],
+      "ref": "public/game-assets/scene1/03_othman_refait_lit.png",
+      "prompt": "Medium shot inside the bedroom of reference image 3, a moment later: the bed is now perfectly made, the patterned blanket neatly folded at the foot, the room tidy and visibly brighter, sunbeams filling the space. Othmân (only person in the image, normal child size, standing on the floor next to the bed) looks around the room, pleasantly surprised, hands relaxed. Faces are blank smooth ovals with no mouth."
+    },
+    {
+      "id": "s1_niyyah",
+      "scene": 1,
+      "beats": [
+        "s1_order_noura_teach",
+        "s1_order_othman_niyyah",
+        "s1_order_noura_finish"
+      ],
+      "ref": "public/game-assets/scene1/02_noura_entree_chambre.png",
+      "prompt": "Othmân stands facing Noura in the tidy bright bedroom, his right hand placed on his heart, head slightly raised, sincere and determined; Noura listens with her hands joined, a soft halo of morning light between them. The scene takes place in Othmân's bedroom shown in reference image 3: warm clay walls, carved wooden mashrabiya window, woven red-orange patterned blanket on a wooden bed, hanging brass lantern, dawn sunbeams casting lattice patterns."
+    },
+    {
+      "id": "s1_eau",
+      "scene": 1,
+      "beats": [
+        "s1_water_othman",
+        "s1_water_noura",
+        "s1_water_othman_drink",
+        "s1_water_noura_teach",
+        "s1_water_othman_done"
+      ],
+      "ref": "public/game-assets/scene1/01_chambre_othman_fenetre.png",
+      "prompt": "Othmân sits calmly on a low wooden stool and drinks water from a small terracotta cup held in his RIGHT hand, a clay jug on the little table beside him; peaceful, mindful moment; Noura watches kindly from the doorway. The scene takes place in Othmân's bedroom shown in reference image 3: warm clay walls, carved wooden mashrabiya window, woven red-orange patterned blanket on a wooden bed, hanging brass lantern, dawn sunbeams casting lattice patterns."
+    },
+    {
+      "id": "s1_sandales",
+      "scene": 1,
+      "beats": [
+        "s1_sandals_othman",
+        "s1_sandals_noura",
+        "s1_sandals_othman_confie",
+        "s1_sandals_noura_teach",
+        "s1_sandals_othman_done"
+      ],
+      "ref": "public/game-assets/scene1/01_chambre_othman_fenetre.png",
+      "prompt": "Othmân sits on the edge of his bed and ties the straps of his brown leather sandals, his travel bag ready beside him; he looks up toward the light of the window with quiet trust; Noura stands nearby. The scene takes place in Othmân's bedroom shown in reference image 3: warm clay walls, carved wooden mashrabiya window, woven red-orange patterned blanket on a wooden bed, hanging brass lantern, dawn sunbeams casting lattice patterns."
+    },
+    {
+      "id": "s1_porte_waswas",
+      "scene": 1,
+      "beats": [
+        "s1_door_waswas"
+      ],
+      "ref": "public/game-assets/scene1/06_main_sur_porte.png",
+      "prompt": "Seen from slightly behind, Othmân (the only person in the image) stands at the heavy wooden bedroom door, his travel bag on his shoulder, his hand on the iron latch. A thin wisp of violet-purple smoke curls out of the shadowy room behind him and whispers near his ear. Bright golden light leaks through the gaps of the door ahead. Tension between staying and leaving. Warm clay walls, brass lantern."
+    },
     {
       "id": "s2_sac_pose",
       "scene": 2,

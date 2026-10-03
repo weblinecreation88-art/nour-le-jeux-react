@@ -31,7 +31,6 @@ const SCENE_1_SHOTS: StoryboardShot[] = [
   {
     id: 'shot_fenetre',
     src: '/game-assets/scene1/01_chambre_othman_fenetre.png',
-    videoSrc: '/game-assets/scene1/01_chambre_othman_fenetre.mp4',
     alt: 'Othmân à l’aube assis sur son lit face à la fenêtre moucharabieh'
   },
   {
@@ -42,7 +41,6 @@ const SCENE_1_SHOTS: StoryboardShot[] = [
   {
     id: 'shot_waswas',
     src: '/game-assets/scene1/05_waswas_chambre.png',
-    videoSrc: '/game-assets/waswas_smoke.mp4',
     alt: 'L’ombre insidieuse du Waswâs murmurant le doute dans la chambre'
   },
   {
@@ -80,10 +78,10 @@ const getScene1ActiveShotId = (beatId?: string): string => {
   if (['s1_hook_1', 's1_hook_2'].includes(beatId)) return 'shot_fenetre';
 
   // 2. Arrivée et échange avec Noura
-  if (['s1_hook_3', 's1_hook_4', 's1_hook_5', 's1_hook_6', 's1_hook_7'].includes(beatId)) return 'shot_noura';
+  if (['s1_noura_intro', 's1_othman_reply1', 's1_noura_reply1', 's1_othman_reply2', 's1_noura_reply2'].includes(beatId)) return 'shot_noura';
 
   // 3. Apparition du Waswâs (Ombre & murmure)
-  if (['s1_waswas_comfort', 's1_noura_hear', 's1_othman_hear', 's1_noura_push'].includes(beatId)) return 'shot_waswas';
+  if (['s1_waswas_comfort', 's1_noura_push'].includes(beatId)) return 'shot_waswas';
 
   // 4. Choix du geste matinal (Othmân assis en réflexion)
   if (['s1_choice_morning'].includes(beatId)) return 'shot_fenetre';
